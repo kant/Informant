@@ -14,6 +14,12 @@
 		9A43162E26265A210071227C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A43162C26265A210071227C /* Main.storyboard */; };
 		9A43163A26265A210071227C /* InformantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43163926265A210071227C /* InformantTests.swift */; };
 		9A43164526265A210071227C /* InformantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43164426265A210071227C /* InformantUITests.swift */; };
+		9A43165626265D1C0071227C /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43165526265D1C0071227C /* StatusBarController.swift */; };
+		9A64FC9D26266D0800CE52E4 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64FC9C26266D0800CE52E4 /* EventMonitor.swift */; };
+		9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */; };
+		9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B2126268F5F00BD878F /* Shortcuts.swift */; };
+		9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B28262693BE00BD878F /* Preferences.swift */; };
+		9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +88,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
