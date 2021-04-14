@@ -37,7 +37,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func findFinderItems() {
 		let selectedItems = AppleScripts().findSelectedFiles()
 
+		print(findURL(url: selectedItems[0]))
 		print(selectedItems)
+	}
+
+	func findURL(url: String) -> UInt64 {
+		let filePath = url
+		var fileSize: UInt64
+
+		do {
+			// return [FileAttributeKey : Any]
+			let attr = try FileManager.default.attributesOfItem(atPath: filePath)
+			fileSize = attr[FileAttributeKey.size] as! UInt64
+
+			// if you convert to NSDictionary, you can get file size old way as well.
+			let dict = attr as NSDictionary
+			fileSize = dict.fileSize()
+
+			return fileSize
+		} catch {
+			print("Error: \(error)")
+		}
+
+		return 0
 	}
 
 	func applicationWillTerminate(_: Notification) {

@@ -20,6 +20,7 @@
 		9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B2126268F5F00BD878F /* Shortcuts.swift */; };
 		9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B28262693BE00BD878F /* Preferences.swift */; };
 		9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */; };
+		9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B502626BA2700BD878F /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		9A7F3B2126268F5F00BD878F /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		9A7F3B28262693BE00BD878F /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScripts.swift; sourceTree = "<group>"; };
+		9A7F3B502626BA2700BD878F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				9A43165526265D1C0071227C /* StatusBarController.swift */,
 				9A7F3B2126268F5F00BD878F /* Shortcuts.swift */,
 				9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */,
+				9A7F3B502626BA2700BD878F /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				9A43162626265A1F0071227C /* ContentView.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
+				9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */,
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
 				9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */,
 				9A64FC9D26266D0800CE52E4 /* EventMonitor.swift in Sources */,
