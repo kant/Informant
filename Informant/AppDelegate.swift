@@ -6,34 +6,41 @@
 //
 
 import Cocoa
+import FinderSync
+import KeyboardShortcuts
 import SwiftUI
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+	// Creates var for the status bar controller and popover
+	var popover = NSPopover()
+	var statusBar: StatusBarController?
 
-    var window: NSWindow!
+	func applicationDidFinishLaunching(_: Notification) {
+		// Create the SwiftUI view that provides the window contents.
+		let contentView = ContentView()
 
+		// Set the SwiftUI view to the popover view
+		popover.contentSize = NSSize(width: 360, height: 360)
+		popover.contentViewController = NSHostingController(rootView: contentView)
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+		// Initialize status bar
+		statusBar = StatusBarController(popover)
 
-        // Create the window and set the content view.
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        window.isReleasedWhenClosed = false
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
-        window.makeKeyAndOrderFront(nil)
-    }
+		// Keyboard shortcuts
+		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
+//			statusBar?.togglePopover(sender: popover)
+			findFinderItems()
+		}
+	}
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+	func findFinderItems() {
+		let selectedItems = AppleScripts().findSelectedFiles()
 
+		print(selectedItems)
+	}
 
+	func applicationWillTerminate(_: Notification) {
+		// Insert code here to tear down your application
+	}
 }
-
