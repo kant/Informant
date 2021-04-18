@@ -8,6 +8,8 @@
 import Cocoa
 import Foundation
 
+// This class listens for any requested actions and can be used to execute logic.
+// So say I wanted to know when the user left clicks, this is the class to use.
 class EventMonitor {
 
 	private var monitor: Any?

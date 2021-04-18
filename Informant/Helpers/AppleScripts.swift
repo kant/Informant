@@ -8,11 +8,12 @@
 import Foundation
 
 // MARK: - Apple Scripts
+/// Used to store and use any apple scripts
 
 class AppleScripts {
 
 	// Find the currently selected Finder files in a string format with line breaks.
-	func findSelectedFiles() -> [String] {
+	public static func findSelectedFiles() -> [String] {
 
 		// Find selected items as a list with line breaks
 		var errorInformation: NSDictionary?

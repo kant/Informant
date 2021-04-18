@@ -12,13 +12,16 @@ import SwiftUI
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-	// Creates var for the status bar controller and popover
+	// This is the actual popover object that is created on app init
 	var popover = NSPopover()
+
+	// We use this status bar object to make managing the popover a lot easier
 	var statusBar: StatusBarController?
 
 	func applicationDidFinishLaunching(_: Notification) {
 		// Create the SwiftUI view that provides the window contents.
-		let contentView = ContentView()
+		let collection: FileCollection? = FinderBridge.Dispatcher()
+		var contentView = ContentView(files: collection!)
 
 		// Set the SwiftUI view to the popover view
 		popover.contentSize = NSSize(width: 360, height: 360)
@@ -29,37 +32,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Keyboard shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
-//			statusBar?.togglePopover(sender: popover)
-			findFinderItems()
+			let collection: FileCollection? = FinderBridge.Dispatcher()
+
+			contentView.files = collection!
+
+			print(collection!.files[0].fileName!)
+
+			statusBar?.togglePopover(sender: popover)
 		}
-	}
-
-	func findFinderItems() {
-		let selectedItems = AppleScripts().findSelectedFiles()
-
-		print(findURL(url: selectedItems[0]))
-		print(selectedItems)
-	}
-
-	func findURL(url: String) -> UInt64 {
-		let filePath = url
-		var fileSize: UInt64
-
-		do {
-			// return [FileAttributeKey : Any]
-			let attr = try FileManager.default.attributesOfItem(atPath: filePath)
-			fileSize = attr[FileAttributeKey.size] as! UInt64
-
-			// if you convert to NSDictionary, you can get file size old way as well.
-			let dict = attr as NSDictionary
-			fileSize = dict.fileSize()
-
-			return fileSize
-		} catch {
-			print("Error: \(error)")
-		}
-
-		return 0
 	}
 
 	func applicationWillTerminate(_: Notification) {
