@@ -53,7 +53,21 @@ class StatusBarController {
 	// Shows popover
 	func showPopover(_ sender: AnyObject) {
 		if let statusBarButton = statusItem.button {
+			// Create sub view
+			let positioningView = NSView(frame: statusBarButton.bounds)
+			positioningView.identifier = NSUserInterfaceItemIdentifier(rawValue: "positioningView")
+			statusBarButton.addSubview(positioningView)
+
+			// Show and move popover
 			popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
+			statusBarButton.bounds = statusBarButton.bounds.offsetBy(dx: 0, dy: statusBarButton.bounds.height)
+
+			// Move popover up a bit
+			if let popoverWindow = popover.contentViewController?.view.window {
+				popoverWindow.setFrame(popoverWindow.frame.offsetBy(dx: 0, dy: 8), display: false)
+			}
+
+			// Begin monitoring for user close action
 			eventMonitor?.start()
 		}
 	}
@@ -61,6 +75,14 @@ class StatusBarController {
 	// Hides popover
 	func hidePopover(_ sender: AnyObject) {
 		popover.performClose(sender)
+
+		// Remove popover view
+		let positioningView = sender.subviews?.first {
+			$0.identifier == NSUserInterfaceItemIdentifier(rawValue: "positioningView")
+		}
+		positioningView?.removeFromSuperview()
+
+		// Stop monitoring for user close action
 		eventMonitor?.stop()
 	}
 

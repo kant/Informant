@@ -18,26 +18,56 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	// We use this status bar object to make managing the popover a lot easier
 	var statusBar: StatusBarController?
 
-	func applicationDidFinishLaunching(_: Notification) {
+	// This contians all data needed for the interface
+	var interfaceData = InterfaceData()
+	var contentView = ContentView()
+
+	// Initialization for the application
+	override init() {
+		popover.animates = false
+	}
+
+	// Update the popover's view
+	func updatePopover(interfaceData: InterfaceData) {
 		// Create the SwiftUI view that provides the window contents.
-		let collection: FileCollection? = FinderBridge.Dispatcher()
-		var contentView = ContentView(files: collection!)
+		contentView = ContentView(interfaceData: interfaceData)
 
 		// Set the SwiftUI view to the popover view
-		popover.contentSize = NSSize(width: 360, height: 360)
+		popover.contentSize = NSSize(width: 290, height: 300)
 		popover.contentViewController = NSHostingController(rootView: contentView)
+	}
+
+	// ------------------ Main Program ⤵︎ ------------------
+
+	func applicationDidFinishLaunching(_: Notification) {
+		// Update the popover on initialization
+		updatePopover(interfaceData: interfaceData)
 
 		// Initialize status bar
 		statusBar = StatusBarController(popover)
 
 		// Keyboard shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
-			let collection: FileCollection? = FinderBridge.Dispatcher()
 
-			contentView.files = collection!
+			if popover.isShown {
+				// Toggle open popover
+				statusBar?.togglePopover(sender: popover)
+				return
+			}
 
-			print(collection!.files[0].fileName!)
+			// Check to make sure a file is selected before executing logic
+			let dispatcherFiles: FileCollection? = FinderBridge.Dispatcher()
 
+			if dispatcherFiles != nil {
+				// Find selected files
+				interfaceData.fileCollection = dispatcherFiles
+				contentView.interfaceData = interfaceData
+
+				// Update popover after hotkey press
+				updatePopover(interfaceData: interfaceData)
+			}
+
+			// Toggle open popover
 			statusBar?.togglePopover(sender: popover)
 		}
 	}

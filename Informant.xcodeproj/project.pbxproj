@@ -23,6 +23,12 @@
 		9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B28262693BE00BD878F /* Preferences.swift */; };
 		9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */; };
 		9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B502626BA2700BD878F /* Extensions.swift */; };
+		9ABE1771263209DB00EE9F48 /* InterfaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE1770263209DB00EE9F48 /* InterfaceData.swift */; };
+		9ABE17762632295400EE9F48 /* PopoverSingleFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17752632295400EE9F48 /* PopoverSingleFile.swift */; };
+		9ABE177E263229FE00EE9F48 /* PopoverNoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE177D263229FE00EE9F48 /* PopoverNoFile.swift */; };
+		9ABE178326322A0900EE9F48 /* PopoverMultiFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE178226322A0900EE9F48 /* PopoverMultiFile.swift */; };
+		9ABE178C2632328100EE9F48 /* ComponentsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE178B2632328100EE9F48 /* ComponentsPopover.swift */; };
+		9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE179926323B7200EE9F48 /* Styling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +85,12 @@
 		9A7F3B28262693BE00BD878F /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScripts.swift; sourceTree = "<group>"; };
 		9A7F3B502626BA2700BD878F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9ABE1770263209DB00EE9F48 /* InterfaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceData.swift; sourceTree = "<group>"; };
+		9ABE17752632295400EE9F48 /* PopoverSingleFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSingleFile.swift; sourceTree = "<group>"; };
+		9ABE177D263229FE00EE9F48 /* PopoverNoFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverNoFile.swift; sourceTree = "<group>"; };
+		9ABE178226322A0900EE9F48 /* PopoverMultiFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverMultiFile.swift; sourceTree = "<group>"; };
+		9ABE178B2632328100EE9F48 /* ComponentsPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsPopover.swift; sourceTree = "<group>"; };
+		9ABE179926323B7200EE9F48 /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				9A1DC9E6262BA46A00D73B48 /* FileObject.swift */,
+				9ABE1770263209DB00EE9F48 /* InterfaceData.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -203,9 +216,22 @@
 		9A7F3B27262693AB00BD878F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9ABE179926323B7200EE9F48 /* Styling.swift */,
+				9ABE178A2632325A00EE9F48 /* Components */,
 				9A7F3B28262693BE00BD878F /* Preferences.swift */,
+				9ABE17752632295400EE9F48 /* PopoverSingleFile.swift */,
+				9ABE178226322A0900EE9F48 /* PopoverMultiFile.swift */,
+				9ABE177D263229FE00EE9F48 /* PopoverNoFile.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9ABE178A2632325A00EE9F48 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9ABE178B2632328100EE9F48 /* ComponentsPopover.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,12 +372,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A43162626265A1F0071227C /* ContentView.swift in Sources */,
+				9ABE178326322A0900EE9F48 /* PopoverMultiFile.swift in Sources */,
+				9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
+				9ABE177E263229FE00EE9F48 /* PopoverNoFile.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
 				9A1DC9DE262B997200D73B48 /* FinderBridge.swift in Sources */,
 				9A1DC9E7262BA46A00D73B48 /* FileObject.swift in Sources */,
+				9ABE1771263209DB00EE9F48 /* InterfaceData.swift in Sources */,
 				9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */,
+				9ABE17762632295400EE9F48 /* PopoverSingleFile.swift in Sources */,
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
+				9ABE178C2632328100EE9F48 /* ComponentsPopover.swift in Sources */,
 				9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */,
 				9A64FC9D26266D0800CE52E4 /* EventMonitor.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */,

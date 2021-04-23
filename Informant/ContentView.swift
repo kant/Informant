@@ -10,20 +10,27 @@ import SwiftUI
 // Currently this is what gets displayed in the popover
 struct ContentView: View {
 
-	@ObservedObject var files: FileCollection
+	var interfaceData: InterfaceData?
 
 	var body: some View {
 		VStack {
 
-			// File info
-			if files.files[0].fileName != nil {
-				Text(files.files[0].fileName!)
+			// Figure out which view to present based on the # of items selected
+			if interfaceData != nil {
+				if interfaceData!.fileCollection!.files[0].fileName != nil {
+					// One item selected
+					PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
+
+					// Multiple item selected
+
+					// No item selected
+				}
 			}
 
 			// Temp
 			Preferences()
-				.frame(maxWidth: .infinity, maxHeight: .infinity)
 		}
+		.padding(15)
 	}
 }
 
