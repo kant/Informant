@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PopoverSingleFile: View {
 
-	var file: FileObject
+	var file: SelectItem
 
 //	init() {
 //		file = interfaceData!.fileCollection!.files[0]

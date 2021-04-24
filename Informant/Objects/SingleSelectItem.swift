@@ -1,31 +1,23 @@
 //
-//  FileObject.swift
+//  SingleSelectItem.swift
 //  Informant
 //
-//  Created by Ty Irvine on 2021-04-17.
+//  Created by Ty Irvine on 2021-04-24.
 //
 
-import Cocoa
 import Foundation
+import Cocoa
 
-class FileObject {
-	private var fileURL: URL
-	public var filePath: String?
-	public var fileName: String?
-	public var fileTypeIcon: NSImage?
-
-	public var fileKind: String?
-
-	private var fileSize: Int64?
-	public var fileSizeAsString: String?
-
-	private var fileDateCreated: Date?
-	private var fileDateModified: Date?
-	public var fileDateCreatedAsString: String?
-	public var fileDateModifiedAsString: String?
-
+class SingleSelectItem: SelectItem {
+	
+	
+	// MARK: - Initialize Single Item Object
 	// This init grabs all relevant information for the file
 	init(url: String) {
+
+		super.init()
+		
+		// MARK: - Fill in all fields with the selected item's properties
 		fileURL = URL(fileURLWithPath: url)
 		filePath = url
 
@@ -62,8 +54,9 @@ class FileObject {
 		fileDateCreatedAsString = dateFormatter.string(from: fileDateCreated!)
 		fileDateModifiedAsString = dateFormatter.string(from: fileDateModified!)
 
+		// MARK: - Item Kind Selection
 		// Check if the selected item is a directory or a file - Is a directory
-		if fileURL.pathExtension == "" {
+		if fileURL!.pathExtension == "" {
 			fileKind = "Folder"
 		}
 
@@ -130,7 +123,7 @@ class FileObject {
 			// Unfortunately the library for these descriptions isn't very good so we have to make some exceptions
 			// to them ourself
 			else {
-				// Exceptions
+				// Typically the description is just Javascript
 				if doesConform(kUTType: kUTTypeJavaScript) {
 					itemType = "javascript source"
 				}
@@ -152,66 +145,16 @@ class FileObject {
 					itemType = getUTIDescription()
 				}
 
+				// MARK: - Relabel File Extension Kind Label
+				// These are just additional file extension specific overrides!
+				switch itemExtension {
+				default:
+					break
+				}
+
 				// Capitalize items without lowercasing already uppercased words
 				fileKind = itemType!.capitalizeEachWord
 			}
-
-//			let uttype = UTTypeCreatePreferredIdentifierForTag(uti!.takeRetainedValue(), kUTTagClassFilenameExtension)!.takeRetainedValue()
-//			itemType = UTTypeCopyDescription(uti!.takeRetainedValue())!.takeRetainedValue() as String
-
-//			 Find super type. We attach this to the path extension
-//			if doesConform(kUTType: kUTTypeImage) {
-//				itemType = "image"
-//			} else if doesConform(kUTType: kUTTypeVideo) {
-//				itemType = "video"
-//			} else if doesConform(kUTType: kUTTypeAudio) {
-//				itemType = "audio"
-//			} else if doesConform(kUTType: kUTTypeDiskImage) {
-//				itemType = "disk"
-//			} else if doesConform(kUTType: kUTTypeApplication) {
-//				itemType = UTTypeCopyDescription(kUTTypeApplication)!.takeRetainedValue() as String
-//			} else {
-//				itemType = "none"
-//			}
-
-//			let fileExtension: CFString = NSURL(fileURLWithPath: filePath!).pathExtension! as CFString
-//			let unmanagedFileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil)?.takeUnretainedValue()
-//			let mimeUTI = UTTypeCopyPreferredTagWithClass(unmanagedFileUTI!, kUTTagClassMIMEType)!.takeRetainedValue() as String
-//			fileKind = itemType.capitalized
-//
-			////			fileKind = fileURL.pathExtension.uppercased()
-		}
-	}
-
-	// This function will take in a url string and provide a file attribute object which can be
-	// then used to grab info, such as name, size, etc. Returns nil if nothing is found
-	func getFileAttributes(path: String) -> [FileAttributeKey: Any]? {
-		do {
-			return try FileManager.default.attributesOfItem(atPath: path)
-		}
-		catch {
-			return nil
-		}
-	}
-}
-
-class FileCollection: ObservableObject {
-
-	public enum CollectionType {
-		case Single
-		case Multi
-		case Directory
-	}
-
-	@Published public var files: [FileObject] = []
-	@Published public var summary: FileObject?
-	public let collectionType: CollectionType?
-
-	init(collectionType: CollectionType, filePaths: [String]) {
-		self.collectionType = collectionType
-
-		for path in filePaths {
-			files.append(FileObject(url: path))
 		}
 	}
 }

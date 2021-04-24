@@ -56,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 
 			// Check to make sure a file is selected before executing logic
-			let dispatcherFiles: FileCollection? = FinderBridge.Dispatcher()
+			let dispatcherFiles: ItemCollection? = FinderBridge.Dispatcher()
 
 			if dispatcherFiles != nil {
 				// Find selected files

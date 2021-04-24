@@ -16,13 +16,13 @@ class FinderBridge {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	public static func Dispatcher() -> FileCollection? {
+	public static func Dispatcher() -> ItemCollection? {
 
 		let selectedFiles: [String] = AppleScripts.findSelectedFiles()
 
 		// Block executed if only one file is selected
 		if selectedFiles.count <= 1 {
-			return FileCollection(collectionType: .Single, filePaths: selectedFiles)
+			return ItemCollection(collectionType: .Single, filePaths: selectedFiles)
 		}
 
 		return nil

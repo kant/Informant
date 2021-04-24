@@ -8,5 +8,5 @@
 import Foundation
 
 class InterfaceData {
-	var fileCollection: FileCollection?
+	var fileCollection: ItemCollection?
 }
