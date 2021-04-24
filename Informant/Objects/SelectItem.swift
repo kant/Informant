@@ -35,3 +35,7 @@ class SelectItem {
 		}
 	}
 }
+
+protocol SelectItemProtocol {
+	init(url: String)
+}

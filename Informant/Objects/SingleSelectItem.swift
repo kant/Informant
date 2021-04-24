@@ -5,18 +5,17 @@
 //  Created by Ty Irvine on 2021-04-24.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
-class SingleSelectItem: SelectItem {
-	
-	
+class SingleSelectItem: SelectItem, SelectItemProtocol {
+
 	// MARK: - Initialize Single Item Object
 	// This init grabs all relevant information for the file
-	init(url: String) {
+	required init(url: String) {
 
 		super.init()
-		
+
 		// MARK: - Fill in all fields with the selected item's properties
 		fileURL = URL(fileURLWithPath: url)
 		filePath = url

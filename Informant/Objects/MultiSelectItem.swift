@@ -7,9 +7,9 @@
 
 import Foundation
 
-class MultiSelectItem: SelectItem {
+class MultiSelectItem: SelectItem, SelectItemProtocol {
 
 	//
-	init(url: String) {
+	required init(url: String) {
 	}
 }

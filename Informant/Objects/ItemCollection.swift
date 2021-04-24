@@ -20,6 +20,7 @@ class ItemCollection: ObservableObject {
 	@Published public var summary: SelectItem?
 	public let collectionType: CollectionType?
 
+	// Use a singleselectitem if only one item is selected and a multiselectitem if multiple items are selected
 	init(collectionType: CollectionType, filePaths: [String]) {
 		self.collectionType = collectionType
 
