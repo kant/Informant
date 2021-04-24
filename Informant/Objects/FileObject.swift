@@ -38,7 +38,8 @@ class FileObject {
 		if filePath!.last == "/" {
 			let directoryPath = String(filePath!.dropLast())
 			fileName = URL(fileURLWithPath: directoryPath).lastPathComponent
-		} else {
+		}
+		else {
 			fileName = URL(fileURLWithPath: filePath!).lastPathComponent
 		}
 
@@ -68,16 +69,91 @@ class FileObject {
 
 		// Is not a directory
 		else {
-			var itemType: String
+			// This is like if the item is an image, application etc.
+			var itemType: String?
 
-			let fileExtension = NSURL(fileURLWithPath: filePath!).pathExtension
-			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, fileExtension! as CFString, nil)
+			// This is the actually path extension - PNG, ICO, etc.
+			var itemExtension: String
+
+			// Grab the extension and unique type identifier
+			itemExtension = NSURL(fileURLWithPath: filePath!).pathExtension!
+			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, itemExtension as CFString, nil)?.takeUnretainedValue()
 
 			// Determines if the uti conforms
-			func doesConform(kUTType: CFString) {
-				if UTTypeConformsTo((uti?.takeRetainedValue())!, kUTType) {
-					itemType = UTTypeCopyDescription(kUTType)!.takeRetainedValue() as String
+			func doesConform(kUTType: CFString) -> Bool {
+				return UTTypeConformsTo(uti!, kUTType)
+			}
+
+			// Gets the item's UTI description
+			func getUTIDescription() -> String {
+				return UTTypeCopyDescription(uti!)!.takeRetainedValue() as String
+			}
+
+			// Turn item into a document item
+			func appendDocument(item: String) -> String {
+				var file: String = item
+				if file.numberOfWords > 1 {
+					file = file.components(separatedBy: " ").dropLast().joined(separator: " ")
+					file += " document"
+					return file
 				}
+				else {
+					return file
+				}
+			}
+
+			// Make a directory of all types to check
+			let types: [CFString: String] = [
+				// Media types
+				kUTTypeImage: "image",
+				kUTTypeVideo: "video",
+				kUTTypeAudio: "audio"
+			]
+
+			// Check if it's definable item, such as a video etc. We do this because we want to find items
+			// that use the type and extension in their kind description. Otherwise we're gonna use the
+			// regular UTType description, it's actually pretty good.
+			for type in types {
+				if doesConform(kUTType: type.key) {
+
+					itemType = type.value
+					break
+				}
+			}
+
+			// Now check if an item type was found. If a type was found then assign fileKind. If no type was
+			// found then find the type and don't write the extension.
+			if itemType != nil {
+				fileKind = itemExtension.uppercased() + " " + itemType!.capitalized
+			}
+
+			// Unfortunately the library for these descriptions isn't very good so we have to make some exceptions
+			// to them ourself
+			else {
+				// Exceptions
+				if doesConform(kUTType: kUTTypeJavaScript) {
+					itemType = "javascript source"
+				}
+
+				// All source code files
+				else if doesConform(kUTType: kUTTypeSourceCode) {
+					itemType = getUTIDescription()
+				}
+
+				// Edit text documents
+				else if doesConform(kUTType: kUTTypeText) {
+					var utiDescription: String = getUTIDescription()
+					utiDescription = appendDocument(item: utiDescription)
+					itemType = utiDescription
+				}
+
+				// Non-exceptions
+				else {
+					itemType = getUTIDescription()
+				}
+
+				// Capitalize items without lowercasing already uppercased words
+				fileKind = itemType!.capitalizeEachWord
 			}
 
 //			let uttype = UTTypeCreatePreferredIdentifierForTag(uti!.takeRetainedValue(), kUTTagClassFilenameExtension)!.takeRetainedValue()
@@ -101,7 +177,7 @@ class FileObject {
 //			let fileExtension: CFString = NSURL(fileURLWithPath: filePath!).pathExtension! as CFString
 //			let unmanagedFileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil)?.takeUnretainedValue()
 //			let mimeUTI = UTTypeCopyPreferredTagWithClass(unmanagedFileUTI!, kUTTagClassMIMEType)!.takeRetainedValue() as String
-			fileKind = itemType.capitalized
+//			fileKind = itemType.capitalized
 //
 			////			fileKind = fileURL.pathExtension.uppercased()
 		}
@@ -112,7 +188,8 @@ class FileObject {
 	func getFileAttributes(path: String) -> [FileAttributeKey: Any]? {
 		do {
 			return try FileManager.default.attributesOfItem(atPath: path)
-		} catch {
+		}
+		catch {
 			return nil
 		}
 	}
