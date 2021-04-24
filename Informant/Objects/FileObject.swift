@@ -9,11 +9,15 @@ import Cocoa
 import Foundation
 
 class FileObject {
+	private var fileURL: URL
 	public var filePath: String?
 	public var fileName: String?
-	public var fileType: String?
 	public var fileTypeIcon: NSImage?
-	public var fileSize: Int?
+
+	public var fileKind: String?
+
+	private var fileSize: Int64?
+	public var fileSizeAsString: String?
 
 	private var fileDateCreated: Date?
 	private var fileDateModified: Date?
@@ -22,6 +26,7 @@ class FileObject {
 
 	// This init grabs all relevant information for the file
 	init(url: String) {
+		fileURL = URL(fileURLWithPath: url)
 		filePath = url
 
 		// Grabs the file's attributes
@@ -38,11 +43,14 @@ class FileObject {
 		}
 
 		// Inject attributes into the object
-		fileType = fileAttributes[FileAttributeKey.type] as? String
 		fileTypeIcon = NSWorkspace.shared.icon(forFile: filePath!)
-		fileSize = fileAttributes[FileAttributeKey.size] as? Int
 		fileDateCreated = fileAttributes[FileAttributeKey.creationDate] as? Date
 		fileDateModified = fileAttributes[FileAttributeKey.modificationDate] as? Date
+		fileSize = fileAttributes[FileAttributeKey.size] as? Int64
+
+		// Format bytes
+		let byteFormatter = ByteCountFormatter()
+		fileSizeAsString = byteFormatter.string(fromByteCount: fileSize!)
 
 		// Format dates
 		let dateFormatter = DateFormatter()
@@ -52,6 +60,51 @@ class FileObject {
 
 		fileDateCreatedAsString = dateFormatter.string(from: fileDateCreated!)
 		fileDateModifiedAsString = dateFormatter.string(from: fileDateModified!)
+
+		// Check if the selected item is a directory or a file - Is a directory
+		if fileURL.pathExtension == "" {
+			fileKind = "Folder"
+		}
+
+		// Is not a directory
+		else {
+			var itemType: String
+
+			let fileExtension = NSURL(fileURLWithPath: filePath!).pathExtension
+			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, fileExtension! as CFString, nil)
+
+			// Determines if the uti conforms
+			func doesConform(kUTType: CFString) {
+				if UTTypeConformsTo((uti?.takeRetainedValue())!, kUTType) {
+					itemType = UTTypeCopyDescription(kUTType)!.takeRetainedValue() as String
+				}
+			}
+
+//			let uttype = UTTypeCreatePreferredIdentifierForTag(uti!.takeRetainedValue(), kUTTagClassFilenameExtension)!.takeRetainedValue()
+//			itemType = UTTypeCopyDescription(uti!.takeRetainedValue())!.takeRetainedValue() as String
+
+//			 Find super type. We attach this to the path extension
+//			if doesConform(kUTType: kUTTypeImage) {
+//				itemType = "image"
+//			} else if doesConform(kUTType: kUTTypeVideo) {
+//				itemType = "video"
+//			} else if doesConform(kUTType: kUTTypeAudio) {
+//				itemType = "audio"
+//			} else if doesConform(kUTType: kUTTypeDiskImage) {
+//				itemType = "disk"
+//			} else if doesConform(kUTType: kUTTypeApplication) {
+//				itemType = UTTypeCopyDescription(kUTTypeApplication)!.takeRetainedValue() as String
+//			} else {
+//				itemType = "none"
+//			}
+
+//			let fileExtension: CFString = NSURL(fileURLWithPath: filePath!).pathExtension! as CFString
+//			let unmanagedFileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil)?.takeUnretainedValue()
+//			let mimeUTI = UTTypeCopyPreferredTagWithClass(unmanagedFileUTI!, kUTTagClassMIMEType)!.takeRetainedValue() as String
+			fileKind = itemType.capitalized
+//
+			////			fileKind = fileURL.pathExtension.uppercased()
+		}
 	}
 
 	// This function will take in a url string and provide a file attribute object which can be

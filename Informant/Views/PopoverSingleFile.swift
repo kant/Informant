@@ -29,8 +29,8 @@ struct PopoverSingleFile: View {
 			VStack(alignment: .leading, spacing: 20) {
 				// Kind - Size
 				HStack {
-					ComponentsPopoverFileAttribute(label: "Kind", value: String(file.fileType!))
-					ComponentsPopoverFileAttribute(label: "Size", value: String(file.fileSize!))
+					ComponentsPopoverFileAttribute(label: "Kind", value: String(file.fileKind!))
+					ComponentsPopoverFileAttribute(label: "Size", value: String(file.fileSizeAsString!))
 				}
 
 				// Created
