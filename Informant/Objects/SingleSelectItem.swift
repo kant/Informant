@@ -53,9 +53,12 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 		fileDateCreatedAsString = dateFormatter.string(from: fileDateCreated!)
 		fileDateModifiedAsString = dateFormatter.string(from: fileDateModified!)
 
+		// Find the item type (folder / file)
+		fileType = fileAttributes[FileAttributeKey.type] as? String
+
 		// MARK: - Item Kind Selection
 		// Check if the selected item is a directory or a file - Is a directory
-		if fileURL!.pathExtension == "" {
+		if fileType! == "NSFileTypeDirectory" {
 			fileKind = "Folder"
 		}
 
@@ -77,8 +80,13 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 			}
 
 			// Gets the item's UTI description
-			func getUTIDescription() -> String {
-				return UTTypeCopyDescription(uti!)!.takeRetainedValue() as String
+			func getUTIDescription() -> String? {
+				if UTTypeCopyDescription(uti!) != nil {
+					return UTTypeCopyDescription(uti!)!.takeRetainedValue() as String
+				}
+				else {
+					return nil
+				}
 			}
 
 			// Turn item into a document item
@@ -122,26 +130,34 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 			// Unfortunately the library for these descriptions isn't very good so we have to make some exceptions
 			// to them ourself
 			else {
-				// Typically the description is just Javascript
-				if doesConform(kUTType: kUTTypeJavaScript) {
-					itemType = "javascript source"
+
+				// Check if you can even extract a UTType from the file
+				if let utiDescription: String = getUTIDescription() {
+
+					// Typically the description is just Javascript
+					if doesConform(kUTType: kUTTypeJavaScript) {
+						itemType = "javascript source"
+					}
+
+					// All source code files
+					else if doesConform(kUTType: kUTTypeSourceCode) {
+						itemType = utiDescription
+					}
+
+					// Edit text documents - Decide
+					else if doesConform(kUTType: kUTTypeText) {
+						itemType = appendDocument(item: utiDescription)
+					}
+
+					// Non-exceptions
+					else {
+						itemType = utiDescription
+					}
 				}
 
-				// All source code files
-				else if doesConform(kUTType: kUTTypeSourceCode) {
-					itemType = getUTIDescription()
-				}
-
-				// Edit text documents
-				else if doesConform(kUTType: kUTTypeText) {
-					var utiDescription: String = getUTIDescription()
-					utiDescription = appendDocument(item: utiDescription)
-					itemType = utiDescription
-				}
-
-				// Non-exceptions
+				//	If you can't extract a UTType then just label it a document
 				else {
-					itemType = getUTIDescription()
+					itemType = "document"
 				}
 
 				// MARK: - Relabel File Extension Kind Label

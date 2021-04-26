@@ -35,6 +35,9 @@ extension String {
 			newSentence = "\(newSentence) \(firstLetter)\(remainingWord)"
 		}
 
+		// Remove space at beginning
+		newSentence.removeFirst()
+		
 		// send it back up.
 		return newSentence
 	}

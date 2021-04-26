@@ -14,6 +14,7 @@ class SelectItem {
 	public var fileName: String?
 	public var fileTypeIcon: NSImage?
 
+	public var fileType: String?
 	public var fileKind: String?
 
 	public var fileSize: Int64?
