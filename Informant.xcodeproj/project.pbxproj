@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A1DC9DE262B997200D73B48 /* FinderBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1DC9DD262B997200D73B48 /* FinderBridge.swift */; };
 		9A1DC9E7262BA46A00D73B48 /* SelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1DC9E6262BA46A00D73B48 /* SelectItem.swift */; };
 		9A43162426265A1F0071227C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162326265A1F0071227C /* AppDelegate.swift */; };
 		9A43162626265A1F0071227C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162526265A1F0071227C /* ContentView.swift */; };
@@ -32,6 +31,7 @@
 		9ABE17A526346C7D00EE9F48 /* MultiSelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17A426346C7D00EE9F48 /* MultiSelectItem.swift */; };
 		9ABE17AD26346D2600EE9F48 /* ItemCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17AC26346D2600EE9F48 /* ItemCollection.swift */; };
 		9ABE17BB2634727500EE9F48 /* SingleSelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17BA2634727500EE9F48 /* SingleSelectItem.swift */; };
+		9ABE17D326372F5C00EE9F48 /* PopoverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +65,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9A1DC9DD262B997200D73B48 /* FinderBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderBridge.swift; sourceTree = "<group>"; };
 		9A1DC9E6262BA46A00D73B48 /* SelectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItem.swift; sourceTree = "<group>"; };
 		9A43162026265A1F0071227C /* Informant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Informant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A43162326265A1F0071227C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		9ABE17A426346C7D00EE9F48 /* MultiSelectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectItem.swift; sourceTree = "<group>"; };
 		9ABE17AC26346D2600EE9F48 /* ItemCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollection.swift; sourceTree = "<group>"; };
 		9ABE17BA2634727500EE9F48 /* SingleSelectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectItem.swift; sourceTree = "<group>"; };
+		9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +164,7 @@
 				9A43162526265A1F0071227C /* ContentView.swift */,
 				9A7F3B27262693AB00BD878F /* Views */,
 				9A1DC9E5262BA45B00D73B48 /* Objects */,
+				9ABE17C826372D4000EE9F48 /* Logic */,
 				9A64FCA42626724700CE52E4 /* Helpers */,
 				9A43165F26265DFB0071227C /* Assets */,
 				9A43162726265A210071227C /* Assets.xcassets */,
@@ -217,7 +218,6 @@
 				9A7F3B2126268F5F00BD878F /* Shortcuts.swift */,
 				9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */,
 				9A7F3B502626BA2700BD878F /* Extensions.swift */,
-				9A1DC9DD262B997200D73B48 /* FinderBridge.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -241,6 +241,14 @@
 				9ABE178B2632328100EE9F48 /* ComponentsPopover.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		9ABE17C826372D4000EE9F48 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,10 +393,10 @@
 				9ABE178326322A0900EE9F48 /* PopoverMultiFile.swift in Sources */,
 				9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
+				9ABE17D326372F5C00EE9F48 /* PopoverHelper.swift in Sources */,
 				9ABE177E263229FE00EE9F48 /* PopoverNoFile.swift in Sources */,
 				9ABE17BB2634727500EE9F48 /* SingleSelectItem.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
-				9A1DC9DE262B997200D73B48 /* FinderBridge.swift in Sources */,
 				9A1DC9E7262BA46A00D73B48 /* SelectItem.swift in Sources */,
 				9ABE1771263209DB00EE9F48 /* InterfaceData.swift in Sources */,
 				9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */,

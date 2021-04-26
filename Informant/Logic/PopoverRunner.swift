@@ -12,7 +12,7 @@ import SwiftUI
 // This class is used to return a data set for use by the interface. It's dependent on the selection
 // made by the user
 
-class FinderBridge {
+class PopoverRunner {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
@@ -28,7 +28,7 @@ class FinderBridge {
 		return nil
 	}
 
-	//	Grabs a data set for a singular file
-	public static func InfoForSingleFile() {
+	// Display popover with selected items
+	public static func Display() {
 	}
 }

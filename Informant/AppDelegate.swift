@@ -13,14 +13,14 @@ import SwiftUI
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 	// This is the actual popover object that is created on app init
-	var popover = NSPopover()
+	public var popover = NSPopover()
 
 	// We use this status bar object to make managing the popover a lot easier
-	var statusBar: StatusBarController?
+	public var statusBar: StatusBarController?
 
 	// This contians all data needed for the interface
-	var interfaceData = InterfaceData()
-	var contentView = ContentView()
+	public var interfaceData = InterfaceData()
+	public var contentView = ContentView()
 
 	// Initialization for the application
 	override init() {
@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	// Update the popover's view
-	func updatePopover(interfaceData: InterfaceData) {
+	public func updatePopover(interfaceData: InterfaceData) {
 		// Create the SwiftUI view that provides the window contents.
 		contentView = ContentView(interfaceData: interfaceData)
 
@@ -46,29 +46,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initialize status bar
 		statusBar = StatusBarController(popover)
 
-		// Keyboard shortcuts
+		// MARK: - Keyboard Shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
-
-			if popover.isShown {
-				// Toggle open popover
-				statusBar?.togglePopover(sender: popover)
-				return
-			}
-
-			// Check to make sure a file is selected before executing logic
-			let dispatcherFiles: ItemCollection? = FinderBridge.Dispatcher()
-
-			if dispatcherFiles != nil {
-				// Find selected files
-				interfaceData.fileCollection = dispatcherFiles
-				contentView.interfaceData = interfaceData
-
-				// Update popover after hotkey press
-				updatePopover(interfaceData: interfaceData)
-			}
-
-			// Toggle open popover
-			statusBar?.togglePopover(sender: popover)
+			PopoverHelper.DisplayToggle(appDelegate: self)
 		}
 	}
 
