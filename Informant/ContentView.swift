@@ -13,24 +13,31 @@ struct ContentView: View {
 	var interfaceData: InterfaceData?
 
 	var body: some View {
+
 		VStack {
 
-			// Figure out which view to present based on the # of items selected
-			if interfaceData != nil {
-				if interfaceData!.fileCollection!.files[0].fileName != nil {
-					// One item selected
-					PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
+			VStack {
+				// Figure out which view to present based on the # of items selected
+				if interfaceData != nil && interfaceData!.fileCollection != nil {
+					if interfaceData!.fileCollection!.files[0].fileName != nil {
+						// One item selected
+						PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
 
-					// Multiple item selected
-
-					// No item selected
+						// Multiple item selected
+						// ?
+						// No item selected
+					}
 				}
-			}
 
-			// Temp
-			Preferences()
+				// Temp
+				Preferences()
+			}
+			.padding(15)
 		}
-		.padding(15)
+		.background(VisualEffectView(material: .popover, blendingMode: .behindWindow))
+		.cornerRadius(10, antialiased: true)
+		.frame(width: 290, height: 300)
+		.fixedSize()
 	}
 }
 
@@ -40,4 +47,3 @@ struct ContentView: View {
 //		ContentView()
 //	}
 // }
-

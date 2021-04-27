@@ -11,7 +11,11 @@ class StatusBarController {
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
 	private var popover: NSPopover
-	private var eventMonitor: EventMonitor?
+
+	private var referenceWindow: NSWindow!
+
+	private var monitorMouseDismiss: EventMonitor?
+	private var monitorMouseDrag: EventMonitor?
 
 	init(_ popover: NSPopover) {
 		self.popover = popover
@@ -37,15 +41,15 @@ class StatusBarController {
 		}
 
 		// Monitors mouse events
-		eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
+		monitorMouseDismiss = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: eventHandlerMouseDismiss)
+//		monitorMouseDrag = EventMonitor(mask: [.leftMouseDragged], handler: eventHandlerMouseDrag)
 	}
 
 	// Toggles popover
 	@objc func togglePopover(sender: AnyObject) {
 		if popover.isShown {
 			hidePopover(sender)
-		}
-		else {
+		} else {
 			showPopover(sender)
 		}
 	}
@@ -53,43 +57,53 @@ class StatusBarController {
 	// Shows popover
 	func showPopover(_ sender: AnyObject) {
 		if let statusBarButton = statusItem.button {
-			// Create sub view
-			let positioningView = NSView(frame: statusBarButton.bounds)
-			positioningView.identifier = NSUserInterfaceItemIdentifier(rawValue: "positioningView")
-			statusBarButton.addSubview(positioningView)
+
+			popover.show(relativeTo: statusBarButton.frame, of: statusBarButton, preferredEdge: NSRectEdge.minY)
+
+//			// Create sub view
+//			let positioningView = NSView(frame: statusBarButton.bounds)
+//			positioningView.identifier = NSUserInterfaceItemIdentifier(rawValue: "positioningView")
+//			statusBarButton.addSubview(positioningView)
 
 			// Show and move popover
-			popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
-			statusBarButton.bounds = statusBarButton.bounds.offsetBy(dx: 0, dy: statusBarButton.bounds.height)
+//			popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
+//			statusBarButton.bounds = statusBarButton.bounds.offsetBy(dx: 0, dy: statusBarButton.bounds.height)
 
 			// Move popover up a bit
-			if let popoverWindow = popover.contentViewController?.view.window {
-				popoverWindow.setFrame(popoverWindow.frame.offsetBy(dx: 0, dy: 8), display: false)
-			}
+//			if let popoverWindow = popover.contentViewController?.view.window {
+//				popoverWindow.setFrame(popoverWindow.frame.offsetBy(dx: 0, dy: 8), display: false)
+//			}
 
 			// Begin monitoring for user close action
-			eventMonitor?.start()
+			monitorMouseDismiss?.start()
 		}
 	}
 
+//
 	// Hides popover
 	func hidePopover(_ sender: AnyObject) {
 		popover.performClose(sender)
 
 		// Remove popover view
-		let positioningView = sender.subviews?.first {
-			$0.identifier == NSUserInterfaceItemIdentifier(rawValue: "positioningView")
-		}
-		positioningView?.removeFromSuperview()
+//		let positioningView = sender.subviews?.first {
+//			$0.identifier == NSUserInterfaceItemIdentifier(rawValue: "positioningView")
+//		}
+//		positioningView?.removeFromSuperview()
 
 		// Stop monitoring for user close action
-		eventMonitor?.stop()
+		monitorMouseDismiss?.stop()
 	}
 
 	// Hides popover on mouse action
-	func mouseEventHandler(_ event: NSEvent?) {
+	func eventHandlerMouseDismiss(_ event: NSEvent?) {
 		if popover.isShown {
 			hidePopover(event!)
+		}
+	}
+
+	// Drags popover
+	func eventHandlerMouseDrag(_ event: NSEvent?) {
+		if popover.isShown {
 		}
 	}
 }

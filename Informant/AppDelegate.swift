@@ -14,6 +14,7 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 	// This is the actual popover object that is created on app init
 	public var popover = NSPopover()
+	public var window = NSWindow()
 
 	// We use this status bar object to make managing the popover a lot easier
 	public var statusBar: StatusBarController?
@@ -35,6 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Set the SwiftUI view to the popover view
 		popover.contentSize = NSSize(width: 290, height: 300)
 		popover.contentViewController = NSHostingController(rootView: contentView)
+
+		window.contentViewController = NSHostingController(rootView: contentView)
 	}
 
 	// ------------------ Main Program ⤵︎ ------------------
@@ -46,8 +49,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initialize status bar
 		statusBar = StatusBarController(popover)
 
+		window = NSWindow(
+			contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+			styleMask: [.resizable, .fullSizeContentView],
+			backing: .buffered, defer: false)
+
+		window.center()
+
+		window.titleVisibility = .hidden
+		window.styleMask.remove(.titled)
+		window.isOpaque = false
+		window.backgroundColor = .clear
+		window.isMovableByWindowBackground = true
+//		window.minSize = NSSize(width: 480, height: 300)
+//		window.maxSize = NSSize(width: 1000, height: 1000)
+
+		window.contentViewController = NSHostingController(rootView: contentView)
+		window.makeKeyAndOrderFront(nil)
+
 		// MARK: - Keyboard Shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
+
 			PopoverHelper.DisplayToggle(appDelegate: self)
 		}
 	}

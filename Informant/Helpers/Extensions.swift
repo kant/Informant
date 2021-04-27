@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Extensions
 // Use this file for storing any sort of extensions to classes.
@@ -24,7 +25,7 @@ extension String {
 extension String {
 	var capitalizeEachWord: String {
 		// break it into an array by delimiting the sentence using a space
-		let breakupSentence = self.components(separatedBy: " ")
+		let breakupSentence = components(separatedBy: " ")
 		var newSentence = ""
 
 		// Loop the array and split each word from it's first letter. Capitalize the first letter and then
@@ -37,8 +38,34 @@ extension String {
 
 		// Remove space at beginning
 		newSentence.removeFirst()
-		
+
 		// send it back up.
 		return newSentence
+	}
+}
+
+// Creates a blurred background effect
+struct VisualEffectView: NSViewRepresentable {
+	let material: NSVisualEffectView.Material
+	let blendingMode: NSVisualEffectView.BlendingMode
+
+	func makeNSView(context: Context) -> NSVisualEffectView {
+
+		let visualEffectView = NSVisualEffectView()
+		visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+		visualEffectView.material = material
+		visualEffectView.state = NSVisualEffectView.State.active
+//		visualEffectView.wantsLayer = true
+
+		// Don't change this radius! Changing it can lead to the border looking weird
+//		visualEffectView.layer!.cornerRadius = 9.5
+		visualEffectView.blendingMode = blendingMode
+
+		return visualEffectView
+	}
+
+	func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
+		visualEffectView.material = material
+		visualEffectView.blendingMode = blendingMode
 	}
 }
