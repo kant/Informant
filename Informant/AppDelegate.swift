@@ -44,8 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		window.center()
 
-		window.titleVisibility = .hidden
-		window.styleMask.remove(.titled)
+//		window.titleVisibility = .hidden
+//		window.styleMask.remove(.titled)
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
@@ -59,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Keyboard Shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
+
 			InterfaceHelper.ToggleInterface(appDelegate: self)
 		}
 	}

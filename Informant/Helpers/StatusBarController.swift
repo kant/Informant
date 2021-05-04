@@ -60,17 +60,20 @@ class StatusBarController {
 	func showWindow() {
 		monitorMouseDismiss?.start()
 		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
-		window.makeKeyAndOrderFront(nil)
+		window.setIsVisible(true)
+		NSRunningApplication.current.activate(options: [.activateIgnoringOtherApps])
 	}
 
 	// Hides the window and stops monitoring for clicks
 	func hideWindow() {
 		monitorMouseDismiss?.stop()
-		window.close()
+		NSApplication.shared.deactivate()
+		window.setIsVisible(false)
 	}
 
 	// Hides interface if no finder items are selected. Otherwise update the interface
-	func mousedWindowHandler(_: NSEvent?) {
+	func mousedWindowHandler(event: NSEvent?) {
+
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
 
