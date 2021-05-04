@@ -13,7 +13,6 @@ import SwiftUI
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 	// This is the actual popover object that is created on app init
-	public var popover = NSPopover()
 	public var window = NSWindow()
 
 	// We use this status bar object to make managing the popover a lot easier
@@ -23,20 +22,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var interfaceData = InterfaceData()
 	public var contentView = ContentView()
 
-	// Initialization for the application
-	override init() {
-		popover.animates = false
-	}
-
 	// Update the popover's view
-	public func updatePopover(interfaceData: InterfaceData) {
+	public func UpdateInterface(interfaceData: InterfaceData) {
 		// Create the SwiftUI view that provides the window contents.
 		contentView = ContentView(interfaceData: interfaceData)
 
-		// Set the SwiftUI view to the popover view
-		popover.contentSize = NSSize(width: 290, height: 300)
-		popover.contentViewController = NSHostingController(rootView: contentView)
-
+		// Set the SwiftUI view to the window view
 		window.contentViewController = NSHostingController(rootView: contentView)
 	}
 
@@ -44,10 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_: Notification) {
 		// Update the popover on initialization
-		updatePopover(interfaceData: interfaceData)
-
-		// Initialize status bar
-		statusBar = StatusBarController(popover)
+		UpdateInterface(interfaceData: interfaceData)
 
 		window = NSWindow(
 			contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -61,16 +49,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
-//		window.minSize = NSSize(width: 480, height: 300)
-//		window.maxSize = NSSize(width: 1000, height: 1000)
+		window.isReleasedWhenClosed = false
 
 		window.contentViewController = NSHostingController(rootView: contentView)
 		window.makeKeyAndOrderFront(nil)
 
+		// Initialize status bar
+		statusBar = StatusBarController(appDelegate: self)
+
 		// MARK: - Keyboard Shortcuts
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
-
-			PopoverHelper.DisplayToggle(appDelegate: self)
+			InterfaceHelper.ToggleInterface(appDelegate: self)
 		}
 	}
 

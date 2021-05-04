@@ -16,7 +16,7 @@
 		9A43163A26265A210071227C /* InformantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43163926265A210071227C /* InformantTests.swift */; };
 		9A43164526265A210071227C /* InformantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43164426265A210071227C /* InformantUITests.swift */; };
 		9A43165626265D1C0071227C /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43165526265D1C0071227C /* StatusBarController.swift */; };
-		9A64FC9D26266D0800CE52E4 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64FC9C26266D0800CE52E4 /* EventMonitor.swift */; };
+		9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */; };
 		9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */; };
 		9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B2126268F5F00BD878F /* Shortcuts.swift */; };
 		9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B28262693BE00BD878F /* Preferences.swift */; };
@@ -31,7 +31,7 @@
 		9ABE17A526346C7D00EE9F48 /* MultiSelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17A426346C7D00EE9F48 /* MultiSelectItem.swift */; };
 		9ABE17AD26346D2600EE9F48 /* ItemCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17AC26346D2600EE9F48 /* ItemCollection.swift */; };
 		9ABE17BB2634727500EE9F48 /* SingleSelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17BA2634727500EE9F48 /* SingleSelectItem.swift */; };
-		9ABE17D326372F5C00EE9F48 /* PopoverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */; };
+		9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +82,7 @@
 		9A43164626265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A43165526265D1C0071227C /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		9A43166026265E130071227C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		9A64FC9C26266D0800CE52E4 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
 		9A7F3B2126268F5F00BD878F /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		9A7F3B28262693BE00BD878F /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScripts.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		9ABE17A426346C7D00EE9F48 /* MultiSelectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectItem.swift; sourceTree = "<group>"; };
 		9ABE17AC26346D2600EE9F48 /* ItemCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollection.swift; sourceTree = "<group>"; };
 		9ABE17BA2634727500EE9F48 /* SingleSelectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectItem.swift; sourceTree = "<group>"; };
-		9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverHelper.swift; sourceTree = "<group>"; };
+		9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,7 +213,7 @@
 		9A64FCA42626724700CE52E4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				9A64FC9C26266D0800CE52E4 /* EventMonitor.swift */,
+				9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */,
 				9A43165526265D1C0071227C /* StatusBarController.swift */,
 				9A7F3B2126268F5F00BD878F /* Shortcuts.swift */,
 				9A7F3B4B2626A37E00BD878F /* AppleScripts.swift */,
@@ -246,7 +246,7 @@
 		9ABE17C826372D4000EE9F48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				9ABE17D226372F5C00EE9F48 /* PopoverHelper.swift */,
+				9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 				9ABE178326322A0900EE9F48 /* PopoverMultiFile.swift in Sources */,
 				9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
-				9ABE17D326372F5C00EE9F48 /* PopoverHelper.swift in Sources */,
+				9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */,
 				9ABE177E263229FE00EE9F48 /* PopoverNoFile.swift in Sources */,
 				9ABE17BB2634727500EE9F48 /* SingleSelectItem.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
@@ -404,7 +404,7 @@
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
 				9ABE178C2632328100EE9F48 /* ComponentsPopover.swift in Sources */,
 				9A7F3B4C2626A37E00BD878F /* AppleScripts.swift in Sources */,
-				9A64FC9D26266D0800CE52E4 /* EventMonitor.swift in Sources */,
+				9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */,
 				9ABE17AD26346D2600EE9F48 /* ItemCollection.swift in Sources */,
 			);

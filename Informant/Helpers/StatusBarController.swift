@@ -10,15 +10,14 @@ import AppKit
 class StatusBarController {
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
-	private var popover: NSPopover
+	private var window: NSWindow!
+	private var appDelegate: AppDelegate!
 
-	private var referenceWindow: NSWindow!
+	private var monitorMouseDismiss: GlobalEventMonitor?
 
-	private var monitorMouseDismiss: EventMonitor?
-	private var monitorMouseDrag: EventMonitor?
-
-	init(_ popover: NSPopover) {
-		self.popover = popover
+	init(appDelegate: AppDelegate) {
+		self.appDelegate = appDelegate
+		window = self.appDelegate.window
 		statusBar = NSStatusBar.system
 
 		// Creates a status bar item with a fixed length
@@ -35,75 +34,54 @@ class StatusBarController {
 			// Decides whether or not the icon follows the macOS menubar colouring
 			statusBarButton.image?.isTemplate = true
 
+			// Updates constraint keeping the image in mind
+			statusBarButton.updateConstraints()
+
 			// Action
-			statusBarButton.action = #selector(togglePopover(sender:))
+			statusBarButton.action = #selector(toggleWindow)
 			statusBarButton.target = self
 		}
 
 		// Monitors mouse events
-		monitorMouseDismiss = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: eventHandlerMouseDismiss)
-//		monitorMouseDrag = EventMonitor(mask: [.leftMouseDragged], handler: eventHandlerMouseDrag)
+		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mousedWindowHandler)
+		monitorMouseDismiss?.start()
 	}
 
-	// Toggles popover
-	@objc func togglePopover(sender: AnyObject) {
-		if popover.isShown {
-			hidePopover(sender)
+	// Simply toggles display of window but does not close the window
+	@objc func toggleWindow() {
+		if window.isVisible {
+			hideWindow()
 		} else {
-			showPopover(sender)
+			showWindow()
 		}
 	}
 
-	// Shows popover
-	func showPopover(_ sender: AnyObject) {
-		if let statusBarButton = statusItem.button {
-
-			popover.show(relativeTo: statusBarButton.frame, of: statusBarButton, preferredEdge: NSRectEdge.minY)
-
-//			// Create sub view
-//			let positioningView = NSView(frame: statusBarButton.bounds)
-//			positioningView.identifier = NSUserInterfaceItemIdentifier(rawValue: "positioningView")
-//			statusBarButton.addSubview(positioningView)
-
-			// Show and move popover
-//			popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
-//			statusBarButton.bounds = statusBarButton.bounds.offsetBy(dx: 0, dy: statusBarButton.bounds.height)
-
-			// Move popover up a bit
-//			if let popoverWindow = popover.contentViewController?.view.window {
-//				popoverWindow.setFrame(popoverWindow.frame.offsetBy(dx: 0, dy: 8), display: false)
-//			}
-
-			// Begin monitoring for user close action
-			monitorMouseDismiss?.start()
-		}
+	// Shows the window and starts monitoring for clicks
+	func showWindow() {
+		monitorMouseDismiss?.start()
+		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
+		window.makeKeyAndOrderFront(nil)
 	}
 
-//
-	// Hides popover
-	func hidePopover(_ sender: AnyObject) {
-		popover.performClose(sender)
-
-		// Remove popover view
-//		let positioningView = sender.subviews?.first {
-//			$0.identifier == NSUserInterfaceItemIdentifier(rawValue: "positioningView")
-//		}
-//		positioningView?.removeFromSuperview()
-
-		// Stop monitoring for user close action
+	// Hides the window and stops monitoring for clicks
+	func hideWindow() {
 		monitorMouseDismiss?.stop()
+		window.close()
 	}
 
-	// Hides popover on mouse action
-	func eventHandlerMouseDismiss(_ event: NSEvent?) {
-		if popover.isShown {
-			hidePopover(event!)
+	// Hides interface if no finder items are selected. Otherwise update the interface
+	func mousedWindowHandler(_: NSEvent?) {
+		// Get finder items
+		let selectedItems: [String] = AppleScripts.findSelectedFiles()
+
+		// Items are selected so update the interface
+		if selectedItems[0] != "", window.isVisible {
+			showWindow()
 		}
-	}
 
-	// Drags popover
-	func eventHandlerMouseDrag(_ event: NSEvent?) {
-		if popover.isShown {
+		// No items are selected, therefore hide the interface
+		else {
+			hideWindow()
 		}
 	}
 }
