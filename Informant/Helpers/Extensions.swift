@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - Extensions
 // Use this file for storing any sort of extensions to classes.
 
+// Provides the number of words of a string as an integer
 extension String {
 	var numberOfWords: Int {
 		var count = 0
@@ -22,6 +23,8 @@ extension String {
 	}
 }
 
+// Capitalize each word without replacing an already all caps word.
+// So instead of HTML -> Html it goes HTML -> HTML
 extension String {
 	var capitalizeEachWord: String {
 		// break it into an array by delimiting the sentence using a space
@@ -44,21 +47,16 @@ extension String {
 	}
 }
 
-// Creates a blurred background effect
+// Creates a blurred background effect for the main interface. Allows it to be called in SWiftUI
 struct VisualEffectView: NSViewRepresentable {
 	let material: NSVisualEffectView.Material
 	let blendingMode: NSVisualEffectView.BlendingMode
 
 	func makeNSView(context: Context) -> NSVisualEffectView {
-
 		let visualEffectView = NSVisualEffectView()
 		visualEffectView.translatesAutoresizingMaskIntoConstraints = false
 		visualEffectView.material = material
 		visualEffectView.state = NSVisualEffectView.State.active
-//		visualEffectView.wantsLayer = true
-
-		// Don't change this radius! Changing it can lead to the border looking weird
-//		visualEffectView.layer!.cornerRadius = 9.5
 		visualEffectView.blendingMode = blendingMode
 
 		return visualEffectView

@@ -11,7 +11,6 @@ import SwiftUI
 // MARK: - File Helper
 // This class is used to return a data set for use by the interface. It's dependent on the selection
 // made by the user
-
 class InterfaceHelper {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
@@ -42,12 +41,6 @@ class InterfaceHelper {
 			// Update popover after hotkey press
 			appDelegate.UpdateInterface(interfaceData: appDelegate.interfaceData)
 		}
-
-		// Set Finder to be the front most application
-		// Set this application to front most so we can pass keys to Finder!!!
-
-		appDelegate.window.orderFrontRegardless()
-//		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
 	}
 
 	// Runs toggle on window. Typically called by activation shortcut
@@ -60,5 +53,9 @@ class InterfaceHelper {
 		}
 
 		appDelegate.statusBar?.toggleWindow()
+
+		// TODO: Make sure finder gets activated on the appropriate screen and not just the first one
+		// Set Finder to be the front most application
+		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
 	}
 }

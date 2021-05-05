@@ -9,4 +9,13 @@ import Foundation
 
 class InterfaceData {
 	var fileCollection: ItemCollection?
+
+	/// Checks to make sure that all data is valid
+	public var isNotNil: Bool {
+		if fileCollection == nil || fileCollection!.files[0].fileName == nil {
+			return false
+		} else {
+			return true
+		}
+	}
 }

@@ -5,8 +5,6 @@
 //  Created by Ty Irvine on 2021-04-13.
 //
 
-import Cocoa
-import FinderSync
 import KeyboardShortcuts
 import SwiftUI
 
@@ -34,9 +32,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {
+
+		// TODO: Clean up this section - it asks for accessiblity permissions
+		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
+		let accessEnabled = AXIsProcessTrustedWithOptions(options)
+
+		if !accessEnabled {
+			print("Access Not Enabled")
+		}
+
 		// Update the popover on initialization
 		UpdateInterface(interfaceData: interfaceData)
 
+		// TODO: Clean up these window actions
 		window = NSWindow(
 			contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
 			styleMask: [.resizable, .fullSizeContentView],
@@ -44,12 +52,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		window.center()
 
-//		window.titleVisibility = .hidden
-//		window.styleMask.remove(.titled)
+		window.titleVisibility = .hidden
+		window.styleMask.remove(.titled)
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
-		window.isReleasedWhenClosed = false
 
 		window.contentViewController = NSHostingController(rootView: contentView)
 		window.makeKeyAndOrderFront(nil)
