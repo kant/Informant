@@ -72,7 +72,7 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 
 			// Grab the extension and unique type identifier
 			itemExtension = NSURL(fileURLWithPath: filePath!).pathExtension!
-			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, itemExtension as CFString, nil)?.takeUnretainedValue()
+			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, itemExtension as CFString, nil)?.takeRetainedValue()
 
 			// Determines if the uti conforms
 			func doesConform(kUTType: CFString) -> Bool {
@@ -81,7 +81,7 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 
 			// Gets the item's UTI description
 			func getUTIDescription() -> String? {
-				if UTTypeCopyDescription(uti!) != nil {
+				if UTTypeCopyDescription(uti!)?.takeRetainedValue() != nil {
 					return UTTypeCopyDescription(uti!)!.takeRetainedValue() as String
 				}
 				else {

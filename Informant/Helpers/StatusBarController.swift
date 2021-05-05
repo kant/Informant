@@ -5,7 +5,7 @@
 //  Created by Ty Irvine on 2021-04-13.
 //
 
-import AppKit
+import SwiftUI
 
 // TODO: Clean this file up and possibly split it into some different classes
 class StatusBarController {
@@ -19,7 +19,7 @@ class StatusBarController {
 	private var monitorKeyPress: GlobalEventMonitor?
 
 	init(appDelegate: AppDelegate) {
-		// Assigns app delegate
+
 		self.appDelegate = appDelegate
 		window = self.appDelegate.window
 		statusBar = NSStatusBar.system
