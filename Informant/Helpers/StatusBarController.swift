@@ -18,6 +18,9 @@ class StatusBarController {
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
 
+	// This stores the window's position for each screen
+	private var windowScreenPositions: [Int: CGPoint] = [:]
+
 	init(appDelegate: AppDelegate) {
 
 		self.appDelegate = appDelegate
@@ -42,7 +45,7 @@ class StatusBarController {
 			statusBarButton.updateConstraints()
 
 			// Action
-			statusBarButton.action = #selector(toggleWindow)
+			statusBarButton.action = #selector(toggleWindowToStatusItem)
 			statusBarButton.target = self
 		}
 
@@ -57,6 +60,16 @@ class StatusBarController {
 
 	// MARK: - Window Functions
 
+	// Toggle the window and perform some functionallity specific to the status bar
+	@objc func toggleWindowToStatusItem() {
+		if window.isVisible {
+			baseHideWindow()
+		}
+		else {
+			statusItemOpenWindow()
+		}
+	}
+
 	// Simply toggles display of window but does not close the window
 	@objc func toggleWindow() {
 		if window.isVisible {
@@ -67,19 +80,63 @@ class StatusBarController {
 		}
 	}
 
-	// Shows the window and starts monitoring for clicks
-	func openWindow() {
+	// Behaviour for all window hides and opens
+	func baseHideWindow() {
+		monitorMouseDismiss?.stop()
+		monitorKeyPress?.stop()
+		window.setIsVisible(false)
+	}
+
+	func baseOpenWindow() {
 		monitorMouseDismiss?.start()
 		monitorKeyPress?.start()
+	}
+
+	// A specific opening sequence for the status item
+	func statusItemOpenWindow() {
+		baseOpenWindow()
+
+		window.setFrameOrigin(NSPointFromCGPoint(statusItem.button!.frame.origin))
+
+		window.setIsVisible(true)
+	}
+
+	// Shows the window and starts monitoring for clicks
+	func openWindow() {
+		baseOpenWindow()
+
+		// Grab the window's location
+		let windowLocation = NSPointFromCGPoint(window.frame.origin)
+
+		// Check if the window is in the main screen
+		// If it's not in the correct screen then move it to that screen's position
+		if !NSMouseInRect(windowLocation, NSScreen.main!.frame, false) {
+
+			// Find window's position by using the screen's index
+			guard let screenOrigin = windowScreenPositions[NSScreen.main!.hash] else {
+				// If it doesn't have a screen position then just open it in the center of the screen
+				window.center()
+
+				// Save window's new origin
+				windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+
+				print("No origin point found")
+				return
+			}
+
+			// Assign window to the discorvered origin
+			window.setFrameOrigin(screenOrigin)
+		}
+
 		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
 		window.setIsVisible(true)
 	}
 
 	// Hides the window and stops monitoring for clicks
 	func hideWindow() {
-		monitorMouseDismiss?.stop()
-		monitorKeyPress?.stop()
-		window.setIsVisible(false)
+		baseHideWindow()
+		// Store window's position using the screen's hash where the window is opened
+		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
 	}
 
 	// Simply updates the interface. Just here to avoid code duplication
@@ -91,6 +148,12 @@ class StatusBarController {
 
 	// Hides interface if no finder items are selected. Otherwise update the interface - based on left and right clicks
 	func mousedWindowHandler(event: NSEvent?) {
+
+		// If we're interacting with the application window then don't do anything
+		if event?.window == appDelegate.window {
+			return
+		}
+
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
 
