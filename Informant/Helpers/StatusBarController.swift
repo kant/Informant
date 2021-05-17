@@ -28,7 +28,7 @@ class StatusBarController {
 		statusBar = NSStatusBar.system
 
 		// Creates a status bar item with a fixed length
-		statusItem = statusBar.statusItem(withLength: 28)
+		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
 
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
@@ -96,7 +96,18 @@ class StatusBarController {
 	func statusItemOpenWindow() {
 		baseOpenWindow()
 
-		window.setFrameOrigin(NSPointFromCGPoint(statusItem.button!.frame.origin))
+		// Find status item position by accessing it's button's window!
+		let statusItemFrame = statusItem.button!.window!.frame
+
+		// Shave off half the width of the interface off the x-coordinate
+		let positionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+
+		// Create and set the window to the new coordinates
+		let newAdjustedOrigin = CGPoint(x: positionAdjustedByWindow, y: statusItemFrame.origin.y)
+		window.setFrameOrigin(NSPointFromCGPoint(newAdjustedOrigin))
+
+		// Update the interface
+		updateWindow()
 
 		window.setIsVisible(true)
 	}
