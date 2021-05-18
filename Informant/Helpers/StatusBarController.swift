@@ -100,11 +100,14 @@ class StatusBarController {
 		let statusItemFrame = statusItem.button!.window!.frame
 
 		// Shave off half the width of the interface off the x-coordinate
-		let positionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+
+		// Move the window down a hair so it's not riding directly on the menu bar
+		let yPosition = statusItemFrame.origin.y - 8.0
 
 		// Create and set the window to the new coordinates
-		let newAdjustedOrigin = CGPoint(x: positionAdjustedByWindow, y: statusItemFrame.origin.y)
-		window.setFrameOrigin(NSPointFromCGPoint(newAdjustedOrigin))
+		let newAdjustedOrigin = CGPoint(x: xPositionAdjustedByWindow, y: yPosition)
+		window.setFrameTopLeftPoint(NSPointFromCGPoint(newAdjustedOrigin))
 
 		// Update the interface
 		updateWindow()
