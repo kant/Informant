@@ -33,6 +33,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_: Notification) {
 
+		// Set activation policy
+		let app = NSApplication.shared
+		app.setActivationPolicy(.regular)
+
 		// TODO: Clean up this section - it asks for accessiblity permissions
 		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
 		let accessEnabled = AXIsProcessTrustedWithOptions(options)
@@ -47,20 +51,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// TODO: Clean up these window actions
 		window = NSWindow(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.resizable, .fullSizeContentView, .borderless],
+			styleMask: [.resizable, .fullSizeContentView, .closable],
 			backing: .buffered, defer: false)
 
 		// Centers window in middle of screen on launch
 		window.center()
 
 		// Brings window to the top level
-		window.level = .floating
+		window.level = .mainMenu
 
 		// Other self explained window settings
 		window.titleVisibility = .hidden
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
+
+		window.isReleasedWhenClosed = false
 
 		window.contentViewController = NSHostingController(rootView: contentView)
 		window.makeKeyAndOrderFront(nil)

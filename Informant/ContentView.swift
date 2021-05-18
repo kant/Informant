@@ -19,7 +19,6 @@ struct ContentView: View {
 
 			// This internal VStack gets a padded edge
 			VStack {
-
 				// Figure out which view to present based on the # of items selected
 				if interfaceData?.isNotNil == true {
 

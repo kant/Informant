@@ -17,10 +17,12 @@ class StatusBarController {
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
+	private var monitorIsFinderActive: GlobalEventMonitor?
 
 	// This stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
 
+	// Initialization of all objects
 	init(appDelegate: AppDelegate) {
 
 		self.appDelegate = appDelegate
@@ -53,6 +55,9 @@ class StatusBarController {
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp], handler: mousedWindowHandler)
 		monitorMouseDismiss?.start()
 
+		monitorIsFinderActive = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: mousedIsFinderActive)
+		monitorIsFinderActive?.start()
+
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: keyedWindowHandler)
 		monitorKeyPress?.start()
@@ -62,6 +67,7 @@ class StatusBarController {
 
 	// Toggle the window and perform some functionallity specific to the status bar
 	@objc func toggleWindowToStatusItem() {
+
 		if window.isVisible {
 			baseHideWindow()
 		}
@@ -84,7 +90,7 @@ class StatusBarController {
 	func baseHideWindow() {
 		monitorMouseDismiss?.stop()
 		monitorKeyPress?.stop()
-		window.setIsVisible(false)
+		window.close()
 	}
 
 	func baseOpenWindow() {
@@ -103,16 +109,19 @@ class StatusBarController {
 		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
 
 		// Move the window down a hair so it's not riding directly on the menu bar
-		let yPosition = statusItemFrame.origin.y - 8.0
+		let yPosition = statusItemFrame.origin.y - 6.0
 
 		// Create and set the window to the new coordinates
-		let newAdjustedOrigin = CGPoint(x: xPositionAdjustedByWindow, y: yPosition)
-		window.setFrameTopLeftPoint(NSPointFromCGPoint(newAdjustedOrigin))
+		let newAdjustedOrigin = NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
+		window.setFrameTopLeftPoint(newAdjustedOrigin)
 
 		// Update the interface
 		updateWindow()
 
-		window.setIsVisible(true)
+//		window.setIsVisible(true)
+		window.makeKeyAndOrderFront(self)
+
+//		NSApp.activate(ignoringOtherApps: true)
 	}
 
 	// Shows the window and starts monitoring for clicks
@@ -143,7 +152,9 @@ class StatusBarController {
 		}
 
 		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
-		window.setIsVisible(true)
+//		window.setIsVisible(true)
+//		NSApplication.shared.activate(ignoringOtherApps: true)
+		window.makeKeyAndOrderFront(self)
 	}
 
 	// Hides the window and stops monitoring for clicks
@@ -178,6 +189,12 @@ class StatusBarController {
 
 		// No items are selected, therefore hide the interface
 		else {
+			hideWindow()
+		}
+	}
+
+	func mousedIsFinderActive(event: NSEvent?) {
+		if NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description != "com.apple.finder" {
 			hideWindow()
 		}
 	}
