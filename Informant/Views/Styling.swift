@@ -11,6 +11,7 @@ extension Text {
 	func H1() -> some View {
 		self.font(.system(size: 17))
 			.fontWeight(.regular)
+			.lineLimit(1)
 	}
 
 	func H2() -> some View {

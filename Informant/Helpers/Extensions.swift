@@ -51,6 +51,7 @@ extension String {
 struct VisualEffectView: NSViewRepresentable {
 	let material: NSVisualEffectView.Material
 	let blendingMode: NSVisualEffectView.BlendingMode
+	let emphasized: Bool
 
 	func makeNSView(context: Context) -> NSVisualEffectView {
 		let visualEffectView = NSVisualEffectView()
@@ -58,6 +59,7 @@ struct VisualEffectView: NSViewRepresentable {
 		visualEffectView.material = material
 		visualEffectView.state = NSVisualEffectView.State.active
 		visualEffectView.blendingMode = blendingMode
+		visualEffectView.isEmphasized = emphasized
 
 		return visualEffectView
 	}
@@ -65,5 +67,6 @@ struct VisualEffectView: NSViewRepresentable {
 	func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
 		visualEffectView.material = material
 		visualEffectView.blendingMode = blendingMode
+		visualEffectView.isEmphasized = emphasized
 	}
 }

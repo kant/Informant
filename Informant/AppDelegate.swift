@@ -46,14 +46,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// TODO: Clean up these window actions
 		window = NSWindow(
-			contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-			styleMask: [.resizable, .fullSizeContentView],
+			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
+			styleMask: [.resizable, .fullSizeContentView, .borderless],
 			backing: .buffered, defer: false)
 
+		// Centers window in middle of screen on launch
 		window.center()
 
+		// Brings window to the top level
+		window.level = .floating
+
+		// Other self explained window settings
 		window.titleVisibility = .hidden
-		window.styleMask.remove(.titled)
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
