@@ -32,6 +32,7 @@
 		9ABE17AD26346D2600EE9F48 /* ItemCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17AC26346D2600EE9F48 /* ItemCollection.swift */; };
 		9ABE17BB2634727500EE9F48 /* SingleSelectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17BA2634727500EE9F48 /* SingleSelectItem.swift */; };
 		9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */; };
+		9ACD4E372656F27800604850 /* Rainbow in Frameworks */ = {isa = PBXBuildFile; productRef = 9ACD4E362656F27800604850 /* Rainbow */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
+				9ACD4E372656F27800604850 /* Rainbow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +272,7 @@
 			name = Informant;
 			packageProductDependencies = (
 				9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */,
+				9ACD4E362656F27800604850 /* Rainbow */,
 			);
 			productName = Informant;
 			productReference = 9A43162026265A1F0071227C /* Informant.app */;
@@ -344,6 +347,7 @@
 			mainGroup = 9A43161726265A1F0071227C;
 			packageReferences = (
 				9A64FCA82626814B00CE52E4 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				9ACD4E352656F27800604850 /* XCRemoteSwiftPackageReference "Rainbow" */,
 			);
 			productRefGroup = 9A43162126265A1F0071227C /* Products */;
 			projectDirPath = "";
@@ -754,6 +758,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		9ACD4E352656F27800604850 /* XCRemoteSwiftPackageReference "Rainbow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Rainbow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -761,6 +773,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9A64FCA82626814B00CE52E4 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		9ACD4E362656F27800604850 /* Rainbow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9ACD4E352656F27800604850 /* XCRemoteSwiftPackageReference "Rainbow" */;
+			productName = Rainbow;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: - Extensions
 // Use this file for storing any sort of extensions to classes.
 
-// Provides the number of words of a string as an integer
 extension String {
+	/// Provides the number of words of a string as an integer.
 	var numberOfWords: Int {
 		var count = 0
 		let range = startIndex ..< endIndex
@@ -23,9 +23,8 @@ extension String {
 	}
 }
 
-// Capitalize each word without replacing an already all caps word.
-// So instead of HTML -> Html it goes HTML -> HTML
 extension String {
+	/// Capitalize each word without replacing an already all caps word. So instead of HTML -> Html it goes HTML -> HTML.
 	var capitalizeEachWord: String {
 		// break it into an array by delimiting the sentence using a space
 		let breakupSentence = components(separatedBy: " ")
@@ -47,7 +46,7 @@ extension String {
 	}
 }
 
-// Creates a blurred background effect for the main interface. Allows it to be called in SWiftUI
+/// Creates a blurred background effect for the main interface. Allows it to be called in SWiftUI.
 struct VisualEffectView: NSViewRepresentable {
 	let material: NSVisualEffectView.Material
 	let blendingMode: NSVisualEffectView.BlendingMode
@@ -68,5 +67,12 @@ struct VisualEffectView: NSViewRepresentable {
 		visualEffectView.material = material
 		visualEffectView.blendingMode = blendingMode
 		visualEffectView.isEmphasized = emphasized
+	}
+}
+
+/// Provides the current instance of the app delegate along with all fields present in the class.
+extension AppDelegate {
+	static func current() -> AppDelegate {
+		return NSApp.delegate as! AppDelegate
 	}
 }

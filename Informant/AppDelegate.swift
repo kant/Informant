@@ -11,49 +11,44 @@ import SwiftUI
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 	// This is the actual popover object that is created on app init
-	public var window = NSWindow()
+	public var window: NSPanel!
 
 	// We use this status bar object to make managing the popover a lot easier
-	public var statusBar: StatusBarController?
+	public var statusBarController: StatusBarController?
 
 	// This contians all data needed for the interface
 	public var interfaceData = InterfaceData()
 	public var contentView = ContentView()
 
-	// Update the popover's view
-	public func UpdateInterface(interfaceData: InterfaceData) {
-		// Create the SwiftUI view that provides the window contents.
-		contentView = ContentView(interfaceData: interfaceData)
-
-		// Set the SwiftUI view to the window view
-		window.contentViewController = NSHostingController(rootView: contentView)
-	}
-
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {
+
+		// MARK: - Privacy Init
 
 		// TODO: Clean up this section - it asks for accessiblity permissions
 		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
 		let accessEnabled = AXIsProcessTrustedWithOptions(options)
 
+		// A simple error message if access is not enabled
 		if !accessEnabled {
 			print("Access Not Enabled")
 		}
 
-		// Update the popover on initialization
-		UpdateInterface(interfaceData: interfaceData)
+		// MARK: - Window Init
 
 		// TODO: Clean up these window actions
+		/// This is the main interface used by the application
 		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.resizable, .fullSizeContentView, .closable, .nonactivatingPanel],
+			styleMask: [.resizable, .fullSizeContentView, .nonactivatingPanel],
 			backing: .buffered, defer: false)
 
+		// TODO: This needs to be adjusted so that it's actually in the center
 		// Centers window in middle of screen on launch
 		window.center()
 
-		// Brings window to the top level
+		// Brings window to the top level but not above the menubar
 		window.level = .mainMenu
 
 		// Other self explained window settings
@@ -61,19 +56,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
 
+		// TODO: Deprecate, I don't believe this is necessary
+		// Makes sure that the window can be reopened after being closed
 		window.isReleasedWhenClosed = false
 
+		// Set the view controller
 		window.contentViewController = NSHostingController(rootView: contentView)
-		window.makeKeyAndOrderFront(nil)
-		window.orderFrontRegardless()
+
+		// MARK: - App Init
+
+		// Update the interface on initialization
+		InterfaceHelper.UpdateInterface()
 
 		// Initialize status bar
-		statusBar = StatusBarController(appDelegate: self)
+		statusBarController = StatusBarController()
 
 		// MARK: - Keyboard Shortcuts
-		KeyboardShortcuts.onKeyUp(for: .togglePopover) { [self] in
 
-			InterfaceHelper.ToggleInterface(appDelegate: self)
+		// This shortcut is for activation of the interface
+		KeyboardShortcuts.onKeyUp(for: .togglePopover) {
+			InterfaceHelper.ToggleInterfaceByKey()
 		}
 	}
 

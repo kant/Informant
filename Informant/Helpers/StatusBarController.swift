@@ -5,6 +5,7 @@
 //  Created by Ty Irvine on 2021-04-13.
 //
 
+import Rainbow
 import SwiftUI
 
 // TODO: Clean this file up and possibly split it into some different classes
@@ -17,16 +18,16 @@ class StatusBarController {
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
-	private var monitorIsFinderActive: GlobalEventMonitor?
 
 	// This stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
 
-	// Initialization of all objects
-	init(appDelegate: AppDelegate) {
+	// ------------ Initialization ⤵︎ -------------
 
-		self.appDelegate = appDelegate
-		window = self.appDelegate.window
+	init() {
+		// Initialization of all objects
+		appDelegate = AppDelegate.current()
+		window = appDelegate.window
 		statusBar = NSStatusBar.system
 
 		// Creates a status bar item with a fixed length
@@ -46,8 +47,8 @@ class StatusBarController {
 			// Updates constraint keeping the image in mind
 			statusBarButton.updateConstraints()
 
-			// Action
-			statusBarButton.action = #selector(toggleWindowToStatusItem)
+			// This is the button's action it executes upon activation
+			statusBarButton.action = #selector(toggleInterfaceByClick)
 			statusBarButton.target = self
 		}
 
@@ -55,123 +56,122 @@ class StatusBarController {
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp], handler: mousedWindowHandler)
 		monitorMouseDismiss?.start()
 
-		monitorIsFinderActive = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: mousedIsFinderActive)
-		monitorIsFinderActive?.start()
-
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: keyedWindowHandler)
 		monitorKeyPress?.start()
 	}
 
-	// MARK: - Window Functions
+	// MARK: - Extraneous Methods
 
-	// Toggle the window and perform some functionallity specific to the status bar
-	@objc func toggleWindowToStatusItem() {
-
-		if window.isVisible {
-			baseHideWindow()
-		}
-		else {
-			statusItemOpenWindow()
-		}
+	// Small function used to toggle the interface by click
+	@objc func toggleInterfaceByClick() {
+		InterfaceHelper.ToggleInterfaceByClick()
 	}
 
-	// Simply toggles display of window but does not close the window
-	@objc func toggleWindow() {
+	// MARK: - Window Toggle Functionality
+
+	/// Used to define how the interface is being toggled
+	enum ToggleMethod {
+		case Key
+		case Click
+	}
+
+	// Simply toggles display of window based on toggle method. Only changes visibility
+	func toggleWindow(toggleMethod: ToggleMethod) {
+
+		// Close window if it's visible and end execution
 		if window.isVisible {
 			hideWindow()
+			return
 		}
-		else {
-			openWindow()
+
+		// Perform remaining logic based on toggle method
+		switch toggleMethod {
+
+		case ToggleMethod.Key:
+
+			// Grab the window's location
+			let windowLocation = NSPointFromCGPoint(window.frame.origin)
+
+			// Check if the window is in the main screen
+			// If it's not in the correct screen then move it to that screen's position
+			if !NSMouseInRect(windowLocation, NSScreen.main!.frame, false) {
+
+				// Find window's position by using the screen's index
+				guard let screenOrigin = windowScreenPositions[NSScreen.main!.hash] else {
+					// If it doesn't have a screen position then just open it in the center of the screen
+					window.center()
+
+					// Save window's new origin
+					windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+
+					print("No origin point found!".red)
+					return
+				}
+
+				// Assign window to the discorvered origin
+				window.setFrameOrigin(screenOrigin)
+			}
+
+			break
+
+		case ToggleMethod.Click:
+
+			// Find status item position by accessing it's button's window!
+			let statusItemFrame = statusItem.button!.window!.frame
+
+			// Shave off half the width of the interface off the x-coordinate
+			let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+
+			// Move the window down a hair so it's not riding directly on the menu bar
+			let yPosition = statusItemFrame.origin.y - 6.0
+
+			// Create and set the window to the new coordinates
+			let newAdjustedOrigin = NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
+			window.setFrameTopLeftPoint(newAdjustedOrigin)
+
+			break
 		}
+
+		showWindow()
 	}
 
-	// Behaviour for all window hides and opens
-	func baseHideWindow() {
-		monitorMouseDismiss?.stop()
-		monitorKeyPress?.stop()
-		window.close()
+	// MARK: - Window Functions
+
+	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
+	func hideWindow() {
+		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+		window.setIsVisible(false)
+		monitorsStop()
 	}
 
-	func baseOpenWindow() {
+	/// Shows the window and ensures that application takes focus from any other active application.
+	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
+	func showWindow() {
+		window.becomeKey()
+		updateWindow()
+		monitorsStart()
+		window.setIsVisible(true)
+	}
+
+	/// Simply updates the interface. Just here to avoid code duplication
+	func updateWindow() {
+		InterfaceHelper.DisplayUpdatedInterface()
+	}
+
+	// MARK: - Monitor Control Functions
+
+	func monitorsStart() {
 		monitorMouseDismiss?.start()
 		monitorKeyPress?.start()
 	}
 
-	// A specific opening sequence for the status item
-	func statusItemOpenWindow() {
-		baseOpenWindow()
-
-		// Find status item position by accessing it's button's window!
-		let statusItemFrame = statusItem.button!.window!.frame
-
-		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
-
-		// Move the window down a hair so it's not riding directly on the menu bar
-		let yPosition = statusItemFrame.origin.y - 6.0
-
-		// Create and set the window to the new coordinates
-		let newAdjustedOrigin = NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
-		window.setFrameTopLeftPoint(newAdjustedOrigin)
-
-		// Update the interface
-		updateWindow()
-
-//		window.setIsVisible(true)
-		window.makeKeyAndOrderFront(self)
-//		window.becomeFirstResponder()
-		window.becomeKey()
-//		window.becomeMain()
-//		window.orderFrontRegardless()
+	func monitorsStop() {
+		monitorMouseDismiss?.stop()
+		monitorKeyPress?.stop()
 	}
 
-	// Shows the window and starts monitoring for clicks
-	func openWindow() {
-		baseOpenWindow()
-
-		// Grab the window's location
-		let windowLocation = NSPointFromCGPoint(window.frame.origin)
-
-		// Check if the window is in the main screen
-		// If it's not in the correct screen then move it to that screen's position
-		if !NSMouseInRect(windowLocation, NSScreen.main!.frame, false) {
-
-			// Find window's position by using the screen's index
-			guard let screenOrigin = windowScreenPositions[NSScreen.main!.hash] else {
-				// If it doesn't have a screen position then just open it in the center of the screen
-				window.center()
-
-				// Save window's new origin
-				windowScreenPositions[window.screen!.hashValue] = window.frame.origin
-
-				print("No origin point found")
-				return
-			}
-
-			// Assign window to the discorvered origin
-			window.setFrameOrigin(screenOrigin)
-		}
-
-		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
-//		window.setIsVisible(true)
-//		NSApplication.shared.activate(ignoringOtherApps: true)
-		window.makeKeyAndOrderFront(self)
-	}
-
-	// Hides the window and stops monitoring for clicks
-	func hideWindow() {
-		baseHideWindow()
-		// Store window's position using the screen's hash where the window is opened
-		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
-	}
-
-	// Simply updates the interface. Just here to avoid code duplication
-	func updateWindow() {
-		InterfaceHelper.DisplayUpdatedInterface(appDelegate: appDelegate)
-	}
-
-	// MARK: - Monitor Functions
+	// MARK: - Monitor Handler Functions
 
 	// Hides interface if no finder items are selected. Otherwise update the interface - based on left and right clicks
 	func mousedWindowHandler(event: NSEvent?) {
@@ -180,24 +180,6 @@ class StatusBarController {
 		if event?.window == appDelegate.window {
 			return
 		}
-
-		// Find menubar coordinates
-//		let menubarWidth = NSScreen.main?.frame.width
-//		let menubarHeight = NSStatusBar.system.thickness
-
-		// Hide interface if clicking somewhere on the menubar
-
-//		if event?.window?.frame == NSStatusBar.system.thi
-
-		// Gives us the raw key event data - 1 for keyDown : 2 for keyUp
-//		if event!.type.rawValue == 2 {
-//			let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description
-//			print(bundleID)
-//
-//			if bundleID != "com.apple.finder" {
-//				hideWindow()
-//			}
-//		}
 
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
@@ -213,42 +195,24 @@ class StatusBarController {
 		}
 	}
 
-	func mousedIsFinderActive(event: NSEvent?) {
-
-//		// Grab the bundle ID for the front most app
-//		let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description
-//		print(bundleID!)
-//
-//		// Get finder items
-//		let selectedItems: [String] = AppleScripts.findSelectedFiles()
-//
-//		if bundleID != "com.apple.finder" {
-//			hideWindow()
-//		}
-//
-//		// Items are selected so update the interface
-//		else if selectedItems[0] != "", window.isVisible {
-//			updateWindow()
-//		}
-//
-//		// No items are selected, therefore hide the interface
-//		else {
-//			hideWindow()
-//		}
-	}
-
 	/// Used by the keyedWindowHandler to decide how many updates to the interface to do
 	var keyCounter = 0
 
 	/// Used by the key down monitor, this updates the interface if it's an arrow press and closes it with any other press
 	func keyedWindowHandler(event: NSEvent?) {
 
+		/// If it's a repeating key, update the interface every other key instead
+		/// Once the user lifts the key this function is called again - that key lift doesn't count as a repeating key.
+		/// So that means that this block ⤵︎ is skipped when the user lifts their held keypress meaning that
+		/// the interface will get updated immediately with the selected file.
+
+		/// Finder uses simillar functionallity with it's quicklook
 		if event!.isARepeat {
 
-			// If it's a repeating key update the interface every other key instead
+			// Adds to count and will only update when the threshold below is reached
 			keyCounter += 1
 
-			// A good blend between performance and power consumption
+			// Checks every 10 items. A good blend between performance and power consumption
 			if keyCounter >= 10 {
 				updateWindow()
 				keyCounter = 0

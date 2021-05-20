@@ -28,7 +28,10 @@ class InterfaceHelper {
 	}
 
 	// Display interface with selected items
-	public static func DisplayUpdatedInterface(appDelegate: AppDelegate) {
+	public static func DisplayUpdatedInterface() {
+
+		// Grab current app delegate
+		let appDelegate = AppDelegate.current()
 
 		// Check to make sure a file is selected before executing logic
 		let selectedItems: ItemCollection? = InterfaceHelper.GetFinderSelection()
@@ -39,23 +42,44 @@ class InterfaceHelper {
 			appDelegate.contentView.interfaceData = appDelegate.interfaceData
 
 			// Update popover after hotkey press
-			appDelegate.UpdateInterface(interfaceData: appDelegate.interfaceData)
+			UpdateInterface()
 		}
 	}
 
-	// Runs toggle on window. Typically called by activation shortcut
-	public static func ToggleInterface(appDelegate: AppDelegate) {
+	// Update the popover's view
+	public static func UpdateInterface() {
+
+		// Grab app delegate
+		let appDelegate = AppDelegate.current()
+
+		// Create the SwiftUI view that provides the window contents.
+		appDelegate.contentView = ContentView(interfaceData: appDelegate.interfaceData)
+
+		// Set the SwiftUI view to the window view
+		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)
+	}
+
+	/// Runs toggle on window. Typically called by activation shortcut
+	public static func ToggleInterfaceByKey() {
+
+		// Grab the app delegate
+		let appDelegate = AppDelegate.current()
 
 		// Toggles window closed if it's already active
-		if appDelegate.window.isVisible {
-			appDelegate.statusBar?.toggleWindow()
-			return
-		}
-
-		appDelegate.statusBar?.toggleWindow()
+		appDelegate.statusBarController?.toggleWindow(toggleMethod: .Key)
 
 		// TODO: Make sure finder gets activated on the appropriate screen and not just the first one
 		// Set Finder to be the front most application
 //		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
+	}
+
+	/// Runs toggle on window. This however is used when activating via the Status Item Button
+	public static func ToggleInterfaceByClick() {
+
+		// Grab the current app delegate
+		let appDelegate = AppDelegate.current()
+
+		// Toggles window setting it to the position of the status item button
+		appDelegate.statusBarController?.toggleWindow(toggleMethod: .Click)
 	}
 }
