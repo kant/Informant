@@ -120,8 +120,10 @@ class StatusBarController {
 
 //		window.setIsVisible(true)
 		window.makeKeyAndOrderFront(self)
-
-//		NSApp.activate(ignoringOtherApps: true)
+//		window.becomeFirstResponder()
+		window.becomeKey()
+//		window.becomeMain()
+//		window.orderFrontRegardless()
 	}
 
 	// Shows the window and starts monitoring for clicks
@@ -179,6 +181,24 @@ class StatusBarController {
 			return
 		}
 
+		// Find menubar coordinates
+//		let menubarWidth = NSScreen.main?.frame.width
+//		let menubarHeight = NSStatusBar.system.thickness
+
+		// Hide interface if clicking somewhere on the menubar
+
+//		if event?.window?.frame == NSStatusBar.system.thi
+
+		// Gives us the raw key event data - 1 for keyDown : 2 for keyUp
+//		if event!.type.rawValue == 2 {
+//			let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description
+//			print(bundleID)
+//
+//			if bundleID != "com.apple.finder" {
+//				hideWindow()
+//			}
+//		}
+
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
 
@@ -194,9 +214,27 @@ class StatusBarController {
 	}
 
 	func mousedIsFinderActive(event: NSEvent?) {
-		if NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description != "com.apple.finder" {
-			hideWindow()
-		}
+
+//		// Grab the bundle ID for the front most app
+//		let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier?.description
+//		print(bundleID!)
+//
+//		// Get finder items
+//		let selectedItems: [String] = AppleScripts.findSelectedFiles()
+//
+//		if bundleID != "com.apple.finder" {
+//			hideWindow()
+//		}
+//
+//		// Items are selected so update the interface
+//		else if selectedItems[0] != "", window.isVisible {
+//			updateWindow()
+//		}
+//
+//		// No items are selected, therefore hide the interface
+//		else {
+//			hideWindow()
+//		}
 	}
 
 	/// Used by the keyedWindowHandler to decide how many updates to the interface to do

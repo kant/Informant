@@ -56,6 +56,6 @@ class InterfaceHelper {
 
 		// TODO: Make sure finder gets activated on the appropriate screen and not just the first one
 		// Set Finder to be the front most application
-		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
+//		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
 	}
 }

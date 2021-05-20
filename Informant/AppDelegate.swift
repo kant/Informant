@@ -33,10 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_: Notification) {
 
-		// Set activation policy
-		let app = NSApplication.shared
-		app.setActivationPolicy(.regular)
-
 		// TODO: Clean up this section - it asks for accessiblity permissions
 		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
 		let accessEnabled = AXIsProcessTrustedWithOptions(options)
@@ -49,9 +45,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		UpdateInterface(interfaceData: interfaceData)
 
 		// TODO: Clean up these window actions
-		window = NSWindow(
+		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.resizable, .fullSizeContentView, .closable],
+			styleMask: [.resizable, .fullSizeContentView, .closable, .nonactivatingPanel],
 			backing: .buffered, defer: false)
 
 		// Centers window in middle of screen on launch
@@ -61,7 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.level = .mainMenu
 
 		// Other self explained window settings
-		window.titleVisibility = .hidden
 		window.isOpaque = false
 		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
@@ -70,6 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		window.contentViewController = NSHostingController(rootView: contentView)
 		window.makeKeyAndOrderFront(nil)
+		window.orderFrontRegardless()
 
 		// Initialize status bar
 		statusBar = StatusBarController(appDelegate: self)
