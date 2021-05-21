@@ -18,8 +18,16 @@ class StatusBarController {
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
 
-	// This stores the window's position for each screen
+	/// This stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
+
+	/// This stores the first selected file in the user's selection.
+	///
+	/// We use this to ensure that, when clicking on another menubar app,
+	/// Informant doesn't think that we still want details about the selected item.
+	///
+	/// Allows user to click on another menubar app without the Informant interface getting in the way.
+	private var currentItemSelection: String = ""
 
 	// ------------ Initialization ⤵︎ -------------
 
@@ -52,12 +60,10 @@ class StatusBarController {
 		}
 
 		// Monitors mouse events
-		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp], handler: mousedWindowHandler)
-		monitorMouseDismiss?.start()
+		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mousedWindowHandler)
 
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: keyedWindowHandler)
-		monitorKeyPress?.start()
 	}
 
 	// MARK: - Extraneous Methods
@@ -129,6 +135,7 @@ class StatusBarController {
 	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
 	/// and restores focus to previously active application.
 	func hideWindow() {
+		currentItemSelection = ""
 		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
 		window.setIsVisible(false)
 		monitorsStop()
@@ -144,8 +151,9 @@ class StatusBarController {
 		window.setIsVisible(true)
 	}
 
-	/// Simply updates the interface. Just here to avoid code duplication
+	/// Simply updates the interface. Just here to avoid code duplication. Also update current item selection
 	func updateWindow() {
+		currentItemSelection = AppleScripts.findSelectedFiles()[0]
 		InterfaceHelper.DisplayUpdatedInterface()
 	}
 
@@ -174,8 +182,13 @@ class StatusBarController {
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
 
-		// Items are selected so update the interface
-		if selectedItems[0] != "", window.isVisible {
+		// Check if we're selecting the same file, if so then hide the window
+		if selectedItems[0] == currentItemSelection {
+			hideWindow()
+		}
+
+		// Otherwise, new items are selected so update the interface and store current item selected for next click
+		else if selectedItems[0] != "" && window.isVisible {
 			updateWindow()
 		}
 
