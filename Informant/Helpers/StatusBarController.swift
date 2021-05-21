@@ -62,9 +62,24 @@ class StatusBarController {
 
 	// MARK: - Extraneous Methods
 
-	// Small function used to toggle the interface by click
+	/// Small function used to toggle the interface by click
 	@objc func toggleInterfaceByClick() {
 		InterfaceHelper.ToggleInterfaceByClick()
+	}
+
+	/// Find status item button location
+	func statusItemButtonPosition() -> NSPoint {
+		// Find status item position by accessing it's button's window!
+		let statusItemFrame = statusItem.button!.window!.frame
+
+		// Shave off half the width of the interface off the x-coordinate
+		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+
+		// Move the window down a hair so it's not riding directly on the menu bar
+		let yPosition = statusItemFrame.origin.y - 6.0
+
+		// Create and set the window to the new coordinates
+		return NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
 	}
 
 	// MARK: - Window Toggle Functionality
@@ -88,44 +103,21 @@ class StatusBarController {
 		switch toggleMethod {
 
 		case ToggleMethod.Key:
-
-			// Grab the window's location
-			let windowLocation = NSPointFromCGPoint(window.frame.origin)
-
-			// Check if the window is in the main screen
-			// If it's not in the correct screen then move it to that screen's position
-			if !NSMouseInRect(windowLocation, NSScreen.main!.frame, false) {
-
-				// Find window's position by using the screen's index
-				if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
-					window.setFrameOrigin(screenOrigin)
-				}
-
-				// If it doesn't have a screen position then just open it in the center of the screen and
-				// save new window origin to dictionary
-				else {
-					window.center()
-					windowScreenPositions[window.screen!.hashValue] = window.frame.origin
-				}
+			// Find window's position by using the screen's index
+			if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
+				window.setFrameOrigin(screenOrigin)
 			}
 
+			// If it doesn't have a screen position then just open it by the status item button and
+			// save new window origin to dictionary
+			else {
+				window.setFrameTopLeftPoint(statusItemButtonPosition())
+				windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+			}
 			break
 
 		case ToggleMethod.Click:
-
-			// Find status item position by accessing it's button's window!
-			let statusItemFrame = statusItem.button!.window!.frame
-
-			// Shave off half the width of the interface off the x-coordinate
-			let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
-
-			// Move the window down a hair so it's not riding directly on the menu bar
-			let yPosition = statusItemFrame.origin.y - 6.0
-
-			// Create and set the window to the new coordinates
-			let newAdjustedOrigin = NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
-			window.setFrameTopLeftPoint(newAdjustedOrigin)
-
+			window.setFrameTopLeftPoint(statusItemButtonPosition())
 			break
 		}
 
