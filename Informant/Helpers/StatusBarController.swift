@@ -5,7 +5,6 @@
 //  Created by Ty Irvine on 2021-04-13.
 //
 
-import Rainbow
 import SwiftUI
 
 // TODO: Clean this file up and possibly split it into some different classes
@@ -98,19 +97,16 @@ class StatusBarController {
 			if !NSMouseInRect(windowLocation, NSScreen.main!.frame, false) {
 
 				// Find window's position by using the screen's index
-				guard let screenOrigin = windowScreenPositions[NSScreen.main!.hash] else {
-					// If it doesn't have a screen position then just open it in the center of the screen
-					window.center()
-
-					// Save window's new origin
-					windowScreenPositions[window.screen!.hashValue] = window.frame.origin
-
-					print("No origin point found!".red)
-					return
+				if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
+					window.setFrameOrigin(screenOrigin)
 				}
 
-				// Assign window to the discorvered origin
-				window.setFrameOrigin(screenOrigin)
+				// If it doesn't have a screen position then just open it in the center of the screen and
+				// save new window origin to dictionary
+				else {
+					window.center()
+					windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+				}
 			}
 
 			break
@@ -139,10 +135,12 @@ class StatusBarController {
 	// MARK: - Window Functions
 
 	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
+	/// and restores focus to previously active application.
 	func hideWindow() {
 		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
 		window.setIsVisible(false)
 		monitorsStop()
+		window.resignKey()
 	}
 
 	/// Shows the window and ensures that application takes focus from any other active application.

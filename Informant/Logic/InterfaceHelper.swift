@@ -59,27 +59,30 @@ class InterfaceHelper {
 		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)
 	}
 
-	/// Runs toggle on window. Typically called by activation shortcut
-	public static func ToggleInterfaceByKey() {
+	/// Generic function to run toggle
+	static func ToggleInterface(toggleMethod: StatusBarController.ToggleMethod) {
 
 		// Grab the app delegate
 		let appDelegate = AppDelegate.current()
 
-		// Toggles window closed if it's already active
-		appDelegate.statusBarController?.toggleWindow(toggleMethod: .Key)
+		// Toggle the interface
+		appDelegate.statusBarController?.toggleWindow(toggleMethod: toggleMethod)
 
 		// TODO: Make sure finder gets activated on the appropriate screen and not just the first one
 		// Set Finder to be the front most application
-//		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate()
+		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate(options: .activateIgnoringOtherApps)
+
+		// Take focus off interface to allow user to move Finder cursor
+		appDelegate.window.resignKey()
+	}
+
+	/// Runs toggle on window. Typically called by activation shortcut
+	public static func ToggleInterfaceByKey() {
+		ToggleInterface(toggleMethod: .Key)
 	}
 
 	/// Runs toggle on window. This however is used when activating via the Status Item Button
 	public static func ToggleInterfaceByClick() {
-
-		// Grab the current app delegate
-		let appDelegate = AppDelegate.current()
-
-		// Toggles window setting it to the position of the status item button
-		appDelegate.statusBarController?.toggleWindow(toggleMethod: .Click)
+		ToggleInterface(toggleMethod: .Click)
 	}
 }
