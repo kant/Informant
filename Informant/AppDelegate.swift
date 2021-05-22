@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// TODO: Clean up these window actions
 		/// This is the main interface used by the application
-		window = NSPanel(
+		window = NSPanelModified(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
 			styleMask: [.resizable, .fullSizeContentView, .nonactivatingPanel],
 			backing: .buffered, defer: false)
@@ -77,9 +77,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) {
 			InterfaceHelper.ToggleInterfaceByKey()
 		}
+
+		NotificationCenter.default.addObserver(forName: .init("NSWindowDidResignKeyNotification"), object: nil, queue: nil) { _ in
+			print("This window became unfocused")
+		}
+
+		NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { _ in
+			print("This window became focused")
+		}
 	}
 
 	func applicationWillTerminate(_: Notification) {
 		// Insert code here to tear down your application
+	}
+}
+
+class NSPanelModified: NSPanel {
+	override var canBecomeKey: Bool {
+		return true
 	}
 }

@@ -17,6 +17,7 @@ class StatusBarController {
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
+	private var monitorEscPress: GlobalEventMonitor?
 
 	/// This stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
@@ -60,10 +61,13 @@ class StatusBarController {
 		}
 
 		// Monitors mouse events
-		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mousedWindowHandler)
+		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouse)
 
 		// Monitors key events
-		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: keyedWindowHandler)
+		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
+
+		// Monitors esc key events
+		monitorEscPress = GlobalEventMonitor(mask: .keyDown, handler: windowHandlerEscKeys)
 	}
 
 	// MARK: - Extraneous Methods
@@ -135,20 +139,19 @@ class StatusBarController {
 	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
 	/// and restores focus to previously active application.
 	func hideWindow() {
-		currentItemSelection = ""
 		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
 		window.setIsVisible(false)
-		monitorsStop()
 		window.resignKey()
+		monitorsStop()
 	}
 
 	/// Shows the window and ensures that application takes focus from any other active application.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
-		window.becomeKey()
 		updateWindow()
-		monitorsStart()
+		window.becomeKey()
 		window.setIsVisible(true)
+		monitorsStart()
 	}
 
 	/// Simply updates the interface. Just here to avoid code duplication. Also update current item selection
@@ -162,17 +165,19 @@ class StatusBarController {
 	func monitorsStart() {
 		monitorMouseDismiss?.start()
 		monitorKeyPress?.start()
+		monitorEscPress?.start()
 	}
 
 	func monitorsStop() {
 		monitorMouseDismiss?.stop()
 		monitorKeyPress?.stop()
+		monitorEscPress?.stop()
 	}
 
 	// MARK: - Monitor Handler Functions
 
 	// Hides interface if no finder items are selected. Otherwise update the interface - based on left and right clicks
-	func mousedWindowHandler(event: NSEvent?) {
+	func windowHandlerMouse(event: NSEvent?) {
 
 		// If we're interacting with the application window then don't do anything
 		if event?.window == appDelegate.window {
@@ -182,13 +187,8 @@ class StatusBarController {
 		// Get finder items
 		let selectedItems: [String] = AppleScripts.findSelectedFiles()
 
-		// Check if we're selecting the same file, if so then hide the window
-		if selectedItems[0] == currentItemSelection {
-			hideWindow()
-		}
-
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		else if selectedItems[0] != "" && window.isVisible {
+		if selectedItems[0] != "" && window.isVisible {
 			updateWindow()
 		}
 
@@ -201,8 +201,8 @@ class StatusBarController {
 	/// Used by the keyedWindowHandler to decide how many updates to the interface to do
 	var keyCounter = 0
 
-	/// Used by the key down monitor, this updates the interface if it's an arrow press and closes it with any other press
-	func keyedWindowHandler(event: NSEvent?) {
+	/// Used by the key down & up monitor, this updates the interface if it's an arrow press and closes it with any other press
+	func windowHandlerArrowKeys(event: NSEvent?) {
 
 		/// If it's a repeating key, update the interface every other key instead
 		/// Once the user lifts the key this function is called again - that key lift doesn't count as a repeating key.
@@ -234,13 +234,25 @@ class StatusBarController {
 			updateWindow()
 			break
 
-		// If it's an escape key hide the window, and otherwise do nothing
-		case 53:
-			hideWindow()
-			break
-
 		default:
 			break
+		}
+	}
+
+	/// Used by a key down monitor to look for escape key presses
+	func windowHandlerEscKeys(event: NSEvent?) {
+
+		// Escape handler if it's a repeat
+		if event!.isARepeat {
+			return
+		}
+
+		// Grab key code
+		let key = event!.keyCode
+
+		// Check for esc key press
+		if key == 53 {
+			hideWindow()
 		}
 	}
 }
