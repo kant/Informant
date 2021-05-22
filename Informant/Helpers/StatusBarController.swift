@@ -122,7 +122,7 @@ class StatusBarController {
 			// save new window origin to dictionary
 			else {
 				window.setFrameTopLeftPoint(statusItemButtonPosition())
-				windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+				windowScreenPositions[window.screen.hashValue] = window.frame.origin
 			}
 			break
 
@@ -139,17 +139,18 @@ class StatusBarController {
 	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
 	/// and restores focus to previously active application.
 	func hideWindow() {
-		windowScreenPositions[window.screen!.hashValue] = window.frame.origin
+		windowScreenPositions[window.screen.hashValue] = window.frame.origin
 		window.setIsVisible(false)
 		window.resignKey()
 		monitorsStop()
 	}
 
 	/// Shows the window and ensures that application takes focus from any other active application.
+	/// Then takes focus off interface to allow user to move cursor.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
 		updateWindow()
-		window.becomeKey()
+		window.makeKey()
 		window.setIsVisible(true)
 		monitorsStart()
 	}

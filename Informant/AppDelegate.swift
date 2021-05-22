@@ -39,9 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// TODO: Clean up these window actions
 		/// This is the main interface used by the application
-		window = NSPanelModified(
+		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.resizable, .fullSizeContentView, .nonactivatingPanel],
+			styleMask: [.resizable, .fullSizeContentView, .nonactivatingPanel, .borderless],
 			backing: .buffered, defer: false)
 
 		// TODO: This needs to be adjusted so that it's actually in the center
@@ -49,7 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.center()
 
 		// Brings window to the top level but not above the menubar
-		window.level = .mainMenu
+		window.level = .floating
+
+		// Nice smooth exit
+		window.animationBehavior = .utilityWindow
 
 		// Other self explained window settings
 		window.isOpaque = false
@@ -78,22 +81,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			InterfaceHelper.ToggleInterfaceByKey()
 		}
 
-		NotificationCenter.default.addObserver(forName: .init("NSWindowDidResignKeyNotification"), object: nil, queue: nil) { _ in
-			print("This window became unfocused")
-		}
+		// MARK: - Notifications
 
-		NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { _ in
-			print("This window became focused")
-		}
+		/**
+
+		 NotificationCenter.default.addObserver(forName: .init("NSWindowDidResignKeyNotification"), object: nil, queue: nil) { _ in
+		 	print("This window became unfocused")
+		 }
+
+		 NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { _ in
+		 	print("This window became focused")
+		 }
+
+		 */
 	}
 
 	func applicationWillTerminate(_: Notification) {
 		// Insert code here to tear down your application
-	}
-}
-
-class NSPanelModified: NSPanel {
-	override var canBecomeKey: Bool {
-		return true
 	}
 }

@@ -68,10 +68,6 @@ class InterfaceHelper {
 		// Toggle the interface
 		appDelegate.statusBarController?.toggleWindow(toggleMethod: toggleMethod)
 
-		// TODO: Make sure finder gets activated on the appropriate screen and not just the first one
-		// Set Finder to be the front most application
-		NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")[0].activate(options: .activateIgnoringOtherApps)
-
 		// Take focus off interface to allow user to move Finder cursor
 		appDelegate.window.resignKey()
 	}
