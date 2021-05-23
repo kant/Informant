@@ -32,7 +32,7 @@ struct ContentView: View {
 		.padding(15)
 
 		// This is the frosted glass effect in action
-		.background(VisualEffectView(material: .popover, blendingMode: .behindWindow, emphasized: false))
+		.background(VisualEffectView(material: .popover, blendingMode: .behindWindow, emphasized: true))
 
 		// Corner radius setup, DO NOT change the order
 		.cornerRadius(10, antialiased: true)

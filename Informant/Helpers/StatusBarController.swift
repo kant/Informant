@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-// TODO: Clean this file up and possibly split it into some different classes
 class StatusBarController {
+
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
 	private var window: NSWindow!
@@ -17,18 +17,19 @@ class StatusBarController {
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
-	private var monitorEscPress: GlobalEventMonitor?
 
 	/// This stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
 
-	/// This stores the first selected file in the user's selection.
-	///
-	/// We use this to ensure that, when clicking on another menubar app,
-	/// Informant doesn't think that we still want details about the selected item.
-	///
-	/// Allows user to click on another menubar app without the Informant interface getting in the way.
-	private var currentItemSelection: String = ""
+	/// States for hiding the interface
+	enum InterfaceHiding {
+		case Open
+		case ReadyToHide
+		case Hidden
+	}
+
+	/// State object that tells us if the interface is ready to be hidden or not
+	var interfaceHidingState: InterfaceHiding = .Open
 
 	// ------------ Initialization ⤵︎ -------------
 
@@ -65,9 +66,6 @@ class StatusBarController {
 
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
-
-		// Monitors esc key events
-		monitorEscPress = GlobalEventMonitor(mask: .keyDown, handler: windowHandlerEscKeys)
 	}
 
 	// MARK: - Extraneous Methods
@@ -90,6 +88,18 @@ class StatusBarController {
 
 		// Create and set the window to the new coordinates
 		return NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
+	}
+
+	/// Helper function to let us know what type of event the provided one is
+	func eventTypeCheck(_ event: NSEvent?, types: [NSEvent.EventType]) -> Bool {
+		for type in types {
+			if event?.type == type {
+				return true
+			}
+		}
+
+		// All checks down with no positives found
+		return false
 	}
 
 	// MARK: - Window Toggle Functionality
@@ -141,8 +151,8 @@ class StatusBarController {
 	func hideWindow() {
 		windowScreenPositions[window.screen.hashValue] = window.frame.origin
 		window.setIsVisible(false)
-		window.resignKey()
 		monitorsStop()
+		interfaceHidingState = .Hidden
 	}
 
 	/// Shows the window and ensures that application takes focus from any other active application.
@@ -150,14 +160,12 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
 		updateWindow()
-		window.makeKey()
 		window.setIsVisible(true)
 		monitorsStart()
 	}
 
 	/// Simply updates the interface. Just here to avoid code duplication. Also update current item selection
 	func updateWindow() {
-		currentItemSelection = AppleScripts.findSelectedFiles()[0]
 		InterfaceHelper.DisplayUpdatedInterface()
 	}
 
@@ -166,13 +174,11 @@ class StatusBarController {
 	func monitorsStart() {
 		monitorMouseDismiss?.start()
 		monitorKeyPress?.start()
-		monitorEscPress?.start()
 	}
 
 	func monitorsStop() {
 		monitorMouseDismiss?.stop()
 		monitorKeyPress?.stop()
-		monitorEscPress?.stop()
 	}
 
 	// MARK: - Monitor Handler Functions
@@ -193,9 +199,21 @@ class StatusBarController {
 			updateWindow()
 		}
 
-		// No items are selected, therefore hide the interface
-		else {
-			hideWindow()
+		// No items are selected, therefore prep to hide the interface
+		else if eventTypeCheck(event, types: [.leftMouseDown, .rightMouseDown]) {
+			switch interfaceHidingState {
+			case .Open:
+				interfaceHidingState = .ReadyToHide
+				updateWindow()
+				break
+
+			case .ReadyToHide:
+				hideWindow()
+				break
+
+			case .Hidden:
+				break
+			}
 		}
 	}
 
@@ -235,25 +253,15 @@ class StatusBarController {
 			updateWindow()
 			break
 
+		// If esc key press is detected on down press then hide the interface
+		case 53:
+			if event?.type == NSEvent.EventType.keyDown {
+				hideWindow()
+			}
+			break
+
 		default:
 			break
-		}
-	}
-
-	/// Used by a key down monitor to look for escape key presses
-	func windowHandlerEscKeys(event: NSEvent?) {
-
-		// Escape handler if it's a repeat
-		if event!.isARepeat {
-			return
-		}
-
-		// Grab key code
-		let key = event!.keyCode
-
-		// Check for esc key press
-		if key == 53 {
-			hideWindow()
 		}
 	}
 }

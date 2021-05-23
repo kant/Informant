@@ -76,10 +76,3 @@ extension AppDelegate {
 		return NSApp.delegate as! AppDelegate
 	}
 }
-
-/// Allowed NSPanel to be focusable
-extension NSPanel {
-	override open var canBecomeKey: Bool {
-		return true
-	}
-}
