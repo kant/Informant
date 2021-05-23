@@ -11,13 +11,9 @@ struct PopoverSingleFile: View {
 
 	var file: SelectItem
 
-//	init() {
-//		file = interfaceData!.fileCollection!.files[0]
-//	}
-
 	var body: some View {
 
-		ComponentsPanelFull {
+		ComponentsPanelFrame {
 
 			ComponentsPanelHeader(
 				headerIcon: file.fileTypeIcon!,
@@ -30,15 +26,15 @@ struct PopoverSingleFile: View {
 			VStack(alignment: .leading, spacing: 20) {
 				// Kind - Size
 				HStack {
-					ComponentsPanelItemAttribute(label: "Kind", value: String(file.fileKind!))
-					ComponentsPanelItemAttribute(label: "Size", value: String(file.fileSizeAsString!))
+					ComponentsPanelItemField(label: "Kind", value: String(file.fileKind!))
+					ComponentsPanelItemField(label: "Size", value: String(file.fileSizeAsString!))
 				}
 
 				// Created
-				ComponentsPanelItemAttribute(label: "Created", value: file.fileDateCreatedAsString!)
+				ComponentsPanelItemField(label: "Created", value: file.fileDateCreatedAsString!)
 
 				// Path
-				ComponentsPanelItemAttribute(label: "Path", value: file.filePath!)
+				ComponentsPanelItemField(label: "Path", value: file.filePath!)
 			}
 		}
 	}

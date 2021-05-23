@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct PopoverNoFile: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
-struct PopoverNoFile_Previews: PreviewProvider {
-    static var previews: some View {
-        PopoverNoFile()
-    }
+	let noItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
+
+	var body: some View {
+		ComponentsPanelFrame {
+			Text(noItemsSelected)
+				.H1()
+				.opacity(0.5)
+
+				// Keeps text centered in the middle with some healthy padding
+				.padding(.bottom, 5)
+				.padding(.top, 27)
+		}
+	}
 }

@@ -23,7 +23,10 @@ struct ContentView: View {
 				PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
 			}
 
-			// No items selected
+			// Otherwise if no items are selected
+			else {
+				PopoverNoFile()
+			}
 
 			// Bottom buttons
 			HStack(spacing: 0) {
@@ -52,7 +55,7 @@ struct ContentView: View {
 		.background(VisualEffectView(material: .popover, blendingMode: .behindWindow, emphasized: true))
 
 		// Corner radius setup, DO NOT change the order
-		.cornerRadius(14, antialiased: true)
+		.cornerRadius(15, antialiased: true)
 		.fixedSize()
 	}
 }

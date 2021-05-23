@@ -7,35 +7,9 @@
 
 import SwiftUI
 
-// MARK: - Panel Fonts
+// MARK: - Panel Frame
 
-struct ComponentsPanelHeader: View {
-
-	var headerIcon: NSImage
-	var headerTitle: String
-	var headerSubtitle: String
-
-	var body: some View {
-		HStack {
-			// Icon
-			Image(nsImage: headerIcon).resizable().frame(width: 42, height: 42)
-
-			VStack(alignment: .leading) {
-				// Title
-				Text(headerTitle).H1().lineLimit(1)
-
-				// Subtitle
-				Text(headerSubtitle).H2()
-			}
-
-			Spacer()
-		}
-	}
-}
-
-// MARK: - Panel Big Blocks
-
-struct ComponentsPanelFull<Content>: View where Content: View {
+struct ComponentsPanelFrame<Content>: View where Content: View {
 
 	var content: Content
 
@@ -54,7 +28,33 @@ struct ComponentsPanelFull<Content>: View where Content: View {
 	}
 }
 
-struct ComponentsPanelItemAttribute: View {
+// MARK: - Panel Blocks
+
+struct ComponentsPanelHeader: View {
+
+	var headerIcon: NSImage
+	var headerTitle: String
+	var headerSubtitle: String
+
+	var body: some View {
+		HStack {
+			// Icon
+			Image(nsImage: headerIcon).resizable().frame(width: 42, height: 42)
+
+			VStack(alignment: .leading) {
+				// Title
+				Text(headerTitle).H1().lineLimit(1)
+
+				// Subtitle
+				Text(headerSubtitle).H4()
+			}
+
+			Spacer()
+		}
+	}
+}
+
+struct ComponentsPanelItemField: View {
 
 	var label: String
 	var value: String
@@ -62,7 +62,7 @@ struct ComponentsPanelItemAttribute: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			// Label
-			Text(label).H2()
+			Text(label).H4()
 
 			// Value
 			Text(value).H1()
@@ -77,6 +77,7 @@ struct ComponentsPanelIconButton: View {
 	var iconName: String
 	/// Default size is 15.0
 	var size: CGFloat = 15
+	var help: String = "hello"
 	var action: () -> Void
 
 	var body: some View {
@@ -86,7 +87,7 @@ struct ComponentsPanelIconButton: View {
 			Image(iconName)
 				.resizable()
 				.frame(width: size, height: size)
-				.padding(4)
+				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
 	}
