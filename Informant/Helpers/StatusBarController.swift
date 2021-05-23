@@ -155,8 +155,7 @@ class StatusBarController {
 		interfaceHidingState = .Hidden
 	}
 
-	/// Shows the window and ensures that application takes focus from any other active application.
-	/// Then takes focus off interface to allow user to move cursor.
+	/// Shows the window and updates the interface.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
 		updateWindow()
@@ -164,9 +163,21 @@ class StatusBarController {
 		monitorsStart()
 	}
 
-	/// Simply updates the interface. Just here to avoid code duplication. Also update current item selection
+	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
+	/// As well, makes sure that hiding state is set properly.
 	func updateWindow() {
 		InterfaceHelper.DisplayUpdatedInterface()
+
+		// Check for null interface data and set hiding state accordingly.
+		// When interface data is present -> .Open
+		if appDelegate.interfaceData.isNotNil {
+			appDelegate.statusBarController?.interfaceHidingState = .Open
+		}
+
+		// When no interface data is present -> .ReadyToHide
+		else {
+			appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
+		}
 	}
 
 	// MARK: - Monitor Control Functions

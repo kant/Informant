@@ -57,17 +57,6 @@ class InterfaceHelper {
 
 		// Set the SwiftUI view to the window view
 		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)
-
-		// Check for null interface data and set hiding state accordingly.
-		// When interface data is present -> .Open
-		if appDelegate.interfaceData.isNotNil {
-			appDelegate.statusBarController?.interfaceHidingState = .Open
-		}
-
-		// When no interface data is present -> .ReadyToHide
-		else {
-			appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
-		}
 	}
 
 	/// Generic function to run toggle
