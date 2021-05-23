@@ -16,9 +16,10 @@ struct PopoverSingleFile: View {
 //	}
 
 	var body: some View {
-		VStack(alignment: .leading) {
 
-			ComponentsPopoverHeader(
+		ComponentsPanelFull {
+
+			ComponentsPanelHeader(
 				headerIcon: file.fileTypeIcon!,
 				headerTitle: file.fileName!,
 				headerSubtitle: file.fileDateModifiedAsString!
@@ -29,15 +30,15 @@ struct PopoverSingleFile: View {
 			VStack(alignment: .leading, spacing: 20) {
 				// Kind - Size
 				HStack {
-					ComponentsPopoverFileAttribute(label: "Kind", value: String(file.fileKind!))
-					ComponentsPopoverFileAttribute(label: "Size", value: String(file.fileSizeAsString!))
+					ComponentsPanelItemAttribute(label: "Kind", value: String(file.fileKind!))
+					ComponentsPanelItemAttribute(label: "Size", value: String(file.fileSizeAsString!))
 				}
 
 				// Created
-				ComponentsPopoverFileAttribute(label: "Created", value: file.fileDateCreatedAsString!)
+				ComponentsPanelItemAttribute(label: "Created", value: file.fileDateCreatedAsString!)
 
 				// Path
-				ComponentsPopoverFileAttribute(label: "Path", value: file.filePath!)
+				ComponentsPanelItemAttribute(label: "Path", value: file.filePath!)
 			}
 		}
 	}

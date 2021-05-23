@@ -81,20 +81,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		KeyboardShortcuts.onKeyUp(for: .togglePopover) {
 			InterfaceHelper.ToggleInterfaceByKey()
 		}
-
-		// MARK: - Notifications
-
-		/**
-
-		 NotificationCenter.default.addObserver(forName: .init("NSWindowDidResignKeyNotification"), object: nil, queue: nil) { _ in
-		 	print("This window became unfocused")
-		 }
-
-		 NotificationCenter.default.addObserver(forName: .init("NSWindowDidBecomeKeyNotification"), object: nil, queue: nil) { _ in
-		 	print("This window became focused")
-		 }
-
-		 */
 	}
 
 	func applicationWillTerminate(_: Notification) {

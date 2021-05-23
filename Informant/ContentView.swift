@@ -15,27 +15,44 @@ struct ContentView: View {
 
 	var body: some View {
 
-		VStack {
+		VStack(spacing: 8) {
 			// Figure out which view to present based on the # of items selected
 			if interfaceData?.isNotNil == true {
 
-				// One item selected
+				// One items selected
 				PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
 			}
 
-			// TODO: Get rid of this
-			// Temporary, get rid of it lol
-			Preferences()
+			// No items selected
+
+			// Bottom buttons
+			HStack(spacing: 0) {
+
+				// Ensures buttons align to the right
+				Spacer()
+
+				// Close Button
+				ComponentsPanelIconButton(iconName: "xmark.circle", size: 14) {
+					print("Close button")
+				}
+
+				// Gear button
+				ComponentsPanelIconButton(iconName: "gear") {
+					print("Gear button")
+				}
+			}
 		}
 		// Adding the frame here makes sure it resizes properly
-		.frame(width: 250)
-		.padding(15)
+		.frame(width: 265)
+
+		// A Little padding for the panel buttons
+		.padding(6)
 
 		// This is the frosted glass effect in action
 		.background(VisualEffectView(material: .popover, blendingMode: .behindWindow, emphasized: true))
 
 		// Corner radius setup, DO NOT change the order
-		.cornerRadius(10, antialiased: true)
+		.cornerRadius(14, antialiased: true)
 		.fixedSize()
 	}
 }
