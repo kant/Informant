@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Brings window to the top level but not above the menubar
 		window.level = .floating
+		window.becomesKeyOnlyIfNeeded = true
 
 		// Nice smooth exit
 		window.animationBehavior = .utilityWindow
