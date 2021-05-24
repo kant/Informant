@@ -45,7 +45,7 @@ class StatusBarController {
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
 			// Status bar icon image
-			statusBarButton.image = NSImage(named: "MenubarIcon")
+			statusBarButton.image = NSImage(named: ContentManager.iconMenuBar)
 
 			// Status bar icon image size
 			statusBarButton.image?.size = NSSize(width: 18, height: 18)
