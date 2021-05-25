@@ -52,10 +52,10 @@ class InterfaceHelper {
 		// Grab app delegate
 		let appDelegate = AppDelegate.current()
 
-		// Create the SwiftUI view that provides the window contents.
-		appDelegate.contentView = ContentView(interfaceData: appDelegate.interfaceData)
+		// Create the SwiftUI view that provides the panel contents.
+		appDelegate.contentView = ContentView(appDelegate)
 
-		// Set the SwiftUI view to the window view
+		// Set the SwiftUI view to the panel view
 		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)
 	}
 
@@ -69,12 +69,12 @@ class InterfaceHelper {
 		appDelegate.statusBarController?.toggleWindow(toggleMethod: toggleMethod)
 	}
 
-	/// Runs toggle on window. Typically called by activation shortcut
+	/// Runs toggle on panel. Typically called by activation shortcut
 	public static func ToggleInterfaceByKey() {
 		ToggleInterface(toggleMethod: .Key)
 	}
 
-	/// Runs toggle on window. This however is used when activating via the Status Item Button
+	/// Runs toggle on panel. This however is used when activating via the Status Item Button
 	public static func ToggleInterfaceByClick() {
 		ToggleInterface(toggleMethod: .Click)
 	}

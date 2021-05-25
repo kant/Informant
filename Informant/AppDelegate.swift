@@ -10,19 +10,32 @@ import SwiftUI
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-	// This is the actual popover object that is created on app init
+
+	/// This is the panel interface
 	public var window: NSPanel!
 
-	// We use this status bar object to make managing the popover a lot easier
+	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
-	// This contians all data needed for the interface
+	/// Controls the interface panel menu
+	public var interfaceMenuController: InterfaceMenuController?
+
+	/// This is the menu on the interface panel accessed by the gear icon
+	public var interfaceMenu: NSMenu!
+
+	/// This contians all data needed for the interface.
 	public var interfaceData = InterfaceData()
-	public var contentView = ContentView()
+
+	/// The view for the interface.
+	public var contentView: ContentView!
 
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {
+
+		// MARK: - Content View Init
+
+		contentView = ContentView(self)
 
 		// MARK: - Privacy Init
 
@@ -32,12 +45,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// A simple error message if access is not enabled
 		if !accessEnabled {
-			print("Access Not Enabled")
+			print(ContentManager.Messages.setupAccessibilityNotEnabled)
 		}
+
+		// MARK: - Menu Init
+
+		interfaceMenu = NSMenu()
+
+		// Initializes the menu for the panel interface
+		interfaceMenuController = InterfaceMenuController()
 
 		// MARK: - Window Init
 
-		// TODO: Clean up these window actions
 		/// This is the main interface used by the application
 		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),

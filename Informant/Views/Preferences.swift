@@ -11,14 +11,8 @@ import SwiftUI
 struct Preferences: View {
 	var body: some View {
 		HStack {
-			Text("Set a shortcut to find info")
+			Text(ContentManager.Labels.preferencesShortcutsDisplayDetailPanel)
 			KeyboardShortcuts.Recorder(for: .togglePopover)
 		}
-	}
-}
-
-struct Preferences_Previews: PreviewProvider {
-	static var previews: some View {
-		Preferences()
 	}
 }

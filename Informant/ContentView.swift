@@ -10,8 +10,17 @@ import SwiftUI
 // Currently this is what gets displayed in the popover
 struct ContentView: View {
 
-	// This contians all information to be displayed on the interface
+	/// This contains the app delegate, which can is used for all functionality
+	var appDelegate: AppDelegate
+
+	/// This contians all information to be displayed on the interface
 	var interfaceData: InterfaceData?
+
+	// Initialize app delegate object
+	init(_ appDelegate: AppDelegate) {
+		self.appDelegate = appDelegate
+		self.interfaceData = self.appDelegate.interfaceData
+	}
 
 	var body: some View {
 
@@ -34,14 +43,15 @@ struct ContentView: View {
 				// Ensures buttons align to the right
 				Spacer()
 
-				// Close Button
-				ComponentsPanelIconButton(iconName: "xmark.circle", size: 14) {
-					print("Close button")
-				}
+				// TODO: Consider removing
+//				// Close Button
+//				ComponentsPanelIconButton(iconName: ContentManager.Icons.panelCloseButton, size: 14) {
+//					appDelegate.statusBarController?.hideWindow()
+//				}
 
-				// Gear button
-				ComponentsPanelIconButton(iconName: "gear") {
-					print("Gear button")
+				// More button
+				ComponentsPanelIconButton(iconName: ContentManager.Icons.panelPreferencesButton) {
+					appDelegate.interfaceMenuController?.openMenu()
 				}
 			}
 		}

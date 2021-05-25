@@ -45,7 +45,7 @@ class StatusBarController {
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
 			// Status bar icon image
-			statusBarButton.image = NSImage(named: ContentManager.iconMenuBar)
+			statusBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
 
 			// Status bar icon image size
 			statusBarButton.image?.size = NSSize(width: 18, height: 18)
@@ -83,10 +83,10 @@ class StatusBarController {
 		// Shave off half the width of the interface off the x-coordinate
 		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
 
-		// Move the window down a hair so it's not riding directly on the menu bar
+		// Move the panel down a hair so it's not riding directly on the menu bar
 		let yPosition = statusItemFrame.origin.y - 6.0
 
-		// Create and set the window to the new coordinates
+		// Create and set the panel to the new coordinates
 		return NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
 	}
 
@@ -110,10 +110,10 @@ class StatusBarController {
 		case Click
 	}
 
-	// Simply toggles display of window based on toggle method. Only changes visibility
+	// Simply toggles display of panel based on toggle method. Only changes visibility
 	func toggleWindow(toggleMethod: ToggleMethod) {
 
-		// Close window if it's visible and end execution
+		// Close panel if it's visible and end execution
 		if window.isVisible {
 			hideWindow()
 			return
@@ -123,13 +123,13 @@ class StatusBarController {
 		switch toggleMethod {
 
 		case ToggleMethod.Key:
-			// Find window's position by using the screen's index
+			// Find panel's position by using the screen's index
 			if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
 				window.setFrameOrigin(screenOrigin)
 			}
 
 			// If it doesn't have a screen position then just open it by the status item button and
-			// save new window origin to dictionary
+			// save new panel origin to dictionary
 			else {
 				window.setFrameTopLeftPoint(statusItemButtonPosition())
 				windowScreenPositions[window.screen.hashValue] = window.frame.origin
@@ -146,7 +146,7 @@ class StatusBarController {
 
 	// MARK: - Window Functions
 
-	/// Hides the window, stops monitoring for clicks and stores window's position using the screen's hash where the window is opened
+	/// Hides the panel, stops monitoring for clicks and stores panel's position using the screen's hash where the panel is opened
 	/// and restores focus to previously active application.
 	func hideWindow() {
 		windowScreenPositions[window.screen.hashValue] = window.frame.origin
@@ -155,7 +155,7 @@ class StatusBarController {
 		interfaceHidingState = .Hidden
 	}
 
-	/// Shows the window and updates the interface.
+	/// Shows the panel and updates the interface.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
 		updateWindow()
@@ -197,7 +197,7 @@ class StatusBarController {
 	// Hides interface if no finder items are selected. Otherwise update the interface - based on left and right clicks
 	func windowHandlerMouse(event: NSEvent?) {
 
-		// If we're interacting with the application window then don't do anything
+		// If we're interacting with the application panel then don't do anything
 		if event?.window == appDelegate.window {
 			return
 		}

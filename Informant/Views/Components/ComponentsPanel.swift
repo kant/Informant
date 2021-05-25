@@ -74,10 +74,13 @@ struct ComponentsPanelItemField: View {
 
 struct ComponentsPanelIconButton: View {
 
+	/// The name of the icon in Assets.xcassets
 	var iconName: String
-	/// Default size is 15.0
-	var size: CGFloat = 15
-	var help: String = "hello"
+
+	/// Default size is 16.0
+	var size: CGFloat = 16
+
+	/// Logic for button to execute
 	var action: () -> Void
 
 	var body: some View {

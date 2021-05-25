@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct PopoverNoFile: View {
-
-	let noItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
-
 	var body: some View {
 		ComponentsPanelFrame {
-			Text(noItemsSelected)
+			Text(ContentManager.Labels.panelNoItemsSelected)
 				.H1()
 				.opacity(0.5)
 
