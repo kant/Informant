@@ -25,12 +25,19 @@ struct ContentView: View {
 	var body: some View {
 
 		VStack(spacing: 7) {
-			
+
 			// Figure out which view to present based on the # of items selected
 			if interfaceData?.isNotNil == true {
 
 				// One items selected
-				PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
+				if interfaceData!.fileCollection!.files.count <= 1 {
+					PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
+				}
+
+				// More than one item selected
+				else if interfaceData!.fileCollection!.files.count >= 2 {
+					PopoverMultiFile()
+				}
 			}
 
 			// Otherwise if no items are selected

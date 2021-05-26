@@ -18,6 +18,7 @@ class AppleScripts {
 		// Find selected items as a list with line breaks
 		var errorInformation: NSDictionary?
 
+		/// Apple script that tells Finder to give us the file paths
 		let script = NSAppleScript(source: """
 			set pathArray to {}
 			tell application "Finder"
@@ -44,6 +45,8 @@ class AppleScripts {
 		guard let selectedItems = scriptExecuted.stringValue else {
 			return [""]
 		}
+
+		// Replaces all colons to turn it into a POSIX path
 		let selectedItemsParsed = selectedItems.replacingOccurrences(of: ":", with: "/")
 
 		// Convert list with line breaks to string array

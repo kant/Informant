@@ -23,7 +23,7 @@ class ItemCollection: ObservableObject {
 	// Use a singleselectitem if only one item is selected and a multiselectitem if multiple items are selected
 	init(collectionType: CollectionType, filePaths: [String]) {
 		self.collectionType = collectionType
-
+		
 		for path in filePaths {
 			files.append(SingleSelectItem(url: path))
 		}

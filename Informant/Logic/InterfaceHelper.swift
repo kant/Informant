@@ -24,6 +24,11 @@ class InterfaceHelper {
 			return ItemCollection(collectionType: .Single, filePaths: selectedFiles)
 		}
 
+		// Block executed if more than one file is selected
+		else if selectedFiles.count >= 2 {
+			return ItemCollection(collectionType: .Multi, filePaths: selectedFiles)
+		}
+
 		return nil
 	}
 
