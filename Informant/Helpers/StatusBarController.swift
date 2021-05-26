@@ -149,10 +149,26 @@ class StatusBarController {
 	/// Hides the panel, stops monitoring for clicks and stores panel's position using the screen's hash where the panel is opened
 	/// and restores focus to previously active application.
 	func hideWindow() {
-		windowScreenPositions[window.screen.hashValue] = window.frame.origin
-		window.setIsVisible(false)
-		monitorsStop()
-		interfaceHidingState = .Hidden
+
+		/// This runs all logic involved to hide the panel, including resetting the alpha value back to 1
+		func hideWindowLogic() {
+			windowScreenPositions[window.screen.hashValue] = window.frame.origin
+			window.setIsVisible(false)
+			monitorsStop()
+			interfaceHidingState = .Hidden
+			window.alphaValue = 1
+		}
+
+		// This sets the window's alpha value prior to animating it
+		window.alphaValue = 1
+
+		// This is the window's hiding animation
+		NSAnimationContext.runAnimationGroup { (context) -> Void in
+			context.duration = TimeInterval(0.25)
+			window.animator().alphaValue = 0
+		} completionHandler: {
+			hideWindowLogic()
+		}
 	}
 
 	/// Shows the panel and updates the interface.

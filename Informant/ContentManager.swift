@@ -41,6 +41,8 @@ class ContentManager {
 
 		static let panelMenuQuit = NSLocalizedString("Quit", comment: "Quit menu item in panel menu")
 
+		static let panelMenuToggleDetails = NSLocalizedString("Toggle Panel", comment: "Toggle panel menu item in panel menu")
+
 		// Preferences Labels
 		static let preferencesShortcutsDisplayDetailPanel = NSLocalizedString("Display detail panel", comment: "Shortcut label for displaying panel")
 	}
@@ -49,9 +51,9 @@ class ContentManager {
 
 	public enum Icons {
 
-		static let menuBar = "MenubarIcon"
+		static let menuBar = "menubar-icon"
 
-		static let panelCloseButton = "xmark.circle"
+		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
 	}

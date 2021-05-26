@@ -78,10 +78,30 @@ struct ComponentsPanelIconButton: View {
 	var iconName: String
 
 	/// Default size is 16.0
-	var size: CGFloat = 16
+	var size: CGFloat
+	var width: CGFloat
+	var height: CGFloat
 
 	/// Logic for button to execute
 	var action: () -> Void
+
+	init(_ iconName: String, size: CGFloat = 16, width: CGFloat? = nil, height: CGFloat? = nil, action: @escaping () -> Void) {
+		self.iconName = iconName
+		self.size = size
+		self.action = action
+
+		// Set width and height, otherwise default to provided inputs
+		self.width = size
+		self.height = size
+
+		if width != nil {
+			self.width = width!
+		}
+
+		if height != nil {
+			self.height = height!
+		}
+	}
 
 	var body: some View {
 		Button {
@@ -89,7 +109,7 @@ struct ComponentsPanelIconButton: View {
 		} label: {
 			Image(iconName)
 				.resizable()
-				.frame(width: size, height: size)
+				.frame(width: width, height: height)
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())

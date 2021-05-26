@@ -24,7 +24,8 @@ struct ContentView: View {
 
 	var body: some View {
 
-		VStack(spacing: 8) {
+		VStack(spacing: 7) {
+			
 			// Figure out which view to present based on the # of items selected
 			if interfaceData?.isNotNil == true {
 
@@ -37,21 +38,26 @@ struct ContentView: View {
 				PopoverNoFile()
 			}
 
-			// Bottom buttons
-			HStack(spacing: 0) {
+			// MARK: - Bottom buttons
+			ZStack {
 
-				// Ensures buttons align to the right
-				Spacer()
-
-				// TODO: Consider removing
-//				// Close Button
-//				ComponentsPanelIconButton(iconName: ContentManager.Icons.panelCloseButton, size: 14) {
-//					appDelegate.statusBarController?.hideWindow()
+//				// Hide Button
+//				if interfaceData?.isNotNil == true {
+//					ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
+//						appDelegate.statusBarController?.hideWindow()
+//					}
 //				}
 
-				// More button
-				ComponentsPanelIconButton(iconName: ContentManager.Icons.panelPreferencesButton) {
-					appDelegate.interfaceMenuController?.openMenu()
+				// Settings button stack
+				HStack(spacing: 0) {
+
+					// Ensures buttons align to the right
+					Spacer()
+
+					// More button
+					ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
+						appDelegate.interfaceMenuController?.openMenu()
+					}
 				}
 			}
 		}

@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import KeyboardShortcuts
 import SwiftUI
 
 class InterfaceMenuController {
 
 	let appDelegate: AppDelegate!
 	let menu: NSMenu!
+
+	// Menu items
+	var togglePanelMenuItem: NSMenuItem!
+	var preferencesMenuItem: NSMenuItem!
+	var quitMenuItem: NSMenuItem!
 
 	// ------------ Initialization ⤵︎ ------------
 
@@ -23,30 +29,32 @@ class InterfaceMenuController {
 		menu = appDelegate.interfaceMenu
 
 		// Establish menu items
-		let preferencesMenuItem = NSMenuItem()
-		preferencesMenuItem.title = ContentManager.Labels.panelMenuPreferences
+		togglePanelMenuItem = NSMenuItem(title: ContentManager.Labels.panelMenuToggleDetails, action: #selector(togglePanel), keyEquivalent: "")
+		togglePanelMenuItem.target = self
 
-		let aboutMenuItem = NSMenuItem()
-		aboutMenuItem.title = ContentManager.Labels.panelMenuAbout
+		preferencesMenuItem = NSMenuItem(title: ContentManager.Labels.panelMenuPreferences, action: #selector(openPreferences), keyEquivalent: "")
+		preferencesMenuItem.target = self
 
-		let helpMenuItem = NSMenuItem()
-		helpMenuItem.title = ContentManager.Labels.panelMenuHelp
-
-		let quitMenuItem = NSMenuItem()
-		quitMenuItem.title = ContentManager.Labels.panelMenuQuit
-
-		let seperatorMenuItem = NSMenuItem.separator()
+		// Quit application
+		quitMenuItem = NSMenuItem(title: ContentManager.Labels.panelMenuQuit, action: #selector(quitApplication), keyEquivalent: "")
+		quitMenuItem.target = self
 
 		// Populate interface menu
+		menu.addItem(togglePanelMenuItem)
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(preferencesMenuItem)
-		menu.addItem(seperatorMenuItem)
-		menu.addItem(aboutMenuItem)
-		menu.addItem(helpMenuItem)
 		menu.addItem(quitMenuItem)
+
+		// -------- Update shortcut preferences ---------
+		togglePanelMenuItem.setShortcut(for: .togglePopover)
+		togglePanelMenuItem.image = #imageLiteral(resourceName: "DocStretchedThree.png")
+		togglePanelMenuItem.image?.isTemplate = true
+		togglePanelMenuItem.image?.size = NSSize(width: 21, height: 24)
 	}
 
 	// MARK: - Menu Logic
 
+	/// Pops up menu at the panel menu button.
 	func openMenu() {
 
 		// Find x & y coordinates
@@ -60,6 +68,22 @@ class InterfaceMenuController {
 
 		let coordinates = NSPoint(x: x, y: y)
 
-		menu.popUp(positioning: menu.items[0], at: coordinates, in: nil)
+		menu.popUp(positioning: nil, at: coordinates, in: nil)
+	}
+
+	/// Simply hides the panel
+	@objc func togglePanel() {
+		appDelegate.statusBarController?.hideWindow()
+	}
+
+	// TODO: Add preferences window
+	/// Simply opens up the preferences window
+	@objc func openPreferences() {
+		print("Finish Preferences")
+	}
+
+	/// Quits application all together
+	@objc func quitApplication() {
+		NSApp.terminate(nil)
 	}
 }

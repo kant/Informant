@@ -72,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.becomesKeyOnlyIfNeeded = true
 
 		// Nice smooth exit
-		window.animationBehavior = .utilityWindow
+		window.animationBehavior = .none
 
 		// Other self explained window settings
 		window.isOpaque = false
