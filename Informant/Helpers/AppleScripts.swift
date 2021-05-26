@@ -20,18 +20,11 @@ class AppleScripts {
 
 		/// Apple script that tells Finder to give us the file paths
 		let script = NSAppleScript(source: """
-			set pathArray to {}
-			tell application "Finder"
-
-				set sel to selection
-
-				repeat with j from 1 to count sel
-					set selRecord to POSIX path of ((item j of sel) as string)
-					copy selRecord to end of pathArray
-				end repeat
-
-				return pathArray
-
+			set AppleScript's text item delimiters to linefeed
+			  tell application "Finder"
+				  set fSelection to selection as text
+				  log fSelection
+			  return fSelection
 			end tell
 		""")
 
@@ -46,11 +39,13 @@ class AppleScripts {
 			return [""]
 		}
 
-		// Replaces all colons to turn it into a POSIX path
-		let selectedItemsParsed = selectedItems.replacingOccurrences(of: ":", with: "/")
-
 		// Convert list with line breaks to string array
-		let selectedItemsAsArray = selectedItemsParsed.components(separatedBy: .newlines)
+		var selectedItemsAsArray = selectedItems.components(separatedBy: .newlines)
+
+		// Cycle through selected items and convert each one from an HFS path to a POSIX path
+		for (index, path) in selectedItemsAsArray.enumerated() {
+			selectedItemsAsArray[index] = path.posixPathFromHFSPath()!
+		}
 
 		return selectedItemsAsArray
 	}

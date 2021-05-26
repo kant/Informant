@@ -83,3 +83,14 @@ extension NSPanel {
 		return true
 	}
 }
+
+/// Translates HFS path to POSIX path.
+/// https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths
+extension String {
+	func posixPathFromHFSPath() -> String? {
+		guard let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, self as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
+			return nil
+		}
+		return (fileURL as URL).path
+	}
+}
