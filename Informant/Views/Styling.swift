@@ -15,7 +15,8 @@ extension Text {
 	}
 
 	func H2() -> some View {
-		self.font(.system(size: 16))
+		self.font(.system(size: 17))
+			.kerning(-0.1)
 			.fontWeight(.regular)
 			.lineLimit(1)
 	}
@@ -28,7 +29,8 @@ extension Text {
 
 	func H4() -> some View {
 		self.font(.system(size: 11))
-			.fontWeight(.regular)
+			.fontWeight(.medium)
+			.kerning(-0.25)
 			.lineLimit(1)
 			.opacity(0.5)
 	}

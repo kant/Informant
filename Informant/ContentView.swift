@@ -48,7 +48,7 @@ struct ContentView: View {
 					PopoverNoFile()
 				}
 			}
-			.padding(9)
+			.padding(10)
 
 			// MARK: - Panel Bottom Buttons
 			VStack {
@@ -79,7 +79,7 @@ struct ContentView: View {
 			}
 		}
 		// Adding the frame here makes sure it resizes properly. Originally 265.0
-		.frame(width: 270)
+		.frame(width: 255)
 
 		// A Little padding for the panel buttons
 		.padding(6)

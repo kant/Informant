@@ -39,8 +39,8 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 		VStack(alignment: .leading) {
 			content
 		}
-
-		.frame(height: 50)
+//		.padding([.top, .bottom], 22)
+		.frame(height: 52)
 	}
 }
 
@@ -54,7 +54,7 @@ struct ComponentsPanelHeader: View {
 	var headerSubtitle: String
 
 	/// The frame size of the icon. Originally 42.0, now 48.0
-	var size: CGFloat = 48
+	var size: CGFloat = 45
 
 	var body: some View {
 		HStack {
@@ -67,7 +67,7 @@ struct ComponentsPanelHeader: View {
 			// Multiple icons present
 			else {
 				ComponentsPanelHeaderIconStack(icons: headerIconCollection, size: size)
-					.padding([.trailing], 5)
+					.padding([.trailing], 5.5)
 			}
 
 			// Header stack
@@ -98,7 +98,7 @@ struct ComponentsPanelItemField: View {
 			Text(label).H3()
 
 			Spacer()
-				.frame(height: 2)
+				.frame(height: 1)
 
 			// Value
 			Text(value).H2()
