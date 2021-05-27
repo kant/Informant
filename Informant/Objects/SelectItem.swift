@@ -8,17 +8,30 @@
 import Cocoa
 import Foundation
 
+protocol SelectItemProtocol {
+
+	var title: String? { get set }
+	var typeIcon: NSImage? { get set }
+
+	var size: Int64? { get set }
+	var sizeAsString: String? { get set }
+
+	init(urls: [String])
+}
+
 class SelectItem {
-	public var fileURL: URL?
-	public var filePath: String?
-	public var fileName: String?
-	public var fileTypeIcon: NSImage?
+
+	public var url: URL?
+	public var path: String?
+	public var title: String?
+	public var typeIcon: NSImage?
+	public var totalIcons: [NSImage] = []
 
 	public var fileType: String?
 	public var fileKind: String?
 
-	public var fileSize: Int64?
-	public var fileSizeAsString: String?
+	public var size: Int64?
+	public var sizeAsString: String?
 
 	public var fileDateCreated: Date?
 	public var fileDateModified: Date?
@@ -35,8 +48,4 @@ class SelectItem {
 			return nil
 		}
 	}
-}
-
-protocol SelectItemProtocol {
-	init(url: String)
 }

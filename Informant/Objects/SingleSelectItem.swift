@@ -8,41 +8,43 @@
 import Cocoa
 import Foundation
 
+/// Takes a single item selection and scrapes all the information needed for the interface.
 class SingleSelectItem: SelectItem, SelectItemProtocol {
 
-	// MARK: - Initialize Single Item Object
-	// This init grabs all relevant information for the file
-	required init(url: String) {
+	required init(urls: [String]) {
 
 		super.init()
 
 		// MARK: - Fill in all fields with the selected item's properties
-		fileURL = URL(fileURLWithPath: url)
-		filePath = url
+		url = URL(fileURLWithPath: urls[0])
+		path = urls[0]
+
+		// Grabs file name using last part of path
+		if path!.last == "/" {
+			let directoryPath = String(path!.dropLast())
+			title = URL(fileURLWithPath: directoryPath).lastPathComponent
+		}
+		else {
+			title = URL(fileURLWithPath: path!).lastPathComponent
+		}
 
 		// Grabs the file's attributes
-		guard let fileAttributes = getFileAttributes(path: filePath!) else {
+		guard let fileAttributes = getFileAttributes(path: path!) else {
 			return
 		}
 
-		// Grabs file name using last part of path
-		if filePath!.last == "/" {
-			let directoryPath = String(filePath!.dropLast())
-			fileName = URL(fileURLWithPath: directoryPath).lastPathComponent
-		}
-		else {
-			fileName = URL(fileURLWithPath: filePath!).lastPathComponent
-		}
+		// Grab icon and resize it
+		typeIcon = NSWorkspace.shared.icon(forFile: path!)
+		typeIcon = typeIcon?.resized(to: ContentManager.Icons.panelHeaderIconSize)
 
 		// Inject attributes into the object
-		fileTypeIcon = NSWorkspace.shared.icon(forFile: filePath!)
 		fileDateCreated = fileAttributes[FileAttributeKey.creationDate] as? Date
 		fileDateModified = fileAttributes[FileAttributeKey.modificationDate] as? Date
-		fileSize = fileAttributes[FileAttributeKey.size] as? Int64
+		size = fileAttributes[FileAttributeKey.size] as? Int64
 
 		// Format bytes
 		let byteFormatter = ByteCountFormatter()
-		fileSizeAsString = byteFormatter.string(fromByteCount: fileSize!)
+		sizeAsString = byteFormatter.string(fromByteCount: size!)
 
 		// Format dates
 		let dateFormatter = DateFormatter()
@@ -71,7 +73,7 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 			var itemExtension: String
 
 			// Grab the extension and unique type identifier
-			itemExtension = NSURL(fileURLWithPath: filePath!).pathExtension!
+			itemExtension = NSURL(fileURLWithPath: path!).pathExtension!
 			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, itemExtension as CFString, nil)?.takeRetainedValue()
 
 			// Determines if the uti conforms

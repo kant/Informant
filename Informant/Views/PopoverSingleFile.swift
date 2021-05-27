@@ -9,16 +9,16 @@ import SwiftUI
 
 struct PopoverSingleFile: View {
 
-	var file: SelectItem
+	var selection: SelectItem
 
 	var body: some View {
 
 		ComponentsPanelFrame {
 
 			ComponentsPanelHeader(
-				headerIcon: file.fileTypeIcon!,
-				headerTitle: file.fileName!,
-				headerSubtitle: file.fileDateModifiedAsString!
+				headerIcon: selection.typeIcon!,
+				headerTitle: selection.title!,
+				headerSubtitle: selection.fileDateModifiedAsString!
 			)
 
 			Divider().padding(.bottom, 10)
@@ -26,15 +26,15 @@ struct PopoverSingleFile: View {
 			VStack(alignment: .leading, spacing: 20) {
 				// Kind - Size
 				HStack {
-					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(file.fileKind!))
-					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(file.fileSizeAsString!))
+					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!))
+					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.sizeAsString!))
 				}
 
 				// Created
-				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: file.fileDateCreatedAsString!)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection.fileDateCreatedAsString!)
 
 				// Path
-				ComponentsPanelItemField(label: ContentManager.Labels.panelPath, value: file.filePath!)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelPath, value: selection.path!)
 			}
 		}
 	}

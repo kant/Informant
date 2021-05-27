@@ -16,16 +16,21 @@ class ItemCollection: ObservableObject {
 		case Directory
 	}
 
-	@Published public var files: [SelectItem] = []
-	@Published public var summary: SelectItem?
+	@Published public var selectItem = SelectItem()
 	public let collectionType: CollectionType?
 
-	// Use a singleselectitem if only one item is selected and a multiselectitem if multiple items are selected
-	init(collectionType: CollectionType, filePaths: [String]) {
-		self.collectionType = collectionType
-		
-		for path in filePaths {
-			files.append(SingleSelectItem(url: path))
+	init(filePaths: [String]) {
+
+		// Use a singleselectitem if only one item is selected
+		if filePaths.count <= 1 {
+			selectItem = SingleSelectItem(urls: filePaths)
+			collectionType = .Single
+		}
+
+		// and a multiselectitem if multiple items are selected
+		else {
+			selectItem = MultiSelectItem(urls: filePaths)
+			collectionType = .Multi
 		}
 	}
 }

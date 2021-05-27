@@ -32,15 +32,28 @@ struct ComponentsPanelFrame<Content>: View where Content: View {
 
 struct ComponentsPanelHeader: View {
 
-	var headerIcon: NSImage
+	var headerIcon = NSImage()
+	var headerIconCollection: [NSImage] = []
 	var headerTitle: String
 	var headerSubtitle: String
 
+	/// The frame size of the icon. Originally 42.0, now 48.0
+	var size: CGFloat = 48
+
 	var body: some View {
 		HStack {
-			// Icon
-			Image(nsImage: headerIcon).resizable().frame(width: 42, height: 42)
 
+			// Single icon present
+			if headerIconCollection.count == 0 {
+				Image(nsImage: headerIcon).resizable().frame(width: size, height: size)
+			}
+
+			// Multiple icons present
+			else {
+				ComponentsPanelHeaderIconStack(icons: headerIconCollection, size: size)
+			}
+
+			// Header stack
 			VStack(alignment: .leading) {
 				// Title
 				Text(headerTitle).H1().lineLimit(1)
@@ -113,5 +126,54 @@ struct ComponentsPanelIconButton: View {
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
+	}
+}
+
+// MARK: - Misc.
+
+struct ComponentsPanelHeaderIconStack: View {
+
+	var icons: [NSImage]
+	var size: CGFloat
+
+	var body: some View {
+		ZStack {
+
+			// Sixth image, if not nil
+			ComponentsPanelHeaderIconInStack(icons: icons, size: size, count: 6, angle: -20, yOffset: -1)
+
+			// Fifth image, if not nil
+			ComponentsPanelHeaderIconInStack(icons: icons, size: size, count: 5, angle: 8, xOffset: 2)
+
+			// Fourth image, if not nil
+			ComponentsPanelHeaderIconInStack(icons: icons, size: size, count: 4, angle: -5, xOffset: -2, yOffset: -1)
+
+			// Third image, if not nil
+			ComponentsPanelHeaderIconInStack(icons: icons, size: size, count: 3, angle: 7, xOffset: 1, yOffset: 2)
+
+			// Second image
+			ComponentsPanelHeaderIconInStack(icons: icons, size: size, count: 2, angle: -10)
+
+			// Front first image
+			Image(nsImage: icons[0]).resizable().frame(width: size, height: size)
+		}
+	}
+}
+
+struct ComponentsPanelHeaderIconInStack: View {
+
+	var icons: [NSImage]
+	var size: CGFloat
+	var count: Int
+	var angle: Double
+	var xOffset: CGFloat = 0
+	var yOffset: CGFloat = 0
+
+	var body: some View {
+		if icons.count >= count {
+			Image(nsImage: icons[count - 1]).resizable().frame(width: size, height: size)
+				.rotationEffect(Angle(degrees: angle))
+				.offset(x: xOffset, y: yOffset)
+		}
 	}
 }

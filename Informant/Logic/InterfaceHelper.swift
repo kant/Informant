@@ -17,16 +17,13 @@ class InterfaceHelper {
 	// based on the Finder items selected.
 	public static func GetFinderSelection() -> ItemCollection? {
 
-		let selectedFiles: [String] = AppleScripts.findSelectedFiles()
-
-		// Block executed if only one file is selected
-		if selectedFiles.count <= 1 {
-			return ItemCollection(collectionType: .Single, filePaths: selectedFiles)
+		guard let selectedFiles: [String] = AppleScripts.findSelectedFiles() else {
+			return nil
 		}
 
-		// Block executed if more than one file is selected
-		else if selectedFiles.count >= 2 {
-			return ItemCollection(collectionType: .Multi, filePaths: selectedFiles)
+		// Block executed if only one file is selected
+		if selectedFiles.count >= 1 {
+			return ItemCollection(filePaths: selectedFiles)
 		}
 
 		return nil

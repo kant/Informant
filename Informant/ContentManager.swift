@@ -21,6 +21,11 @@ class ContentManager {
 
 	public enum Labels {
 
+		// Misc. Labels
+		static let multiSelectTitle = NSLocalizedString("items selected", comment: "The tag string to go on a multi-selection title in the panel")
+
+		static let multiSelectSize = NSLocalizedString("Total Size:", comment: "The tag string under the title of the multi-selection panel")
+
 		// Panel Labels
 		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
 
@@ -56,5 +61,8 @@ class ContentManager {
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
+
+		/// The image size of the icon. This is scaled up so the icon looks better scaled down
+		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
 	}
 }

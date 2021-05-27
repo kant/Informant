@@ -8,7 +8,19 @@
 import SwiftUI
 
 struct PopoverMultiFile: View {
+
+	var selection: SelectItem
+
 	var body: some View {
-		Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+		ComponentsPanelFrame {
+
+			// Establish title
+			ComponentsPanelHeader(
+				headerIconCollection: selection.totalIcons,
+				headerTitle: selection.title!,
+				headerSubtitle: selection.sizeAsString!
+			)
+		}
 	}
 }

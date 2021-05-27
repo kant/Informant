@@ -84,13 +84,38 @@ extension NSPanel {
 	}
 }
 
-/// Translates HFS path to POSIX path.
-/// https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths
+// Translates HFS path to POSIX path
 extension String {
+	/// Translates HFS path to POSIX path.
+	/// [Check this out for more info](https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths).
 	func posixPathFromHFSPath() -> String? {
 		guard let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, self as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
 			return nil
 		}
 		return (fileURL as URL).path
+	}
+}
+
+extension NSImage {
+	/// Scales NSImage to the provided NSSize().
+	/// [Skimmed off StackOverflow](https://stackoverflow.com/a/42915296/13142325)
+	func resized(to newSize: NSSize) -> NSImage? {
+		if let bitmapRep = NSBitmapImageRep(
+			bitmapDataPlanes: nil, pixelsWide: Int(newSize.width), pixelsHigh: Int(newSize.height),
+			bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+			colorSpaceName: .calibratedRGB, bytesPerRow: 0, bitsPerPixel: 0
+		) {
+			bitmapRep.size = newSize
+			NSGraphicsContext.saveGraphicsState()
+			NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmapRep)
+			draw(in: NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height), from: .zero, operation: .copy, fraction: 1.0)
+			NSGraphicsContext.restoreGraphicsState()
+
+			let resizedImage = NSImage(size: newSize)
+			resizedImage.addRepresentation(bitmapRep)
+			return resizedImage
+		}
+
+		return nil
 	}
 }

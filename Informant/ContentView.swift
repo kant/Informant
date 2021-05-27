@@ -30,13 +30,13 @@ struct ContentView: View {
 			if interfaceData?.isNotNil == true {
 
 				// One items selected
-				if interfaceData!.fileCollection!.files.count <= 1 {
-					PopoverSingleFile(file: interfaceData!.fileCollection!.files[0])
+				if interfaceData!.fileCollection!.collectionType == .Single {
+					PopoverSingleFile(selection: interfaceData!.fileCollection!.selectItem)
 				}
 
 				// More than one item selected
-				else if interfaceData!.fileCollection!.files.count >= 2 {
-					PopoverMultiFile()
+				else if interfaceData!.fileCollection!.collectionType == .Multi {
+					PopoverMultiFile(selection: interfaceData!.fileCollection!.selectItem)
 				}
 			}
 

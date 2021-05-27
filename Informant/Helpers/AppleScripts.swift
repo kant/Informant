@@ -13,7 +13,7 @@ import Foundation
 class AppleScripts {
 
 	// Find the currently selected Finder files in a string format with line breaks.
-	public static func findSelectedFiles() -> [String] {
+	public static func findSelectedFiles() -> [String]? {
 
 		// Find selected items as a list with line breaks
 		var errorInformation: NSDictionary?
@@ -31,12 +31,12 @@ class AppleScripts {
 		// Check for errors before using
 		guard let scriptExecuted = script?.executeAndReturnError(&errorInformation) else {
 			if errorInformation != nil { print(errorInformation!) }
-			return [""]
+			return nil
 		}
 
 		// Parse list for colons and replace with slashes
 		guard let selectedItems = scriptExecuted.stringValue else {
-			return [""]
+			return nil
 		}
 
 		// Convert list with line breaks to string array
@@ -44,7 +44,10 @@ class AppleScripts {
 
 		// Cycle through selected items and convert each one from an HFS path to a POSIX path
 		for (index, path) in selectedItemsAsArray.enumerated() {
-			selectedItemsAsArray[index] = path.posixPathFromHFSPath()!
+			guard let pathAsPOSIX = path.posixPathFromHFSPath() else {
+				return nil
+			}
+			selectedItemsAsArray[index] = pathAsPOSIX
 		}
 
 		return selectedItemsAsArray
