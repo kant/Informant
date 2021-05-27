@@ -3,4 +3,272 @@
    uuid = "B4F901FF-1690-4825-A925-B1CDFD7CEC55"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803 - f22b6ac56587d8c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.interfaceData.getter : Informant.InterfaceData"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803 - d49c1cdd8e2365fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.interfaceData.setter : Informant.InterfaceData"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803 - 113e21f8ad84b27d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.interfaceData.modify : Informant.InterfaceData"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803 - b5f1141a013c099b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.interfaceData.modify : Informant.InterfaceData with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "29BEA421-3D57-436E-85FD-C20A4FCB7803 - 4c4302b5507a235"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.init() -&gt; Informant.AppDelegate"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "238">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15 - d33cd1d40e18f23f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.contentView.getter : Swift.Optional&lt;Informant.ContentView&gt;"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "131">
+               </Location>
+               <Location
+                  uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15 - 39c14138bc92162b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.contentView.setter : Swift.Optional&lt;Informant.ContentView&gt;"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "166">
+               </Location>
+               <Location
+                  uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15 - adf53202ee5b6d58"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.contentView.modify : Swift.Optional&lt;Informant.ContentView&gt;"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15 - a780f3001966ed8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.contentView.modify : Swift.Optional&lt;Informant.ContentView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "D80FE3A0-FDD9-482D-88CB-A6183A067A15 - 4c4302b5507a3d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Informant.AppDelegate.init() -&gt; Informant.AppDelegate"
+                  moduleName = "Informant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tyirvine/Files/Repositories/Personal/Informant/Informant/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "298">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0213346-FD15-4685-A045-82C105720B99"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A1FF57C-C00D-4C1A-A32F-04AD3D1F36EE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2C7149F-51B6-47DD-A8C9-0AAAA6A7FB53"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/Helpers/StatusBarController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "windowHandlerMouse(event:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8AECB4FC-257B-434A-B6BD-C389FA1C927A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/Helpers/StatusBarController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "windowHandlerMouse(event:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D9F4C22-2866-43F7-A81B-724D4DFD1F04"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Informant/Helpers/StatusBarController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "updateWindow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

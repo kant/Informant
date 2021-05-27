@@ -19,18 +19,23 @@ class ItemCollection: ObservableObject {
 	@Published public var selectItem = SelectItem()
 	public let collectionType: CollectionType?
 
-	init(filePaths: [String]) {
+	init?(filePaths: [String]) {
 
 		// Use a singleselectitem if only one item is selected
-		if filePaths.count <= 1 {
+		if filePaths.count == 1 {
 			selectItem = SingleSelectItem(urls: filePaths)
 			collectionType = .Single
 		}
 
 		// and a multiselectitem if multiple items are selected
-		else {
+		else if filePaths.count >= 2 {
 			selectItem = MultiSelectItem(urls: filePaths)
 			collectionType = .Multi
+		}
+
+		// Otherwise just link the reference to nil
+		else {
+			return nil
 		}
 	}
 }

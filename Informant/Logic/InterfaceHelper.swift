@@ -38,14 +38,12 @@ class InterfaceHelper {
 		// Check to make sure a file is selected before executing logic
 		let selectedItems: ItemCollection? = InterfaceHelper.GetFinderSelection()
 
-		if selectedItems != nil {
-			// Find selected files
-			appDelegate.interfaceData.fileCollection = selectedItems
-			appDelegate.contentView.interfaceData = appDelegate.interfaceData
+		// Find selected files
+		appDelegate.interfaceData.fileCollection = selectedItems
+		appDelegate.contentView.interfaceData = appDelegate.interfaceData
 
-			// Update popover after hotkey press
-			UpdateInterface()
-		}
+		// Update popover after hotkey press
+		UpdateInterface()
 	}
 
 	// Update the popover's view

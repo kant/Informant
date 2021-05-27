@@ -186,7 +186,7 @@ class StatusBarController {
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open
-		if appDelegate.interfaceData.isNotNil {
+		if appDelegate.interfaceData.fileCollection != nil {
 			appDelegate.statusBarController?.interfaceHidingState = .Open
 		}
 
@@ -219,13 +219,10 @@ class StatusBarController {
 		}
 
 		// Get finder items
-		guard let selectedItems: [String] = AppleScripts.findSelectedFiles() else {
-			hideWindow()
-			return
-		}
+		let selectedItems: [String]? = AppleScripts.findSelectedFiles()
 
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems[0] != "" && window.isVisible {
+		if selectedItems != nil && window.isVisible {
 			updateWindow()
 		}
 

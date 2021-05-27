@@ -8,14 +8,6 @@
 import Foundation
 
 class InterfaceData {
-	var fileCollection: ItemCollection?
 
-	/// Checks to make sure that all data is valid
-	public var isNotNil: Bool {
-		if fileCollection == nil || fileCollection!.selectItem.title == nil {
-			return false
-		} else {
-			return true
-		}
-	}
+	var fileCollection: ItemCollection?
 }

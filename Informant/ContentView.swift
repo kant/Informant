@@ -19,7 +19,7 @@ struct ContentView: View {
 	// Initialize app delegate object
 	init(_ appDelegate: AppDelegate) {
 		self.appDelegate = appDelegate
-		self.interfaceData = self.appDelegate.interfaceData
+		self.interfaceData = appDelegate.interfaceData
 	}
 
 	var body: some View {
@@ -27,7 +27,7 @@ struct ContentView: View {
 		VStack(spacing: 7) {
 
 			// Figure out which view to present based on the # of items selected
-			if interfaceData?.isNotNil == true {
+			if interfaceData?.fileCollection != nil {
 
 				// One items selected
 				if interfaceData!.fileCollection!.collectionType == .Single {
@@ -48,7 +48,7 @@ struct ContentView: View {
 			// MARK: - Bottom buttons
 			ZStack {
 
-//				// Hide Button
+				// Hide Button
 //				if interfaceData?.isNotNil == true {
 //					ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
 //						appDelegate.statusBarController?.hideWindow()
