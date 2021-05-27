@@ -13,11 +13,11 @@ struct PopoverSingleFile: View {
 
 	var body: some View {
 
-		ComponentsPanelFrame {
+		ComponentsPanelFullFrame {
 
 			ComponentsPanelHeader(
-				headerIcon: selection.typeIcon!,
 				headerTitle: selection.title!,
+				headerIcon: selection.typeIcon!,
 				headerSubtitle: selection.fileDateModifiedAsString!
 			)
 
@@ -27,7 +27,12 @@ struct PopoverSingleFile: View {
 				// Kind - Size
 				HStack {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!))
+
+					Spacer()
+
 					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.sizeAsString!))
+
+					Spacer()
 				}
 
 				// Created

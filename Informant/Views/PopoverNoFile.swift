@@ -7,16 +7,13 @@
 
 import SwiftUI
 
+/// Shown when no files are selected by the user.
 struct PopoverNoFile: View {
 	var body: some View {
-		ComponentsPanelFrame {
+		ComponentsPanelReducedFrame {
 			Text(ContentManager.Labels.panelNoItemsSelected)
 				.H1()
 				.opacity(0.5)
-
-				// Keeps text centered in the middle with some healthy padding
-				.padding(.bottom, 5)
-				.padding(.top, 27)
 		}
 	}
 }

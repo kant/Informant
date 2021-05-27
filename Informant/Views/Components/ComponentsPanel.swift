@@ -9,7 +9,25 @@ import SwiftUI
 
 // MARK: - Panel Frame
 
-struct ComponentsPanelFrame<Content>: View where Content: View {
+/// Used for large views like single file views.
+struct ComponentsPanelFullFrame<Content>: View where Content: View {
+
+	var content: Content
+
+	init(@ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+	}
+
+	var body: some View {
+		VStack(alignment: .leading) {
+			content
+		}
+		.padding(.bottom, 19)
+	}
+}
+
+/// Used for smaller views like the multi-select or the no file view
+struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 
 	var content: Content
 
@@ -22,9 +40,7 @@ struct ComponentsPanelFrame<Content>: View where Content: View {
 			content
 		}
 
-		// Adds padding to everything except the bottom
-		.padding([.top, .leading, .trailing], 10)
-		.padding(.bottom, 0)
+		.frame(height: 50)
 	}
 }
 
@@ -32,9 +48,9 @@ struct ComponentsPanelFrame<Content>: View where Content: View {
 
 struct ComponentsPanelHeader: View {
 
+	var headerTitle: String
 	var headerIcon = NSImage()
 	var headerIconCollection: [NSImage] = []
-	var headerTitle: String
 	var headerSubtitle: String
 
 	/// The frame size of the icon. Originally 42.0, now 48.0
@@ -51,12 +67,16 @@ struct ComponentsPanelHeader: View {
 			// Multiple icons present
 			else {
 				ComponentsPanelHeaderIconStack(icons: headerIconCollection, size: size)
+					.padding([.trailing], 5)
 			}
 
 			// Header stack
 			VStack(alignment: .leading) {
 				// Title
-				Text(headerTitle).H1().lineLimit(1)
+				Text(headerTitle).H2().lineLimit(1)
+
+				Spacer()
+					.frame(height: 2)
 
 				// Subtitle
 				Text(headerSubtitle).H4()
@@ -75,10 +95,13 @@ struct ComponentsPanelItemField: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			// Label
-			Text(label).H4()
+			Text(label).H3()
+
+			Spacer()
+				.frame(height: 2)
 
 			// Value
-			Text(value).H1()
+			Text(value).H2()
 		}
 	}
 }

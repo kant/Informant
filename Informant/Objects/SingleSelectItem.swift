@@ -53,7 +53,7 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 		dateFormatter.doesRelativeDateFormatting = true
 
 		fileDateCreatedAsString = dateFormatter.string(from: fileDateCreated!)
-		fileDateModifiedAsString = dateFormatter.string(from: fileDateModified!)
+		fileDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: fileDateModified!)
 
 		// Find the item type (folder / file)
 		fileType = fileAttributes[FileAttributeKey.type] as? String

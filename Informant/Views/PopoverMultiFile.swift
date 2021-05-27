@@ -7,18 +7,18 @@
 
 import SwiftUI
 
+/// Shown when multiple files are selected by the user.
 struct PopoverMultiFile: View {
 
 	var selection: SelectItem
 
 	var body: some View {
+		ComponentsPanelReducedFrame {
 
-		ComponentsPanelFrame {
-
-			// Establish title
+			// Main header
 			ComponentsPanelHeader(
-				headerIconCollection: selection.totalIcons,
 				headerTitle: selection.title!,
+				headerIconCollection: selection.totalIcons,
 				headerSubtitle: selection.sizeAsString!
 			)
 		}

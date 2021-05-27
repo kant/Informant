@@ -24,52 +24,62 @@ struct ContentView: View {
 
 	var body: some View {
 
-		VStack(spacing: 7) {
+		// MARK: - Panel Main
+		ZStack {
 
-			// Figure out which view to present based on the # of items selected
-			if interfaceData != nil {
+			// So we can add padding to the main interface
+			VStack {
+				// Figure out which view to present based on the # of items selected
+				if interfaceData != nil {
 
-				// One items selected
-				if interfaceData!.collectionType == .Single {
-					PopoverSingleFile(selection: interfaceData!.selectItem)
+					// One items selected
+					if interfaceData!.collectionType == .Single {
+						PopoverSingleFile(selection: interfaceData!.selectItem)
+					}
+
+					// More than one item selected
+					else if interfaceData!.collectionType == .Multi {
+						PopoverMultiFile(selection: interfaceData!.selectItem)
+					}
 				}
 
-				// More than one item selected
-				else if interfaceData!.collectionType == .Multi {
-					PopoverMultiFile(selection: interfaceData!.selectItem)
+				// Otherwise if no items are selected
+				else {
+					PopoverNoFile()
 				}
 			}
+			.padding(9)
 
-			// Otherwise if no items are selected
-			else {
-				PopoverNoFile()
-			}
+			// MARK: - Panel Bottom Buttons
+			VStack {
 
-			// MARK: - Bottom buttons
-			ZStack {
+				Spacer()
 
-				// Hide Button
-//				if interfaceData?.isNotNil == true {
-//					ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
-//						appDelegate.statusBarController?.hideWindow()
-//					}
-//				}
+				ZStack {
 
-				// Settings button stack
-				HStack(spacing: 0) {
+					// Hide Button
+					//	if interfaceData?.isNotNil == true {
+					//		ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
+					//			appDelegate.statusBarController?.hideWindow()
+					//		}
+					//	}
 
-					// Ensures buttons align to the right
-					Spacer()
+					// Settings button stack
+					HStack(spacing: 0) {
 
-					// More button
-					ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
-						appDelegate.interfaceMenuController?.openMenu()
+						// Ensures buttons align to the right
+						Spacer()
+
+						// More button
+						ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
+							appDelegate.interfaceMenuController?.openMenu()
+						}
 					}
 				}
 			}
 		}
-		// Adding the frame here makes sure it resizes properly
-		.frame(width: 265)
+		// Adding the frame here makes sure it resizes properly. Originally 265.0
+		.frame(width: 270)
 
 		// A Little padding for the panel buttons
 		.padding(6)

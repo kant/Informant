@@ -15,14 +15,21 @@ extension Text {
 	}
 
 	func H2() -> some View {
-		self.font(.system(size: 15))
+		self.font(.system(size: 16))
 			.fontWeight(.regular)
 			.lineLimit(1)
 	}
 
-	func H4() -> some View {
+	func H3() -> some View {
 		self.font(.system(size: 11))
 			.fontWeight(.medium)
+			.opacity(0.5)
+	}
+
+	func H4() -> some View {
+		self.font(.system(size: 11))
+			.fontWeight(.regular)
+			.lineLimit(1)
 			.opacity(0.5)
 	}
 }

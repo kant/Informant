@@ -44,4 +44,14 @@ class Selection: ObservableObject {
 			return nil
 		}
 	}
+
+	/// Checks to make sure that all data is valid
+	public func isNotNil(_ selection: Selection?) -> Bool {
+		if selection == nil || selection?.selectItem.title == nil {
+			return false
+		}
+		else {
+			return true
+		}
+	}
 }

@@ -37,6 +37,8 @@ class ContentManager {
 
 		static let panelPath = NSLocalizedString("Path", comment: "This is the file's path displayed in the panel")
 
+		static let panelModified = NSLocalizedString("Modified:", comment: "The tag string to the date modified on the panel interface")
+
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
 
