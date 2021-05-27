@@ -23,16 +23,24 @@ struct PopoverSingleFile: View {
 
 			Divider().padding(.bottom, 10)
 
-			VStack(alignment: .leading, spacing: 20) {
-				// Kind - Size
-				HStack {
-					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!))
+			VStack(alignment: .leading, spacing: 15) {
 
-					Spacer()
+				HStack(spacing: 0) {
+					// Kind
+					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!), lineLimit: 2)
 
-					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.sizeAsString!))
+					// Size
+					if selection.fileKind!.count <= 17 {
+						ComponentsPanelSizeField(selection: selection)
+							.padding([.leading], 15)
+					}
 
-					Spacer()
+					Spacer(minLength: 0)
+				}
+
+				// Size - if the kind field is too large
+				if selection.fileKind!.count >= 18 {
+					ComponentsPanelSizeField(selection: selection)
 				}
 
 				// Created
@@ -45,3 +53,10 @@ struct PopoverSingleFile: View {
 	}
 }
 
+/// Size appears in multiple places depending on the layout. This is built to avoid code duplication
+struct ComponentsPanelSizeField: View {
+	var selection: SelectItem
+	var body: some View {
+		ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.sizeAsString!))
+	}
+}

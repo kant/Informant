@@ -18,13 +18,13 @@ extension Text {
 		self.font(.system(size: 17))
 			.kerning(-0.1)
 			.fontWeight(.regular)
-			.lineLimit(1)
 	}
 
 	func H3() -> some View {
 		self.font(.system(size: 11))
 			.fontWeight(.medium)
 			.opacity(0.5)
+			.lineLimit(1)
 	}
 
 	func H4() -> some View {

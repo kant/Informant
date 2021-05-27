@@ -39,8 +39,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 		VStack(alignment: .leading) {
 			content
 		}
-//		.padding([.top, .bottom], 22)
-		.frame(height: 52)
+		.frame(height: 50)
 	}
 }
 
@@ -73,7 +72,7 @@ struct ComponentsPanelHeader: View {
 			// Header stack
 			VStack(alignment: .leading) {
 				// Title
-				Text(headerTitle).H2().lineLimit(1)
+				Text(headerTitle).H1()
 
 				Spacer()
 					.frame(height: 2)
@@ -91,6 +90,7 @@ struct ComponentsPanelItemField: View {
 
 	var label: String
 	var value: String
+	var lineLimit: Int = 1
 
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -102,6 +102,7 @@ struct ComponentsPanelItemField: View {
 
 			// Value
 			Text(value).H2()
+				.lineLimit(lineLimit)
 		}
 	}
 }
