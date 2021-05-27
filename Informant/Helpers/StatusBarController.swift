@@ -186,7 +186,7 @@ class StatusBarController {
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open
-		if appDelegate.interfaceData.fileCollection != nil {
+		if appDelegate.interfaceData != nil {
 			appDelegate.statusBarController?.interfaceHidingState = .Open
 		}
 

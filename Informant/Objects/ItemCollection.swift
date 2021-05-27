@@ -19,7 +19,12 @@ class ItemCollection: ObservableObject {
 	@Published public var selectItem = SelectItem()
 	public let collectionType: CollectionType?
 
-	init?(filePaths: [String]) {
+	init?(_ urls: [String]? = nil) {
+
+		// Check to see if the urls object is nil or not
+		guard let filePaths = urls else {
+			return nil
+		}
 
 		// Use a singleselectitem if only one item is selected
 		if filePaths.count == 1 {

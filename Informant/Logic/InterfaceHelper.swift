@@ -23,7 +23,7 @@ class InterfaceHelper {
 
 		// Block executed if only one file is selected
 		if selectedFiles.count >= 1 {
-			return ItemCollection(filePaths: selectedFiles)
+			return ItemCollection(selectedFiles)
 		}
 
 		return nil
@@ -39,7 +39,7 @@ class InterfaceHelper {
 		let selectedItems: ItemCollection? = InterfaceHelper.GetFinderSelection()
 
 		// Find selected files
-		appDelegate.interfaceData.fileCollection = selectedItems
+		appDelegate.interfaceData = selectedItems
 		appDelegate.contentView.interfaceData = appDelegate.interfaceData
 
 		// Update popover after hotkey press
