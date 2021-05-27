@@ -14,7 +14,7 @@ struct ContentView: View {
 	var appDelegate: AppDelegate
 
 	/// This contians all information to be displayed on the interface
-	var interfaceData: ItemCollection?
+	var interfaceData: Selection?
 
 	// Initialize app delegate object
 	init(_ appDelegate: AppDelegate) {

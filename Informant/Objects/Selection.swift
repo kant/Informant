@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: - Used for storing multiple files
-class ItemCollection: ObservableObject {
+@available(*, renamed: "Selection", message: "This name is more specific because this data won't just be used for the interface.")
+class Selection: ObservableObject {
 
 	public enum CollectionType {
 		case Single
