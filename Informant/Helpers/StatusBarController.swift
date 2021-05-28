@@ -25,6 +25,9 @@ class StatusBarController {
 	/// Stores panel snap drag zone
 	private var panelSnapDragZone: NSRect?
 
+	/// A notification lets us know if the user has switched spaces
+	private var spaceDidChange: Bool = false
+
 	/// States for hiding the interface
 	enum InterfaceHiding {
 		case Open
@@ -82,6 +85,11 @@ class StatusBarController {
 		InterfaceHelper.ToggleInterfaceByClick()
 	}
 
+	/// Called by a notifier of virtual desktop switching
+	func setSpaceDidChange() {
+		spaceDidChange = true
+	}
+
 	/// Find status item button location
 	func statusItemButtonPosition() -> NSPoint {
 		// Find status item position by accessing it's button's window!
@@ -120,9 +128,15 @@ class StatusBarController {
 	// Simply toggles display of panel based on toggle method. Only changes visibility
 	func toggleWindow(toggleMethod: ToggleMethod) {
 
+		// Check to see if the active space changed
 		// Close panel if it's visible and end execution
 		if window.isVisible {
-			hideWindow()
+			if window.isOnActiveSpace {
+				hideWindow()
+			}
+			else {
+				window.orderFrontRegardless()
+			}
 			return
 		}
 
@@ -164,6 +178,7 @@ class StatusBarController {
 			monitorsStop()
 			interfaceHidingState = .Hidden
 			window.alphaValue = 1
+			spaceDidChange = false
 		}
 
 		// This sets the window's alpha value prior to animating it
