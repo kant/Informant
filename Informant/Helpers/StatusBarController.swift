@@ -319,6 +319,9 @@ class StatusBarController {
 			return
 		}
 
+		#warning("Invalidating shadow on release")
+		window.invalidateShadow()
+
 		// ------------ Establish Panel Snap Zone -------------
 
 		// Grab StatusItemButton position

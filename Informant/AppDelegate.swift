@@ -103,6 +103,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		// MARK: - Notifications
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(didChangeScreens),
+			name: NSPanel.didChangeScreenNotification,
+			object: nil
+		)
+	}
+
+	@objc func didChangeScreens() {
+		#warning("Invalidating shadow on window causes window to recalculate shadow")
+		print("Changed screens")
+		window.invalidateShadow()
 	}
 
 	func applicationWillTerminate(_: Notification) {
