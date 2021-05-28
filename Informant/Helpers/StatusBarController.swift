@@ -304,7 +304,8 @@ class StatusBarController {
 	}
 
 	// MARK: Mouse Drag
-	/// Detects drags on the panel when open. Snaps the panel to the starting panel position if near the StatusItemButton
+	/// Detects drags on the panel when open. Snaps the panel to the starting panel position if near the StatusItemButton.
+	/// This only gets triggered after a drag, so it's okay to build the snap-zone in here. Do not spam this method!
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
 		// Make sure the mouse is dragging on the panel - if not then back out
