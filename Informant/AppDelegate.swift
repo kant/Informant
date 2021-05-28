@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		/// This is the main interface used by the application
 		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.resizable, .fullSizeContentView, .nonactivatingPanel, .borderless],
+			styleMask: [.fullSizeContentView, .nonactivatingPanel, .borderless],
 			backing: .buffered, defer: false
 		)
 
@@ -103,19 +103,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		// MARK: - Notifications
-
-		// Toggle the interface when the user switches virtual desktops
-		NSWorkspace.shared.notificationCenter.addObserver(
-			self,
-			selector: #selector(notifyStatusBarControllerSpaceChanged),
-			name: NSWorkspace.activeSpaceDidChangeNotification,
-			object: nil
-		)
-	}
-
-	/// Lets the status bar controller know that the active space has changed
-	@objc func notifyStatusBarControllerSpaceChanged() {
-		statusBarController?.setSpaceDidChange()
 	}
 
 	func applicationWillTerminate(_: Notification) {

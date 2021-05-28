@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: - Panel Frame
+// MARK: - Panel Frames
 
 /// Used for large views like single file views.
 struct ComponentsPanelFullFrame<Content>: View where Content: View {

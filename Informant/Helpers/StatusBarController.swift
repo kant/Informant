@@ -25,9 +25,6 @@ class StatusBarController {
 	/// Stores panel snap drag zone
 	private var panelSnapDragZone: NSRect?
 
-	/// A notification lets us know if the user has switched spaces
-	private var spaceDidChange: Bool = false
-
 	/// States for hiding the interface
 	enum InterfaceHiding {
 		case Open
@@ -83,11 +80,6 @@ class StatusBarController {
 	/// Small function used to toggle the interface by click
 	@objc func toggleInterfaceByClick() {
 		InterfaceHelper.ToggleInterfaceByClick()
-	}
-
-	/// Called by a notifier of virtual desktop switching
-	func setSpaceDidChange() {
-		spaceDidChange = true
 	}
 
 	/// Find status item button location
@@ -178,7 +170,6 @@ class StatusBarController {
 			monitorsStop()
 			interfaceHidingState = .Hidden
 			window.alphaValue = 1
-			spaceDidChange = false
 		}
 
 		// This sets the window's alpha value prior to animating it
@@ -328,6 +319,8 @@ class StatusBarController {
 			return
 		}
 
+		// ------------ Establish Panel Snap Zone -------------
+
 		// Grab StatusItemButton position
 		guard let statusItemFrame = statusItem.button?.window?.frame else {
 			return
@@ -348,6 +341,8 @@ class StatusBarController {
 		guard let panelSnapZone = panelSnapDragZone else {
 			return
 		}
+
+		// ------------- Panel Snap Zone is established ---------------
 
 		// Get the center point of the panel
 		let panelTopCenter = NSPoint(x: window.frame.midX, y: window.frame.maxY)
