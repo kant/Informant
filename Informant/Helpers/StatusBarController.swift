@@ -11,15 +11,19 @@ class StatusBarController {
 
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
-	private var window: NSWindow!
+	private var window: NSPanel!
 	private var appDelegate: AppDelegate!
 
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
+	private var monitorMouseDrag: GlobalEventMonitor?
 
-	/// This stores the window's position for each screen
+	/// Stores the window's position for each screen
 	private var windowScreenPositions: [Int: CGPoint] = [:]
+
+	/// Stores panel snap drag zone
+	private var panelSnapDragZone: NSRect?
 
 	/// States for hiding the interface
 	enum InterfaceHiding {
@@ -62,10 +66,13 @@ class StatusBarController {
 		}
 
 		// Monitors mouse events
-		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouse)
+		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
 
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
+
+		// Monitors mouse drags on the panel
+		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseDragged, .leftMouseUp, .rightMouseDragged, .rightMouseUp], handler: windowHandlerMouseDrag)
 	}
 
 	// MARK: - Extraneous Methods
@@ -201,17 +208,20 @@ class StatusBarController {
 	func monitorsStart() {
 		monitorMouseDismiss?.start()
 		monitorKeyPress?.start()
+		monitorMouseDrag?.start()
 	}
 
 	func monitorsStop() {
 		monitorMouseDismiss?.stop()
 		monitorKeyPress?.stop()
+		monitorMouseDrag?.stop()
 	}
 
 	// MARK: - Monitor Handler Functions
 
+	// MARK: Mouse Dismiss
 	// Hides interface if no finder items are selected. Otherwise update the interface - based on left and right clicks
-	func windowHandlerMouse(event: NSEvent?) {
+	func windowHandlerMouseDismiss(event: NSEvent?) {
 
 		// If we're interacting with the application panel then don't do anything
 		if event?.window == appDelegate.window {
@@ -244,6 +254,7 @@ class StatusBarController {
 		}
 	}
 
+	// MARK: Key Detection
 	/// Used by the keyedWindowHandler to decide how many updates to the interface to do
 	var keyCounter = 0
 
@@ -289,6 +300,69 @@ class StatusBarController {
 
 		default:
 			break
+		}
+	}
+
+	// MARK: Mouse Drag
+	/// Detects drags on the panel when open. Snaps the panel to the starting panel position if near the StatusItemButton
+	func windowHandlerMouseDrag(event: NSEvent?) {
+
+		// Make sure the mouse is dragging on the panel - if not then back out
+		if event?.window != appDelegate.window {
+			return
+		}
+
+		// Grab StatusItemButton position
+		guard let statusItemFrame = statusItem.button?.window?.frame else {
+			return
+		}
+
+		// Grabs the bottom mid point of the status item button in the menu bar
+		let statusItemBottomMidPoint = NSPoint(x: statusItemFrame.midX, y: statusItemFrame.minY)
+
+		// Offset it ⤴︎
+		let offset: CGFloat = 150.0
+		let panelSnapDragZoneOrigin = CGPoint(x: statusItemBottomMidPoint.x - offset, y: statusItemBottomMidPoint.y - (offset / 2))
+		let panelSnapDragZoneSize = CGSize(width: offset * 2, height: offset)
+
+		// Create a detection box
+		panelSnapDragZone = NSRect(origin: panelSnapDragZoneOrigin, size: panelSnapDragZoneSize)
+
+		// Make sure panel snap drag zone is established
+		guard let panelSnapZone = panelSnapDragZone else {
+			return
+		}
+
+		// Get the center point of the panel
+		let panelTopCenter = NSPoint(x: window.frame.midX, y: window.frame.maxY)
+
+		// See if the panel is in the starting panel position zone
+		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
+
+		// On release of the drag, if in the position zone, snap the panel's position to the starting position
+		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+
+			// Make sure window's alpha value is set before hand
+			window.alphaValue = 1
+
+			// Animates window to 0 opacity and then calls to the next animation phase
+			NSAnimationContext.runAnimationGroup { (context) -> Void in
+				context.duration = TimeInterval(0.15)
+				window.animator().alphaValue = 0
+			} completionHandler: {
+				panelMoveAndSetAlphaAnimation()
+			}
+		}
+
+		// Otherwise backout
+		else {
+			return
+		}
+
+		/// Snaps window to starting position and then makes it visible
+		func panelMoveAndSetAlphaAnimation() {
+			window.animator().setFrameTopLeftPoint(statusItemButtonPosition())
+			window.animator().alphaValue = 1
 		}
 	}
 }
