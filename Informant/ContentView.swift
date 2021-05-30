@@ -17,87 +17,73 @@ struct ContentView: View {
 	var interfaceData: Selection?
 
 	// Initialize app delegate object
-	init(_ appDelegate: AppDelegate) {
-		self.appDelegate = appDelegate
-		self.interfaceData = appDelegate.interfaceData
+	init() {
+		appDelegate = AppDelegate.current()
+		interfaceData = appDelegate.interfaceData
 	}
 
 	var body: some View {
 
-		// MARK: - Full NSWindow View
-		VStack {
+		// MARK: Full Stacked View
+		ZStack {
 
-			// MARK: - Panel Main
-			ZStack {
-				// So we can add padding to the main interface
-				VStack {
-					// Figure out which view to present based on the # of items selected
-					if interfaceData != nil {
+			// MARK: - Panel Backing Material
+			VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
+				.edgesIgnoringSafeArea(.all)
 
-						// One items selected
-						if interfaceData!.collectionType == .Single {
-							PopoverSingleFile(selection: interfaceData!.selectItem)
-						}
+			// MARK: - Panel Bottom Buttons
+			VStack {
 
-						// More than one item selected
-						else if interfaceData!.collectionType == .Multi {
-							PopoverMultiFile(selection: interfaceData!.selectItem)
-						}
-					}
+				Spacer()
 
-					// Otherwise if no items are selected
-					else {
-						PopoverNoFile()
-					}
-				}
-				.padding(10)
+				// Hide Button
+				//	if interfaceData?.isNotNil == true {
+				//		ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
+				//			appDelegate.statusBarController?.hideWindow()
+				//		}
+				//	}
 
-				// MARK: - Panel Bottom Buttons
-				VStack {
+				// Settings button stack
+				HStack(spacing: 0) {
 
+					// Ensures buttons align to the right
 					Spacer()
 
-					ZStack {
-
-						// Hide Button
-						//	if interfaceData?.isNotNil == true {
-						//		ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
-						//			appDelegate.statusBarController?.hideWindow()
-						//		}
-						//	}
-
-						// Settings button stack
-						HStack(spacing: 0) {
-
-							// Ensures buttons align to the right
-							Spacer()
-
-							// More button
-							ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
-								appDelegate.interfaceMenuController?.openMenu()
-							}
-						}
+					// More button
+					ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
+						appDelegate.interfaceMenuController?.openMenu()
 					}
 				}
 			}
-			// Adding the frame here makes sure it resizes properly. Originally 265.0
-			.frame(width: 255)
+			.padding(4)
 
-			// A Little padding for the panel buttons
-			.padding(6)
+			// MARK: - Panel Main
+			// So we can add padding to the main interface
+			VStack(alignment: .center, spacing: 0) {
 
-			// This is the frosted glass effect in action
-			.background(VisualEffectView(material: .popover, blendingMode: .withinWindow, emphasized: true))
+				// Figure out which view to present based on the # of items selected
+				if interfaceData != nil {
 
-			// Corner radius setup, DO NOT change the order
-			.cornerRadius(15, antialiased: false)
-			.fixedSize()
+					// One items selected
+					if interfaceData!.collectionType == .Single {
+						PopoverSingleFile(selection: interfaceData!.selectItem)
+					}
 
-			// MARK: - Bottom Pumper
-			// This spacer is added to make sure the view squishes up to the top
-			if interfaceData != nil {
-				Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
+					// More than one item selected
+					else if interfaceData!.collectionType == .Multi {
+						PopoverMultiFile(selection: interfaceData!.selectItem)
+					}
+				}
+
+				// Otherwise if no items are selected
+				else {
+					PopoverNoFile()
+				}
 			}
+			.padding(.horizontal, 14)
 		}
+		.frame(width: 255)
+		.edgesIgnoringSafeArea(.top)
+		.fixedSize()
 	}
 }

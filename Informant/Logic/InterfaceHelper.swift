@@ -56,7 +56,7 @@ class InterfaceHelper {
 		appDelegate.window.styleMask.insert(.resizable)
 
 		// Create the SwiftUI view that provides the panel contents.
-		appDelegate.contentView = ContentView(appDelegate)
+		appDelegate.contentView = ContentView()
 
 		// Set the SwiftUI view to the panel view
 		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)

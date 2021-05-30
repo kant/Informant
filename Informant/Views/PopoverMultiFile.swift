@@ -14,7 +14,6 @@ struct PopoverMultiFile: View {
 
 	var body: some View {
 		ComponentsPanelReducedFrame {
-			// Main header
 			ComponentsPanelHeader(
 				headerTitle: selection.title!,
 				headerIconCollection: selection.totalIcons,

@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Content View Init
 
-		contentView = ContentView(self)
+		contentView = ContentView()
 
 		// MARK: - Privacy Init
 
@@ -60,13 +60,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		/// This is the main interface used by the application
 		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.fullSizeContentView, .nonactivatingPanel, .borderless],
+			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
 			backing: .buffered, defer: false
 		)
 
 		// TODO: This needs to be adjusted so that it's actually in the center
 		// Centers window in middle of screen on launch
 		window.center()
+
+		// Hide the titlebar
+		window.titlebarAppearsTransparent = true
+		window.titleVisibility = .hidden
+
+		// Hide all Titlebar Controls
+		window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+		window.standardWindowButton(.closeButton)?.isHidden = true
+		window.standardWindowButton(.zoomButton)?.isHidden = true
 
 		// Brings window to the top level but not above the menubar
 		window.level = .floating
@@ -76,8 +85,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		window.animationBehavior = .none
 
 		// Other self explained window settings
-		window.isOpaque = false
-		window.backgroundColor = .clear
 		window.isMovableByWindowBackground = true
 
 		// TODO: Deprecate, I don't believe this is necessary
@@ -103,18 +110,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		// MARK: - Notifications
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(didChangeScreens),
-			name: NSPanel.didChangeScreenNotification,
-			object: nil
-		)
-	}
-
-	@objc func didChangeScreens() {
-		#warning("Invalidating shadow on window causes window to recalculate shadow")
-		print("Changed screens")
-		window.invalidateShadow()
 	}
 
 	func applicationWillTerminate(_: Notification) {

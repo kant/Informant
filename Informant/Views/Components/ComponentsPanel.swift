@@ -19,10 +19,10 @@ struct ComponentsPanelFullFrame<Content>: View where Content: View {
 	}
 
 	var body: some View {
-		VStack(alignment: .leading) {
+		VStack(alignment: .leading, spacing: 0) {
 			content
 		}
-		.padding(.bottom, 19)
+		.padding(.bottom, 18)
 	}
 }
 
@@ -56,7 +56,8 @@ struct ComponentsPanelHeader: View {
 	var size: CGFloat = 45
 
 	var body: some View {
-		HStack {
+
+		HStack(alignment: .center, spacing: 7) {
 
 			// Single icon present
 			if headerIconCollection.count == 0 {
@@ -70,7 +71,7 @@ struct ComponentsPanelHeader: View {
 			}
 
 			// Header stack
-			VStack(alignment: .leading) {
+			VStack(alignment: .leading, spacing: 0) {
 				// Title
 				Text(headerTitle).H1()
 
@@ -81,7 +82,7 @@ struct ComponentsPanelHeader: View {
 				Text(headerSubtitle).H4()
 			}
 
-			Spacer()
+			Spacer(minLength: 0)
 		}
 	}
 }

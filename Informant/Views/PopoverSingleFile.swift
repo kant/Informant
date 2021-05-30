@@ -20,6 +20,7 @@ struct PopoverSingleFile: View {
 				headerIcon: selection.typeIcon!,
 				headerSubtitle: selection.fileDateModifiedAsString!
 			)
+			.padding([.bottom], 5)
 
 			Divider().padding(.bottom, 10)
 
