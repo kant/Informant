@@ -30,8 +30,9 @@ struct PopoverSingleFile: View {
 					// Kind
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!), lineLimit: 2)
 
+					// TODO: This is a really sketchy way to break an interface up. See if there's a better way
 					// Size
-					if selection.fileKind!.count <= 17 {
+					if selection.fileKind!.count <= 16 {
 						ComponentsPanelSizeField(selection: selection)
 							.padding([.leading], 15)
 					}
@@ -40,7 +41,7 @@ struct PopoverSingleFile: View {
 				}
 
 				// Size - if the kind field is too large
-				if selection.fileKind!.count >= 18 {
+				if selection.fileKind!.count >= 17 {
 					ComponentsPanelSizeField(selection: selection)
 				}
 
