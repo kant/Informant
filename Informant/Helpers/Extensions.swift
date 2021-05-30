@@ -96,6 +96,7 @@ extension String {
 	}
 }
 
+// Resizes the bitmap of an NSImage
 extension NSImage {
 	/// Scales NSImage to the provided NSSize().
 	/// [Skimmed off StackOverflow](https://stackoverflow.com/a/42915296/13142325)

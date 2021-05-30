@@ -24,6 +24,9 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 			let directoryPath = String(path!.dropLast())
 			title = URL(fileURLWithPath: directoryPath).lastPathComponent
 		}
+
+		// Check to see if the file is hidden first
+		// https://stackoverflow.com/a/34745124/13142325
 		else {
 			title = URL(fileURLWithPath: path!).lastPathComponent
 		}
@@ -73,7 +76,15 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 			var itemExtension: String
 
 			// Grab the extension and unique type identifier
-			itemExtension = NSURL(fileURLWithPath: path!).pathExtension!
+			itemExtension = url!.pathExtension
+
+			// If the path extension is .icloud then we want to delete it and ignore it
+			if itemExtension == "icloud" {
+				let urlWithoutiCloudExtension = url!.deletingPathExtension()
+				itemExtension = urlWithoutiCloudExtension.pathExtension
+			}
+
+			// Gets the UTI using the path extension
 			let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension as CFString, itemExtension as CFString, nil)?.takeRetainedValue()
 
 			// Determines if the uti conforms
@@ -123,14 +134,55 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 				}
 			}
 
+			// MARK: - Relabel File Extension Kind Label
+
+			/// Used to placehold a fileKind before finally assigning it at the end
+			var placeholderKind: String?
+
+			/// A simple function to assign the placeholder to the file kind
+			func assignFinalKind() {
+				fileKind = placeholderKind!.capitalizeEachWord
+			}
+
+			/// A simple function help speed up relabelling
+			func kind(_ newLabel: String) {
+				placeholderKind = newLabel
+			}
+
+			// These are just additional file extension specific overrides!
+			// Remember: only the first letter gets capitalized in the end!
+			switch itemExtension.lowercased() {
+
+			case "jpg", "jpeg": kind("JPEG image")
+				break
+
+			case "docx": kind("microsoft word document")
+				break
+
+			case "psd": kind("adobe photoshop document")
+				break
+
+			case "ai": kind("adobe illustrator document")
+				break
+
+			default: break
+			}
+
+			// If at this point our placeholder is filled then we don't need to do anymore work so backout
+			if placeholderKind != nil {
+				assignFinalKind()
+				return
+			}
+
+			// MARK: - Provide Standard Type Label
 			// Now check if an item type was found. If a type was found then assign fileKind. If no type was
 			// found then find the type and don't write the extension.
 			if itemType != nil {
-				fileKind = itemExtension.uppercased() + " " + itemType!.capitalized
+				placeholderKind = itemExtension.uppercased() + " " + itemType!.capitalized
 			}
 
-			// Unfortunately the library for these descriptions isn't very good so we have to make some exceptions
-			// to them ourself
+			// MARK: - Provide Specific Type Label
+			// Unfortunately the library for these descriptions isn't very good so we have to make some exceptions to them ourself
 			else {
 
 				// Check if you can even extract a UTType from the file
@@ -138,40 +190,34 @@ class SingleSelectItem: SelectItem, SelectItemProtocol {
 
 					// Typically the description is just Javascript
 					if doesConform(kUTType: kUTTypeJavaScript) {
-						itemType = "javascript source"
+						placeholderKind = "javascript source"
 					}
 
 					// All source code files
 					else if doesConform(kUTType: kUTTypeSourceCode) {
-						itemType = utiDescription
+						placeholderKind = utiDescription
 					}
 
 					// Edit text documents - Decide
 					else if doesConform(kUTType: kUTTypeText) {
-						itemType = appendDocument(item: utiDescription)
+						placeholderKind = appendDocument(item: utiDescription)
 					}
 
 					// Non-exceptions
 					else {
-						itemType = utiDescription
+						placeholderKind = utiDescription
 					}
 				}
 
 				//	If you can't extract a UTType then just label it a document
 				else {
-					itemType = "document"
+					placeholderKind = "document"
 				}
-
-				// MARK: - Relabel File Extension Kind Label
-				// These are just additional file extension specific overrides!
-				switch itemExtension {
-				default:
-					break
-				}
-
-				// Capitalize items without lowercasing already uppercased words
-				fileKind = itemType!.capitalizeEachWord
 			}
+
+			// MARK: - Assign file's kind!
+			// Capitalize items without lowercasing already uppercased words
+			assignFinalKind()
 		}
 	}
 }
