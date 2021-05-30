@@ -80,9 +80,9 @@ struct ContentView: View {
 					PopoverNoFile()
 				}
 			}
-			.padding(.horizontal, 14)
+			.padding(.horizontal, 15)
 		}
-		.frame(width: 255)
+		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)
 		.fixedSize()
 	}

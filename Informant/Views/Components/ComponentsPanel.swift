@@ -39,7 +39,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 		VStack(alignment: .leading) {
 			content
 		}
-		.frame(height: 50)
+		.frame(height: 52)
 	}
 }
 
@@ -57,7 +57,7 @@ struct ComponentsPanelHeader: View {
 
 	var body: some View {
 
-		HStack(alignment: .center, spacing: 7) {
+		HStack(alignment: .center, spacing: 0) {
 
 			// Single icon present
 			if headerIconCollection.count == 0 {
@@ -67,7 +67,7 @@ struct ComponentsPanelHeader: View {
 			// Multiple icons present
 			else {
 				ComponentsPanelHeaderIconStack(icons: headerIconCollection, size: size)
-					.padding([.trailing], 5.5)
+					.padding([.trailing], 4)
 			}
 
 			// Header stack
@@ -81,6 +81,7 @@ struct ComponentsPanelHeader: View {
 				// Subtitle
 				Text(headerSubtitle).H4()
 			}
+			.padding(.leading, 7)
 
 			Spacer(minLength: 0)
 		}
