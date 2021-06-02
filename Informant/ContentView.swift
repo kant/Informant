@@ -14,7 +14,7 @@ struct ContentView: View {
 	var appDelegate: AppDelegate
 
 	/// This contians all information to be displayed on the interface
-	var interfaceData: Selection?
+	var interfaceData: InterfaceData?
 
 	// Initialize app delegate object
 	init() {
@@ -65,13 +65,13 @@ struct ContentView: View {
 				if interfaceData != nil {
 
 					// One items selected
-					if interfaceData!.collectionType == .Single {
-						PopoverSingleFile(selection: interfaceData!.selectItem)
+					if interfaceData!.selection?.collectionType == .Single {
+						PopoverSingleFile(selection: interfaceData!.selection!)
 					}
 
 					// More than one item selected
-					else if interfaceData!.collectionType == .Multi {
-						PopoverMultiFile(selection: interfaceData!.selectItem)
+					else if interfaceData!.selection?.collectionType == .Multi {
+						PopoverMultiFile(selection: interfaceData!.selection!)
 					}
 				}
 

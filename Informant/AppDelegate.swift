@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var interfaceMenu: NSMenu!
 
 	/// This contians all data needed for the interface.
-	public var interfaceData = Selection()
+	public var interfaceData = InterfaceData()
 
 	/// The view for the interface.
 	public var contentView: ContentView!

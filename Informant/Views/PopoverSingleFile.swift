@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PopoverSingleFile: View {
 
-	var selection: SelectItem
+	var selection: Selection
 
 	var body: some View {
 
@@ -57,8 +57,8 @@ struct PopoverSingleFile: View {
 
 /// Size appears in multiple places depending on the layout. This is built to avoid code duplication
 struct ComponentsPanelSizeField: View {
-	var selection: SelectItem
+	var selection: Selection
 	var body: some View {
-		ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.sizeAsString!))
+		ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.fileSizeAsString!))
 	}
 }

@@ -1,15 +1,33 @@
 //
-//  SelectedItemCollection.swift
+//  FileObject.swift
 //  Informant
 //
-//  Created by Ty Irvine on 2021-04-24.
+//  Created by Ty Irvine on 2021-04-17.
 //
 
+import Cocoa
 import Foundation
 
-// MARK: - Used for storing multiple files
-@available(*, renamed: "Selection", message: "This name is more specific because this data won't just be used for the interface.")
-class Selection: ObservableObject {
+class Selection {
+
+	var fileResources: URLResourceValues?
+
+	var url: URL?
+	var path: String?
+	var title: String?
+	var typeIcon: NSImage?
+	var totalIcons: [NSImage] = []
+
+	var fileType: String?
+	var fileKind: String?
+
+	var fileSize: Int64?
+	var fileSizeAsString: String?
+
+	var fileDateCreated: Date?
+	var fileDateModified: Date?
+	var fileDateCreatedAsString: String?
+	var fileDateModifiedAsString: String?
 
 	public enum CollectionType {
 		case Single
@@ -17,41 +35,52 @@ class Selection: ObservableObject {
 		case Directory
 	}
 
-	@Published public var selectItem = SelectItem()
-	public let collectionType: CollectionType?
+	var collectionType: CollectionType?
 
-	init?(_ urls: [String]? = nil) {
+	/// This is the actually path extension - PNG, ICO, etc.
+	var fileExtension: String!
 
-		// Check to see if the urls object is nil or not
-		guard let filePaths = urls else {
+	// MARK: - File Tags
+	/// Determines if the file has the .icloud extension
+	var isICloudSyncFile: Bool?
+
+	/// Determines if the file is marked hidden
+	var isHidden: Bool?
+
+	/// Determines if the file is an application or not
+	var isApplication: Bool?
+
+	// MARK: - Methods
+	// This function will take in a url string and provide a file attribute object which can be
+	// then used to grab info, such as name, size, etc. Returns nil if nothing is found
+	func getFileAttributes(path: String) -> [FileAttributeKey: Any]? {
+		do {
+			return try FileManager.default.attributesOfItem(atPath: path)
+		}
+		catch {
 			return nil
 		}
+	}
 
-		// Use a singleselectitem if only one item is selected
-		if filePaths.count == 1 {
-			selectItem = SingleSelectItem(urls: filePaths)
-			collectionType = .Single
+	// ------------- Initialization ⤵︎ ----------------
+
+	init?(_ urls: [String]) {
+
+		// MARK: - Determine if the selection is multi or single
+
+		// A multiselectitem if multiple items are selected
+		if urls.count >= 2 {
+			multiSelection(urls)
 		}
 
-		// and a multiselectitem if multiple items are selected
-		else if filePaths.count >= 2 {
-			selectItem = MultiSelectItem(urls: filePaths)
-			collectionType = .Multi
+		// Use some single selection init if only one item is selected
+		else if urls.count == 1 {
+			singleSelection(urls)
 		}
 
 		// Otherwise just link the reference to nil
 		else {
 			return nil
-		}
-	}
-
-	/// Checks to make sure that all data is valid
-	public func isNotNil(_ selection: Selection?) -> Bool {
-		if selection == nil || selection?.selectItem.title == nil {
-			return false
-		}
-		else {
-			return true
 		}
 	}
 }
