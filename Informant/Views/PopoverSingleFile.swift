@@ -9,16 +9,16 @@ import SwiftUI
 
 struct PopoverSingleFile: View {
 
-	var selection: Selection
+	var selection: Selection?
 
 	var body: some View {
 
 		ComponentsPanelFullFrame {
 
 			ComponentsPanelHeader(
-				headerTitle: selection.title!,
-				headerIcon: selection.typeIcon!,
-				headerSubtitle: selection.fileDateModifiedAsString!
+				headerTitle: selection?.title,
+				headerIcon: selection?.fileIcon,
+				headerSubtitle: selection?.fileDateModifiedAsString
 			)
 			.padding([.bottom], 7)
 
@@ -28,11 +28,11 @@ struct PopoverSingleFile: View {
 
 				HStack(spacing: 0) {
 					// Kind
-					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: String(selection.fileKind!), lineLimit: 2)
+					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: selection?.fileKind, lineLimit: 2)
 
 					// TODO: This is a really sketchy way to break an interface up. See if there's a better way
 					// Size
-					if selection.fileKind!.count <= 16 {
+					if selection?.fileKind?.count != nil && selection!.fileKind!.count <= 16 {
 						ComponentsPanelSizeField(selection: selection)
 							.padding([.leading], 15)
 					}
@@ -41,15 +41,15 @@ struct PopoverSingleFile: View {
 				}
 
 				// Size - if the kind field is too large
-				if selection.fileKind!.count >= 17 {
+				if selection?.fileKind != nil && selection!.fileKind!.count >= 17 {
 					ComponentsPanelSizeField(selection: selection)
 				}
 
 				// Created
-				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection.fileDateCreatedAsString!)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection?.fileDateCreatedAsString)
 
 				// Path
-				ComponentsPanelItemField(label: ContentManager.Labels.panelPath, value: selection.path!)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelPath, value: selection?.path)
 			}
 		}
 	}
@@ -57,8 +57,8 @@ struct PopoverSingleFile: View {
 
 /// Size appears in multiple places depending on the layout. This is built to avoid code duplication
 struct ComponentsPanelSizeField: View {
-	var selection: Selection
+	var selection: Selection?
 	var body: some View {
-		ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: String(selection.fileSizeAsString!))
+		ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection?.fileSizeAsString)
 	}
 }

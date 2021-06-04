@@ -34,14 +34,8 @@ struct ContentView: View {
 			// MARK: - Panel Bottom Buttons
 			VStack {
 
+				// Makes sure button rests on the bottom of the interface
 				Spacer()
-
-				// Hide Button
-				//	if interfaceData?.isNotNil == true {
-				//		ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
-				//			appDelegate.statusBarController?.hideWindow()
-				//		}
-				//	}
 
 				// Settings button stack
 				HStack(spacing: 0) {
@@ -66,12 +60,12 @@ struct ContentView: View {
 
 					// One items selected
 					if interfaceData!.selection?.collectionType == .Single {
-						PopoverSingleFile(selection: interfaceData!.selection!)
+						PopoverSingleFile(selection: interfaceData?.selection)
 					}
 
 					// More than one item selected
 					else if interfaceData!.selection?.collectionType == .Multi {
-						PopoverMultiFile(selection: interfaceData!.selection!)
+						PopoverMultiFile(selection: interfaceData?.selection)
 					}
 				}
 

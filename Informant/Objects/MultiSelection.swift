@@ -16,15 +16,14 @@ extension Selection {
 		// Establish the collection type first
 		collectionType = .Multi
 
-		// Start size off at 0
-		fileSize = 0
-		
+		// MARK: - Establish Title
 		// Establish item count
 		let totalCount = urls.count
 		
 		// Establish title
 		title = String(totalCount) + " " + ContentManager.Labels.multiSelectTitle
 		
+		// MARK: - Establish Icon Collection
 		/// Gather the icons from the first two or three files and use those layered on top of eachother!
 		for (index, url) in urls.enumerated() {
 			
@@ -38,13 +37,21 @@ extension Selection {
 			}
 		}
 		
-		// Establish total size
+		// MARK: - Establish Total Size
+		let keys: Set<URLResourceKey> = [
+			.fileSizeKey
+		]
+		
+		// Start size off at 0
+		fileSize = 0
+		
+		// Adds sizes together
 		for url in urls {
-			guard let fileAttributes = getFileAttributes(path: url) else { return }
-			fileSize! += (fileAttributes[FileAttributeKey.size] as! Int64)
+			guard let resources = getURLResources(URL(fileURLWithPath: url), keys) else { return }
+			fileSize! += resources.fileSize!
 		}
 		
 		// Format total size
-		fileSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: fileSize!)
+		fileSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: Int64(fileSize!))
 	}
 }
