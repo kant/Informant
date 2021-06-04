@@ -12,7 +12,7 @@ import Foundation
 /// Used by the app delegate as a global interface data filler
 class InterfaceData: ObservableObject {
 
-	@Published public var selection: Selection?
+	@Published public var selection: SelectionProtocol?
 
 	init?(_ urls: [String]? = nil) {
 
@@ -22,6 +22,6 @@ class InterfaceData: ObservableObject {
 		}
 
 		// Provide the nil checked pathes to the SelectItem object
-		selection = Selection(filePaths)
+		selection = SelectionHelper.pickSelectionType(filePaths)
 	}
 }

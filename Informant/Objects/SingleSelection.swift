@@ -8,13 +8,48 @@
 import Cocoa
 import Foundation
 
-extension Selection {
+class SingleSelection: SelectionHelper, SelectionProtocol {
+
+	var selectionType: SelectionType = .Single
+	var itemResources: URLResourceValues?
+
+	// MARK: - Single Selection Fields
+	var url: URL!
+	var itemPath: String?
+	var itemTitle: String?
+	var itemIcon: NSImage?
+
+	var itemKind: String?
+	var itemSize: Int?
+	var itemSizeAsString: String?
+
+	var itemDateCreated: Date?
+	var itemDateModified: Date?
+	var itemDateCreatedAsString: String?
+	var itemDateModifiedAsString: String?
+
+	var itemExtension: String!
+
+	// MARK: - File Tags
+	/// Determines if the file has the .icloud extension
+	var isiCloudSyncFile: Bool?
+
+	/// Determines if the file is marked hidden
+	var isHidden: Bool?
+
+	/// Determines if the file is an application or not
+	var isApplication: Bool?
+
+	/// The user's Finder tags tacked on to the file
+	var tagNames: [String]?
+
+	/// The iCloud container where this document is actully stored
+	var iCloudContainerName: String?
 
 	/// Establishes a single selection foundation and then picks out a type
-	func singleSelection(_ urls: [String]) {
+	required init(_ urls: [String]) {
 
-		// Set collection type
-		collectionType = .Single
+		super.init()
 
 		// Provide selection url
 		url = URL(fileURLWithPath: urls[0])
@@ -41,20 +76,20 @@ extension Selection {
 		]
 
 		// Assigning resources to fileResources object
-		fileResources = getURLResources(url, keys)
+		itemResources = getURLResources(url, keys)
 
 		// MARK: - Fill in fields
-		if let resources = fileResources {
-			path = resources.canonicalPath
-			title = resources.name
+		if let resources = itemResources {
+			itemPath = resources.canonicalPath
+			itemTitle = resources.name
 
-			fileIcon = (resources.effectiveIcon! as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
-			fileKind = resources.localizedTypeDescription
-			size = resources.fileSize
-			fileSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
+			itemIcon = (resources.effectiveIcon! as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+			itemKind = resources.localizedTypeDescription
+			itemSize = resources.fileSize
+			itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
 
-			fileDateCreated = resources.creationDate
-			fileDateModified = resources.contentModificationDate
+			itemDateCreated = resources.creationDate
+			itemDateModified = resources.contentModificationDate
 
 			// Format dates as strings
 			let dateFormatter = DateFormatter()
@@ -62,8 +97,8 @@ extension Selection {
 			dateFormatter.timeStyle = .short
 			dateFormatter.doesRelativeDateFormatting = true
 
-			fileDateCreatedAsString = dateFormatter.string(from: fileDateCreated!)
-			fileDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: fileDateModified!)
+			itemDateCreatedAsString = dateFormatter.string(from: itemDateCreated!)
+			itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: itemDateModified!)
 
 			// Fill in remaining flags
 			isiCloudSyncFile = resources.isUbiquitousItem
@@ -75,19 +110,19 @@ extension Selection {
 
 		// MARK: - See if the file is an iCloud Sync file
 		// Grab the extension and unique type identifier
-		fileExtension = url.pathExtension
+		itemExtension = url.pathExtension
 
 		// If the path extension is .icloud then we want to delete it and ignore it
-		if fileExtension == "icloud" {
+		if itemExtension == "icloud" {
 			let urlWithoutICloudExtension = url.deletingPathExtension()
-			fileExtension = urlWithoutICloudExtension.pathExtension
+			itemExtension = urlWithoutICloudExtension.pathExtension
 			isiCloudSyncFile = true
 		}
 
 		// Determine if the file is hidden or not. Or if it's simply a hidden iCloud file.
 		// i.e. determine whether or not the period on the front of the file should be removed
 		if isHidden == true && isiCloudSyncFile == true {
-			title?.removeFirst()
+			itemTitle?.removeFirst()
 			isHidden = false
 		}
 	}

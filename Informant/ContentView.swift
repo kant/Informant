@@ -56,16 +56,16 @@ struct ContentView: View {
 			VStack(alignment: .center, spacing: 0) {
 
 				// Figure out which view to present based on the # of items selected
-				switch interfaceData?.selection?.collectionType {
+				switch interfaceData?.selection?.selectionType {
 
 				// One item selected
-				case .Single: PopoverSingleFile(selection: interfaceData?.selection)
+				case .Single: PanelSingleItem(interfaceData?.selection)
 
 				// More than one item selected
-				case .Multi: PopoverMultiFile(selection: interfaceData?.selection)
+				case .Multi: PanelMultiItem(interfaceData?.selection)
 
 				// No items selected
-				default: PopoverNoFile()
+				default: PanelNoItem()
 				}
 			}
 			.padding(.horizontal, 15)

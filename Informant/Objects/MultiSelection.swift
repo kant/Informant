@@ -8,20 +8,28 @@
 import Cocoa
 import Foundation
 
-extension Selection {
-
+class MultiSelection: SelectionHelper, SelectionProtocol {
+	
+	var selectionType: SelectionType = .Multi
+	var itemResources: URLResourceValues?
+	
+	// Metadata ⤵︎
+	var itemTitle: String?
+	var itemSize: Int?
+	var itemSizeAsString: String?
+	var itemTotalIcons: [NSImage] = []
+	
 	/// Fills the data in for intention to be used in a multi-select interface
-	func multiSelection(_ urls: [String]) {
+	required init(_ urls: [String]) {
 		
-		// Establish the collection type first
-		collectionType = .Multi
-
+		super.init()
+		
 		// MARK: - Establish Title
 		// Establish item count
 		let totalCount = urls.count
 		
 		// Establish title
-		title = String(totalCount) + " " + ContentManager.Labels.multiSelectTitle
+		itemTitle = String(totalCount) + " " + ContentManager.Labels.multiSelectTitle
 		
 		// MARK: - Establish Icon Collection
 		/// Gather the icons from the first two or three files and use those layered on top of eachother!
@@ -29,7 +37,7 @@ extension Selection {
 			
 			let icon = NSWorkspace.shared.icon(forFile: url)
 			guard let iconResized = icon.resized(to: ContentManager.Icons.panelHeaderIconSize) else { return }
-			totalIcons.append(iconResized)
+			itemTotalIcons.append(iconResized)
 		
 			// Escape loop at desired iteration
 			if index >= 6 {
@@ -43,15 +51,15 @@ extension Selection {
 		]
 		
 		// Start size off at 0
-		size = 0
+		itemSize = 0
 		
 		// Adds sizes together
 		for url in urls {
 			guard let resources = getURLResources(URL(fileURLWithPath: url), keys) else { return }
-			size! += resources.fileSize!
+			itemSize! += resources.fileSize!
 		}
 		
 		// Format total size
-		fileSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: Int64(size!))
+		itemSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: Int64(itemSize!))
 	}
 }

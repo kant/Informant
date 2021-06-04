@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// Shown when no files are selected by the user.
-struct PopoverNoFile: View {
+struct PanelNoItem: View {
 	var body: some View {
 		ComponentsPanelReducedFrame {
 			Text(ContentManager.Labels.panelNoItemsSelected)
