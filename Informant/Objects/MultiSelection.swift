@@ -43,15 +43,15 @@ extension Selection {
 		]
 		
 		// Start size off at 0
-		fileSize = 0
+		size = 0
 		
 		// Adds sizes together
 		for url in urls {
 			guard let resources = getURLResources(URL(fileURLWithPath: url), keys) else { return }
-			fileSize! += resources.fileSize!
+			size! += resources.fileSize!
 		}
 		
 		// Format total size
-		fileSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: Int64(fileSize!))
+		fileSizeAsString = ContentManager.Labels.multiSelectSize + " " + ByteCountFormatter().string(fromByteCount: Int64(size!))
 	}
 }

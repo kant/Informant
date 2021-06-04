@@ -7,9 +7,19 @@
 
 import Foundation
 
-protocol SelectItemProtocol {
+protocol SelectionProtocol {
 
-	var selection: Selection { get set }
+	/// Defines the selection type used. Must not be nil!
+	var collectionType: Selection.CollectionType? { get set }
 
-	init(_ urls: [String], _ selectedItems: Selection)
+	/// Contains all resources for the file
+	var fileResources: URLResourceValues? { get set }
+
+	/// The title the interface displays
+	var title: String? { get set }
+
+	/// The size the interface displays
+	var size: Int? { get set }
+
+	init?(_ urls: [String])
 }

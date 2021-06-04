@@ -47,7 +47,7 @@ class InterfaceMenuController {
 
 		// -------- Update shortcut preferences ---------
 		togglePanelMenuItem.setShortcut(for: .togglePopover)
-		togglePanelMenuItem.image = #imageLiteral(resourceName: "DocStretchedThree.png")
+		togglePanelMenuItem.image = #imageLiteral(resourceName: "panel-menu-toggle-icon.png")
 		togglePanelMenuItem.image?.isTemplate = true
 		togglePanelMenuItem.image?.size = NSSize(width: 21, height: 24)
 	}

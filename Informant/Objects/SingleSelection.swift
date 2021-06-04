@@ -50,7 +50,7 @@ extension Selection {
 
 			fileIcon = (resources.effectiveIcon! as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
 			fileKind = resources.localizedTypeDescription
-			fileSize = resources.fileSize
+			size = resources.fileSize
 			fileSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
 
 			fileDateCreated = resources.creationDate

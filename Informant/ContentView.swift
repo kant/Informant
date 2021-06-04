@@ -56,22 +56,16 @@ struct ContentView: View {
 			VStack(alignment: .center, spacing: 0) {
 
 				// Figure out which view to present based on the # of items selected
-				if interfaceData != nil {
+				switch interfaceData?.selection?.collectionType {
 
-					// One items selected
-					if interfaceData!.selection?.collectionType == .Single {
-						PopoverSingleFile(selection: interfaceData?.selection)
-					}
+				// One item selected
+				case .Single: PopoverSingleFile(selection: interfaceData?.selection)
 
-					// More than one item selected
-					else if interfaceData!.selection?.collectionType == .Multi {
-						PopoverMultiFile(selection: interfaceData?.selection)
-					}
-				}
+				// More than one item selected
+				case .Multi: PopoverMultiFile(selection: interfaceData?.selection)
 
-				// Otherwise if no items are selected
-				else {
-					PopoverNoFile()
+				// No items selected
+				default: PopoverNoFile()
 				}
 			}
 			.padding(.horizontal, 15)

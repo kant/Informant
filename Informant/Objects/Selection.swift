@@ -8,7 +8,7 @@
 import Cocoa
 import Foundation
 
-class Selection {
+class Selection: SelectionProtocol {
 
 	/// Defines the selection type used. Must not be nil!
 	var collectionType: CollectionType?
@@ -30,7 +30,7 @@ class Selection {
 	var totalIcons: [NSImage] = []
 
 	var fileKind: String?
-	var fileSize: Int?
+	var size: Int?
 	var fileSizeAsString: String?
 
 	var fileDateCreated: Date?
@@ -70,7 +70,7 @@ class Selection {
 
 	// ------------- Initialization ⤵︎ ----------------
 
-	init?(_ urls: [String]) {
+	required init?(_ urls: [String]) {
 
 		// MARK: - Determine if the selection is multi or single
 
