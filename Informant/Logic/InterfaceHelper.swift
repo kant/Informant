@@ -15,7 +15,7 @@ class InterfaceHelper {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	public static func GetFinderSelection() -> Selection? {
+	public static func GetFinderSelection() -> InterfaceData? {
 
 		guard let selectedFiles: [String] = AppleScripts.findSelectedFiles() else {
 			return nil
@@ -23,7 +23,7 @@ class InterfaceHelper {
 
 		// Block executed if only one file is selected
 		if selectedFiles.count >= 1 {
-			return Selection(selectedFiles)
+			return InterfaceData(selectedFiles)
 		}
 
 		return nil
@@ -36,7 +36,7 @@ class InterfaceHelper {
 		let appDelegate = AppDelegate.current()
 
 		// Check to make sure a file is selected before executing logic
-		let selectedItems: Selection? = InterfaceHelper.GetFinderSelection()
+		let selectedItems: InterfaceData? = InterfaceHelper.GetFinderSelection()
 
 		// Find selected files
 		appDelegate.interfaceData = selectedItems

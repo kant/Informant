@@ -14,7 +14,7 @@ struct ContentView: View {
 	var appDelegate: AppDelegate
 
 	/// This contians all information to be displayed on the interface
-	var interfaceData: Selection?
+	var interfaceData: InterfaceData?
 
 	// Initialize app delegate object
 	init() {
@@ -34,14 +34,8 @@ struct ContentView: View {
 			// MARK: - Panel Bottom Buttons
 			VStack {
 
+				// Makes sure button rests on the bottom of the interface
 				Spacer()
-
-				// Hide Button
-				//	if interfaceData?.isNotNil == true {
-				//		ComponentsPanelIconButton(ContentManager.Icons.panelHideButton, size: 15) {
-				//			appDelegate.statusBarController?.hideWindow()
-				//		}
-				//	}
 
 				// Settings button stack
 				HStack(spacing: 0) {
@@ -62,22 +56,16 @@ struct ContentView: View {
 			VStack(alignment: .center, spacing: 0) {
 
 				// Figure out which view to present based on the # of items selected
-				if interfaceData != nil {
+				switch interfaceData?.selection?.selectionType {
 
-					// One items selected
-					if interfaceData!.collectionType == .Single {
-						PopoverSingleFile(selection: interfaceData!.selectItem)
-					}
+				// One item selected
+				case .Single: PanelSingleItem(interfaceData?.selection)
 
-					// More than one item selected
-					else if interfaceData!.collectionType == .Multi {
-						PopoverMultiFile(selection: interfaceData!.selectItem)
-					}
-				}
+				// More than one item selected
+				case .Multi: PanelMultiItem(interfaceData?.selection)
 
-				// Otherwise if no items are selected
-				else {
-					PopoverNoFile()
+				// No items selected
+				default: PanelNoItem()
 				}
 			}
 			.padding(.horizontal, 15)

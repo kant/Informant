@@ -47,10 +47,10 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 
 struct ComponentsPanelHeader: View {
 
-	var headerTitle: String
-	var headerIcon = NSImage()
-	var headerIconCollection: [NSImage] = []
-	var headerSubtitle: String
+	var headerTitle: String?
+	var headerIcon: NSImage?
+	var headerIconCollection: [NSImage]? = []
+	var headerSubtitle: String?
 
 	/// The frame size of the icon. Originally 42.0, now 48.0
 	var size: CGFloat = 45
@@ -60,28 +60,31 @@ struct ComponentsPanelHeader: View {
 		HStack(alignment: .center, spacing: 0) {
 
 			// Single icon present
-			if headerIconCollection.count == 0 {
-				Image(nsImage: headerIcon).resizable().frame(width: size, height: size)
+			if headerIcon != nil, headerIconCollection!.count == 0 {
+				Image(nsImage: headerIcon!).resizable().frame(width: size, height: size)
 			}
 
 			// Multiple icons present
 			else {
-				ComponentsPanelHeaderIconStack(icons: headerIconCollection, size: size)
+				ComponentsPanelHeaderIconStack(icons: headerIconCollection!, size: size)
 					.padding([.trailing], 4)
 			}
 
 			// Header stack
-			VStack(alignment: .leading, spacing: 0) {
-				// Title
-				Text(headerTitle).H1()
 
-				Spacer()
-					.frame(height: 2)
+			if headerTitle != nil, headerSubtitle != nil {
+				VStack(alignment: .leading, spacing: 0) {
+					// Title
+					Text(headerTitle!).H1()
 
-				// Subtitle
-				Text(headerSubtitle).H4()
+					Spacer()
+						.frame(height: 2)
+
+					// Subtitle
+					Text(headerSubtitle!).H4()
+				}
+				.padding(.leading, 7)
 			}
-			.padding(.leading, 7)
 
 			Spacer(minLength: 0)
 		}
@@ -90,21 +93,25 @@ struct ComponentsPanelHeader: View {
 
 struct ComponentsPanelItemField: View {
 
-	var label: String
-	var value: String
+	var label: String?
+	var value: String?
 	var lineLimit: Int = 1
 
 	var body: some View {
 		VStack(alignment: .leading) {
 			// Label
-			Text(label).H3()
+			if label != nil {
+				Text(label!).H3()
+			}
 
 			Spacer()
 				.frame(height: 1)
 
 			// Value
-			Text(value).H2()
-				.lineLimit(lineLimit)
+			if value != nil {
+				Text(value!).H2()
+					.lineLimit(lineLimit)
+			}
 		}
 	}
 }
