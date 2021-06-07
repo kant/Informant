@@ -111,6 +111,10 @@ struct ComponentsPanelItemField: View {
 			if value != nil {
 				Text(value!).H2()
 					.lineLimit(lineLimit)
+			} else {
+				Text("Unavailable").H2()
+					.lineLimit(lineLimit)
+					.opacity(Styling.Text.opacity)
 			}
 		}
 	}

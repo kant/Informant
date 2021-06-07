@@ -13,7 +13,7 @@ struct PanelNoItem: View {
 		ComponentsPanelReducedFrame {
 			Text(ContentManager.Labels.panelNoItemsSelected)
 				.H1()
-				.opacity(0.5)
+				.opacity(Styling.Text.opacity)
 		}
 	}
 }
