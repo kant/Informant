@@ -120,3 +120,14 @@ extension NSImage {
 		return nil
 	}
 }
+
+// Grabs the true home directory for the user
+public extension FileManager {
+	/// Grabs the /Users/username/ directory
+	var getRealHomeDirectory: String? {
+		if let home = getpwuid(getuid()).pointee.pw_dir {
+			return string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+		}
+		return nil
+	}
+}

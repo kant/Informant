@@ -83,13 +83,18 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			itemPath = resources.canonicalPath
 			itemTitle = resources.name
 
-			itemIcon = (resources.effectiveIcon! as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
-			itemKind = resources.localizedTypeDescription
-			itemSize = resources.fileSize
-			itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
+			// Check icon for nil before unwrapping
+			if let icon = resources.effectiveIcon {
+				itemIcon = (icon as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+			}
 
-			itemDateCreated = resources.creationDate
-			itemDateModified = resources.contentModificationDate
+			itemKind = resources.localizedTypeDescription
+
+			// Check filesize for being nil before unwrapping
+			if let size = resources.fileSize {
+				itemSize = size
+				itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(size))
+			}
 
 			// Format dates as strings
 			let dateFormatter = DateFormatter()
@@ -97,8 +102,17 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			dateFormatter.timeStyle = .short
 			dateFormatter.doesRelativeDateFormatting = true
 
-			itemDateCreatedAsString = dateFormatter.string(from: itemDateCreated!)
-			itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: itemDateModified!)
+			// Make sure created date is non-nil
+			if let createdDate = resources.creationDate {
+				itemDateCreated = createdDate
+				itemDateCreatedAsString = dateFormatter.string(from: createdDate)
+			}
+
+			// Make sure modified date is non-nil
+			if let modifiedDate = resources.contentModificationDate {
+				itemDateModified = modifiedDate
+				itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: modifiedDate)
+			}
 
 			// Fill in remaining flags
 			isiCloudSyncFile = resources.isUbiquitousItem
@@ -125,5 +139,21 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			itemTitle?.removeFirst()
 			isHidden = false
 		}
+
+		// MARK: - Modify File Path
+		itemPath = tildeAbbreviatedPath(itemPath)
+	}
+
+	/// Modifies the root directory of the path to a ~
+	func tildeAbbreviatedPath(_ path: String?) -> String? {
+		guard let homeDirectory = FileManager.default.getRealHomeDirectory else {
+			return nil
+		}
+
+		guard let shortenedPath = path?.replacingOccurrences(of: homeDirectory, with: "~") else {
+			return nil
+		}
+
+		return shortenedPath
 	}
 }
