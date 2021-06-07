@@ -71,7 +71,6 @@ struct ComponentsPanelHeader: View {
 			}
 
 			// Header stack
-
 			if headerTitle != nil, headerSubtitle != nil {
 				VStack(alignment: .leading, spacing: 0) {
 					// Title
@@ -91,7 +90,53 @@ struct ComponentsPanelHeader: View {
 	}
 }
 
-struct ComponentsPanelItemField: View {
+/// Provides the label for the panel item
+struct ComponentsPanelItemLabel: View {
+	var label: String?
+	var body: some View {
+		if label != nil {
+			Text(label!).H3()
+		}
+
+		Spacer()
+			.frame(height: 1)
+	}
+}
+
+/// Provides the unavailable label for a panel item when nil
+struct ComponentsPanelItemUnavailable<Content: View>: View {
+
+	let content: Content
+	let value: String?
+	let lineLimit: Int?
+
+	init(value: String?, lineLimit: Int?, @ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+		self.value = value
+		self.lineLimit = lineLimit
+	}
+
+	var body: some View {
+		if value != nil {
+			content
+		}
+		else {
+			Text("Unavailable").H2()
+				.lineLimit(lineLimit)
+				.opacity(Style.Text.opacity)
+		}
+	}
+}
+
+/// The protocol meant to unify different item field types
+protocol ComponentsPanelItemProtocol {
+	var label: String? { get set }
+	var value: String? { get set }
+	var lineLimit: Int { get set }
+}
+
+/// The standard full panel item → (Size ⮐ 482KB)
+struct ComponentsPanelItemField: View, ComponentsPanelItemProtocol {
 
 	var label: String?
 	var value: String?
@@ -99,22 +144,65 @@ struct ComponentsPanelItemField: View {
 
 	var body: some View {
 		VStack(alignment: .leading) {
-			// Label
-			if label != nil {
-				Text(label!).H3()
-			}
 
-			Spacer()
-				.frame(height: 1)
+			// Label
+			ComponentsPanelItemLabel(label: label)
 
 			// Value
-			if value != nil {
-				Text(value!).H2()
-					.lineLimit(lineLimit)
-			} else {
-				Text("Unavailable").H2()
-					.lineLimit(lineLimit)
-					.opacity(Styling.Text.opacity)
+			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
+				if value != nil {
+					Text(value!).H2()
+						.lineLimit(lineLimit)
+				}
+			}
+		}
+	}
+}
+
+/// The standard full panel item → (Size ⮐ 482KB)
+struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
+
+	var label: String?
+	var value: String?
+	var lineLimit: Int
+
+	private var doesHaveTilde: Bool = false
+
+	/// Replace the tilde with our own in the case that it does have a tilde
+	internal init(label: String?, value: String?, lineLimit: Int = 1) {
+		self.label = label
+		self.value = value
+		self.lineLimit = lineLimit
+
+		var path = self.value
+		if path != nil, path?.first == "~" {
+			path?.removeFirst()
+			self.value = path
+			doesHaveTilde = true
+		}
+	}
+
+	var body: some View {
+		VStack(alignment: .leading) {
+
+			// Label
+			ComponentsPanelItemLabel(label: label)
+
+			// Value
+			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
+				if value != nil {
+					// Tilde
+					if doesHaveTilde {
+						(Text("~").H2Compact().foregroundColor(Color(.displayP3, white: 0.1, opacity: 0.65)) + Text(value!).H2())
+							.lineLimit(lineLimit)
+					}
+
+					// Just path
+					else {
+						Text(value!).H2()
+							.lineLimit(lineLimit)
+					}
+				}
 			}
 		}
 	}
