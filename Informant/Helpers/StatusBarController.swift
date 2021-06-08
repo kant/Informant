@@ -13,6 +13,7 @@ class StatusBarController {
 	private var statusItem: NSStatusItem
 	private var window: NSPanel!
 	private var appDelegate: AppDelegate!
+	private var interfaceObserved: InterfaceObservable?
 
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
@@ -45,6 +46,7 @@ class StatusBarController {
 		appDelegate = AppDelegate.current()
 		window = appDelegate.window
 		statusBar = NSStatusBar.system
+		interfaceObserved = appDelegate.contentView.interfaceObserved
 
 		// Creates a status bar item with a fixed length
 		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
@@ -365,20 +367,20 @@ class StatusBarController {
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
 		// Make the panel blurred if it's being dragged and in the snap zone
-		if isPanelInSnapZone {
-			appDelegate.contentView.interfaceObserved.isPanelInSnapZone = true
+		if isPanelInSnapZone && window.alphaValue == 1.0 {
+			interfaceObserved?.setIsPanelInSnapZone(true)
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone
 		else if isPanelInSnapZone == false {
-			appDelegate.contentView.interfaceObserved.isPanelInSnapZone = false
+			interfaceObserved?.setIsPanelInSnapZone(false)
 		}
 
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
 		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 
 			// Resets panel blurring
-			appDelegate.contentView.interfaceObserved.isPanelInSnapZone = false
+			interfaceObserved?.setIsPanelInSnapZone(false)
 
 			// Animates window to 0 opacity and then calls to the next animation phase
 			NSAnimationContext.runAnimationGroup { (context) -> Void in
@@ -398,7 +400,7 @@ class StatusBarController {
 		func panelMoveAndSetAlphaAnimation() {
 			window.animator().setFrameTopLeftPoint(statusItemButtonPosition())
 			window.animator().alphaValue = 1
-			isPanelBeingDragged = false
+			setIsPanelBeingDragged(false)
 		}
 	}
 }

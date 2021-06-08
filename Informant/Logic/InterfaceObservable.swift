@@ -12,4 +12,9 @@ class InterfaceObservable: ObservableObject {
 
 	/// Detects if the panel itself is in the panel snap zone
 	@Published var isPanelInSnapZone: Bool = false
+
+	/// Helper designed to set the in snap zone of panel
+	public func setIsPanelInSnapZone(_ value: Bool) {
+		isPanelInSnapZone = value
+	}
 }
