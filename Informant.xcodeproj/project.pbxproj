@@ -40,7 +40,7 @@
 		9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */; };
 		9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
-		9AFF98D1266F111800E31D2A /* InterfaceObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceObservable.swift */; };
+		9AFF98D1266F111800E31D2A /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* SettingsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +127,7 @@
 		9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceMenuController.swift; sourceTree = "<group>"; };
 		9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHelper.swift; sourceTree = "<group>"; };
-		9AFF98D0266F111800E31D2A /* InterfaceObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceObservable.swift; sourceTree = "<group>"; };
+		9AFF98D0266F111800E31D2A /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,7 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */,
-				9AFF98D0266F111800E31D2A /* InterfaceObservable.swift */,
+				9AFF98D0266F111800E31D2A /* SettingsData.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 			files = (
 				9A43162626265A1F0071227C /* ContentView.swift in Sources */,
 				9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */,
-				9AFF98D1266F111800E31D2A /* InterfaceObservable.swift in Sources */,
+				9AFF98D1266F111800E31D2A /* SettingsData.swift in Sources */,
 				9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */,
 				9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */,
 				9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */,

@@ -17,13 +17,13 @@ struct ContentView: View {
 	var interfaceData: InterfaceData?
 
 	/// Lets us know if the object is being dragged in the snap zone
-	@ObservedObject var interfaceObserved: InterfaceObservable
+	@ObservedObject var settingsData: SettingsData
 
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
 		interfaceData = appDelegate.interfaceData
-		interfaceObserved = InterfaceObservable()
+		settingsData = appDelegate.settingsData
 	}
 
 	var body: some View {
@@ -78,15 +78,15 @@ struct ContentView: View {
 			}
 
 			// Blurs view when being dragged in the snap zone
-			.blur(radius: interfaceObserved.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeInOut, value: self.interfaceObserved.isPanelInSnapZone)
+			.blur(radius: settingsData.isPanelInSnapZone ? 15.0 : 0.0)
+			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
 
 			// MARK: - Panel Snap Zone Indicator
 			ZStack {
 				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
-					.opacity(interfaceObserved.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+					.opacity(settingsData.isPanelInSnapZone ? Style.Text.opacity : 0.0)
 			}
-			.animation(.easeInOut, value: self.interfaceObserved.isPanelInSnapZone)
+			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)

@@ -26,6 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This contians all data needed for the interface.
 	public var interfaceData = InterfaceData()
 
+	/// This contains all the settings data needed for the application
+	public var settingsData = SettingsData()
+
 	/// The view for the interface.
 	public var contentView: ContentView!
 
