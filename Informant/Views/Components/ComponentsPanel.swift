@@ -123,7 +123,7 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 		else {
 			Text("Unavailable").H2()
 				.lineLimit(lineLimit)
-				.opacity(Style.Text.opacity)
+				.opacity(Style.Text.darkOpacity)
 		}
 	}
 }
@@ -174,12 +174,14 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 		self.value = value
 		self.lineLimit = lineLimit
 
-		var path = self.value
-		if path != nil, path?.first == "~" {
-			path?.removeFirst()
-			self.value = path
-			doesHaveTilde = true
-		}
+		#warning("Add in the path switch, to switch between full and truncated path.")
+		// Removes tilde in string so we can use a styled one later on
+//		var path = self.value
+//		if path != nil, path?.first == "~" {
+//			path?.removeFirst()
+//			self.value = path
+//			doesHaveTilde = true
+//		}
 	}
 
 	var body: some View {
@@ -191,17 +193,27 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 			// Value
 			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
 				if value != nil {
-					// Tilde
-					if doesHaveTilde {
-						(Text("~").H2Compact().foregroundColor(Color(.displayP3, white: 0.1, opacity: 0.65)) + Text(value!).H2())
-							.lineLimit(lineLimit)
-					}
 
-					// Just path
-					else {
-						Text(value!).H2()
-							.lineLimit(lineLimit)
+					#warning("Add in the path switch, to switch between full and truncated path.")
+//					// Standard truncated path with tilde
+//					if doesHaveTilde {
+//						(Text("~").TildeFont().foregroundColor(Color(.displayP3, white: 0.2, opacity: 1.0)) + Text(value!).PathFont())
+//							.lineLimit(lineLimit)
+//					}
+//
+//					// Just path
+//					else {
+//					}
+
+					// Full path no truncation
+					HStack(spacing: 0) {
+						Text(value!).PathFont()
+						Spacer(minLength: 0)
 					}
+					.fixedSize(horizontal: false, vertical: true)
+					.padding(9.0)
+					.background(Color.black.opacity(0.05))
+					.cornerRadius(6.0)
 				}
 			}
 		}

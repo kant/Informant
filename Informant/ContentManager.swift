@@ -26,6 +26,8 @@ class ContentManager {
 
 		static let multiSelectSize = NSLocalizedString("Total Size:", comment: "The tag string under the title of the multi-selection panel")
 
+		static let panelSnapZoneIndicator = NSLocalizedString("Release to snap", comment: "The indicator label when dragging the panel near the snap zone")
+
 		// Panel Labels
 		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
 

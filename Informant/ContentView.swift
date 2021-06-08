@@ -16,6 +16,9 @@ struct ContentView: View {
 	/// This contians all information to be displayed on the interface
 	var interfaceData: InterfaceData?
 
+	/// Lets us know if the object is being dragged in the snap zone
+	@ObservedObject var interfaceObserved = InterfaceObservable()
+
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
@@ -27,48 +30,62 @@ struct ContentView: View {
 		// MARK: Full Stacked View
 		ZStack {
 
-			// MARK: - Panel Backing Material
-			VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
-				.edgesIgnoringSafeArea(.all)
+			// This is the main panel group
+			Group {
+				// MARK: - Panel Backing Material
+				VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
+					.edgesIgnoringSafeArea(.all)
 
-			// MARK: - Panel Bottom Buttons
-			VStack {
+				// MARK: - Panel Bottom Buttons
+				VStack {
 
-				// Makes sure button rests on the bottom of the interface
-				Spacer()
-
-				// Settings button stack
-				HStack(spacing: 0) {
-
-					// Ensures buttons align to the right
+					// Makes sure button rests on the bottom of the interface
 					Spacer()
 
-					// More button
-					ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
-						appDelegate.interfaceMenuController?.openMenu()
+					// Settings button stack
+					HStack(spacing: 0) {
+
+						// Ensures buttons align to the right
+						Spacer()
+
+						// More button
+						ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
+							appDelegate.interfaceMenuController?.openMenu()
+						}
 					}
 				}
-			}
-			.padding(4)
+				.padding(4)
 
-			// MARK: - Panel Main
-			// So we can add padding to the main interface
-			VStack(alignment: .center, spacing: 0) {
+				// MARK: - Panel Main
+				// So we can add padding to the main interface
+				VStack(alignment: .center, spacing: 0) {
 
-				// Figure out which view to present based on the # of items selected
-				switch interfaceData?.selection?.selectionType {
+					// Figure out which view to present based on the # of items selected
+					switch interfaceData?.selection?.selectionType {
 
-				// One item selected
-				case .Single: PanelSingleItem(interfaceData?.selection)
+					// One item selected
+					case .Single: PanelSingleItem(interfaceData?.selection)
 
-				// More than one item selected
-				case .Multi: PanelMultiItem(interfaceData?.selection)
+					// More than one item selected
+					case .Multi: PanelMultiItem(interfaceData?.selection)
 
-				// No items selected
-				default: PanelNoItem()
+					// No items selected
+					default: PanelNoItem()
+					}
 				}
+				.padding(.horizontal, 15)
 			}
-			.padding(.horizontal, 15)
+
+			// Blurs view when being dragged in the snap zone
+			.blur(radius: interfaceObserved.isPanelInSnapZone ? 15.0 : 0.0)
+			.animation(.easeInOut, value: self.interfaceObserved.isPanelInSnapZone)
+
+			// MARK: - Panel Snap Zone Indicator
+			ZStack {
+				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
+					.opacity(interfaceObserved.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+			}
+			.animation(.easeInOut, value: self.interfaceObserved.isPanelInSnapZone)
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)
