@@ -184,87 +184,39 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 	var value: String?
 	var lineLimit: Int
 
-	// These give us ways of storing the raw path in modified versions
-	private var truncatedPath: String?
-	private var fullPath: String?
-
 	/// Simplifies keeping track of the settings state
-	@ObservedObject private var settings: SettingsData
+	/* @ObservedObject private var settings: SettingsData */
 
 	/// Replace the tilde with our own in the case that it does have a tilde
 	internal init(label: String?, value: String?, lineLimit: Int = 1) {
 		self.label = label
 		self.value = value
 		self.lineLimit = lineLimit
-
-		// Assign settings object
-		settings = AppDelegate.current().contentView.settingsData
-
-		// Assign modifying pathes
-		truncatedPath = self.value
-		fullPath = self.value
-
-		// Removes tilde in string so we can use a styled one later on
-		if truncatedPath != nil, truncatedPath?.first == "~" {
-			truncatedPath?.removeFirst()
-		}
 	}
 
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
 
-			// ----------- Labels -------------
-			// Label Button - Path, no truncation
-			if settings.isPathExpanded {
-				ComponentsPanelLabelButton {
-					settings.isPathExpanded.toggle()
-				} content: {
-					ComponentsPanelItemLabel(label: ContentManager.Labels.panelExpandedPath, opacity: Style.Button.labelButtonOpacity)
-				}
-			}
+			// ----------- Label -------------
+			ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath)
 
-			// Path, truncation
-			else {
-				ComponentsPanelLabelButton {
-					settings.isPathExpanded.toggle()
-				} content: {
-					ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath, opacity: Style.Button.labelButtonOpacity)
-				}
-			}
-
-			// ------------ Values --------------
+			// ------------ Path --------------
 			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
-				if truncatedPath != nil || fullPath != nil {
+				if value != nil {
 
 					// Full path, no truncation
-					if settings.isPathExpanded {
-						HStack(spacing: 0) {
-							Text(fullPath!).PathFont()
-							Spacer(minLength: 0)
-						}
-						.fixedSize(horizontal: false, vertical: true)
-						.padding(9.0)
-						.background(
-							Color.primary
-								.opacity(0.04)
-						)
-						.cornerRadius(6.0)
-						.padding([.top], 2.0)
+					HStack(spacing: 0) {
+						Text(value!).PathFont()
+						Spacer(minLength: 0)
 					}
-
-					// Path with tilde, truncated
-					else {
-						if truncatedPath?.first != "~" {
-							(Text("~").TildeFont().foregroundColor(Color.primary) + Text(truncatedPath!).H2())
-								.lineLimit(lineLimit)
-						}
-
-						// Just path
-						else {
-							Text(truncatedPath!).H2()
-								.lineLimit(lineLimit)
-						}
-					}
+					.fixedSize(horizontal: false, vertical: true)
+					.padding(9.0)
+					.background(
+						Color.primary
+							.opacity(0.04)
+					)
+					.cornerRadius(6.0)
+					.padding([.top], 2.0)
 				}
 			}
 		}
