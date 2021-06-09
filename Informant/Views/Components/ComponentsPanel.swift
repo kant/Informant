@@ -43,7 +43,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
-// MARK: - Panel Blocks
+// MARK: - Panel Text
 
 struct ComponentsPanelHeader: View {
 
@@ -92,10 +92,26 @@ struct ComponentsPanelHeader: View {
 
 /// Provides the label for the panel item
 struct ComponentsPanelItemLabel: View {
+
+	let icon: String?
 	var label: String?
+	var opacity: Double
+
+	internal init(icon: String? = nil, label: String?, opacity: Double = Style.Text.opacity) {
+		self.icon = icon
+		self.label = label
+		self.opacity = opacity
+	}
+
 	var body: some View {
 		if label != nil {
-			Text(label!).H3()
+			HStack(spacing: 2.5) {
+				Text(label!).H3(opacity: opacity)
+
+				if icon != nil {
+					Text(icon!).H3(opacity: opacity)
+				}
+			}
 		}
 
 		Spacer()
@@ -127,6 +143,8 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 		}
 	}
 }
+
+// MARK: - Panel Items
 
 /// The protocol meant to unify different item field types
 protocol ComponentsPanelItemProtocol {
@@ -166,7 +184,12 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 	var value: String?
 	var lineLimit: Int
 
-	private var doesHaveTilde: Bool = false
+	// These give us ways of storing the raw path in modified versions
+	private var truncatedPath: String?
+	private var fullPath: String?
+
+	/// Simplifies keeping track of the settings state
+	@ObservedObject private var settings: SettingsData
 
 	/// Replace the tilde with our own in the case that it does have a tilde
 	internal init(label: String?, value: String?, lineLimit: Int = 1) {
@@ -174,46 +197,74 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 		self.value = value
 		self.lineLimit = lineLimit
 
-		#warning("Add in the path switch, to switch between full and truncated path.")
+		// Assign settings object
+		settings = AppDelegate.current().contentView.settingsData
+
+		// Assign modifying pathes
+		truncatedPath = self.value
+		fullPath = self.value
+
 		// Removes tilde in string so we can use a styled one later on
-//		var path = self.value
-//		if path != nil, path?.first == "~" {
-//			path?.removeFirst()
-//			self.value = path
-//			doesHaveTilde = true
-//		}
+		if truncatedPath != nil, truncatedPath?.first == "~" {
+			truncatedPath?.removeFirst()
+		}
 	}
 
 	var body: some View {
-		VStack(alignment: .leading) {
+		VStack(alignment: .leading, spacing: 0) {
 
-			// Label
-			ComponentsPanelItemLabel(label: label)
+			// ----------- Labels -------------
+			// Label Button - Path, no truncation
+			if settings.isPathExpanded {
+				ComponentsPanelLabelButton {
+					settings.isPathExpanded.toggle()
+				} content: {
+					ComponentsPanelItemLabel(label: ContentManager.Labels.panelExpandedPath, opacity: Style.Button.labelButtonOpacity)
+				}
+			}
 
-			// Value
+			// Path, truncation
+			else {
+				ComponentsPanelLabelButton {
+					settings.isPathExpanded.toggle()
+				} content: {
+					ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath, opacity: Style.Button.labelButtonOpacity)
+				}
+			}
+
+			// ------------ Values --------------
 			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
-				if value != nil {
+				if truncatedPath != nil || fullPath != nil {
 
-					#warning("Add in the path switch, to switch between full and truncated path.")
-//					// Standard truncated path with tilde
-//					if doesHaveTilde {
-//						(Text("~").TildeFont().foregroundColor(Color(.displayP3, white: 0.2, opacity: 1.0)) + Text(value!).PathFont())
-//							.lineLimit(lineLimit)
-//					}
-//
-//					// Just path
-//					else {
-//					}
-
-					// Full path no truncation
-					HStack(spacing: 0) {
-						Text(value!).PathFont()
-						Spacer(minLength: 0)
+					// Full path, no truncation
+					if settings.isPathExpanded {
+						HStack(spacing: 0) {
+							Text(fullPath!).PathFont()
+							Spacer(minLength: 0)
+						}
+						.fixedSize(horizontal: false, vertical: true)
+						.padding(9.0)
+						.background(
+							Color.primary
+								.opacity(0.04)
+						)
+						.cornerRadius(6.0)
+						.padding([.top], 2.0)
 					}
-					.fixedSize(horizontal: false, vertical: true)
-					.padding(9.0)
-					.background(Color.black.opacity(0.05))
-					.cornerRadius(6.0)
+
+					// Path with tilde, truncated
+					else {
+						if truncatedPath?.first != "~" {
+							(Text("~").TildeFont().foregroundColor(Color.primary) + Text(truncatedPath!).H2())
+								.lineLimit(lineLimit)
+						}
+
+						// Just path
+						else {
+							Text(truncatedPath!).H2()
+								.lineLimit(lineLimit)
+						}
+					}
 				}
 			}
 		}
@@ -266,7 +317,48 @@ struct ComponentsPanelIconButton: View {
 	}
 }
 
-// MARK: - Misc.
+struct ComponentsPanelLabelButton<Content: View>: View {
+
+	let content: Content
+	var action: () -> Void
+
+	@State private var isHovering: Bool = false
+
+	internal init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+		self.action = action
+	}
+
+	var body: some View {
+		Button {
+			withAnimation(.easeInOut(duration: 0.1)) {
+				action()
+			}
+		} label: {
+			ZStack(alignment: .leading) {
+
+				// Backing
+				if isHovering {
+					Color(.displayP3, white: 0.5, opacity: 0.10)
+						.cornerRadius(5.0)
+				}
+
+				// Label
+				content
+					.padding(3.0)
+					.frame(maxWidth: .infinity)
+					.fixedSize(horizontal: true, vertical: false)
+			}
+		}
+		.offset(x: -3.0, y: 0)
+		.buttonStyle(BorderlessButtonStyle())
+		.whenHovered { hovering in
+			isHovering = hovering
+		}
+	}
+}
+
+// MARK: - Panel Icons
 
 struct ComponentsPanelHeaderIconStack: View {
 

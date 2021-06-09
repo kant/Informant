@@ -39,6 +39,8 @@ class ContentManager {
 
 		static let panelPath = NSLocalizedString("Path", comment: "This is the file's path displayed in the panel")
 
+		static let panelExpandedPath = NSLocalizedString("Expanded Path", comment: "This is the label that appears after clicking the path label on the panel")
+
 		static let panelModified = NSLocalizedString("Edited", comment: "The tag string to the date modified on the panel interface")
 
 		// Panel Menu Labels
@@ -65,6 +67,8 @@ class ContentManager {
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
+
+		static let panelPathIcon = "􀤂"
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)

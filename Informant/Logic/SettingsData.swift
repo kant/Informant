@@ -17,4 +17,11 @@ class SettingsData: ObservableObject {
 	public func setIsPanelInSnapZone(_ value: Bool) {
 		isPanelInSnapZone = value
 	}
+
+	/// Keeps track of state of path switch
+	@Published var isPathExpanded: Bool = false
+
+	public func setIsPathExpanded(_ value: Bool) {
+		isPathExpanded = value
+	}
 }

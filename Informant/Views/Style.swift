@@ -15,6 +15,10 @@ class Style {
 		static let fontSFCompact = "SF Compact Display"
 		static let fontSFMono = "SF Mono"
 	}
+
+	public enum Button {
+		static let labelButtonOpacity = 0.8
+	}
 }
 
 extension Text {
@@ -30,10 +34,10 @@ extension Text {
 			.fontWeight(.regular)
 	}
 
-	func H3() -> some View {
+	func H3(opacity: Double = Style.Text.opacity) -> some View {
 		self.font(.system(size: 11))
 			.fontWeight(.medium)
-			.opacity(Style.Text.opacity)
+			.opacity(opacity)
 			.lineLimit(1)
 	}
 
