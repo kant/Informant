@@ -31,7 +31,7 @@
 		9ABE177E263229FE00EE9F48 /* PanelNoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */; };
 		9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */; };
 		9ABE178C2632328100EE9F48 /* ComponentsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */; };
-		9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE179926323B7200EE9F48 /* Styling.swift */; };
+		9ABE179A26323B7200EE9F48 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE179926323B7200EE9F48 /* Style.swift */; };
 		9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17A426346C7D00EE9F48 /* MultiSelection.swift */; };
 		9ABE17AD26346D2600EE9F48 /* InterfaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17AC26346D2600EE9F48 /* InterfaceData.swift */; };
 		9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */; };
@@ -40,6 +40,8 @@
 		9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */; };
 		9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
+		9AFF98D1266F111800E31D2A /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* SettingsData.swift */; };
+		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,7 +119,7 @@
 		9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelNoItem.swift; sourceTree = "<group>"; };
 		9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelMultiItem.swift; sourceTree = "<group>"; };
 		9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsPanel.swift; sourceTree = "<group>"; };
-		9ABE179926323B7200EE9F48 /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
+		9ABE179926323B7200EE9F48 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		9ABE17A426346C7D00EE9F48 /* MultiSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelection.swift; sourceTree = "<group>"; };
 		9ABE17AC26346D2600EE9F48 /* InterfaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceData.swift; sourceTree = "<group>"; };
 		9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceHelper.swift; sourceTree = "<group>"; };
@@ -126,6 +128,10 @@
 		9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceMenuController.swift; sourceTree = "<group>"; };
 		9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHelper.swift; sourceTree = "<group>"; };
+		9AFF98D0266F111800E31D2A /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
+		9AFF98D326705BC100E31D2A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		9AFF98D526705CB400E31D2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingAreaHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +260,7 @@
 				9A7F3B502626BA2700BD878F /* Extensions.swift */,
 				9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */,
 				9ABEAA182663FA070044E18B /* URLDiskAllocationHelper.swift */,
+				9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -261,7 +268,7 @@
 		9A7F3B27262693AB00BD878F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9ABE179926323B7200EE9F48 /* Styling.swift */,
+				9ABE179926323B7200EE9F48 /* Style.swift */,
 				9ABE178A2632325A00EE9F48 /* Components */,
 				9A7F3B28262693BE00BD878F /* Preferences.swift */,
 				9A9061A0266AC1780043A334 /* PanelProtocol.swift */,
@@ -275,6 +282,8 @@
 		9A9C1D512668368B0085ECEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AFF98D526705CB400E31D2A /* Foundation.framework */,
+				9AFF98D326705BC100E31D2A /* CoreFoundation.framework */,
 				9A9C1D522668368B0085ECEA /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -292,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				9ABE17D226372F5C00EE9F48 /* InterfaceHelper.swift */,
+				9AFF98D0266F111800E31D2A /* SettingsData.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -452,10 +462,12 @@
 			files = (
 				9A43162626265A1F0071227C /* ContentView.swift in Sources */,
 				9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */,
+				9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */,
+				9AFF98D1266F111800E31D2A /* SettingsData.swift in Sources */,
 				9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */,
 				9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */,
 				9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */,
-				9ABE179A26323B7200EE9F48 /* Styling.swift in Sources */,
+				9ABE179A26323B7200EE9F48 /* Style.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
 				9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */,
 				9ABE177E263229FE00EE9F48 /* PanelNoItem.swift in Sources */,
@@ -653,7 +665,6 @@
 		9A43164A26265A210071227C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Informant/Informant.entitlements;
@@ -672,6 +683,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -679,7 +692,6 @@
 		9A43164B26265A210071227C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Informant/Informant.entitlements;
@@ -698,6 +710,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

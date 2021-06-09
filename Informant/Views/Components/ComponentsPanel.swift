@@ -43,7 +43,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
-// MARK: - Panel Blocks
+// MARK: - Panel Text
 
 struct ComponentsPanelHeader: View {
 
@@ -71,7 +71,6 @@ struct ComponentsPanelHeader: View {
 			}
 
 			// Header stack
-
 			if headerTitle != nil, headerSubtitle != nil {
 				VStack(alignment: .leading, spacing: 0) {
 					// Title
@@ -91,7 +90,71 @@ struct ComponentsPanelHeader: View {
 	}
 }
 
-struct ComponentsPanelItemField: View {
+/// Provides the label for the panel item
+struct ComponentsPanelItemLabel: View {
+
+	let icon: String?
+	var label: String?
+	var opacity: Double
+
+	internal init(icon: String? = nil, label: String?, opacity: Double = Style.Text.opacity) {
+		self.icon = icon
+		self.label = label
+		self.opacity = opacity
+	}
+
+	var body: some View {
+		if label != nil {
+			HStack(spacing: 2.5) {
+				Text(label!).H3(opacity: opacity)
+
+				if icon != nil {
+					Text(icon!).H3(opacity: opacity)
+				}
+			}
+		}
+
+		Spacer()
+			.frame(height: 1)
+	}
+}
+
+/// Provides the unavailable label for a panel item when nil
+struct ComponentsPanelItemUnavailable<Content: View>: View {
+
+	let content: Content
+	let value: String?
+	let lineLimit: Int?
+
+	init(value: String?, lineLimit: Int?, @ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+		self.value = value
+		self.lineLimit = lineLimit
+	}
+
+	var body: some View {
+		if value != nil {
+			content
+		}
+		else {
+			Text("Unavailable").H2()
+				.lineLimit(lineLimit)
+				.opacity(Style.Text.darkOpacity)
+		}
+	}
+}
+
+// MARK: - Panel Items
+
+/// The protocol meant to unify different item field types
+protocol ComponentsPanelItemProtocol {
+	var label: String? { get set }
+	var value: String? { get set }
+	var lineLimit: Int { get set }
+}
+
+/// The standard full panel item → (Size ⮐ 482KB)
+struct ComponentsPanelItemField: View, ComponentsPanelItemProtocol {
 
 	var label: String?
 	var value: String?
@@ -99,18 +162,62 @@ struct ComponentsPanelItemField: View {
 
 	var body: some View {
 		VStack(alignment: .leading) {
-			// Label
-			if label != nil {
-				Text(label!).H3()
-			}
 
-			Spacer()
-				.frame(height: 1)
+			// Label
+			ComponentsPanelItemLabel(label: label)
 
 			// Value
-			if value != nil {
-				Text(value!).H2()
-					.lineLimit(lineLimit)
+			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
+				if value != nil {
+					Text(value!).H2()
+						.lineLimit(lineLimit)
+				}
+			}
+		}
+	}
+}
+
+/// The standard full panel item → (Size ⮐ 482KB)
+struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
+
+	var label: String?
+	var value: String?
+	var lineLimit: Int
+
+	/// Simplifies keeping track of the settings state
+	/* @ObservedObject private var settings: SettingsData */
+
+	/// Replace the tilde with our own in the case that it does have a tilde
+	internal init(label: String?, value: String?, lineLimit: Int = 1) {
+		self.label = label
+		self.value = value
+		self.lineLimit = lineLimit
+	}
+
+	var body: some View {
+		VStack(alignment: .leading, spacing: 0) {
+
+			// ----------- Label -------------
+			ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath)
+
+			// ------------ Path --------------
+			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
+				if value != nil {
+
+					// Full path, no truncation
+					HStack(spacing: 0) {
+						Text(value!).PathFont()
+						Spacer(minLength: 0)
+					}
+					.fixedSize(horizontal: false, vertical: true)
+					.padding(9.0)
+					.background(
+						Color.primary
+							.opacity(0.04)
+					)
+					.cornerRadius(6.0)
+					.padding([.top], 2.0)
+				}
 			}
 		}
 	}
@@ -162,7 +269,48 @@ struct ComponentsPanelIconButton: View {
 	}
 }
 
-// MARK: - Misc.
+struct ComponentsPanelLabelButton<Content: View>: View {
+
+	let content: Content
+	var action: () -> Void
+
+	@State private var isHovering: Bool = false
+
+	internal init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+		self.action = action
+	}
+
+	var body: some View {
+		Button {
+			withAnimation(.easeInOut(duration: 0.1)) {
+				action()
+			}
+		} label: {
+			ZStack(alignment: .leading) {
+
+				// Backing
+				if isHovering {
+					Color(.displayP3, white: 0.5, opacity: 0.10)
+						.cornerRadius(5.0)
+				}
+
+				// Label
+				content
+					.padding(3.0)
+					.frame(maxWidth: .infinity)
+					.fixedSize(horizontal: true, vertical: false)
+			}
+		}
+		.offset(x: -3.0, y: 0)
+		.buttonStyle(BorderlessButtonStyle())
+		.whenHovered { hovering in
+			isHovering = hovering
+		}
+	}
+}
+
+// MARK: - Panel Icons
 
 struct ComponentsPanelHeaderIconStack: View {
 

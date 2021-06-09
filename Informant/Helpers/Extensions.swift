@@ -16,7 +16,7 @@ extension String {
 	var numberOfWords: Int {
 		var count = 0
 		let range = startIndex ..< endIndex
-		enumerateSubstrings(in: range, options: [.byWords, .substringNotRequired, .localized]) { _, _, _, _ -> () in
+		enumerateSubstrings(in: range, options: [.byWords, .substringNotRequired, .localized]) { _, _, _, _ -> Void in
 			count += 1
 		}
 		return count
@@ -117,6 +117,17 @@ extension NSImage {
 			return resizedImage
 		}
 
+		return nil
+	}
+}
+
+// Grabs the true home directory for the user
+public extension FileManager {
+	/// Grabs the /Users/username/ directory
+	var getRealHomeDirectory: String? {
+		if let home = getpwuid(getuid()).pointee.pw_dir {
+			return string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+		}
 		return nil
 	}
 }

@@ -26,6 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This contians all data needed for the interface.
 	public var interfaceData = InterfaceData()
 
+	/// This contains all the settings data needed for the application
+	public var settingsData = SettingsData()
+
 	/// The view for the interface.
 	public var contentView: ContentView!
 
@@ -110,9 +113,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		// MARK: - Notifications
+
+		// Observes movement of window and sets it's opacity and position accordingly
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(didMove),
+			name: NSPanel.didMoveNotification,
+			object: nil
+		)
+
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(willMove),
+			name: NSPanel.willMoveNotification,
+			object: nil
+		)
 	}
 
 	func applicationWillTerminate(_: Notification) {
 		// Insert code here to tear down your application
+	}
+
+	// --- Selectors for the panel movement notifications ⤵︎ ---
+
+	@objc func didMove() {
+		statusBarController?.windowHandlerMouseDrag(event: nil)
+	}
+
+	@objc func willMove() {
+		statusBarController?.setIsPanelBeingDragged(true)
 	}
 }

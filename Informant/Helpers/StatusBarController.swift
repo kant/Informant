@@ -14,6 +14,8 @@ class StatusBarController {
 	private var window: NSPanel!
 	private var appDelegate: AppDelegate!
 
+	private var settings: SettingsData!
+
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
@@ -24,6 +26,9 @@ class StatusBarController {
 
 	/// Stores panel snap drag zone
 	private var panelSnapDragZone: NSRect?
+
+	/// Lets us know if the panel has been dragged
+	private var isPanelBeingDragged: Bool?
 
 	/// States for hiding the interface
 	enum InterfaceHiding {
@@ -38,10 +43,13 @@ class StatusBarController {
 	// ------------ Initialization ⤵︎ -------------
 
 	init() {
+
 		// Initialization of all objects
 		appDelegate = AppDelegate.current()
 		window = appDelegate.window
 		statusBar = NSStatusBar.system
+
+		settings = appDelegate.settingsData
 
 		// Creates a status bar item with a fixed length
 		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
@@ -72,7 +80,7 @@ class StatusBarController {
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
 
 		// Monitors mouse drags on the panel
-		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseDragged, .leftMouseUp, .rightMouseDragged, .rightMouseUp], handler: windowHandlerMouseDrag)
+		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDrag)
 	}
 
 	// MARK: - Extraneous Methods
@@ -107,6 +115,11 @@ class StatusBarController {
 
 		// All checks down with no positives found
 		return false
+	}
+
+	/// Helper designed to set the drag state of the object
+	func setIsPanelBeingDragged(_ value: Bool) {
+		isPanelBeingDragged = value
 	}
 
 	// MARK: - Window Toggle Functionality
@@ -170,6 +183,7 @@ class StatusBarController {
 			monitorsStop()
 			interfaceHidingState = .Hidden
 			window.alphaValue = 1
+			setIsPanelBeingDragged(false)
 		}
 
 		// This sets the window's alpha value prior to animating it
@@ -315,7 +329,12 @@ class StatusBarController {
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
 		// Make sure the mouse is dragging on the panel - if not then back out
-		if event?.window != appDelegate.window {
+		if isPanelBeingDragged != true, event?.window != appDelegate.window {
+			return
+		}
+
+		// Make sure that the panel is dragging
+		else if isPanelBeingDragged != true {
 			return
 		}
 
@@ -331,8 +350,8 @@ class StatusBarController {
 
 		// Offset it ⤴︎
 		let offset: CGFloat = 150.0
-		let panelSnapDragZoneOrigin = CGPoint(x: statusItemBottomMidPoint.x - offset, y: statusItemBottomMidPoint.y - (offset / 2))
-		let panelSnapDragZoneSize = CGSize(width: offset * 2, height: offset)
+		let panelSnapDragZoneOrigin = CGPoint(x: statusItemBottomMidPoint.x - (offset / 2), y: statusItemBottomMidPoint.y - (offset / 2))
+		let panelSnapDragZoneSize = CGSize(width: offset, height: offset)
 
 		// Create a detection box
 		panelSnapDragZone = NSRect(origin: panelSnapDragZoneOrigin, size: panelSnapDragZoneSize)
@@ -350,11 +369,21 @@ class StatusBarController {
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
+		// Make the panel blurred if it's being dragged and in the snap zone
+		if isPanelInSnapZone && window.alphaValue == 1.0 {
+			settings.setIsPanelInSnapZone(true)
+		}
+
+		// Reset the panel blur because we're no longer in the snap zone
+		else if isPanelInSnapZone == false {
+			settings.setIsPanelInSnapZone(false)
+		}
+
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
 		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 
-			// Make sure window's alpha value is set before hand
-			window.alphaValue = 1
+			// Resets panel blurring
+			settings.setIsPanelInSnapZone(false)
 
 			// Animates window to 0 opacity and then calls to the next animation phase
 			NSAnimationContext.runAnimationGroup { (context) -> Void in
@@ -374,6 +403,7 @@ class StatusBarController {
 		func panelMoveAndSetAlphaAnimation() {
 			window.animator().setFrameTopLeftPoint(statusItemButtonPosition())
 			window.animator().alphaValue = 1
+			setIsPanelBeingDragged(false)
 		}
 	}
 }

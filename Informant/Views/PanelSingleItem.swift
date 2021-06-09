@@ -53,7 +53,7 @@ struct PanelSingleItem: View, PanelProtocol {
 				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection?.itemDateCreatedAsString)
 
 				// Path
-				ComponentsPanelItemField(label: ContentManager.Labels.panelPath, value: selection?.itemPath)
+				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection?.itemPath)
 			}
 		}
 	}

@@ -26,6 +26,8 @@ class ContentManager {
 
 		static let multiSelectSize = NSLocalizedString("Total Size:", comment: "The tag string under the title of the multi-selection panel")
 
+		static let panelSnapZoneIndicator = NSLocalizedString("Release to snap", comment: "The indicator label when dragging the panel near the snap zone")
+
 		// Panel Labels
 		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
 
@@ -36,6 +38,8 @@ class ContentManager {
 		static let panelCreated = NSLocalizedString("Created", comment: "This is the file's creation date displayed in the panel")
 
 		static let panelPath = NSLocalizedString("Path", comment: "This is the file's path displayed in the panel")
+
+		static let panelExpandedPath = NSLocalizedString("Expanded Path", comment: "This is the label that appears after clicking the path label on the panel")
 
 		static let panelModified = NSLocalizedString("Edited", comment: "The tag string to the date modified on the panel interface")
 
@@ -63,6 +67,8 @@ class ContentManager {
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
+
+		static let panelPathIcon = "􀤂"
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
