@@ -215,7 +215,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 						Color.primary
 							.opacity(0.04)
 					)
-					.cornerRadius(6.0)
+					.cornerRadius(7.0)
 					.padding([.top], 2.0)
 				}
 			}
