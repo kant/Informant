@@ -50,6 +50,11 @@ extension Text {
 			.opacity(Style.Text.opacity)
 	}
 	
+	func PanelPadIconFont() -> some View {
+		self.font(.system(size: 14.5))
+			.fontWeight(.semibold)
+	}
+	
 	func PanelTitleFont() -> some View {
 		self.font(.system( size: 14))
 			.fontWeight(.semibold)
@@ -58,7 +63,7 @@ extension Text {
 			.truncationMode(.middle)
 	}
 
-	func PathFont() -> some View {
+	func PanelPathFont() -> some View {
 		self.font(.custom(Style.Text.fontSFMono, size: 13))
 			.lineSpacing(3.0)
 	}

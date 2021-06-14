@@ -187,6 +187,9 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 	/// Simplifies keeping track of the settings state
 	/* @ObservedObject private var settings: SettingsData */
 
+	/// Keeps track of the panel's hovering
+	@State private var hovering: Bool = false
+
 	/// Replace the tilde with our own in the case that it does have a tilde
 	internal init(label: String?, value: String?, lineLimit: Int = 1) {
 		self.label = label
@@ -206,17 +209,38 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 
 					// Full path, no truncation
 					HStack(spacing: 0) {
-						Text(value!).PathFont()
+						Text(value!).PanelPathFont()
 						Spacer(minLength: 0)
 					}
 					.fixedSize(horizontal: false, vertical: true)
 					.padding(9.0)
 					.background(
-						Color.primary
-							.opacity(0.04)
+						ZStack {
+							// Backing
+							Color.primary
+								.opacity(hovering ? 0.1 : 0.04)
+
+							/// Icon
+							HStack {
+								Spacer()
+								VStack(alignment: .trailing, spacing: nil) {
+									Text(ContentManager.Icons.panelCopyIcon)
+										.PanelPadIconFont()
+										.opacity(hovering ? 0.2 : 0)
+										.padding(6.0)
+									Spacer()
+								}
+							}
+						}
+						.animation(.easeInOut(duration: 0.15), value: hovering)
 					)
 					.cornerRadius(7.0)
 					.padding([.top], 2.0)
+
+					// When hovering logic
+					.whenHovered { hovering in
+						self.hovering = hovering
+					}
 				}
 			}
 		}

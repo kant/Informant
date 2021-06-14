@@ -70,6 +70,8 @@ class ContentManager {
 
 		static let panelPathIcon = "􀤂"
 
+		static let panelCopyIcon = "􀐅"
+
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
 	}
