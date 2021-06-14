@@ -43,7 +43,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
-// MARK: - Panel Text
+// MARK: - Panel Labels
 
 struct ComponentsPanelHeader: View {
 
@@ -74,7 +74,7 @@ struct ComponentsPanelHeader: View {
 			if headerTitle != nil, headerSubtitle != nil {
 				VStack(alignment: .leading, spacing: 0) {
 					// Title
-					Text(headerTitle!).H1()
+					Text(headerTitle!).PanelTitleFont()
 
 					Spacer()
 						.frame(height: 2)

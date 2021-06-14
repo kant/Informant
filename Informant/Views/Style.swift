@@ -22,6 +22,7 @@ class Style {
 }
 
 extension Text {
+	
 	func H1() -> some View {
 		self.font(.system(size: 17))
 			.fontWeight(.regular)
@@ -47,6 +48,14 @@ extension Text {
 			.kerning(-0.25)
 			.lineLimit(1)
 			.opacity(Style.Text.opacity)
+	}
+	
+	func PanelTitleFont() -> some View {
+		self.font(.system( size: 14))
+			.fontWeight(.semibold)
+			.kerning(-0.25)
+			.lineLimit(1)
+			.truncationMode(.middle)
 	}
 
 	func PathFont() -> some View {

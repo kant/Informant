@@ -59,7 +59,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		/// Keys used to determine what resources to grab
 		let keys: Set<URLResourceKey> = [
 			.canonicalPathKey,
-			.nameKey,
+			.localizedNameKey,
 			.effectiveIconKey,
 
 			.fileSizeKey,
@@ -81,7 +81,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		// MARK: - Fill in fields
 		if let resources = itemResources {
 			itemPath = resources.canonicalPath
-			itemTitle = resources.name
+			itemTitle = resources.localizedName
 
 			// Check icon for nil before unwrapping
 			if let icon = resources.effectiveIcon {
