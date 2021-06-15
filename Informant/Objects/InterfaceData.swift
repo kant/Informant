@@ -14,12 +14,17 @@ class InterfaceData: ObservableObject {
 
 	@Published public var selection: SelectionProtocol?
 
+	private(set) var urls: [String]?
+
 	init?(_ urls: [String]? = nil) {
 
 		// Check to see if the urls object is nil or not
 		guard let filePaths = urls else {
 			return nil
 		}
+
+		// Sets urls after being nil checked
+		self.urls = filePaths
 
 		// Provide the nil checked pathes to the SelectItem object
 		selection = SelectionHelper.pickSelectionType(filePaths)

@@ -209,6 +209,9 @@ class StatusBarController {
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
 	/// As well, makes sure that hiding state is set properly.
 	func updateWindow() {
+		
+		
+		
 		InterfaceHelper.DisplayUpdatedInterface()
 
 		// Check for null interface data and set hiding state accordingly.
