@@ -17,10 +17,10 @@ class PasteboardHelper {
 		pasteboard.declareTypes([type], owner: nil)
 		pasteboard.setString(string, forType: type)
 	}
-	
+
 	/// Copies a path specifically to the pasteboard
 	static func copyPathToPasteboard(_ path: String) {
-		copyToPasteboard(formatPathForEscapes(path), type: .fileURL)
+		copyToPasteboard(formatPathForEscapes(path), type: .string)
 	}
 
 	/// Formats a path string for special characters
