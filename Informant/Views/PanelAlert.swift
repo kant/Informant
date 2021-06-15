@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PanelAlert: View {
 
+	// TODO: Make this flexible
 	/*
 	  let icon: String
 	  let label: String

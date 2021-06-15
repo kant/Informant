@@ -215,26 +215,29 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 					}
 					.fixedSize(horizontal: false, vertical: true)
 					.padding(9.0)
+					.overlay(
+						/// Icon
+						HStack {
+							Spacer()
+							VStack(alignment: .trailing, spacing: nil) {
+
+								Text(ContentManager.Icons.panelCopyIcon)
+									.PanelPadIconFont()
+									.opacity(hovering ? 0.2 : 0)
+									.padding(8.0)
+
+								Spacer(minLength: 0)
+							}
+						}
+					)
 					.background(
 						ZStack {
 							// Backing
 							Color.primary
 								.opacity(hovering ? 0.1 : 0.04)
-
-							/// Icon
-							HStack {
-								Spacer()
-								VStack(alignment: .trailing, spacing: nil) {
-									Text(ContentManager.Icons.panelCopyIcon)
-										.PanelPadIconFont()
-										.opacity(hovering ? 0.2 : 0)
-										.padding(6.0)
-									Spacer()
-								}
-							}
 						}
-						.animation(.easeInOut(duration: 0.15), value: hovering)
 					)
+					.animation(.easeInOut(duration: 0.16), value: hovering)
 					.cornerRadius(7.0)
 					.padding([.top], 2.0)
 
@@ -245,7 +248,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 					// When pressed logic
 					.inactiveWindowTap { pressed in
 						if pressed {
-							AppDelegate.current().interfaceAlertController?.copy(value!, type: .string)
+							AppDelegate.current().interfaceAlertController?.showCopyAlert(value!, type: .string)
 						}
 					}
 				}

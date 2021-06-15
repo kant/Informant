@@ -103,7 +103,7 @@ class InterfaceAlertController {
 
 	/// Makes sure to wait for alpha of window to be at rest before hiding
 	func beginHidingAlert() {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
 			if self.alert.alphaValue == 1 {
 				self.hideAlert()
 			}
@@ -127,7 +127,7 @@ class InterfaceAlertController {
 	}
 
 	/// Shows alert and copies value to pasteboard
-	func copy(_ string: String, type: NSPasteboard.PasteboardType) {
+	func showCopyAlert(_ string: String, type: NSPasteboard.PasteboardType) {
 
 		// Copy the value to the pasteboard
 		let pasteboard = NSPasteboard.general
