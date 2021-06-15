@@ -62,10 +62,12 @@ struct MouseInsideModifier: ViewModifier {
 				.activeAlways,
 			]
 
-			let trackingArea = NSTrackingArea(rect: frame,
-			                                  options: options,
-			                                  owner: context.coordinator,
-			                                  userInfo: nil)
+			let trackingArea = NSTrackingArea(
+				rect: frame,
+				options: options,
+				owner: context.coordinator,
+				userInfo: nil
+			)
 
 			view.addTrackingArea(trackingArea)
 

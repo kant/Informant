@@ -189,6 +189,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 
 	/// Keeps track of the panel's hovering
 	@State private var hovering: Bool = false
+	@State private var pressed: Bool = false
 
 	/// Replace the tilde with our own in the case that it does have a tilde
 	internal init(label: String?, value: String?, lineLimit: Int = 1) {
@@ -240,6 +241,12 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 					// When hovering logic
 					.whenHovered { hovering in
 						self.hovering = hovering
+					}
+					// When pressed logic
+					.inactiveWindowTap { pressed in
+						if pressed {
+							AppDelegate.current().interfaceAlertController?.copy(value!, type: .string)
+						}
 					}
 				}
 			}
