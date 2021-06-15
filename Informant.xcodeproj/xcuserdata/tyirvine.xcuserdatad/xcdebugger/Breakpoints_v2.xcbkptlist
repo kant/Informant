@@ -14,10 +14,10 @@
             filePath = "Informant/Views/Components/ComponentsPanel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "ComponentsPanelHeaderIconStack"
-            landmarkType = "14">
+            startingLineNumber = "392"
+            endingLineNumber = "392"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

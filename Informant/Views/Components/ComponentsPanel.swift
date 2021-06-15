@@ -328,20 +328,14 @@ struct ComponentsPanelPathButton: View {
 
 	// Gradient stops
 	let firstStop = Gradient.Stop(color: .primary, location: 0.4)
-	let secondStop = Gradient.Stop(color: .clear, location: 0.82)
+	let secondStop = Gradient.Stop(color: .clear, location: 0.73)
 
 	var body: some View {
 
 		ZStack {
-
 			// Backing
 			Color.primary
 				.opacity(hovering ? 0.1 : 0.04)
-
-			// Gradiented text
-			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
-				.mask(ComponentsPanelPathLabel(path))
-				.opacity(hovering ? 1 : 0)
 
 			// Icon
 			HStack {
@@ -356,6 +350,11 @@ struct ComponentsPanelPathButton: View {
 					Spacer(minLength: 0)
 				}
 			}
+
+			// Gradiented text
+			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
+				.mask(ComponentsPanelPathLabel(path))
+				.opacity(hovering ? 1 : 0)
 
 			// Non-gradiented text
 			ComponentsPanelPathLabel(path)
