@@ -23,6 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is the menu on the interface panel accessed by the gear icon
 	public var interfaceMenu: NSMenu!
 
+	/// This is the controller for the alert view
+	public var interfaceAlertController: InterfaceAlertController?
+
+	/// This is an alert akin to the Xcode 'Build Succeeded' alert
+	public var interfaceAlert: NSPanel!
+
 	/// This contians all data needed for the interface.
 	public var interfaceData = InterfaceData()
 
@@ -58,12 +64,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initializes the menu for the panel interface
 		interfaceMenuController = InterfaceMenuController()
 
+		// MARK: - Alert Init
+
+		interfaceAlert = NSPanel(
+			contentRect: NSRect(x: 0, y: 0, width: 210, height: 210),
+			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
+			backing: .buffered, defer: false
+		)
+
+		// Initialized the interface alert panel
+		interfaceAlertController = InterfaceAlertController()
+
 		// MARK: - Window Init
 
 		/// This is the main interface used by the application
 		window = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
+			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless],
 			backing: .buffered, defer: false
 		)
 

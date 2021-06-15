@@ -43,7 +43,7 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
-// MARK: - Panel Text
+// MARK: - Panel Labels
 
 struct ComponentsPanelHeader: View {
 
@@ -74,7 +74,7 @@ struct ComponentsPanelHeader: View {
 			if headerTitle != nil, headerSubtitle != nil {
 				VStack(alignment: .leading, spacing: 0) {
 					// Title
-					Text(headerTitle!).H1()
+					Text(headerTitle!).PanelTitleFont()
 
 					Spacer()
 						.frame(height: 2)
@@ -144,6 +144,25 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	}
 }
 
+/// Creates the path font view for a panel
+struct ComponentsPanelPathLabel: View {
+	let value: String
+
+	internal init(_ value: String) {
+		self.value = value
+	}
+
+	var body: some View {
+		HStack(spacing: 0) {
+			Text(value)
+				.PanelPathFont()
+
+			Spacer(minLength: 0)
+		}
+		.padding(9.0)
+	}
+}
+
 // MARK: - Panel Items
 
 /// The protocol meant to unify different item field types
@@ -205,18 +224,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 				if value != nil {
 
 					// Full path, no truncation
-					HStack(spacing: 0) {
-						Text(value!).PathFont()
-						Spacer(minLength: 0)
-					}
-					.fixedSize(horizontal: false, vertical: true)
-					.padding(9.0)
-					.background(
-						Color.primary
-							.opacity(0.04)
-					)
-					.cornerRadius(6.0)
-					.padding([.top], 2.0)
+					ComponentsPanelPathButton(path: value!)
 				}
 			}
 		}
@@ -306,6 +314,66 @@ struct ComponentsPanelLabelButton<Content: View>: View {
 		.buttonStyle(BorderlessButtonStyle())
 		.whenHovered { hovering in
 			isHovering = hovering
+		}
+	}
+}
+
+/// The hover pad button used for path and where fields
+struct ComponentsPanelPathButton: View {
+
+	let path: String
+
+	/// Keeps track of the panel's hovering
+	@State private var hovering: Bool = false
+
+	// Gradient stops
+	let firstStop = Gradient.Stop(color: .primary, location: 0.4)
+	let secondStop = Gradient.Stop(color: .clear, location: 0.73)
+
+	var body: some View {
+
+		ZStack {
+			// Backing
+			Color.primary
+				.opacity(hovering ? 0.1 : 0.04)
+
+			// Icon
+			HStack {
+				Spacer()
+				VStack(alignment: .trailing, spacing: nil) {
+
+					Text(ContentManager.Icons.panelCopyIcon)
+						.PanelPadIconFont()
+						.opacity(hovering ? 0.3 : 0)
+						.padding(8.0)
+
+					Spacer(minLength: 0)
+				}
+			}
+
+			// Gradiented text
+			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
+				.mask(ComponentsPanelPathLabel(path))
+				.opacity(hovering ? 1 : 0)
+
+			// Non-gradiented text
+			ComponentsPanelPathLabel(path)
+				.opacity(hovering ? 0 : 1)
+		}
+		.fixedSize(horizontal: false, vertical: true)
+		.animation(.easeInOut(duration: 0.16), value: hovering)
+		.cornerRadius(7.0)
+		.padding([.top], 2.0)
+
+		// When hovering logic
+		.whenHovered { hovering in
+			self.hovering = hovering
+		}
+		// When pressed logic
+		.inactiveWindowTap { pressed in
+			if pressed {
+				AppDelegate.current().interfaceAlertController?.showCopyAlert(path, type: .string)
+			}
 		}
 	}
 }

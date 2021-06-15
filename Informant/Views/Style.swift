@@ -22,6 +22,7 @@ class Style {
 }
 
 extension Text {
+
 	func H1() -> some View {
 		self.font(.system(size: 17))
 			.fontWeight(.regular)
@@ -49,7 +50,25 @@ extension Text {
 			.opacity(Style.Text.opacity)
 	}
 
-	func PathFont() -> some View {
+	func PanelPadIconFont() -> some View {
+		self.font(.system(size: 14.5))
+			.fontWeight(.semibold)
+	}
+
+	func PanelAlertFont(_ size: CGFloat, _ weight: Font.Weight = .medium) -> Text {
+		self.font(.system(size: size))
+			.fontWeight(weight)
+	}
+
+	func PanelTitleFont() -> some View {
+		self.font(.system(size: 14))
+			.fontWeight(.semibold)
+			.kerning(-0.25)
+			.lineLimit(1)
+			.truncationMode(.middle)
+	}
+
+	func PanelPathFont() -> some View {
 		self.font(.custom(Style.Text.fontSFMono, size: 13))
 			.lineSpacing(3.0)
 	}
