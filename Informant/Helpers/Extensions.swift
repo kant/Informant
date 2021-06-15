@@ -11,6 +11,8 @@ import SwiftUI
 // MARK: - Extensions
 // Use this file for storing any sort of extensions to classes.
 
+// MARK: - Strings
+
 extension String {
 	/// Provides the number of words of a string as an integer.
 	var numberOfWords: Int {
@@ -46,6 +48,20 @@ extension String {
 	}
 }
 
+// Translates HFS path to POSIX path
+extension String {
+	/// Translates HFS path to POSIX path.
+	/// [Check this out for more info](https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths).
+	func posixPathFromHFSPath() -> String? {
+		guard let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, self as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
+			return nil
+		}
+		return (fileURL as URL).path
+	}
+}
+
+// MARK: - Visual Effects
+
 /// Creates a blurred background effect for the main interface. Allows it to be called in SWiftUI.
 struct VisualEffectView: NSViewRepresentable {
 	let material: NSVisualEffectView.Material
@@ -70,29 +86,12 @@ struct VisualEffectView: NSViewRepresentable {
 	}
 }
 
-/// Provides the current instance of the app delegate along with all fields present in the class.
-extension AppDelegate {
-	static func current() -> AppDelegate {
-		return NSApp.delegate as! AppDelegate
-	}
-}
+// MARK: - NS Extensions
 
 /// Allowed NSPanel to be focusable
 extension NSPanel {
 	override open var canBecomeKey: Bool {
 		return true
-	}
-}
-
-// Translates HFS path to POSIX path
-extension String {
-	/// Translates HFS path to POSIX path.
-	/// [Check this out for more info](https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths).
-	func posixPathFromHFSPath() -> String? {
-		guard let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, self as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
-			return nil
-		}
-		return (fileURL as URL).path
 	}
 }
 
@@ -121,6 +120,8 @@ extension NSImage {
 	}
 }
 
+// MARK: - Miscellaneous Extensions
+
 // Grabs the true home directory for the user
 public extension FileManager {
 	/// Grabs the /Users/username/ directory
@@ -129,5 +130,12 @@ public extension FileManager {
 			return string(withFileSystemRepresentation: home, length: Int(strlen(home)))
 		}
 		return nil
+	}
+}
+
+/// Provides the current instance of the app delegate along with all fields present in the class.
+extension AppDelegate {
+	static func current() -> AppDelegate {
+		return NSApp.delegate as! AppDelegate
 	}
 }

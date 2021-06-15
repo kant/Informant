@@ -144,6 +144,24 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	}
 }
 
+/// Creates the path font view for a panel
+struct ComponentsPanelPathView: View {
+	let value: String
+
+	internal init(_ value: String) {
+		self.value = value
+	}
+
+	var body: some View {
+		HStack(spacing: 0) {
+			Text(value)
+				.PanelPathFont()
+
+			Spacer(minLength: 0)
+		}
+	}
+}
+
 // MARK: - Panel Items
 
 /// The protocol meant to unify different item field types
@@ -191,6 +209,10 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 	@State private var hovering: Bool = false
 	@State private var pressed: Bool = false
 
+	// Gradient stops
+	let firstStop = Gradient.Stop(color: .primary, location: 0.4)
+	let secondStop = Gradient.Stop(color: .clear, location: 0.82)
+
 	/// Replace the tilde with our own in the case that it does have a tilde
 	internal init(label: String?, value: String?, lineLimit: Int = 1) {
 		self.label = label
@@ -209,48 +231,50 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 				if value != nil {
 
 					// Full path, no truncation
-					HStack(spacing: 0) {
-						Text(value!).PanelPathFont()
-						Spacer(minLength: 0)
-					}
-					.fixedSize(horizontal: false, vertical: true)
-					.padding(9.0)
-					.overlay(
-						/// Icon
-						HStack {
-							Spacer()
-							VStack(alignment: .trailing, spacing: nil) {
+					ComponentsPanelPathView(value!)
+						.opacity(hovering ? 0 : 1)
+						.background(
+							LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
+								.mask(ComponentsPanelPathView(value!))
+								.opacity(hovering ? 1 : 0)
+						)
+						.fixedSize(horizontal: false, vertical: true)
+						.padding(9.0)
+						.overlay(
 
-								Text(ContentManager.Icons.panelCopyIcon)
-									.PanelPadIconFont()
-									.opacity(hovering ? 0.2 : 0)
-									.padding(8.0)
+							/// Icon
+							HStack {
+								Spacer()
+								VStack(alignment: .trailing, spacing: nil) {
 
-								Spacer(minLength: 0)
+									Text(ContentManager.Icons.panelCopyIcon)
+										.PanelPadIconFont()
+										.opacity(hovering ? 0.3 : 0)
+										.padding(8.0)
+
+									Spacer(minLength: 0)
+								}
 							}
-						}
-					)
-					.background(
-						ZStack {
+						)
+						.background(
 							// Backing
 							Color.primary
 								.opacity(hovering ? 0.1 : 0.04)
-						}
-					)
-					.animation(.easeInOut(duration: 0.16), value: hovering)
-					.cornerRadius(7.0)
-					.padding([.top], 2.0)
+						)
+						.animation(.easeInOut(duration: 0.16), value: hovering)
+						.cornerRadius(7.0)
+						.padding([.top], 2.0)
 
-					// When hovering logic
-					.whenHovered { hovering in
-						self.hovering = hovering
-					}
-					// When pressed logic
-					.inactiveWindowTap { pressed in
-						if pressed {
-							AppDelegate.current().interfaceAlertController?.showCopyAlert(value!, type: .string)
+						// When hovering logic
+						.whenHovered { hovering in
+							self.hovering = hovering
 						}
-					}
+						// When pressed logic
+						.inactiveWindowTap { pressed in
+							if pressed {
+								AppDelegate.current().interfaceAlertController?.showCopyAlert(value!, type: .string)
+							}
+						}
 				}
 			}
 		}
