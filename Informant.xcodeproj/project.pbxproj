@@ -18,6 +18,7 @@
 		9A481FA92677E945006B91C2 /* InactiveWindowTapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FA82677E945006B91C2 /* InactiveWindowTapHelper.swift */; };
 		9A481FAB26780F86006B91C2 /* InterfaceAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */; };
 		9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAD26782335006B91C2 /* PanelAlert.swift */; };
+		9A481FB0267914DA006B91C2 /* ComponentsExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */; };
 		9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */; };
 		9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */; };
 		9A6A5F47265E16B100962B15 /* panel-menu-toggle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6A5F46265E16B100962B15 /* panel-menu-toggle-icon.png */; };
@@ -110,6 +111,7 @@
 		9A481FA82677E945006B91C2 /* InactiveWindowTapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveWindowTapHelper.swift; sourceTree = "<group>"; };
 		9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceAlertController.swift; sourceTree = "<group>"; };
 		9A481FAD26782335006B91C2 /* PanelAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelAlert.swift; sourceTree = "<group>"; };
+		9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsExtra.swift; sourceTree = "<group>"; };
 		9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
 		9A6A5F46265E16B100962B15 /* panel-menu-toggle-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "panel-menu-toggle-icon.png"; sourceTree = "<group>"; };
 		9A6A5F48265E185000962B15 /* menubar-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-icon.png"; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */,
+				9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */,
 				9ABEAA192663FA070044E18B /* URLDiskAllocationHelper.swift in Sources */,
 				9A481FAB26780F86006B91C2 /* InterfaceAlertController.swift in Sources */,
+				9A481FB0267914DA006B91C2 /* ComponentsExtra.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
 				9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */,
 				9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */,
