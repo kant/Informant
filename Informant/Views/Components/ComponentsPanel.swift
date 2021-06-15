@@ -159,6 +159,7 @@ struct ComponentsPanelPathLabel: View {
 
 			Spacer(minLength: 0)
 		}
+		.padding(9.0)
 	}
 }
 
@@ -330,50 +331,51 @@ struct ComponentsPanelPathButton: View {
 	let secondStop = Gradient.Stop(color: .clear, location: 0.82)
 
 	var body: some View {
-		ComponentsPanelPathLabel(path)
-			.opacity(hovering ? 0 : 1)
-			.background(
-				LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
-					.mask(ComponentsPanelPathLabel(path))
-					.opacity(hovering ? 1 : 0)
-			)
-			.fixedSize(horizontal: false, vertical: true)
-			.padding(9.0)
-			.overlay(
 
-				/// Icon
-				HStack {
-					Spacer()
-					VStack(alignment: .trailing, spacing: nil) {
+		ZStack {
 
-						Text(ContentManager.Icons.panelCopyIcon)
-							.PanelPadIconFont()
-							.opacity(hovering ? 0.3 : 0)
-							.padding(8.0)
+			// Backing
+			Color.primary
+				.opacity(hovering ? 0.1 : 0.04)
 
-						Spacer(minLength: 0)
-					}
-				}
-			)
-			.background(
-				// Backing
-				Color.primary
-					.opacity(hovering ? 0.1 : 0.04)
-			)
-			.animation(.easeInOut(duration: 0.16), value: hovering)
-			.cornerRadius(7.0)
-			.padding([.top], 2.0)
+			// Gradiented text
+			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
+				.mask(ComponentsPanelPathLabel(path))
+				.opacity(hovering ? 1 : 0)
 
-			// When hovering logic
-			.whenHovered { hovering in
-				self.hovering = hovering
-			}
-			// When pressed logic
-			.inactiveWindowTap { pressed in
-				if pressed {
-					AppDelegate.current().interfaceAlertController?.showCopyAlert(path, type: .string)
+			// Icon
+			HStack {
+				Spacer()
+				VStack(alignment: .trailing, spacing: nil) {
+
+					Text(ContentManager.Icons.panelCopyIcon)
+						.PanelPadIconFont()
+						.opacity(hovering ? 0.3 : 0)
+						.padding(8.0)
+
+					Spacer(minLength: 0)
 				}
 			}
+
+			// Non-gradiented text
+			ComponentsPanelPathLabel(path)
+				.opacity(hovering ? 0 : 1)
+		}
+		.fixedSize(horizontal: false, vertical: true)
+		.animation(.easeInOut(duration: 0.16), value: hovering)
+		.cornerRadius(7.0)
+		.padding([.top], 2.0)
+
+		// When hovering logic
+		.whenHovered { hovering in
+			self.hovering = hovering
+		}
+		// When pressed logic
+		.inactiveWindowTap { pressed in
+			if pressed {
+				AppDelegate.current().interfaceAlertController?.showCopyAlert(path, type: .string)
+			}
+		}
 	}
 }
 
