@@ -372,7 +372,7 @@ struct ComponentsPanelPathButton: View {
 		// When pressed logic
 		.inactiveWindowTap { pressed in
 			if pressed {
-				AppDelegate.current().interfaceAlertController?.showCopyAlert(path, type: .string)
+				AppDelegate.current().interfaceAlertController?.showCopyAlertForPath(path)
 			}
 		}
 	}

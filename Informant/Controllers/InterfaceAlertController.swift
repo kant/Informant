@@ -128,13 +128,13 @@ class InterfaceAlertController {
 
 	/// Shows alert and copies value to pasteboard
 	func showCopyAlert(_ string: String, type: NSPasteboard.PasteboardType) {
+		PasteboardHelper.copyToPasteboard(string, type: .string)
+		showAlert()
+	}
 
-		// Copy the value to the pasteboard
-		let pasteboard = NSPasteboard.general
-		pasteboard.declareTypes([type], owner: nil)
-		pasteboard.setString(string, forType: type)
-
-		// Show the alert
+	/// Shows alert and copies path value to pasteboard
+	func showCopyAlertForPath(_ path: String) {
+		PasteboardHelper.copyPathToPasteboard(path)
 		showAlert()
 	}
 }

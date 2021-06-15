@@ -19,6 +19,7 @@
 		9A481FAB26780F86006B91C2 /* InterfaceAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */; };
 		9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAD26782335006B91C2 /* PanelAlert.swift */; };
 		9A481FB0267914DA006B91C2 /* ComponentsExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */; };
+		9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FB1267921BE006B91C2 /* PasteboardHelper.swift */; };
 		9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */; };
 		9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */; };
 		9A6A5F47265E16B100962B15 /* panel-menu-toggle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6A5F46265E16B100962B15 /* panel-menu-toggle-icon.png */; };
@@ -112,6 +113,7 @@
 		9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceAlertController.swift; sourceTree = "<group>"; };
 		9A481FAD26782335006B91C2 /* PanelAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelAlert.swift; sourceTree = "<group>"; };
 		9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsExtra.swift; sourceTree = "<group>"; };
+		9A481FB1267921BE006B91C2 /* PasteboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHelper.swift; sourceTree = "<group>"; };
 		9A64FC9C26266D0800CE52E4 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
 		9A6A5F46265E16B100962B15 /* panel-menu-toggle-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "panel-menu-toggle-icon.png"; sourceTree = "<group>"; };
 		9A6A5F48265E185000962B15 /* menubar-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar-icon.png"; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				9A7F3B502626BA2700BD878F /* Extensions.swift */,
 				9ABEAA182663FA070044E18B /* URLDiskAllocationHelper.swift */,
 				9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */,
+				9A481FB1267921BE006B91C2 /* PasteboardHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */,
 				9ABE17AD26346D2600EE9F48 /* InterfaceData.swift in Sources */,
+				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
