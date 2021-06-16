@@ -13,6 +13,7 @@ import SwiftUI
 // made by the user
 class InterfaceHelper {
 
+	/// Used to keep track of the previous selection. It makes sure that we don't make duplicate updates to the interface.
 	static var selectionInMemory: [String]?
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
