@@ -55,7 +55,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		url = URL(fileURLWithPath: urls[0])
 
 		// MARK: - Get Selection Resources
-
 		/// Keys used to determine what resources to grab
 		let keys: Set<URLResourceKey> = [
 			.canonicalPathKey,

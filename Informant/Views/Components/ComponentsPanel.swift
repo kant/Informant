@@ -5,6 +5,7 @@
 //  Created by Ty Irvine on 2021-04-22.
 //
 
+import Foundation
 import SwiftUI
 
 // MARK: - Panel Frames
@@ -160,6 +161,60 @@ struct ComponentsPanelPathLabel: View {
 			Spacer(minLength: 0)
 		}
 		.padding(9.0)
+	}
+}
+
+/// Creates a view that calculates the length of two fields and either stacks them or places them side by side
+struct ComponentsPanelItemStack: View {
+
+	let firstLabel: String
+	let firstValue: String?
+	let firstLineLimit: Int
+
+	let secondLabel: String
+	let secondValue: String?
+	let secondLineLimit: Int
+
+	private var isStackTooWide: Bool = false
+
+	init(firstLabel: String, firstValue: String?, firstLineLimit: Int = 1, secondLabel: String, secondValue: String?, secondLineLimit: Int = 1) {
+
+		self.firstLabel = firstLabel
+		self.firstValue = firstValue
+		self.firstLineLimit = firstLineLimit
+		self.secondLabel = secondLabel
+		self.secondValue = secondValue
+		self.secondLineLimit = secondLineLimit
+
+		if self.firstValue != nil, self.secondValue != nil {
+
+			// Get the combined length of both items
+			let combinedCharCount = self.firstValue!.count + self.secondValue!.count
+
+			// Get width of the window
+			let windowWidthAsChars = Int(AppDelegate.current().window.frame.size.width / 11)
+
+			// Check to see if the combined count of the first item's value & the second item's value exceeds the window width as chars
+			if combinedCharCount >= windowWidthAsChars {
+				isStackTooWide = true
+			}
+
+			print(isStackTooWide)
+		}
+	}
+
+	var body: some View {
+		HStack(spacing: 0) {
+
+			// First item
+			ComponentsPanelItemField(label: firstLabel, value: firstValue, lineLimit: firstLineLimit)
+
+			// Second item
+			ComponentsPanelItemField(label: secondLabel, value: secondValue, lineLimit: secondLineLimit)
+				.padding([.leading], 15)
+
+			Spacer(minLength: 0)
+		}
 	}
 }
 
