@@ -18,6 +18,11 @@ class SelectionHelper {
 		case Image
 	}
 
+	public enum State {
+		static let Unavailable = "Unavailable"
+		static let Calculating = "Calculating"
+	}
+
 	// MARK: - Methods
 	// This function will take in a url string and provide a url resource values object which can be
 	// then used to grab info, such as name, size, etc. Returns nil if nothing is found

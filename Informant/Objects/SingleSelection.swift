@@ -93,6 +93,8 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			if let size = resources.fileSize {
 				itemSize = size
 				itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(size))
+			} else {
+				itemSizeAsString = SelectionHelper.State.Unavailable
 			}
 
 			// Format dates as strings

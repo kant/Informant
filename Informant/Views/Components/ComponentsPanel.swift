@@ -134,13 +134,22 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	}
 
 	var body: some View {
-		if value != nil {
+
+		// Content is being calculated or bluntly unavailable
+		if value == SelectionHelper.State.Unavailable || value == SelectionHelper.State.Calculating {
 			content
-		}
-		else {
-			Text("Unavailable").H2()
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
+		}
+
+		// Content is good to go
+		else if value != nil {
+			content
+		}
+
+		// Content is completely nil
+		else {
+			Text("--").H2()
 		}
 	}
 }
@@ -165,26 +174,22 @@ struct ComponentsPanelPathLabel: View {
 }
 
 /// Creates a view that calculates the length of two fields and either stacks them or places them side by side
-struct ComponentsPanelItemStack: View {
+struct ComponentsPanelItemStack<Content: View>: View {
 
-	let firstLabel: String
 	let firstValue: String?
-	let firstLineLimit: Int
-
-	let secondLabel: String
 	let secondValue: String?
-	let secondLineLimit: Int
+
+	let firstItem: Content
+	let secondItem: Content
 
 	private var isStackTooWide: Bool = false
 
-	init(firstLabel: String, firstValue: String?, firstLineLimit: Int = 1, secondLabel: String, secondValue: String?, secondLineLimit: Int = 1) {
+	init(firstValue: String?, secondValue: String?, @ViewBuilder firstItem: @escaping () -> Content, @ViewBuilder secondItem: @escaping () -> Content) {
 
-		self.firstLabel = firstLabel
 		self.firstValue = firstValue
-		self.firstLineLimit = firstLineLimit
-		self.secondLabel = secondLabel
 		self.secondValue = secondValue
-		self.secondLineLimit = secondLineLimit
+		self.firstItem = firstItem()
+		self.secondItem = secondItem()
 
 		if self.firstValue != nil, self.secondValue != nil {
 
@@ -198,22 +203,30 @@ struct ComponentsPanelItemStack: View {
 			if combinedCharCount >= windowWidthAsChars {
 				isStackTooWide = true
 			}
-
-			print(isStackTooWide)
 		}
 	}
 
 	var body: some View {
-		HStack(spacing: 0) {
 
-			// First item
-			ComponentsPanelItemField(label: firstLabel, value: firstValue, lineLimit: firstLineLimit)
+		// When the stack is too wide the items just get setup in the parenting stack style
+		if isStackTooWide {
+			firstItem
+			secondItem
+		}
 
-			// Second item
-			ComponentsPanelItemField(label: secondLabel, value: secondValue, lineLimit: secondLineLimit)
-				.padding([.leading], 15)
+		// Otherwise we can stack both items horizontally
+		else {
+			HStack(spacing: 0) {
 
-			Spacer(minLength: 0)
+				// First item
+				firstItem
+
+				// Second item
+				secondItem
+					.padding([.leading], 15)
+
+				Spacer(minLength: 0)
+			}
 		}
 	}
 }
