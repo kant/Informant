@@ -55,7 +55,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 		
 		// Adds sizes together
 		for url in urls {
-			guard let resources = getURLResources(URL(fileURLWithPath: url), keys) else { return }
+			guard let resources = SelectionHelper.getURLResources(URL(fileURLWithPath: url), keys) else { return }
 			if let size = resources.fileSize {
 				itemSize! += size
 			}

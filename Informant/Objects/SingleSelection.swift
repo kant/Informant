@@ -75,7 +75,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		]
 
 		// Assigning resources to fileResources object
-		itemResources = getURLResources(url, keys)
+		itemResources = SelectionHelper.getURLResources(url, keys)
 
 		// MARK: - Fill in fields
 		if let resources = itemResources {
