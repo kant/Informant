@@ -14,6 +14,7 @@
 		9A2DDF74268153A100DB84BA /* SingleAudioSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF73268153A100DB84BA /* SingleAudioSelection.swift */; };
 		9A2DDF7626825D6700DB84BA /* SecurityBookmarkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */; };
 		9A2DDF79268264B000DB84BA /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF78268264B000DB84BA /* UserDefaultsHelper.swift */; };
+		9A2DDF7B2682A3CF00DB84BA /* PanelSingleFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */; };
 		9A389165265B0CB2005F0F04 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A389167265B0CB2005F0F04 /* Localizable.strings */; };
 		9A43162426265A1F0071227C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162326265A1F0071227C /* AppDelegate.swift */; };
 		9A43162626265A1F0071227C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162526265A1F0071227C /* ContentView.swift */; };
@@ -94,6 +95,7 @@
 		9A2DDF73268153A100DB84BA /* SingleAudioSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAudioSelection.swift; sourceTree = "<group>"; };
 		9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityBookmarkHelper.swift; sourceTree = "<group>"; };
 		9A2DDF78268264B000DB84BA /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleFrame.swift; sourceTree = "<group>"; };
 		9A389166265B0CB2005F0F04 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A389169265B1115005F0F04 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9A38916A265B11A9005F0F04 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				9ABE178A2632325A00EE9F48 /* Components */,
 				9A7F3B28262693BE00BD878F /* Preferences.swift */,
 				9A9061A0266AC1780043A334 /* PanelProtocol.swift */,
+				9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */,
 				9ABE17752632295400EE9F48 /* PanelSingleItem.swift */,
 				9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */,
 				9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */,
@@ -538,6 +541,7 @@
 				9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */,
 				9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */,
 				9ABE17762632295400EE9F48 /* PanelSingleItem.swift in Sources */,
+				9A2DDF7B2682A3CF00DB84BA /* PanelSingleFrame.swift in Sources */,
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
 				9ABE178C2632328100EE9F48 /* ComponentsPanel.swift in Sources */,
 				9A2DDF79268264B000DB84BA /* UserDefaultsHelper.swift in Sources */,

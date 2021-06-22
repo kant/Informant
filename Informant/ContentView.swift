@@ -65,7 +65,7 @@ struct ContentView: View {
 					switch interfaceData?.selection?.selectionType {
 
 					// One item selected
-					case .Single: PanelSingleItem(interfaceData?.selection)
+					case .Single: PanelSingleItem<EmptyView>(interfaceData?.selection)
 
 					// More than one item selected
 					case .Multi: PanelMultiItem(interfaceData?.selection)
