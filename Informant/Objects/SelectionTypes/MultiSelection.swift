@@ -20,7 +20,9 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 	var itemTotalIcons: [NSImage] = []
 	
 	/// Fills the data in for intention to be used in a multi-select interface
-	required init(_ urls: [String]) {
+	required init(_ urls: [String], selection: SelectionType = .Multi) {
+		
+		selectionType = selection
 		
 		super.init()
 		

@@ -16,6 +16,8 @@ class SelectionHelper {
 		case Directory
 		case Application
 		case Image
+		case Movie
+		case Audio
 	}
 
 	public enum State {
@@ -93,15 +95,15 @@ class SelectionHelper {
 			// Now that we have the uti, let's match it to the object we want to initialize
 			switch selectionType {
 
-				case kUTTypeImage: return SingleSelection(urls)
+				case kUTTypeImage: return SingleImageSelection(urls)
 
-				case kUTTypeMovie: return SingleSelection(urls)
+				case kUTTypeMovie: return SingleMovieSelection(urls)
 
-				case kUTTypeAudio: return SingleSelection(urls)
+				case kUTTypeAudio: return SingleAudioSelection(urls)
 
-				case kUTTypeDirectory: return SingleSelection(urls)
+				case kUTTypeDirectory: return SingleDirectorySelection(urls)
 
-				case kUTTypeApplication: return SingleSelection(urls)
+				case kUTTypeApplication: return SingleApplicationSelection(urls)
 
 				default: return SingleSelection(urls)
 			}

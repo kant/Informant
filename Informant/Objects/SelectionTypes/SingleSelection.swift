@@ -10,7 +10,7 @@ import Foundation
 
 class SingleSelection: SelectionHelper, SelectionProtocol {
 
-	var selectionType: SelectionType = .Single
+	var selectionType: SelectionType
 	var itemResources: URLResourceValues?
 
 	// MARK: - Single Selection Fields
@@ -47,7 +47,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 	var iCloudContainerName: String?
 
 	/// Establishes a single selection foundation and then picks out a type
-	required init(_ urls: [String]) {
+	required init(_ urls: [String], selection: SelectionType = .Single) {
+
+		selectionType = selection
 
 		super.init()
 
