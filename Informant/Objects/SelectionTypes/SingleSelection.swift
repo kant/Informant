@@ -125,7 +125,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
 		}
 
-		#warning("This snippet currently downloads the file in question when the .icloud and . prefix are removed with the .withoutChanges option in play.")
+		// TODO: This snippet currently downloads the file in question when the .icloud and . prefix are removed with the .withoutChanges option in play.
 		/*
 		 let newURL = URL(fileURLWithPath: "/Users/tyirvine/Library/Mobile Documents/com~apple~CloudDocs/Storage/Downloads/sanmeet-chahil-yv1GhUC1Cvo-unsplash.jpg")
 		 var error: NSError?

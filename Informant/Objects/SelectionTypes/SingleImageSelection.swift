@@ -23,37 +23,27 @@ class SingleImageSelection: SingleSelection {
 		// Initialize basic selection properties
 		super.init(urls, selection: selection)
 
-//		print(url.startAccessingSecurityScopedResource())
+		// Gather additional image data
+		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
-//		let fileURL = url as CFURL
-//		if let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil) {
-//			let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)
-//			if let dict = imageProperties as? [String: Any] {
-//				print(dict)
-//			}
-//		}
-//		url.stopAccessingSecurityScopedResource()
+			// Get basic metadata and exif data
+			let nsurl = NSURL(fileURLWithPath: url.path)
+			let source = CGImageSourceCreateWithURL(nsurl, nil)!
+			let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as Dictionary?
 
-		#warning("FIX ME!")
-		let panel = NSOpenPanel()
-		panel.allowsMultipleSelection = false
-		panel.canChooseDirectories = true
-		panel.canChooseFiles = false
-		panel.prompt = "Grant access!!!"
-		panel.beginSheetModal(for: AppDelegate.current().window) { response in
-			if response == .OK {
-				print(panel.url!.path)
-
-				// Gather additional image data
-				let nsurl = NSURL(fileURLWithPath: self.url.path)
-				let source = CGImageSourceCreateWithURL(nsurl, nil)!
-				let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as Dictionary?
-				let exifDict = metadata?[kCGImagePropertyExifDictionary]
-				let dateTimeOriginal = exifDict?[kCGImagePropertyExifDateTimeOriginal]
-
-				print(dateTimeOriginal)
+			// Fill in fields based on the metadata and exif data
+			if let exifDict = metadata?[kCGImagePropertyExifDictionary] {
 			}
-			panel.close()
+
+			if let tiffDict = metadata?[kCGImagePropertyTIFFDictionary] {
+				self.camera = tiffDict[kCGImagePropertyTIFFModel] as? String
+			}
+
+//			print(metadata)
 		}
+
+		print(camera)
+
+		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}
 }
