@@ -125,6 +125,20 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
 		}
 
+		#warning("This snippet currently downloads the file in question when the .icloud and . prefix are removed with the .withoutChanges option in play.")
+		/*
+		 let newURL = URL(fileURLWithPath: "/Users/tyirvine/Library/Mobile Documents/com~apple~CloudDocs/Storage/Downloads/sanmeet-chahil-yv1GhUC1Cvo-unsplash.jpg")
+		 var error: NSError?
+		 let coordinator = NSFileCoordinator(filePresenter: nil)
+		 coordinator.coordinate(readingItemAt: newURL, options: .withoutChanges, error: &error) { URL in
+		 	do {
+		 		let resources = try URL.promisedItemResourceValues(forKeys: [.fileSizeKey])
+		 		let sizeformatted = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
+		 		print(sizeformatted)
+		 	} catch {}
+		 }
+		 */
+
 		// MARK: - See if the file is an iCloud Sync file
 		// Grab the extension and unique type identifier
 		itemExtension = url.pathExtension
