@@ -13,6 +13,9 @@ import SwiftUI
 // made by the user
 class InterfaceHelper {
 
+	/// Used to keep track of the previous selection. It makes sure that we don't make duplicate updates to the interface.
+	static var selectionInMemory: [String]?
+
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
 	public static func GetFinderSelection() -> InterfaceData? {
@@ -41,6 +44,13 @@ class InterfaceHelper {
 		// Find selected files
 		appDelegate.interfaceData = selectedItems
 		appDelegate.contentView.interfaceData = appDelegate.interfaceData
+
+		// Make sure the selection is not a duplicate
+		if selectionInMemory == selectedItems?.urls {
+			return
+		} else {
+			selectionInMemory = selectedItems?.urls
+		}
 
 		// Update popover after hotkey press
 		UpdateInterface()

@@ -35,6 +35,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This contains all the settings data needed for the application
 	public var settingsData = SettingsData()
 
+	/// This helps work out the security scoping issue
+	public var securityBookmarkHelper = SecurityBookmarkHelper()
+
 	/// The view for the interface.
 	public var contentView: ContentView!
 
@@ -45,17 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// MARK: - Content View Init
 
 		contentView = ContentView()
-
-		// MARK: - Privacy Init
-
-		// TODO: Clean up this section - it asks for accessiblity permissions
-		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
-		let accessEnabled = AXIsProcessTrustedWithOptions(options)
-
-		// A simple error message if access is not enabled
-		if !accessEnabled {
-			print(ContentManager.Messages.setupAccessibilityNotEnabled)
-		}
 
 		// MARK: - Menu Init
 
@@ -113,6 +105,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Set the view controller
 		window.contentViewController = NSHostingController(rootView: contentView)
+
+		// MARK: - Privacy Init
+
+		// TODO: Clean up this section - it asks for accessiblity permissions
+		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
+		let accessEnabled = AXIsProcessTrustedWithOptions(options)
+
+		// A simple error message if access is not enabled
+		if !accessEnabled {
+			print(ContentManager.Messages.setupAccessibilityNotEnabled)
+		}
+
+		// TODO: Build this into the greeting panel and settings panel
+		// Request permission to root folder
+		securityBookmarkHelper.requestRootURLPermission()
 
 		// MARK: - App Init
 

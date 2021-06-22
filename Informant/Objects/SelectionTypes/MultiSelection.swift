@@ -20,7 +20,9 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 	var itemTotalIcons: [NSImage] = []
 	
 	/// Fills the data in for intention to be used in a multi-select interface
-	required init(_ urls: [String]) {
+	required init(_ urls: [String], selection: SelectionType = .Multi) {
+		
+		selectionType = selection
 		
 		super.init()
 		
@@ -55,7 +57,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 		
 		// Adds sizes together
 		for url in urls {
-			guard let resources = getURLResources(URL(fileURLWithPath: url), keys) else { return }
+			guard let resources = SelectionHelper.getURLResources(URL(fileURLWithPath: url), keys) else { return }
 			if let size = resources.fileSize {
 				itemSize! += size
 			}

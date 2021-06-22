@@ -209,6 +209,7 @@ class StatusBarController {
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
 	/// As well, makes sure that hiding state is set properly.
 	func updateWindow() {
+
 		InterfaceHelper.DisplayUpdatedInterface()
 
 		// Check for null interface data and set hiding state accordingly.
@@ -315,6 +316,13 @@ class StatusBarController {
 		case 53:
 			if event?.type == NSEvent.EventType.keyDown {
 				hideWindow()
+			}
+			break
+
+		// If ⌘ + a is pressed to signify a select all then update the interface
+		case 0:
+			if event?.modifierFlags.contains(.command) == true {
+				updateWindow()
 			}
 			break
 

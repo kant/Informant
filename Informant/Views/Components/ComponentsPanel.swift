@@ -5,6 +5,7 @@
 //  Created by Ty Irvine on 2021-04-22.
 //
 
+import Foundation
 import SwiftUI
 
 // MARK: - Panel Frames
@@ -133,13 +134,22 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	}
 
 	var body: some View {
-		if value != nil {
+
+		// Content is being calculated or bluntly unavailable
+		if value == SelectionHelper.State.Unavailable || value == SelectionHelper.State.Calculating {
 			content
-		}
-		else {
-			Text("Unavailable").H2()
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
+		}
+
+		// Content is good to go
+		else if value != nil {
+			content
+		}
+
+		// Content is completely nil
+		else {
+			Text("--").H2()
 		}
 	}
 }
@@ -160,6 +170,64 @@ struct ComponentsPanelPathLabel: View {
 			Spacer(minLength: 0)
 		}
 		.padding(9.0)
+	}
+}
+
+/// Creates a view that calculates the length of two fields and either stacks them or places them side by side
+struct ComponentsPanelItemStack<Content: View>: View {
+
+	let firstValue: String?
+	let secondValue: String?
+
+	let firstItem: Content
+	let secondItem: Content
+
+	private var isStackTooWide: Bool = false
+
+	init(firstValue: String?, secondValue: String?, @ViewBuilder firstItem: @escaping () -> Content, @ViewBuilder secondItem: @escaping () -> Content) {
+
+		self.firstValue = firstValue
+		self.secondValue = secondValue
+		self.firstItem = firstItem()
+		self.secondItem = secondItem()
+
+		if self.firstValue != nil, self.secondValue != nil {
+
+			// Get the combined length of both items
+			let combinedCharCount = self.firstValue!.count + self.secondValue!.count
+
+			// Get width of the window
+			let windowWidthAsChars = Int(AppDelegate.current().window.frame.size.width / 11)
+
+			// Check to see if the combined count of the first item's value & the second item's value exceeds the window width as chars
+			if combinedCharCount >= windowWidthAsChars {
+				isStackTooWide = true
+			}
+		}
+	}
+
+	var body: some View {
+
+		// When the stack is too wide the items just get setup in the parenting stack style
+		if isStackTooWide {
+			firstItem
+			secondItem
+		}
+
+		// Otherwise we can stack both items horizontally
+		else {
+			HStack(spacing: 0) {
+
+				// First item
+				firstItem
+
+				// Second item
+				secondItem
+					.padding([.leading], 15)
+
+				Spacer(minLength: 0)
+			}
+		}
 	}
 }
 
@@ -372,7 +440,7 @@ struct ComponentsPanelPathButton: View {
 		// When pressed logic
 		.inactiveWindowTap { pressed in
 			if pressed {
-				AppDelegate.current().interfaceAlertController?.showCopyAlert(path, type: .string)
+				AppDelegate.current().interfaceAlertController?.showCopyAlertForPath(path)
 			}
 		}
 	}

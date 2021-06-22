@@ -10,7 +10,7 @@ import Foundation
 
 class SingleSelection: SelectionHelper, SelectionProtocol {
 
-	var selectionType: SelectionType = .Single
+	var selectionType: SelectionType
 	var itemResources: URLResourceValues?
 
 	// MARK: - Single Selection Fields
@@ -47,7 +47,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 	var iCloudContainerName: String?
 
 	/// Establishes a single selection foundation and then picks out a type
-	required init(_ urls: [String]) {
+	required init(_ urls: [String], selection: SelectionType = .Single) {
+
+		selectionType = selection
 
 		super.init()
 
@@ -55,7 +57,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		url = URL(fileURLWithPath: urls[0])
 
 		// MARK: - Get Selection Resources
-
 		/// Keys used to determine what resources to grab
 		let keys: Set<URLResourceKey> = [
 			.canonicalPathKey,
@@ -76,7 +77,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 		]
 
 		// Assigning resources to fileResources object
-		itemResources = getURLResources(url, keys)
+		itemResources = SelectionHelper.getURLResources(url, keys)
 
 		// MARK: - Fill in fields
 		if let resources = itemResources {
@@ -94,6 +95,8 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			if let size = resources.fileSize {
 				itemSize = size
 				itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(size))
+			} else {
+				itemSizeAsString = SelectionHelper.State.Unavailable
 			}
 
 			// Format dates as strings
@@ -121,6 +124,20 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			tagNames = resources.tagNames
 			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
 		}
+
+		// TODO: This snippet currently downloads the file in question when the .icloud and . prefix are removed with the .withoutChanges option in play.
+		/*
+		 let newURL = URL(fileURLWithPath: "/Users/tyirvine/Library/Mobile Documents/com~apple~CloudDocs/Storage/Downloads/sanmeet-chahil-yv1GhUC1Cvo-unsplash.jpg")
+		 var error: NSError?
+		 let coordinator = NSFileCoordinator(filePresenter: nil)
+		 coordinator.coordinate(readingItemAt: newURL, options: .withoutChanges, error: &error) { URL in
+		 	do {
+		 		let resources = try URL.promisedItemResourceValues(forKeys: [.fileSizeKey])
+		 		let sizeformatted = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
+		 		print(sizeformatted)
+		 	} catch {}
+		 }
+		 */
 
 		// MARK: - See if the file is an iCloud Sync file
 		// Grab the extension and unique type identifier
