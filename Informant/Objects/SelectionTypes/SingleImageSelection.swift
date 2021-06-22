@@ -70,13 +70,15 @@ class SingleImageSelection: SingleSelection {
 			self.dimensions = String(xStr + "×" + yStr)
 		}
 
-		print(camera)
-		print(focalLength)
-		print(aperture)
-		print(shutterSpeed)
-		print(iso)
-		print(dimensions)
-		print(colorProfile)
+		/*
+		 print(camera)
+		 print(focalLength)
+		 print(aperture)
+		 print(shutterSpeed)
+		 print(iso)
+		 print(dimensions)
+		 print(colorProfile)
+		 */
 
 		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}
