@@ -27,22 +27,58 @@ class SingleImageSelection: SingleSelection {
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
 			// Get basic metadata and exif data
-			let nsurl = NSURL(fileURLWithPath: url.path)
-			let source = CGImageSourceCreateWithURL(nsurl, nil)!
-			let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as Dictionary?
+			let metadata = SelectionHelper.getURLMetadata(url)
 
-			// Fill in fields based on the metadata and exif data
-			if let exifDict = metadata?[kCGImagePropertyExifDictionary] {
+			// MARK: - Fill in fields based on the exif data
+			if let exifDict = metadata?[kCGImagePropertyExifDictionary] as? [CFString: Any] {
+
+				if let focalLength = exifDict[kCGImagePropertyExifFocalLength] {
+					self.focalLength = String(describing: focalLength)
+				}
+
+				if let aperture = exifDict[kCGImagePropertyExifFNumber] {
+					self.aperture = String(describing: aperture)
+				}
+
+				if let shutter = exifDict[kCGImagePropertyExifExposureTime] {
+					let fraction = Rational(approximating: shutter as! Double)
+					self.shutterSpeed = String(fraction.numerator.description + "/" + fraction.denominator.description)
+				}
+
+				if let iso = exifDict[kCGImagePropertyExifISOSpeed] {
+					self.iso = String(describing: iso)
+				}
 			}
 
-			if let tiffDict = metadata?[kCGImagePropertyTIFFDictionary] {
-				self.camera = tiffDict[kCGImagePropertyTIFFModel] as? String
+			// MARK: - Used for other info relating to tiff data
+			if let tiffDict = metadata?[kCGImagePropertyTIFFDictionary] as? [CFString: Any] {
+				if let camera = tiffDict[kCGImagePropertyTIFFModel] {
+					self.camera = String(describing: camera)
+				}
 			}
 
-//			print(metadata)
+			// MARK: - Fill in data using just metadata
+			self.colorProfile = metadata?[kCGImagePropertyProfileName] as? String
+
+			// Find dimensions
+			guard let x = metadata?[kCGImagePropertyPixelWidth] else { return }
+			guard let y = metadata?[kCGImagePropertyPixelHeight] else { return }
+
+			let xStr = String(describing: x)
+			let yStr = String(describing: y)
+
+			self.dimensions = String(xStr + "×" + yStr)
 		}
 
-		print(camera)
+		/*
+		 print(camera)
+		 print(focalLength)
+		 print(aperture)
+		 print(shutterSpeed)
+		 print(iso)
+		 print(dimensions)
+		 print(colorProfile)
+		 */
 
 		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}

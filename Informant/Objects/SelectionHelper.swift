@@ -25,9 +25,9 @@ class SelectionHelper {
 		static let Calculating = "Calculating"
 	}
 
-	// MARK: - Methods
-	// This function will take in a url string and provide a url resource values object which can be
-	// then used to grab info, such as name, size, etc. Returns nil if nothing is found
+	// MARK: - Utility Methods
+	/// This function will take in a url string and provide a url resource values object which can be
+	/// then used to grab info, such as name, size, etc. Returns nil if nothing is found
 	static func getURLResources(_ url: URL, _ keys: Set<URLResourceKey>) -> URLResourceValues? {
 		do {
 			return try url.resourceValues(forKeys: keys)
@@ -37,6 +37,18 @@ class SelectionHelper {
 		}
 	}
 
+	/// Used to grab the metadata on a security scoped url
+	static func getURLMetadata(_ url: URL) -> NSDictionary? {
+		if let source = CGImageSourceCreateWithURL(url as CFURL, nil) {
+			if let dictionary = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) {
+				return dictionary as NSDictionary
+			}
+		}
+
+		return nil
+	}
+
+	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {
 
