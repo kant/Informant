@@ -33,11 +33,11 @@ class SingleImageSelection: SingleSelection {
 			if let exifDict = metadata?[kCGImagePropertyExifDictionary] as? [CFString: Any] {
 
 				if let focalLength = exifDict[kCGImagePropertyExifFocalLength] {
-					self.focalLength = String(describing: focalLength)
+					self.focalLength = String(describing: focalLength) + " mm"
 				}
 
 				if let aperture = exifDict[kCGImagePropertyExifFNumber] {
-					self.aperture = String(describing: aperture)
+					self.aperture = "f⧸" + String(describing: aperture)
 				}
 
 				if let shutter = exifDict[kCGImagePropertyExifExposureTime] {
@@ -67,7 +67,7 @@ class SingleImageSelection: SingleSelection {
 			let xStr = String(describing: x)
 			let yStr = String(describing: y)
 
-			self.dimensions = String(xStr + "×" + yStr)
+			self.dimensions = String(xStr + " × " + yStr)
 		}
 
 		/*
