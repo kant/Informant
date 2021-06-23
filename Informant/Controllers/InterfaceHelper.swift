@@ -26,7 +26,7 @@ class InterfaceHelper {
 
 		// Make sure the selection is not a duplicate
 		if selectionInMemory == selectedFiles {
-			return nil
+			return AppDelegate.current().interfaceData
 		} else {
 			selectionInMemory = selectedFiles
 		}
@@ -46,9 +46,7 @@ class InterfaceHelper {
 		let appDelegate = AppDelegate.current()
 
 		// Check to make sure a file is selected before executing logic
-		guard let selectedItems: InterfaceData = InterfaceHelper.GetFinderSelection() else {
-			return
-		}
+		let selectedItems: InterfaceData? = InterfaceHelper.GetFinderSelection()
 
 		// Find selected files
 		appDelegate.interfaceData = selectedItems
