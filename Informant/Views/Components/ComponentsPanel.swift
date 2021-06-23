@@ -143,13 +143,32 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 		}
 
 		// Content is good to go
-		else if value != nil {
+		else {
+			content
+		}
+	}
+}
+
+/// Renders the entire view empty if no data is present
+struct ComponentsPanelItemNil<Content: View>: View {
+
+	let content: Content
+	let value: String?
+
+	init(value: String?, @ViewBuilder content: @escaping () -> Content) {
+		self.content = content()
+		self.value = value
+	}
+
+	var body: some View {
+
+		if value != nil {
 			content
 		}
 
-		// Content is completely nil
+		// If value is nil then render empty
 		else {
-			Text("--").H2()
+			EmptyView()
 		}
 	}
 }
@@ -182,7 +201,7 @@ struct ComponentsPanelItemStack<Content: View>: View {
 	let firstItem: Content
 	let secondItem: Content
 
-	private var isStackTooWide: Bool = false
+	private var isStackTooWide: Bool? = false
 
 	init(firstValue: String?, secondValue: String?, @ViewBuilder firstItem: @escaping () -> Content, @ViewBuilder secondItem: @escaping () -> Content) {
 
@@ -204,18 +223,21 @@ struct ComponentsPanelItemStack<Content: View>: View {
 				isStackTooWide = true
 			}
 		}
+		else {
+			isStackTooWide = nil
+		}
 	}
 
 	var body: some View {
 
 		// When the stack is too wide the items just get setup in the parenting stack style
-		if isStackTooWide {
+		if isStackTooWide == true {
 			firstItem
 			secondItem
 		}
 
 		// Otherwise we can stack both items horizontally
-		else {
+		else if isStackTooWide != nil {
 			HStack(spacing: 0) {
 
 				// First item
@@ -245,19 +267,29 @@ struct ComponentsPanelItemField: View, ComponentsPanelItemProtocol {
 
 	var label: String?
 	var value: String?
-	var lineLimit: Int = 1
+	var lineLimit: Int
+
+	internal init(label: String? = nil, value: String? = nil, lineLimit: Int = 1) {
+		self.label = label
+		self.value = value
+		self.lineLimit = lineLimit
+	}
 
 	var body: some View {
-		VStack(alignment: .leading) {
 
-			// Label
-			ComponentsPanelItemLabel(label: label)
+		ComponentsPanelItemNil(value: value) {
 
-			// Value
-			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
-				if value != nil {
-					Text(value!).H2()
-						.lineLimit(lineLimit)
+			VStack(alignment: .leading) {
+
+				// Label
+				ComponentsPanelItemLabel(label: label)
+
+				// Value
+				ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
+					if value != nil {
+						Text(value!).H2()
+							.lineLimit(lineLimit)
+					}
 				}
 			}
 		}

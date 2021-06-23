@@ -37,7 +37,7 @@ struct PanelSingleFrame<Content: View>: View {
 				ComponentsPanelItemStack(firstValue: selection!.itemKind, secondValue: selection!.itemSizeAsString) {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: selection?.itemKind, lineLimit: 2)
 				} secondItem: {
-					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection?.itemSizeAsString, lineLimit: 1)
+					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection?.itemSizeAsString)
 				}
 
 				// Created

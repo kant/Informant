@@ -15,6 +15,11 @@
 		9A2DDF7626825D6700DB84BA /* SecurityBookmarkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */; };
 		9A2DDF79268264B000DB84BA /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF78268264B000DB84BA /* UserDefaultsHelper.swift */; };
 		9A2DDF7B2682A3CF00DB84BA /* PanelSingleFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */; };
+		9A2DDF7F2682A7F800DB84BA /* PanelSingleImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF7E2682A7F800DB84BA /* PanelSingleImageItem.swift */; };
+		9A2DDF812682A81200DB84BA /* PanelSingleMovieItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF802682A81200DB84BA /* PanelSingleMovieItem.swift */; };
+		9A2DDF832682A81E00DB84BA /* PanelSingleAudioItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF822682A81E00DB84BA /* PanelSingleAudioItem.swift */; };
+		9A2DDF852682A82900DB84BA /* PanelSingleDirectoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */; };
+		9A2DDF872682A83300DB84BA /* PanelSingleApplicationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */; };
 		9A389165265B0CB2005F0F04 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A389167265B0CB2005F0F04 /* Localizable.strings */; };
 		9A43162426265A1F0071227C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162326265A1F0071227C /* AppDelegate.swift */; };
 		9A43162626265A1F0071227C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162526265A1F0071227C /* ContentView.swift */; };
@@ -96,6 +101,11 @@
 		9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityBookmarkHelper.swift; sourceTree = "<group>"; };
 		9A2DDF78268264B000DB84BA /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleFrame.swift; sourceTree = "<group>"; };
+		9A2DDF7E2682A7F800DB84BA /* PanelSingleImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleImageItem.swift; sourceTree = "<group>"; };
+		9A2DDF802682A81200DB84BA /* PanelSingleMovieItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleMovieItem.swift; sourceTree = "<group>"; };
+		9A2DDF822682A81E00DB84BA /* PanelSingleAudioItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleAudioItem.swift; sourceTree = "<group>"; };
+		9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleDirectoryItem.swift; sourceTree = "<group>"; };
+		9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleApplicationItem.swift; sourceTree = "<group>"; };
 		9A389166265B0CB2005F0F04 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A389169265B1115005F0F04 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9A38916A265B11A9005F0F04 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -222,6 +232,27 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		9A2DDF7C2682A72200DB84BA /* Single Selection Views */ = {
+			isa = PBXGroup;
+			children = (
+				9ABE17752632295400EE9F48 /* PanelSingleItem.swift */,
+				9A2DDF7E2682A7F800DB84BA /* PanelSingleImageItem.swift */,
+				9A2DDF802682A81200DB84BA /* PanelSingleMovieItem.swift */,
+				9A2DDF822682A81E00DB84BA /* PanelSingleAudioItem.swift */,
+				9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */,
+				9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */,
+			);
+			path = "Single Selection Views";
+			sourceTree = "<group>";
+		};
+		9A2DDF7D2682A74000DB84BA /* Multi Selection Views */ = {
+			isa = PBXGroup;
+			children = (
+				9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */,
+			);
+			path = "Multi Selection Views";
+			sourceTree = "<group>";
+		};
 		9A43161726265A1F0071227C = {
 			isa = PBXGroup;
 			children = (
@@ -334,8 +365,8 @@
 				9A7F3B28262693BE00BD878F /* Preferences.swift */,
 				9A9061A0266AC1780043A334 /* PanelProtocol.swift */,
 				9A2DDF7A2682A3CF00DB84BA /* PanelSingleFrame.swift */,
-				9ABE17752632295400EE9F48 /* PanelSingleItem.swift */,
-				9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */,
+				9A2DDF7C2682A72200DB84BA /* Single Selection Views */,
+				9A2DDF7D2682A74000DB84BA /* Multi Selection Views */,
 				9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */,
 				9A481FAD26782335006B91C2 /* PanelAlert.swift */,
 			);
@@ -519,6 +550,7 @@
 				9A2DDF74268153A100DB84BA /* SingleAudioSelection.swift in Sources */,
 				9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */,
 				9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */,
+				9A2DDF872682A83300DB84BA /* PanelSingleApplicationItem.swift in Sources */,
 				9AFF98D1266F111800E31D2A /* SettingsData.swift in Sources */,
 				9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */,
 				9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */,
@@ -537,6 +569,8 @@
 				9A481FB0267914DA006B91C2 /* ComponentsExtra.swift in Sources */,
 				9A7F3B29262693BE00BD878F /* Preferences.swift in Sources */,
 				9A2DDF7626825D6700DB84BA /* SecurityBookmarkHelper.swift in Sources */,
+				9A2DDF812682A81200DB84BA /* PanelSingleMovieItem.swift in Sources */,
+				9A2DDF852682A82900DB84BA /* PanelSingleDirectoryItem.swift in Sources */,
 				9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */,
 				9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */,
 				9A7F3B512626BA2700BD878F /* Extensions.swift in Sources */,
@@ -549,6 +583,8 @@
 				9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */,
 				9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* Shortcuts.swift in Sources */,
+				9A2DDF832682A81E00DB84BA /* PanelSingleAudioItem.swift in Sources */,
+				9A2DDF7F2682A7F800DB84BA /* PanelSingleImageItem.swift in Sources */,
 				9ABE17AD26346D2600EE9F48 /* InterfaceData.swift in Sources */,
 				9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */,
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
