@@ -43,6 +43,18 @@ class ContentManager {
 
 		static let panelModified = NSLocalizedString("Edited", comment: "The tag string to the date modified on the panel interface")
 
+		static let panelCamera = NSLocalizedString("Camera", comment: "Camera, Used on panel image view and movie")
+
+		static let panelFocalLength = NSLocalizedString("Focal Length", comment: "Focal Length, Used on panel image view and movie")
+
+		static let panelDimensions = NSLocalizedString("Dimensions", comment: "Dimensions, Used on panel image view and movie")
+
+		static let panelColorProfile = NSLocalizedString("Color Profile", comment: "Color Profile, Used on panel image view and movie")
+
+		static let panelAperture = NSLocalizedString("Aperture", comment: "Aperture, Used on panel image view and movie")
+
+		static let panelExposure = NSLocalizedString("Exposure", comment: "Exposure, Used on panel image view and movie")
+
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
 

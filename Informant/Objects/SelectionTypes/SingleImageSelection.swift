@@ -45,8 +45,8 @@ class SingleImageSelection: SingleSelection {
 					self.shutterSpeed = String(fraction.numerator.description + "/" + fraction.denominator.description)
 				}
 
-				if let iso = exifDict[kCGImagePropertyExifISOSpeed] {
-					self.iso = String(describing: iso)
+				if let iso = (exifDict[kCGImagePropertyExifISOSpeedRatings] as? NSArray) {
+					self.iso = String(describing: iso[0])
 				}
 			}
 

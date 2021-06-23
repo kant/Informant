@@ -210,8 +210,8 @@ struct ComponentsPanelItemStack<Content: View>: View {
 		self.firstItem = firstItem()
 		self.secondItem = secondItem()
 
+		// Both values are available
 		if self.firstValue != nil, self.secondValue != nil {
-
 			// Get the combined length of both items
 			let combinedCharCount = self.firstValue!.count + self.secondValue!.count
 
@@ -223,8 +223,15 @@ struct ComponentsPanelItemStack<Content: View>: View {
 				isStackTooWide = true
 			}
 		}
-		else {
+
+		// Neither value is available
+		else if self.firstValue == nil, self.secondValue == nil {
 			isStackTooWide = nil
+		}
+
+		// One value is available
+		else {
+			isStackTooWide = true
 		}
 	}
 

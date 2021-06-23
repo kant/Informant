@@ -18,29 +18,29 @@ struct PanelSingleImageItem: View {
 	var body: some View {
 		PanelSingleFrame(selection) {
 
-			// Camera & Focal Length
-			ComponentsPanelItemStack(firstValue: selection?.camera, secondValue: selection?.focalLength) {
-				ComponentsPanelItemField(label: "Camera", value: selection?.camera)
+			// Camera
+			ComponentsPanelItemField(label: ContentManager.Labels.panelCamera, value: selection?.camera)
+
+			// Focal Length & Exposure / Shutter Speed
+			ComponentsPanelItemStack(firstValue: selection?.focalLength, secondValue: selection?.shutterSpeed) {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelFocalLength, value: selection?.focalLength)
 			} secondItem: {
-				ComponentsPanelItemField(label: "Focal Length", value: selection?.focalLength)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelExposure, value: selection?.shutterSpeed)
 			}
 
 			// Dimensions & Color Profile
 			ComponentsPanelItemStack(firstValue: selection?.dimensions, secondValue: selection?.colorProfile) {
-				ComponentsPanelItemField(label: "Dimensions", value: selection?.dimensions)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelDimensions, value: selection?.dimensions)
 			} secondItem: {
-				ComponentsPanelItemField(label: "Color Profile", value: selection?.colorProfile)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelColorProfile, value: selection?.colorProfile)
 			}
 
-			// Aperture & Shutter Speed
-			ComponentsPanelItemStack(firstValue: selection?.aperture, secondValue: selection?.shutterSpeed) {
-				ComponentsPanelItemField(label: "Aperture", value: selection?.aperture)
+			// ISO & Aperture
+			ComponentsPanelItemStack(firstValue: selection?.aperture, secondValue: selection?.iso) {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelAperture, value: selection?.aperture)
 			} secondItem: {
-				ComponentsPanelItemField(label: "Exposure", value: selection?.shutterSpeed)
+				ComponentsPanelItemField(label: "ISO", value: selection?.iso)
 			}
-
-			// ISO
-			ComponentsPanelItemField(label: "ISO", value: selection?.iso)
 		}
 	}
 }
