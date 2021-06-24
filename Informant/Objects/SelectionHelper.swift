@@ -62,13 +62,13 @@ class SelectionHelper {
 	// MARK: - Formatting Methods
 	/// Formats the x & y dimensions of a media item into a universal format
 	static func formatDimensions(x: Any?, y: Any?) -> String? {
-		guard let pixelwidth = x else { return nil }
-		guard let pixelheight = y else { return nil }
+		guard let pixelwidth = x as? Int else { return nil }
+		guard let pixelheight = y as? Int else { return nil }
 
-		let x = String(describing: pixelwidth)
-		let y = String(describing: pixelheight)
+		let xStr = String(describing: pixelwidth)
+		let yStr = String(describing: pixelheight)
 
-		return x + " × " + y
+		return xStr + " × " + yStr
 	}
 
 	/// Formats seconds into a DD:HH:MM:SS format (days, hours, minutes, seconds)

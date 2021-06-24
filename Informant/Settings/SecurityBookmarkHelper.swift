@@ -23,12 +23,14 @@ class SecurityBookmarkHelper {
 
 	/// Requests the root url through an NSOpenPanel
 	func requestRootURLPermission() {
-		panel.beginSheetModal(for: AppDelegate.current().window) { response in
-			if response == .OK, let url = self.panel.url {
-				self.storeRootURLPermission(url)
-			}
+		if isAccessToRootURLStale() == true {
+			panel.beginSheetModal(for: AppDelegate.current().window) { response in
+				if response == .OK, let url = self.panel.url {
+					self.storeRootURLPermission(url)
+				}
 
-			self.panel.close()
+				self.panel.close()
+			}
 		}
 	}
 
@@ -67,5 +69,18 @@ class SecurityBookmarkHelper {
 	/// Stop access to the security scoped url
 	func stopAccessingRootURL() {
 		rootURL?.stopAccessingSecurityScopedResource()
+	}
+
+	/// Checks if access to the security scoped url is still valid
+	func isAccessToRootURLStale() -> Bool {
+		var isStale: Bool = false
+		if let bookmarkData = getRootURLPermission() {
+			do {
+				rootURL = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
+				return isStale
+			} catch { }
+		}
+
+		return true
 	}
 }

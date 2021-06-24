@@ -61,7 +61,7 @@ class SingleImageSelection: SingleSelection {
 			self.colorProfile = metadata?[kCGImagePropertyProfileName] as? String
 
 			// Dimensions
-			if let dimensions = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyWidth], y: metadata?[kCGImagePropertyHeight]) {
+			if let dimensions = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight]) {
 				self.dimensions = dimensions
 			}
 		}
