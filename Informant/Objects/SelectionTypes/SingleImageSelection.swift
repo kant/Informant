@@ -27,7 +27,7 @@ class SingleImageSelection: SingleSelection {
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
 			// Get basic metadata and exif data
-			let metadata = SelectionHelper.getURLMetadata(url)
+			let metadata = SelectionHelper.getURLImageMetadata(url)
 
 			// MARK: - Fill in fields based on the exif data
 			if let exifDict = metadata?[kCGImagePropertyExifDictionary] as? [CFString: Any] {
@@ -60,14 +60,10 @@ class SingleImageSelection: SingleSelection {
 			// MARK: - Fill in data using just metadata
 			self.colorProfile = metadata?[kCGImagePropertyProfileName] as? String
 
-			// Find dimensions
-			guard let x = metadata?[kCGImagePropertyPixelWidth] else { return }
-			guard let y = metadata?[kCGImagePropertyPixelHeight] else { return }
-
-			let xStr = String(describing: x)
-			let yStr = String(describing: y)
-
-			self.dimensions = String(xStr + " × " + yStr)
+			// Dimensions
+			if let dimensions = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyWidth], y: metadata?[kCGImagePropertyHeight]) {
+				self.dimensions = dimensions
+			}
 		}
 
 		/*
