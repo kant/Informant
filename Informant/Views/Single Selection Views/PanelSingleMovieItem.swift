@@ -16,6 +16,21 @@ struct PanelSingleMovieItem: View {
 	}
 
 	var body: some View {
-		Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		PanelSingleFrame(selection) {
+
+			// Codecs & Duration
+			ComponentsPanelItemStack(firstValue: selection?.codecs, secondValue: selection?.duration) {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelCodecs, value: selection?.codecs)
+			} secondItem: {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelDuration, value: selection?.duration)
+			}
+
+			// Dimensions & Color Profile
+			ComponentsPanelItemStack(firstValue: selection?.dimensions, secondValue: selection?.colorProfile) {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelDimensions, value: selection?.dimensions)
+			} secondItem: {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelColorProfile, value: selection?.colorProfile)
+			}
+		}
 	}
 }

@@ -9,7 +9,7 @@ import Foundation
 
 class SingleMovieSelection: SingleSelection {
 
-	var codecs: [String]?
+	var codecs: String?
 	var duration: String?
 	var colorProfile: String?
 	var dimensions: String?
@@ -36,7 +36,7 @@ class SingleMovieSelection: SingleSelection {
 
 				// Codecs
 				if let codecs = metadata[kMDItemCodecs] as? [String] {
-					self.codecs = codecs
+					self.codecs = codecs.joined(separator: ", ")
 				}
 
 				// Duration
