@@ -37,8 +37,8 @@ class SelectionHelper {
 		}
 	}
 
-	/// Used to grab the metadata on a security scoped url
-	static func getURLMetadata(_ url: URL) -> NSDictionary? {
+	/// Used to grab the metadata for an image on a security scoped url
+	static func getURLImageMetadata(_ url: URL) -> NSDictionary? {
 		if let source = CGImageSourceCreateWithURL(url as CFURL, nil) {
 			if let dictionary = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) {
 				return dictionary as NSDictionary
@@ -46,6 +46,68 @@ class SelectionHelper {
 		}
 
 		return nil
+	}
+
+	/// Used to grab all metadata for a movie on a security scoped url
+	static func getURLMetadata(_ url: URL, keys: NSArray) -> [CFString: Any]? {
+		if let mdItem = MDItemCreateWithURL(kCFAllocatorDefault, url as CFURL) {
+			if let metadata = MDItemCopyAttributes(mdItem, keys) as? [CFString: Any] {
+				return metadata
+			}
+		}
+
+		return nil
+	}
+
+	// MARK: - Formatting Methods
+	/// Formats the x & y dimensions of a media item into a universal format
+	static func formatDimensions(x: Any?, y: Any?) -> String? {
+		guard let pixelwidth = x as? Int else { return nil }
+		guard let pixelheight = y as? Int else { return nil }
+
+		let xStr = String(describing: pixelwidth)
+		let yStr = String(describing: pixelheight)
+
+		return xStr + " × " + yStr
+	}
+
+	/// Formats seconds into a DD:HH:MM:SS format (days, hours, minutes, seconds)
+	static func formatDuration(_ duration: Any?) -> String? {
+		guard let contentDuration = duration as? Double else { return nil }
+
+		let interval = TimeInterval(contentDuration)
+
+		// Setup formattter
+		let formatter = DateComponentsFormatter()
+		formatter.zeroFormattingBehavior = [.pad]
+
+		// If the duration is under an hour then user a shorter formatter
+		if contentDuration > 3599.0 {
+			formatter.allowedUnits = [.hour, .minute, .second]
+		}
+
+		// Otherwise use the expanded one
+		else {
+			formatter.allowedUnits = [.minute, .second]
+		}
+
+		return formatter.string(from: interval)
+	}
+
+	/// Formats a raw hertz reading into hertz or kilohertz
+	static func formatSampleRate(_ hertz: Any?) -> String? {
+		guard let contentHertz = hertz as? Double else { return nil }
+
+		// Format as hertz
+		if contentHertz < 1000 {
+			return String(format: "%.0f", contentHertz) + " Hz"
+		}
+
+		// Format as kilohertz
+		else {
+			let kHz = contentHertz / 1000
+			return String(format: "%.1f", kHz) + " kHz"
+		}
 	}
 
 	// MARK: - Initialization Methods

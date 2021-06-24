@@ -27,17 +27,17 @@ class SingleImageSelection: SingleSelection {
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
 			// Get basic metadata and exif data
-			let metadata = SelectionHelper.getURLMetadata(url)
+			let metadata = SelectionHelper.getURLImageMetadata(url)
 
 			// MARK: - Fill in fields based on the exif data
 			if let exifDict = metadata?[kCGImagePropertyExifDictionary] as? [CFString: Any] {
 
 				if let focalLength = exifDict[kCGImagePropertyExifFocalLength] {
-					self.focalLength = String(describing: focalLength)
+					self.focalLength = String(describing: focalLength) + " mm"
 				}
 
 				if let aperture = exifDict[kCGImagePropertyExifFNumber] {
-					self.aperture = String(describing: aperture)
+					self.aperture = "f⧸" + String(describing: aperture)
 				}
 
 				if let shutter = exifDict[kCGImagePropertyExifExposureTime] {
@@ -45,8 +45,8 @@ class SingleImageSelection: SingleSelection {
 					self.shutterSpeed = String(fraction.numerator.description + "/" + fraction.denominator.description)
 				}
 
-				if let iso = exifDict[kCGImagePropertyExifISOSpeed] {
-					self.iso = String(describing: iso)
+				if let iso = (exifDict[kCGImagePropertyExifISOSpeedRatings] as? NSArray) {
+					self.iso = String(describing: iso[0])
 				}
 			}
 
@@ -60,14 +60,10 @@ class SingleImageSelection: SingleSelection {
 			// MARK: - Fill in data using just metadata
 			self.colorProfile = metadata?[kCGImagePropertyProfileName] as? String
 
-			// Find dimensions
-			guard let x = metadata?[kCGImagePropertyPixelWidth] else { return }
-			guard let y = metadata?[kCGImagePropertyPixelHeight] else { return }
-
-			let xStr = String(describing: x)
-			let yStr = String(describing: y)
-
-			self.dimensions = String(xStr + "×" + yStr)
+			// Dimensions
+			if let dimensions = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight]) {
+				self.dimensions = dimensions
+			}
 		}
 
 		/*

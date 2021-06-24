@@ -24,6 +24,13 @@ class InterfaceHelper {
 			return nil
 		}
 
+		// Make sure the selection is not a duplicate
+		if selectionInMemory == selectedFiles {
+			return AppDelegate.current().interfaceData
+		} else {
+			selectionInMemory = selectedFiles
+		}
+
 		// Block executed if only one file is selected
 		if selectedFiles.count >= 1 {
 			return InterfaceData(selectedFiles)
@@ -44,13 +51,6 @@ class InterfaceHelper {
 		// Find selected files
 		appDelegate.interfaceData = selectedItems
 		appDelegate.contentView.interfaceData = appDelegate.interfaceData
-
-		// Make sure the selection is not a duplicate
-		if selectionInMemory == selectedItems?.urls {
-			return
-		} else {
-			selectionInMemory = selectedItems?.urls
-		}
 
 		// Update popover after hotkey press
 		UpdateInterface()

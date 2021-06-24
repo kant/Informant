@@ -1,18 +1,21 @@
 //
-//  Popover.swift
+//  PanelSingleFrame.swift
 //  Informant
 //
-//  Created by Ty Irvine on 2021-04-22.
+//  Created by Ty Irvine on 2021-06-22.
 //
 
 import SwiftUI
 
-struct PanelSingleItem: View, PanelProtocol {
+/// Root single item selection view
+struct PanelSingleFrame<Content: View>: View {
 
 	var selection: SingleSelection?
+	var content: Content
 
-	init(_ selection: SelectionProtocol?) {
+	init(_ selection: SelectionProtocol?, @ViewBuilder content: @escaping () -> Content) {
 		self.selection = selection as? SingleSelection
+		self.content = content()
 	}
 
 	var body: some View {
@@ -34,11 +37,14 @@ struct PanelSingleItem: View, PanelProtocol {
 				ComponentsPanelItemStack(firstValue: selection!.itemKind, secondValue: selection!.itemSizeAsString) {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: selection?.itemKind, lineLimit: 2)
 				} secondItem: {
-					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection?.itemSizeAsString, lineLimit: 1)
+					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection?.itemSizeAsString)
 				}
 
 				// Created
 				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection?.itemDateCreatedAsString)
+
+				// MARK: - Inject content here
+				content
 
 				// Path
 				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection?.itemPath)

@@ -64,9 +64,23 @@ struct ContentView: View {
 					// Figure out which view to present based on the # of items selected
 					switch interfaceData?.selection?.selectionType {
 
-					// One item selected
+					// MARK: - Singles
+
+					// One item selected - no metadata
 					case .Single: PanelSingleItem(interfaceData?.selection)
 
+					// One item selected - with metadata ⤵︎
+					case .Image: PanelSingleImageItem(interfaceData?.selection)
+
+					case .Movie: PanelSingleMovieItem(interfaceData?.selection)
+
+					case .Audio: PanelSingleAudioItem(interfaceData?.selection)
+
+					case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
+
+					case .Application: PanelSingleApplicationItem(interfaceData?.selection)
+
+					// MARK: - Multi
 					// More than one item selected
 					case .Multi: PanelMultiItem(interfaceData?.selection)
 
