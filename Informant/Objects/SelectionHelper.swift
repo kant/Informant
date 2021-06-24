@@ -94,6 +94,22 @@ class SelectionHelper {
 		return formatter.string(from: interval)
 	}
 
+	/// Formats a raw hertz reading into hertz or kilohertz
+	static func formatSampleRate(_ hertz: Any?) -> String? {
+		guard let contentHertz = hertz as? Double else { return nil }
+
+		// Format as hertz
+		if contentHertz < 1000 {
+			return String(format: "%.0f", contentHertz) + " Hz"
+		}
+
+		// Format as kilohertz
+		else {
+			let kHz = contentHertz / 1000
+			return String(format: "%.1f", kHz) + " kHz"
+		}
+	}
+
 	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {

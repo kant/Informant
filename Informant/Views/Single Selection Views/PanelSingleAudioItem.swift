@@ -16,6 +16,14 @@ struct PanelSingleAudioItem: View, PanelProtocol {
 	}
 
 	var body: some View {
-		Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		PanelSingleFrame(selection) {
+
+			// Samplerate & Duration
+			ComponentsPanelItemStack(firstValue: selection?.sampleRate, secondValue: selection?.duration) {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelSampleRate, value: selection?.sampleRate)
+			} secondItem: {
+				ComponentsPanelItemField(label: ContentManager.Labels.panelDuration, value: selection?.duration)
+			}
+		}
 	}
 }

@@ -57,7 +57,9 @@ class ContentManager {
 
 		static let panelCodecs = NSLocalizedString("Codecs", comment: "Codecs, Used on panel movie view")
 
-		static let panelDuration = NSLocalizedString("Duration", comment: "Duration, Used on panel movie view")
+		static let panelDuration = NSLocalizedString("Duration", comment: "Duration, Used on panel movie & audio view")
+
+		static let panelSampleRate = NSLocalizedString("Sample Rate", comment: "Sample rate, Used on panel audio view")
 
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
