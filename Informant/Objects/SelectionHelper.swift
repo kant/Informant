@@ -110,6 +110,11 @@ class SelectionHelper {
 		}
 	}
 
+	/// Formats raw byte size into a familliar 10MB, 3.2GB, etc.
+	static func formatBytes(_ byteCount: Int64) -> String {
+		return ByteCountFormatter().string(fromByteCount: byteCount)
+	}
+
 	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {

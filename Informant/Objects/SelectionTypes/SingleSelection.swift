@@ -94,7 +94,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 			// Check filesize for being nil before unwrapping
 			if let size = resources.fileSize {
 				itemSize = size
-				itemSizeAsString = ByteCountFormatter().string(fromByteCount: Int64(size))
+				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
 			} else {
 				itemSizeAsString = SelectionHelper.State.Unavailable
 			}

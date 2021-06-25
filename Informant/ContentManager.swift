@@ -61,6 +61,8 @@ class ContentManager {
 
 		static let panelSampleRate = NSLocalizedString("Sample Rate", comment: "Sample rate, Used on panel audio view")
 
+		static let panelContains = NSLocalizedString("Contains", comment: "Contains, Used on the panel directory view")
+
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
 
@@ -92,5 +94,14 @@ class ContentManager {
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
+	}
+
+	// MARK: - Extra
+
+	public enum Extra {
+
+		static let items = NSLocalizedString("items", comment: "Items, used in the single directory selection")
+
+		static let item = NSLocalizedString("item", comment: "Singular version of items")
 	}
 }

@@ -16,8 +16,7 @@ public extension FileManager {
 	///
 	/// - note: There are a couple of oddities that are not taken into account (like symbolic links, meta data of
 	/// directories, hard links, ...).
-
-	func allocatedSizeOfDirectory(at directoryURL: URL) throws -> UInt64 {
+	func allocatedSizeOfDirectory(at directoryURL: URL) throws -> Int64 {
 
 		// The error handler simply stores the error and stops traversal
 		var enumeratorError: Error?
@@ -27,13 +26,15 @@ public extension FileManager {
 		}
 
 		// We have to enumerate all directory contents, including subdirectories.
-		let enumerator = self.enumerator(at: directoryURL,
-		                                 includingPropertiesForKeys: Array(allocatedSizeResourceKeys),
-		                                 options: [],
-		                                 errorHandler: errorHandler)!
+		let enumerator = self.enumerator(
+			at: directoryURL,
+			includingPropertiesForKeys: Array(allocatedSizeResourceKeys),
+			options: [],
+			errorHandler: errorHandler
+		)!
 
 		// We'll sum up content size here:
-		var accumulatedSize: UInt64 = 0
+		var accumulatedSize: Int64 = 0
 
 		// Perform the traversal.
 		for item in enumerator {
@@ -51,17 +52,44 @@ public extension FileManager {
 
 		return accumulatedSize
 	}
-}
 
-private let allocatedSizeResourceKeys: Set<URLResourceKey> = [
-	.isRegularFileKey,
-	.fileAllocatedSizeKey,
-	.totalFileAllocatedSizeKey,
-]
+	/// Finds the total number of items in the directory, including all items contained within sub-directories.
+	func countOfItemsInDirectory(at directoryURL: URL) -> Int? {
+
+		// The error handler simply stores the error and stops traversal
+		var enumeratorError: Error?
+		func errorHandler(_: URL, error: Error) -> Bool {
+			enumeratorError = error
+			return false
+		}
+
+		// Enumerate through all of the directory's contents
+		guard let enumerator = self.enumerator(
+			at: directoryURL,
+			includingPropertiesForKeys: [],
+			options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants],
+			errorHandler: errorHandler
+		) else { return nil }
+
+		/// Total item count in directory
+		var itemCount = 0
+
+		// Perform the calculation
+		for _ in enumerator {
+
+			// Bail out on errors from the error handler
+			if enumeratorError != nil { break }
+
+			itemCount += 1
+		}
+
+		return itemCount
+	}
+}
 
 private extension URL {
 
-	func regularFileAllocatedSize() throws -> UInt64 {
+	func regularFileAllocatedSize() throws -> Int64 {
 		let resourceValues = try self.resourceValues(forKeys: allocatedSizeResourceKeys)
 
 		// We only look at regular files.
@@ -76,6 +104,12 @@ private extension URL {
 		// In case totalFileAllocatedSize is unavailable we use the fallback value (excluding
 		// meta data and compression) This value should always be available.
 
-		return UInt64(resourceValues.totalFileAllocatedSize ?? resourceValues.fileAllocatedSize ?? 0)
+		return Int64(resourceValues.totalFileSize ?? 0)
 	}
 }
+
+private let allocatedSizeResourceKeys: Set<URLResourceKey> = [
+	.isRegularFileKey,
+	.totalFileSizeKey,
+	.fileSizeKey
+]

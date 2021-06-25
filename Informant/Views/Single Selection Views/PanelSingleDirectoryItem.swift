@@ -16,6 +16,10 @@ struct PanelSingleDirectoryItem: View, PanelProtocol {
 	}
 
 	var body: some View {
-		Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		PanelSingleFrame(selection) {
+
+			// Total directory count
+			ComponentsPanelItemField(label: ContentManager.Labels.panelContains, value: selection?.itemCount)
+		}
 	}
 }
