@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Apple Scripts
 /// Used to store and use any apple scripts
 
-class AppleScripts {
+class AppleScriptsHelper {
 
 	// Find the currently selected Finder files in a string format with line breaks.
 	public static func findSelectedFiles() -> [String]? {

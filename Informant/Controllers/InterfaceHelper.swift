@@ -23,7 +23,7 @@ class InterfaceHelper {
 		// Grab appDelegate first
 		let appDelegate = AppDelegate.current()
 
-		guard let selectedFiles: [String] = AppleScripts.findSelectedFiles() else {
+		guard let selectedFiles: [String] = AppleScriptsHelper.findSelectedFiles() else {
 			return nil
 		}
 
