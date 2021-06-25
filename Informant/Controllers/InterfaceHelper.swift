@@ -39,6 +39,8 @@ class InterfaceHelper {
 			for block in blocks {
 				block.cancel()
 			}
+
+			appDelegate.securityBookmarkHelper.stopAccessingRootURL()
 		}
 
 		// Block executed if only one file is selected

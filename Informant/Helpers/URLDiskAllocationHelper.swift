@@ -92,11 +92,6 @@ private extension URL {
 	func regularFileAllocatedSize() throws -> Int64 {
 		let resourceValues = try self.resourceValues(forKeys: allocatedSizeResourceKeys)
 
-		// We only look at regular files.
-		guard resourceValues.isRegularFile ?? false else {
-			return 0
-		}
-
 		// To get the file's size we first try the most comprehensive value in terms of what
 		// the file may use on disk. This includes metadata, compression (on file system
 		// level) and block size.
@@ -109,7 +104,5 @@ private extension URL {
 }
 
 private let allocatedSizeResourceKeys: Set<URLResourceKey> = [
-	.isRegularFileKey,
-	.totalFileSizeKey,
-	.fileSizeKey
+	.totalFileSizeKey
 ]

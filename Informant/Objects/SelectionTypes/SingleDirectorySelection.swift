@@ -56,7 +56,7 @@ class SingleDirectorySelection: SingleSelection {
 			})
 			
 			// Get directory size
-			DispatchQueue.global(qos: .background).async(execute: workQueue[0])
+			DispatchQueue.global(qos: .utility).async(execute: workQueue[0])
 		}
 	}
 }
