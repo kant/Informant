@@ -70,8 +70,6 @@ class DirectorySize {
 		// Get the current timestamp
 		let now = Date().timeIntervalSince1970
 
-		/* print("Expiry time: ", expiry, "   Now: ", now) */
-
 		// Compare it to the old timestamp
 		if now >= expiry {
 			return true
