@@ -35,7 +35,7 @@ class InterfaceHelper {
 		}
 
 		// Cancel all background tasks
-		if let blocks = appDelegate.interfaceData?.selection?.workBlocks {
+		if let blocks = appDelegate.interfaceData?.selection?.workQueue {
 			for block in blocks {
 				block.cancel()
 			}

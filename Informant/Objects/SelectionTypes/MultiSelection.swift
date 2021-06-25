@@ -14,7 +14,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 	var itemResources: URLResourceValues?
 	
 	// MARK: - Async work block
-	var workBlocks: [DispatchWorkItem] = []
+	var workQueue: [DispatchWorkItem] = []
 	
 	// Metadata ⤵︎
 	var itemTitle: String?

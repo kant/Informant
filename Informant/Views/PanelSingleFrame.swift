@@ -34,7 +34,8 @@ struct PanelSingleFrame<Content: View>: View {
 			VStack(alignment: .leading, spacing: 15) {
 
 				// Kind & Size
-				ComponentsPanelItemStack(firstValue: selection.itemKind, secondValue: selection.itemSizeAsString) {
+				// We set the second value to calculating so it doesn't resize once it finds the correct calculation
+				ComponentsPanelItemStack(firstValue: selection.itemKind, secondValue: SelectionHelper.State.Calculating) {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: selection.itemKind, lineLimit: 2)
 				} secondItem: {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection.itemSizeAsString)

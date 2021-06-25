@@ -32,7 +32,7 @@ class SingleDirectorySelection: SingleSelection {
 			
 			// ------------ Setup work blocks ⤵︎ --------------
 			// Executes on the background
-			let workBlock1 = DispatchWorkItem {
+			workQueue.append(DispatchWorkItem {
 				
 				do {
 					rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
@@ -41,11 +41,11 @@ class SingleDirectorySelection: SingleSelection {
 				}
 				
 				// Stop access on the main thread after completion of this block
-				DispatchQueue.main.async(execute: self.workBlocks[1])
-			}
+				DispatchQueue.main.async(execute: self.workQueue[1])
+			})
 			
 			// Executes on the main thread
-			let workBlock2 = DispatchWorkItem {
+			workQueue.append(DispatchWorkItem {
 				if let size = rawSize {
 					self.itemSizeAsString = SelectionHelper.formatBytes(size)
 				} else {
@@ -53,13 +53,10 @@ class SingleDirectorySelection: SingleSelection {
 				}
 				
 				AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
-			}
-			
-			workBlocks.insert(workBlock1, at: 0)
-			workBlocks.insert(workBlock2, at: 1)
+			})
 			
 			// Get directory size
-			DispatchQueue.global(qos: .userInitiated).async(execute: workBlocks[0])
+			DispatchQueue.global(qos: .background).async(execute: workQueue[0])
 		}
 	}
 }

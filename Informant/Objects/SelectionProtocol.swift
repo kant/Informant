@@ -25,7 +25,7 @@ protocol SelectionProtocol: SelectionHelper {
 	var itemSizeAsString: String? { get set }
 
 	/// This is an async execution block that can be executed, paused, resumed, and cancelled
-	var workBlocks: [DispatchWorkItem] { get set }
+	var workQueue: [DispatchWorkItem] { get set }
 
 	init(_ urls: [String], selection: SelectionType)
 }

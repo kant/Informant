@@ -31,7 +31,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var itemExtension: String!
 
 	// MARK: - Async work block
-	var workBlocks: [DispatchWorkItem] = []
+	var workQueue: [DispatchWorkItem] = []
 
 	// MARK: - File Tags
 	/// Determines if the file has the .icloud extension
