@@ -135,11 +135,17 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 
 	var body: some View {
 
-		// Content is being calculated or bluntly unavailable
-		if value == SelectionHelper.State.Unavailable || value == SelectionHelper.State.Calculating {
+		// Content is being calculated
+		if value == SelectionHelper.State.Calculating {
 			content
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
+		}
+
+		// Or bluntly unavailable
+		else if value == SelectionHelper.State.Unavailable {
+			content
+				.lineLimit(lineLimit)
 		}
 
 		// Content is good to go
