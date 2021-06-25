@@ -38,6 +38,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This helps work out the security scoping issue
 	public var securityBookmarkHelper = SecurityBookmarkHelper()
 
+	/// This keeps tracks of any items that need to be cached for later use
+	public var cache = Cache()
+
 	/// The view for the interface.
 	public var contentView: ContentView!
 

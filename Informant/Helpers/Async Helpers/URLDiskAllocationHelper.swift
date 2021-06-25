@@ -53,8 +53,39 @@ public extension FileManager {
 		return accumulatedSize
 	}
 
-	/// Finds the total number of items in the directory, including all items contained within sub-directories.
-	func countOfItemsInDirectory(at directoryURL: URL) -> Int? {
+	/// Finds the shallow number of items in the directory, not-including items contained within sub-directories.
+	func shallowCountOfItemsInDirectory(at directoryURL: URL) -> Int? {
+
+		let options: FileManager.DirectoryEnumerationOptions = [
+			.skipsSubdirectoryDescendants,
+			.skipsHiddenFiles,
+			.skipsPackageDescendants
+		]
+
+		return itemsInDirectory(at: directoryURL, options: options)
+	}
+
+	/// Finds the total number of items in the directory, including sub-directories
+	func totalCountOfItemsInDirectory(at directoryURL: URL) -> Int? {
+
+		let options: FileManager.DirectoryEnumerationOptions = []
+
+		return itemsInDirectory(at: directoryURL, options: options)
+	}
+
+	/// Finds the directory count of items in the directory, including sub-directories but not packages or hidden files
+	func directoryCountOfItemsInDirectory(at directoryURL: URL) -> Int? {
+
+		let options: FileManager.DirectoryEnumerationOptions = [
+			.skipsHiddenFiles,
+			.skipsPackageDescendants
+		]
+
+		return itemsInDirectory(at: directoryURL, options: options)
+	}
+
+	/// Finds the number of items in the directory based on enumerator options provided
+	private func itemsInDirectory(at directoryURL: URL, options: FileManager.DirectoryEnumerationOptions) -> Int? {
 
 		// The error handler simply stores the error and stops traversal
 		var enumeratorError: Error?
@@ -67,7 +98,7 @@ public extension FileManager {
 		guard let enumerator = self.enumerator(
 			at: directoryURL,
 			includingPropertiesForKeys: [],
-			options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants],
+			options: options,
 			errorHandler: errorHandler
 		) else { return nil }
 

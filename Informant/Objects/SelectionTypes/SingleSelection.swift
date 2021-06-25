@@ -180,6 +180,14 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	/// Attempts to find the directory's size on a background thread, then commits changes found on the main thread
 	func findDirectorySize() {
 
+		let type = selectionType
+
+		// Check if the url has a stored byte size in the cache
+		if let cachedSize = url.getCachedByteSize(type) {
+			itemSizeAsString = SelectionHelper.formatBytes(cachedSize)
+			return
+		}
+
 		// Tell the user we're calculating the total size
 		itemSizeAsString = SelectionHelper.State.Calculating
 
@@ -202,8 +210,10 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 		// Executes on the main thread
 		workQueue.append(DispatchWorkItem {
+
 			if let size = rawSize {
 				self.itemSizeAsString = SelectionHelper.formatBytes(size)
+				self.url.storeByteSize(size, type)
 			} else {
 				self.itemSizeAsString = SelectionHelper.State.Unavailable
 			}
