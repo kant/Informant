@@ -20,15 +20,25 @@ class InterfaceHelper {
 	// based on the Finder items selected.
 	public static func GetFinderSelection() -> InterfaceData? {
 
+		// Grab appDelegate first
+		let appDelegate = AppDelegate.current()
+
 		guard let selectedFiles: [String] = AppleScripts.findSelectedFiles() else {
 			return nil
 		}
 
 		// Make sure the selection is not a duplicate
 		if selectionInMemory == selectedFiles {
-			return AppDelegate.current().interfaceData
+			return appDelegate.interfaceData
 		} else {
 			selectionInMemory = selectedFiles
+		}
+
+		// Cancel all background tasks
+		if let blocks = appDelegate.interfaceData?.selection?.workBlocks {
+			for block in blocks {
+				block.cancel()
+			}
 		}
 
 		// Block executed if only one file is selected

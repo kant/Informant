@@ -8,7 +8,7 @@
 import Cocoa
 import Foundation
 
-class SingleSelection: SelectionHelper, SelectionProtocol {
+class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 	var selectionType: SelectionType
 	var itemResources: URLResourceValues?
@@ -21,7 +21,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 
 	var itemKind: String?
 	var itemSize: Int?
-	var itemSizeAsString: String?
+	@Published var itemSizeAsString: String?
 
 	var itemDateCreated: Date?
 	var itemDateModified: Date?
@@ -29,6 +29,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol {
 	var itemDateModifiedAsString: String?
 
 	var itemExtension: String!
+
+	// MARK: - Async work block
+	var workBlocks: [DispatchWorkItem] = []
 
 	// MARK: - File Tags
 	/// Determines if the file has the .icloud extension

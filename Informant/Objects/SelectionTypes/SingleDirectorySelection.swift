@@ -27,14 +27,39 @@ class SingleDirectorySelection: SingleSelection {
 			// Tell the user we're calculating the total size
 			self.itemSizeAsString = SelectionHelper.State.Calculating
 			
-			// TODO: This needs to be an async request
+			// Holds raw size in memory
+			var rawSize: Int64?
+			
+			// ------------ Setup work blocks ⤵︎ --------------
+			// Executes on the background
+			let workBlock1 = DispatchWorkItem {
+				
+				do {
+					rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
+				} catch {
+					rawSize = nil
+				}
+				
+				// Stop access on the main thread after completion of this block
+				DispatchQueue.main.async(execute: self.workBlocks[1])
+			}
+			
+			// Executes on the main thread
+			let workBlock2 = DispatchWorkItem {
+				if let size = rawSize {
+					self.itemSizeAsString = SelectionHelper.formatBytes(size)
+				} else {
+					self.itemSizeAsString = SelectionHelper.State.Unavailable
+				}
+				
+				AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+			}
+			
+			workBlocks.insert(workBlock1, at: 0)
+			workBlocks.insert(workBlock2, at: 1)
+			
 			// Get directory size
-			do {
-				let rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
-				print(SelectionHelper.formatBytes(rawSize))
-			} catch { }
+			DispatchQueue.global(qos: .userInitiated).async(execute: workBlocks[0])
 		}
-
-		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}
 }

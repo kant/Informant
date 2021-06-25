@@ -13,6 +13,9 @@ class MultiSelection: SelectionHelper, SelectionProtocol {
 	var selectionType: SelectionType = .Multi
 	var itemResources: URLResourceValues?
 	
+	// MARK: - Async work block
+	var workBlocks: [DispatchWorkItem] = []
+	
 	// Metadata ⤵︎
 	var itemTitle: String?
 	var itemSize: Int?
