@@ -63,6 +63,8 @@ class ContentManager {
 
 		static let panelContains = NSLocalizedString("Contains", comment: "Contains, Used on the panel directory view")
 
+		static let panelVersion = NSLocalizedString("Version", comment: "Version, Used on panel application view")
+
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
 

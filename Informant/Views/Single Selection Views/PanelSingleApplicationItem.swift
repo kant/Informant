@@ -16,6 +16,10 @@ struct PanelSingleApplicationItem: View, PanelProtocol {
 	}
 
 	var body: some View {
-		Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		PanelSingleFrame(selection) {
+
+			// Version #
+			ComponentsPanelItemField(label: "Version", value: selection?.version)
+		}
 	}
 }

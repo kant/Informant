@@ -176,4 +176,42 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 		return shortenedPath
 	}
+
+	/// Attempts to find the directory's size on a background thread, then commits changes found on the main thread
+	func findDirectorySize() {
+
+		// Tell the user we're calculating the total size
+		itemSizeAsString = SelectionHelper.State.Calculating
+
+		// Holds raw size in memory
+		var rawSize: Int64?
+
+		// ------------ Setup work blocks ⤵︎ --------------
+		// Executes on the background
+		workQueue.append(DispatchWorkItem {
+
+			do {
+				rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
+			} catch {
+				rawSize = nil
+			}
+
+			// Stop access on the main thread after completion of this block
+			DispatchQueue.main.async(execute: self.workQueue[1])
+		})
+
+		// Executes on the main thread
+		workQueue.append(DispatchWorkItem {
+			if let size = rawSize {
+				self.itemSizeAsString = SelectionHelper.formatBytes(size)
+			} else {
+				self.itemSizeAsString = SelectionHelper.State.Unavailable
+			}
+
+			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+		})
+
+		// Get directory size
+		DispatchQueue.global(qos: .utility).async(execute: workQueue[0])
+	}
 }

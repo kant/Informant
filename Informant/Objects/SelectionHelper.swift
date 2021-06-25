@@ -150,8 +150,8 @@ class SelectionHelper {
 			kUTTypeImage,
 			kUTTypeMovie,
 			kUTTypeAudio,
-			kUTTypeDirectory,
 			kUTTypeApplication,
+			kUTTypeDirectory,
 		]
 
 		// Grabs the UTI type id and compares that to all the types we want to identify
