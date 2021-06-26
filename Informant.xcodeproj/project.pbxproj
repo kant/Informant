@@ -21,6 +21,8 @@
 		9A2DDF852682A82900DB84BA /* PanelSingleDirectoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */; };
 		9A2DDF872682A83300DB84BA /* PanelSingleApplicationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */; };
 		9A2DDF8926865C5300DB84BA /* CacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF8826865C5300DB84BA /* CacheHelper.swift */; };
+		9A2DDF8F2686971200DB84BA /* SingleVolumeSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF8E2686971200DB84BA /* SingleVolumeSelection.swift */; };
+		9A2DDF912686989000DB84BA /* PanelSingleVolumeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF902686989000DB84BA /* PanelSingleVolumeItem.swift */; };
 		9A389165265B0CB2005F0F04 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A389167265B0CB2005F0F04 /* Localizable.strings */; };
 		9A43162426265A1F0071227C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162326265A1F0071227C /* AppDelegate.swift */; };
 		9A43162626265A1F0071227C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162526265A1F0071227C /* ContentView.swift */; };
@@ -108,6 +110,8 @@
 		9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleDirectoryItem.swift; sourceTree = "<group>"; };
 		9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleApplicationItem.swift; sourceTree = "<group>"; };
 		9A2DDF8826865C5300DB84BA /* CacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheHelper.swift; sourceTree = "<group>"; };
+		9A2DDF8E2686971200DB84BA /* SingleVolumeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleVolumeSelection.swift; sourceTree = "<group>"; };
+		9A2DDF902686989000DB84BA /* PanelSingleVolumeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelSingleVolumeItem.swift; sourceTree = "<group>"; };
 		9A389166265B0CB2005F0F04 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A389169265B1115005F0F04 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9A38916A265B11A9005F0F04 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 				9A2DDF73268153A100DB84BA /* SingleAudioSelection.swift */,
 				9A2DDF6F2681534F00DB84BA /* SingleDirectorySelection.swift */,
 				9A2DDF712681537D00DB84BA /* SingleApplicationSelection.swift */,
+				9A2DDF8E2686971200DB84BA /* SingleVolumeSelection.swift */,
 			);
 			path = SelectionTypes;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 				9A2DDF822682A81E00DB84BA /* PanelSingleAudioItem.swift */,
 				9A2DDF842682A82900DB84BA /* PanelSingleDirectoryItem.swift */,
 				9A2DDF862682A83300DB84BA /* PanelSingleApplicationItem.swift */,
+				9A2DDF902686989000DB84BA /* PanelSingleVolumeItem.swift */,
 			);
 			path = "Single Selection Views";
 			sourceTree = "<group>";
@@ -590,6 +596,7 @@
 				9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */,
 				9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */,
 				9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */,
+				9A2DDF8F2686971200DB84BA /* SingleVolumeSelection.swift in Sources */,
 				9ABE179A26323B7200EE9F48 /* Style.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
 				9A2DDF702681534F00DB84BA /* SingleDirectorySelection.swift in Sources */,
@@ -625,6 +632,7 @@
 				9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */,
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,
+				9A2DDF912686989000DB84BA /* PanelSingleVolumeItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

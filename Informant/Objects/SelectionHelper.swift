@@ -15,6 +15,7 @@ class SelectionHelper {
 		case Multi
 		case Directory
 		case Application
+		case Volume
 		case Image
 		case Movie
 		case Audio
@@ -151,6 +152,7 @@ class SelectionHelper {
 			kUTTypeMovie,
 			kUTTypeAudio,
 			kUTTypeApplication,
+			kUTTypeVolume,
 			kUTTypeDirectory,
 		]
 
@@ -183,6 +185,8 @@ class SelectionHelper {
 				case kUTTypeDirectory: return SingleDirectorySelection(urls)
 
 				case kUTTypeApplication: return SingleApplicationSelection(urls)
+
+				case kUTTypeVolume: return SingleVolumeSelection(urls)
 
 				default: return SingleSelection(urls)
 			}

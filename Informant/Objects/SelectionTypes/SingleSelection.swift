@@ -222,6 +222,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		})
 
 		// Get directory size
-		DispatchQueue.global(qos: .utility).async(execute: workQueue[0])
+		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workQueue[0])
 	}
 }

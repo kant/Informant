@@ -80,6 +80,8 @@ struct ContentView: View {
 
 					case .Application: PanelSingleApplicationItem(interfaceData?.selection)
 
+					case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
+
 					// MARK: - Multi
 					// More than one item selected
 					case .Multi: PanelMultiItem(interfaceData?.selection)
