@@ -86,6 +86,9 @@ struct ContentView: View {
 					// More than one item selected
 					case .Multi: PanelMultiItem(interfaceData?.selection)
 
+					// Errors
+					case .Error: PanelErrorItem()
+
 					// No items selected
 					default: PanelNoItem()
 					}

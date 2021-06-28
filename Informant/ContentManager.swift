@@ -11,14 +11,17 @@ import Foundation
 class ContentManager {
 
 	// MARK: - Messages
-
 	public enum Messages {
-
 		static let setupAccessibilityNotEnabled = NSLocalizedString("Access Not Enabled", comment: "The message that appears if the user declines accessibility access.")
 	}
 
-	// MARK: - Labels
+	// MARK: - Titles
+	public enum Titles {
+		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
+		static let panelErrorTitle = NSLocalizedString("Unable to get selection", comment: "The title displayed when the selection errors out")
+	}
 
+	// MARK: - Labels
 	public enum Labels {
 
 		// Misc. Labels
@@ -29,7 +32,6 @@ class ContentManager {
 		static let panelSnapZoneIndicator = NSLocalizedString("Release to snap", comment: "The indicator label when dragging the panel near the snap zone")
 
 		// Panel Labels
-		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
 
 		static let panelKind = NSLocalizedString("Kind", comment: "This is the file's kind displayed in the panel")
 
@@ -87,7 +89,6 @@ class ContentManager {
 	}
 
 	// MARK: - Icons
-
 	public enum Icons {
 
 		static let menuBar = "menubar-icon"
@@ -105,7 +106,6 @@ class ContentManager {
 	}
 
 	// MARK: - Extra
-
 	public enum Extra {
 
 		static let items = NSLocalizedString("items", comment: "Items, used in the single directory selection")

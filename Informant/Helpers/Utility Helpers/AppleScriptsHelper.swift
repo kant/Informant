@@ -13,7 +13,7 @@ import Foundation
 class AppleScriptsHelper {
 
 	// Find the currently selected Finder files in a string format with line breaks.
-	public static func findSelectedFiles() -> [String]? {
+	public static func findSelectedFiles() -> AppleScriptOutput? {
 
 		// Find selected items as a list with line breaks
 		var errorInformation: NSDictionary?
@@ -30,7 +30,12 @@ class AppleScriptsHelper {
 
 		// Check for errors before using
 		guard let scriptExecuted = script?.executeAndReturnError(&errorInformation) else {
-			if errorInformation != nil { print(errorInformation!) }
+
+			// If error is present then let the user know that we're unable to get the selection
+			if errorInformation != nil {
+				return AppleScriptOutput(paths: nil, error: true)
+			}
+
 			return nil
 		}
 
@@ -50,6 +55,17 @@ class AppleScriptsHelper {
 			selectedItemsAsArray[index] = pathAsPOSIX
 		}
 
-		return selectedItemsAsArray
+		return AppleScriptOutput(paths: selectedItemsAsArray, error: nil)
+	}
+}
+
+/// This is just an object that allows us to send error information along with the urls
+class AppleScriptOutput {
+	var paths: [String]?
+	var error: Bool?
+
+	internal init(paths: [String]?, error: Bool?) {
+		self.paths = paths
+		self.error = error
 	}
 }

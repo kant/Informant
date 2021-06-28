@@ -250,7 +250,7 @@ class StatusBarController {
 		}
 
 		// Get finder items
-		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()
+		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
 		if selectedItems != nil && window.isVisible {

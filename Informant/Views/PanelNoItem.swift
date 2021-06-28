@@ -11,7 +11,7 @@ import SwiftUI
 struct PanelNoItem: View {
 	var body: some View {
 		ComponentsPanelReducedFrame {
-			Text(ContentManager.Labels.panelNoItemsSelected)
+			Text(ContentManager.Titles.panelNoItemsSelected)
 				.H1()
 				.opacity(Style.Text.opacity)
 		}

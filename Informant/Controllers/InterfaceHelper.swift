@@ -16,6 +16,11 @@ class InterfaceHelper {
 	/// Used to keep track of the previous selection. It makes sure that we don't make duplicate updates to the interface.
 	static var selectionInMemory: [String]?
 
+	/// Resets the state of the interface helper
+	private static func ResetState() {
+		selectionInMemory = nil
+	}
+
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
 	public static func GetFinderSelection() -> InterfaceData? {
@@ -23,15 +28,27 @@ class InterfaceHelper {
 		// Grab appDelegate first
 		let appDelegate = AppDelegate.current()
 
-		guard let selectedFiles: [String] = AppleScriptsHelper.findSelectedFiles() else {
+		// Store the selection into memory
+		guard let selection = AppleScriptsHelper.findSelectedFiles() else {
+			return nil
+		}
+
+		// Check for errors first, if found, restart memory state
+		if selection.error == true {
+			ResetState()
+			return InterfaceData(nil, error: true)
+		}
+
+		// Get the selected files
+		guard let paths: [String] = selection.paths else {
 			return nil
 		}
 
 		// Make sure the selection is not a duplicate
-		if selectionInMemory == selectedFiles {
+		if selectionInMemory == paths {
 			return appDelegate.interfaceData
 		} else {
-			selectionInMemory = selectedFiles
+			selectionInMemory = paths
 		}
 
 		// Cancel all background tasks
@@ -44,8 +61,8 @@ class InterfaceHelper {
 		}
 
 		// Block executed if only one file is selected
-		if selectedFiles.count >= 1 {
-			return InterfaceData(selectedFiles)
+		if paths.count >= 1 {
+			return InterfaceData(paths)
 		}
 
 		return nil

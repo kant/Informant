@@ -11,6 +11,7 @@ class SelectionHelper {
 
 	public enum SelectionType {
 		case None
+		case Error
 		case Single
 		case Multi
 		case Directory
