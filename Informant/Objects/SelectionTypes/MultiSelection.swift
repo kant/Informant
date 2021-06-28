@@ -46,7 +46,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		
 		// Async request file size
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
-			asyncRetrieveSizeOfURLS(urls)
+			asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))
 		} else {
 			itemSizeAsString = State.Unavailable
 		}
@@ -67,13 +67,13 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	}
 	
 	/// Simplifies code by tucking all async into one function
-	func asyncRetrieveSizeOfURLS(_ urls: [String]) {
+	func asyncRetrieveSizeOfURLS(_ urls: [URL]) {
 		workQueue.append(DispatchWorkItem { self.getSizeOfURLS(urls) })
 		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workQueue[0])
 	}
 	
 	/// Retrieves total size of all files including subdirectories of the url collection
-	func getSizeOfURLS(_ urls: [String]) {
+	func getSizeOfURLS(_ urls: [URL]) {
 		
 		let keys: Set<URLResourceKey> = [
 			.totalFileSizeKey,
@@ -84,13 +84,24 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		for url in urls {
 			
 			// Get resources
-			guard let resources = SelectionHelper.getURLResources(URL(fileURLWithPath: url), keys) else { return }
+			guard let resources = SelectionHelper.getURLResources(url, keys) else { return }
 			
 			// Check to see if the item is a directory
 			if resources.isDirectory == true {
-				do {
-					itemSize? += try Int(FileManager.default.allocatedSizeOfDirectory(at: URL(fileURLWithPath: url)))
-				} catch { }
+				
+				// Get size of url from the cache
+				if let size = url.getCachedByteSize(.Directory) {
+					itemSize? += Int(size)
+				}
+				
+				// Otherwise store to the cache
+				else {
+					do {
+						let directorySize = try FileManager.default.allocatedSizeOfDirectory(at: url)
+						url.storeByteSize(directorySize, type: .Directory)
+						itemSize? += Int(directorySize)
+					} catch { }
+				}
 				continue
 			}
 			

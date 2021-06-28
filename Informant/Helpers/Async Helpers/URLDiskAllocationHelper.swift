@@ -59,7 +59,7 @@ public extension FileManager {
 		let options: FileManager.DirectoryEnumerationOptions = [
 			.skipsSubdirectoryDescendants,
 			.skipsHiddenFiles,
-			.skipsPackageDescendants
+			.skipsPackageDescendants,
 		]
 
 		return itemsInDirectory(at: directoryURL, options: options)
@@ -78,7 +78,7 @@ public extension FileManager {
 
 		let options: FileManager.DirectoryEnumerationOptions = [
 			.skipsHiddenFiles,
-			.skipsPackageDescendants
+			.skipsPackageDescendants,
 		]
 
 		return itemsInDirectory(at: directoryURL, options: options)
@@ -135,5 +135,5 @@ private extension URL {
 }
 
 private let allocatedSizeResourceKeys: Set<URLResourceKey> = [
-	.totalFileSizeKey
+	.totalFileSizeKey,
 ]
