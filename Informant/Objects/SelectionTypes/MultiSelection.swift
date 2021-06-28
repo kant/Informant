@@ -23,6 +23,9 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var itemSize: Int?
 	@Published var itemSizeAsString: String?
 	
+	/// Used to cache urls so we don't have to access the appdelegate's one. We can access this one on any thread
+	var cache = Cache()
+	
 	/// Fills the data in for intention to be used in a multi-select interface
 	required init(_ urls: [String], selection: SelectionType = .Multi) {
 		
@@ -88,20 +91,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			
 			// Check to see if the item is a directory
 			if resources.isDirectory == true {
-				
-				// Get size of url from the cache
-				if let size = url.getCachedByteSize(.Directory) {
-					itemSize? += Int(size)
-				}
-				
-				// Otherwise store to the cache
-				else {
-					do {
-						let directorySize = try FileManager.default.allocatedSizeOfDirectory(at: url)
-						url.storeByteSize(directorySize, type: .Directory)
-						itemSize? += Int(directorySize)
-					} catch { }
-				}
+				getDirectorySize(url)
 				continue
 			}
 			
@@ -118,6 +108,24 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		DispatchQueue.main.async {
 			self.updateItemSizeAsString()
 			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+		}
+	}
+	
+	/// Asynchronously gets the file size for a directory, whether in a cache or not
+	func getDirectorySize(_ url: URL) {
+		
+		// Get size of url from the cache
+		if let size = cache.getByteSizeInCache(url, .Directory) {
+			itemSize? += Int(size.bytes)
+		}
+	
+		// Otherwise store to the cache
+		else {
+			do {
+				let directorySize = try FileManager.default.allocatedSizeOfDirectory(at: url)
+				cache.storeByteSizeInCache(url, directorySize, .Directory)
+				itemSize? += Int(directorySize)
+			} catch { }
 		}
 	}
 	
