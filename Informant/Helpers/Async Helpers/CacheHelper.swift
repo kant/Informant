@@ -81,7 +81,7 @@ class DirectorySize {
 
 extension URL {
 	/// Stores the given byte size into the cache
-	func storeByteSize(_ bytes: Int64, _ type: SelectionHelper.SelectionType) {
+	func storeByteSize(_ bytes: Int64, type: SelectionHelper.SelectionType) {
 		AppDelegate.current().cache.storeByteSizeInCache(self, bytes, type)
 	}
 

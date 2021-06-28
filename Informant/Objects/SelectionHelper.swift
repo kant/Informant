@@ -25,6 +25,7 @@ class SelectionHelper {
 	public enum State {
 		static let Unavailable = "Unavailable"
 		static let Calculating = "Calculating..."
+		static let StopCalculating = "Finished"
 	}
 
 	// MARK: - Utility Methods

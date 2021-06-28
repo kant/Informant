@@ -60,6 +60,19 @@ extension String {
 	}
 }
 
+// MARK: - URLs
+
+extension URL {
+	/// Converts an array of string paths to URLs
+	static func convertPathsToURLs(_ urls: [String]) -> [URL] {
+		var convertedURLs: [URL] = []
+		for url in urls {
+			convertedURLs.append(URL(fileURLWithPath: url))
+		}
+		return convertedURLs
+	}
+}
+
 // MARK: - NS Extensions
 
 /// Allowed NSPanel to be focusable

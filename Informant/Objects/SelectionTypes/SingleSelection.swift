@@ -66,7 +66,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.localizedNameKey,
 			.effectiveIconKey,
 
-			.fileSizeKey,
+			.totalFileSizeKey,
 			.localizedTypeDescriptionKey,
 
 			.creationDateKey,
@@ -95,7 +95,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			itemKind = resources.localizedTypeDescription
 
 			// Check filesize for being nil before unwrapping
-			if let size = resources.fileSize {
+			if let size = resources.totalFileSize {
 				itemSize = size
 				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
 			} else {
@@ -213,7 +213,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 			if let size = rawSize {
 				self.itemSizeAsString = SelectionHelper.formatBytes(size)
-				self.url.storeByteSize(size, type)
+				self.url.storeByteSize(size, type: type)
 			} else {
 				self.itemSizeAsString = SelectionHelper.State.Unavailable
 			}
