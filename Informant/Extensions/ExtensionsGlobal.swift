@@ -82,6 +82,21 @@ extension NSPanel {
 	}
 }
 
+/// Allows NSWindow to be focusable
+class NSSettingsWindow: NSWindow {
+	override open var canBecomeKey: Bool {
+		return true
+	}
+
+	override open var canBecomeMain: Bool {
+		return true
+	}
+
+	override open var acceptsFirstResponder: Bool {
+		return true
+	}
+}
+
 // Resizes the bitmap of an NSImage
 extension NSImage {
 	/// Scales NSImage to the provided NSSize().

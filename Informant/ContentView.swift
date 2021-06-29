@@ -17,13 +17,13 @@ struct ContentView: View {
 	var interfaceData: InterfaceData?
 
 	/// Lets us know if the object is being dragged in the snap zone
-	@ObservedObject var settingsData: SettingsData
+	@ObservedObject var settingsData: InterfaceState
 
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
 		interfaceData = appDelegate.interfaceData
-		settingsData = appDelegate.settingsData
+		settingsData = appDelegate.interfaceState
 	}
 
 	var body: some View {

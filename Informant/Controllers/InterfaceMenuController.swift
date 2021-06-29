@@ -76,10 +76,9 @@ class InterfaceMenuController {
 		appDelegate.statusBarController?.hideWindow()
 	}
 
-	// TODO: Add preferences window
 	/// Simply opens up the preferences window
 	@objc func openPreferences() {
-		print("Finish Preferences")
+		appDelegate.settingsWindowController?.open()
 	}
 
 	/// Quits application all together

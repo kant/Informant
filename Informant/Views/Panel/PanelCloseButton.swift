@@ -10,15 +10,15 @@ import SwiftUI
 struct PanelCloseButton: View {
 
 	/// Lets us know if the panel is being hovered
-	@ObservedObject var settingsData: SettingsData
+	@ObservedObject var settingsData: InterfaceState
 
 	@State private var buttonPressed: Bool = false
 
 	// Size of the circle's diameter
-	private let size: CGFloat = 18
+	private let size: CGFloat = 20
 
 	init() {
-		settingsData = AppDelegate.current().settingsData
+		settingsData = AppDelegate.current().interfaceState
 	}
 
 	var body: some View {

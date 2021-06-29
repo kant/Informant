@@ -39,7 +39,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var interfaceData = InterfaceData()
 
 	/// This contains all the settings data needed for the application
-	public var settingsData = SettingsData()
+	public var interfaceState = InterfaceState()
+
+	/// This is the window that displays all settings to the user
+	public var settingsWindow = NSSettingsWindow()
+
+	/// This sets up and controls the settings window's state
+	public var settingsWindowController: SettingsWindowController?
 
 	/// This helps work out the security scoping issue
 	public var securityBookmarkHelper = SecurityBookmarkHelper()
@@ -126,6 +132,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Sets up the close button (positions, sets up view, etc.)
 		interfaceCloseController = InterfaceCloseController(interfaceClose)
+
+		// MARK: - Settings Init
+
+		settingsWindow = NSSettingsWindow(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: [.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar],
+			backing: .buffered,
+			defer: false
+		)
+
+		// Setup the settings window
+		settingsWindowController = SettingsWindowController(settingsWindow)
 
 		// MARK: - Privacy Init
 

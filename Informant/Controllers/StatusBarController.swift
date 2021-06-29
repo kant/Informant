@@ -14,7 +14,7 @@ class StatusBarController {
 	private var window: NSPanel!
 	private var appDelegate: AppDelegate!
 
-	private var settings: SettingsData!
+	private var settings: InterfaceState!
 
 	// Monitors
 	private var monitorMouseDismiss: GlobalEventMonitor?
@@ -49,7 +49,7 @@ class StatusBarController {
 		window = appDelegate.window
 		statusBar = NSStatusBar.system
 
-		settings = appDelegate.settingsData
+		settings = appDelegate.interfaceState
 
 		// Creates a status bar item with a fixed length
 		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
