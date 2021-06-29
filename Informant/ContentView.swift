@@ -37,6 +37,15 @@ struct ContentView: View {
 				VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
 					.edgesIgnoringSafeArea(.all)
 
+					// Please see PanelCloseButton.swift for partnering logic
+					.whenHovered { hovering in
+						if settingsData.closeHoverZone != .Button || hovering {
+							settingsData.isMouseHoveringClose = hovering
+						}
+
+						settingsData.isMouseHoveringPanel = hovering
+					}
+
 				// MARK: - Panel Bottom Buttons
 				VStack {
 

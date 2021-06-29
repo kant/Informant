@@ -24,4 +24,18 @@ class SettingsData: ObservableObject {
 	public func setIsPathExpanded(_ value: Bool) {
 		isPathExpanded = value
 	}
+
+	/// Keeps track of whether the mouse is hovering on the panel
+	@Published var isMouseHoveringPanel: Bool = false
+
+	@Published var isMouseHoveringClose: Bool = false
+
+	/// Hover zones for the close button
+	public enum CloseHoverZones {
+		case Button
+		case Panel
+	}
+
+	/// Keeps track of which hover zone the mouse is in
+	@Published var closeHoverZone: CloseHoverZones?
 }

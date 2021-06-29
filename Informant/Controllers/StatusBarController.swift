@@ -204,6 +204,11 @@ class StatusBarController {
 		updateWindow()
 		window.setIsVisible(true)
 		monitorsStart()
+
+		// Makes sure close button is tappable
+		if let child = window.childWindows {
+			child[0].orderFront(nil)
+		}
 	}
 
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.

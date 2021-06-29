@@ -47,6 +47,8 @@
 		9A7F3B4C2626A37E00BD878F /* AppleScriptsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */; };
 		9A7F3B512626BA2700BD878F /* ExtensionsGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */; };
 		9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9061A0266AC1780043A334 /* PanelProtocol.swift */; };
+		9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */; };
+		9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */; };
 		9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */; };
 		9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */; };
 		9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9C1D522668368B0085ECEA /* CloudKit.framework */; };
@@ -158,6 +160,8 @@
 		9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScriptsHelper.swift; sourceTree = "<group>"; };
 		9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsGlobal.swift; sourceTree = "<group>"; };
 		9A9061A0266AC1780043A334 /* PanelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelProtocol.swift; sourceTree = "<group>"; };
+		9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceCloseController.swift; sourceTree = "<group>"; };
+		9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCloseButton.swift; sourceTree = "<group>"; };
 		9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionProtocol.swift; sourceTree = "<group>"; };
 		9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelection.swift; sourceTree = "<group>"; };
 		9A9C1D522668368B0085ECEA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -388,6 +392,7 @@
 				9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */,
 				9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */,
 				9A43165526265D1C0071227C /* StatusBarController.swift */,
+				9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -416,6 +421,7 @@
 				9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */,
 				9A2DDF92268A506A00DB84BA /* PanelErrorItem.swift */,
 				9A481FAD26782335006B91C2 /* PanelAlert.swift */,
+				9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -595,6 +601,7 @@
 			files = (
 				9A43162626265A1F0071227C /* ContentView.swift in Sources */,
 				9A2DDF74268153A100DB84BA /* SingleAudioSelection.swift in Sources */,
+				9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */,
 				9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */,
 				9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */,
 				9A2DDF872682A83300DB84BA /* PanelSingleApplicationItem.swift in Sources */,
@@ -637,6 +644,7 @@
 				9A2DDF832682A81E00DB84BA /* PanelSingleAudioItem.swift in Sources */,
 				9A2DDF7F2682A7F800DB84BA /* PanelSingleImageItem.swift in Sources */,
 				9ABE17AD26346D2600EE9F48 /* InterfaceData.swift in Sources */,
+				9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */,
 				9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */,
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,

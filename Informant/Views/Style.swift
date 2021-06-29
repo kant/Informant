@@ -26,6 +26,10 @@ class Style {
 		static let h3_Size: CGFloat = 11
 		static let h4_Size: CGFloat = 11
 	}
+
+	public enum Colour {
+		static let gray_mid = Color(.displayP3, red: 0.5, green: 0.5, blue: 0.5, opacity: 0.35)
+	}
 }
 
 extension Text {
@@ -82,5 +86,12 @@ extension Text {
 
 	func TildeFont() -> Text {
 		self.font(.custom(Style.Text.fontSFCompact, size: 18))
+	}
+}
+
+extension Image {
+	func PanelCloseFont() -> some View {
+		self.font(.system(size: 9, weight: .semibold))
+			.opacity(0.8)
 	}
 }

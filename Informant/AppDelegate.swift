@@ -29,6 +29,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is an alert akin to the Xcode 'Build Succeeded' alert
 	public var interfaceAlert: NSPanel!
 
+	/// This is the close button for the window
+	public var interfaceClose: NSPanel!
+
+	/// This is the controller for the close button
+	public var interfaceCloseController: InterfaceCloseController?
+
 	/// This contians all data needed for the interface.
 	public var interfaceData = InterfaceData()
 
@@ -108,6 +114,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Set the view controller
 		window.contentViewController = NSHostingController(rootView: contentView)
+
+		// MARK: - Close Init
+
+		interfaceClose = NSPanel(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: [.fullSizeContentView, .nonactivatingPanel],
+			backing: .buffered,
+			defer: false
+		)
+
+		// Sets up the close button (positions, sets up view, etc.)
+		interfaceCloseController = InterfaceCloseController(interfaceClose)
 
 		// MARK: - Privacy Init
 
