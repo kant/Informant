@@ -17,7 +17,7 @@ class SingleDirectorySelection: SingleSelection {
 		super.init(urls, selection: selection)
 		
 		// Get access to directory
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
+		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true, isiCloudSyncFile == false {
 			
 			// Get directory size
 			findDirectorySize()
@@ -26,6 +26,12 @@ class SingleDirectorySelection: SingleSelection {
 			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
 				self.itemCount = String(itemCount) + " " + (itemCount > 1 ? ContentManager.Extra.items : ContentManager.Extra.item)
 			}
+		}
+		
+		// Otherwise we have no permission to view or it's an iCloud sync file
+		else {
+			itemSizeAsString = nil
+			itemCount = nil
 		}
 	}
 }

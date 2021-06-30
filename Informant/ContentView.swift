@@ -57,7 +57,7 @@ struct ContentView: View {
 
 						// Additional file tags
 						ComponentsPanelAttributes(interfaceData?.selection)
-							.padding([.leading], 10)
+							.padding([.leading], 11)
 
 						// Ensures buttons align to the right
 						Spacer()

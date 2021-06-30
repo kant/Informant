@@ -42,7 +42,7 @@ struct ComponentsAttribute: View {
 	var iconSize: CGFloat = 11
 
 	var body: some View {
-		HStack(alignment: .center, spacing: 4) {
+		HStack(alignment: .center, spacing: 3.5) {
 
 			// Icon
 			Text(icon)
