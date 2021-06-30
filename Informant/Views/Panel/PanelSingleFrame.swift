@@ -47,11 +47,11 @@ struct PanelSingleFrame<Content: View>: View {
 				// MARK: - Inject content here
 				content
 
-				// Path
-				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection.itemPath)
-
 				// Tags
 				ComponentsPanelTags(tags: selection.selectionTags)
+
+				// Path
+				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection.itemPath)
 			}
 		}
 	}

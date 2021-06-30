@@ -18,9 +18,21 @@ struct ComponentsPanelTags: View {
 
 	var body: some View {
 		if let tags = tags {
-			WrappingHStack(tags.colourTags, id: \.self, spacing: .constant(5)) { tag in
-				Tag(label: tag.label, color: tag.color)
+
+			// Full tag stack
+			VStack(alignment: .leading) {
+
+				// Label
+				ComponentsPanelItemLabel(label: "Tags")
+
+				// All tags
+				WrappingHStack(tags.colourTags, id: \.self, alignment: .leading, spacing: .constant(5)) { tag in
+					Tag(label: tag.label, color: tag.color)
+				}
 			}
+
+			// Pulls the view down effectively removing padding from the bottom of each tag on the bottom row
+			.padding([.bottom], -5)
 		}
 	}
 }
@@ -61,22 +73,13 @@ struct Tag: View {
 		}
 		.fixedSize()
 
-		// Interior padding
-		.padding(2)
-
 		// Lateral padding
-		.padding([.horizontal], 5)
+		.padding([.trailing], 5)
 
-		.background(
-			RoundedRectangle(cornerRadius: 5)
-				.fill(Color.secondary)
-				.opacity(0.1)
-		)
+		// Exterior padding
+		.padding([.vertical], 4.5)
 
 		// Total opacity
 		.opacity(0.9)
-
-		// Exterior padding
-		.padding([.top], 5)
 	}
 }
