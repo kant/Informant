@@ -50,7 +50,7 @@ struct PanelCloseButton: View {
 		}
 		.frame(width: size + 2, height: size + 2)
 		.opacity(settingsData.isMouseHoveringClose ? 1 : 0)
-		.scaleEffect(settingsData.isMouseHoveringClose ? 1 : 0)
+		.scaleEffect(settingsData.isMouseHoveringClose ? 1 : 0.01)
 		.animation(.easeInOut(duration: 0.16))
 
 		// Tap logic

@@ -44,7 +44,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var isApplication: Bool?
 
 	/// The user's Finder tags tacked on to the file
-	var tagNames: [String]?
+	var selectionTags: SelectionTags?
 
 	/// The iCloud container where this document is actully stored
 	var iCloudContainerName: String?
@@ -79,68 +79,68 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.ubiquitousItemContainerDisplayNameKey
 		]
 
-		// Assigning resources to fileResources object
-		itemResources = SelectionHelper.getURLResources(url, keys)
+		// Start accessing security scoped resource
+		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
-		// MARK: - Fill in fields
-		if let resources = itemResources {
-			itemPath = resources.canonicalPath
-			itemTitle = resources.localizedName
+			// Assigning resources to fileResources object
+			itemResources = SelectionHelper.getURLResources(url, keys)
 
-			// Check icon for nil before unwrapping
-			if let icon = resources.effectiveIcon {
-				itemIcon = (icon as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+			// MARK: - Fill in fields
+			if let resources = itemResources {
+				itemPath = resources.canonicalPath
+				itemTitle = resources.localizedName
+
+				// Check icon for nil before unwrapping
+				if let icon = resources.effectiveIcon {
+					itemIcon = (icon as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+				}
+
+				itemKind = resources.localizedTypeDescription
+
+				// Check filesize for being nil before unwrapping
+				if let size = resources.totalFileSize {
+					itemSize = size
+					itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
+				} else {
+					itemSizeAsString = SelectionHelper.State.Unavailable
+				}
+
+				// Format dates as strings
+				let dateFormatter = DateFormatter()
+				dateFormatter.dateStyle = .medium
+				dateFormatter.timeStyle = .short
+				dateFormatter.doesRelativeDateFormatting = true
+
+				// Make sure created date is non-nil
+				if let createdDate = resources.creationDate {
+					itemDateCreated = createdDate
+					itemDateCreatedAsString = dateFormatter.string(from: createdDate)
+				}
+
+				// Make sure modified date is non-nil
+				if let modifiedDate = resources.contentModificationDate {
+					itemDateModified = modifiedDate
+					itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: modifiedDate)
+				}
+
+				// Get Finder tags
+				do {
+					let resources = try url.resourceValues(forKeys: [.tagNamesKey])
+					if let tags = resources.tagNames {
+						selectionTags = SelectionTags(tags: tags)
+					}
+				} catch { }
+
+				// Fill in remaining flags
+				isiCloudSyncFile = resources.isUbiquitousItem
+				isHidden = resources.isHidden
+				isApplication = resources.isApplication
+				iCloudContainerName = resources.ubiquitousItemContainerDisplayName
 			}
-
-			itemKind = resources.localizedTypeDescription
-
-			// Check filesize for being nil before unwrapping
-			if let size = resources.totalFileSize {
-				itemSize = size
-				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
-			} else {
-				itemSizeAsString = SelectionHelper.State.Unavailable
-			}
-
-			// Format dates as strings
-			let dateFormatter = DateFormatter()
-			dateFormatter.dateStyle = .medium
-			dateFormatter.timeStyle = .short
-			dateFormatter.doesRelativeDateFormatting = true
-
-			// Make sure created date is non-nil
-			if let createdDate = resources.creationDate {
-				itemDateCreated = createdDate
-				itemDateCreatedAsString = dateFormatter.string(from: createdDate)
-			}
-
-			// Make sure modified date is non-nil
-			if let modifiedDate = resources.contentModificationDate {
-				itemDateModified = modifiedDate
-				itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: modifiedDate)
-			}
-
-			// Fill in remaining flags
-			isiCloudSyncFile = resources.isUbiquitousItem
-			isHidden = resources.isHidden
-			isApplication = resources.isApplication
-			tagNames = resources.tagNames
-			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
 		}
 
-		// TODO: This snippet currently downloads the file in question when the .icloud and . prefix are removed with the .withoutChanges option in play.
-		/*
-		 let newURL = URL(fileURLWithPath: "/Users/tyirvine/Library/Mobile Documents/com~apple~CloudDocs/Storage/Downloads/sanmeet-chahil-yv1GhUC1Cvo-unsplash.jpg")
-		 var error: NSError?
-		 let coordinator = NSFileCoordinator(filePresenter: nil)
-		 coordinator.coordinate(readingItemAt: newURL, options: .withoutChanges, error: &error) { URL in
-		 	do {
-		 		let resources = try URL.promisedItemResourceValues(forKeys: [.fileSizeKey])
-		 		let sizeformatted = ByteCountFormatter().string(fromByteCount: Int64(resources.fileSize!))
-		 		print(sizeformatted)
-		 	} catch {}
-		 }
-		 */
+		// Stop accessing the resource
+		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 
 		// MARK: - See if the file is an iCloud Sync file
 		// Grab the extension and unique type identifier

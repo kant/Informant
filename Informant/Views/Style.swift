@@ -29,6 +29,9 @@ class Style {
 
 	public enum Colour {
 		static let gray_mid = Color(.displayP3, red: 0.5, green: 0.5, blue: 0.5, opacity: 0.35)
+		static let black_light = Color(.displayP3, red: 0, green: 0, blue: 0, opacity: 0.1)
+		static let black_mid = Color(.displayP3, red: 0, green: 0, blue: 0, opacity: 0.4)
+		static let white_light = Color(.displayP3, red: 1, green: 1, blue: 1, opacity: 0.15)
 	}
 }
 
@@ -59,6 +62,11 @@ extension Text {
 			.kerning(-0.25)
 			.lineLimit(1)
 			.opacity(Style.Text.opacity)
+	}
+
+	func PanelTagFont() -> some View {
+		self.font(.system(size: 11))
+			.fontWeight(.medium)
 	}
 
 	func PanelPadIconFont() -> some View {

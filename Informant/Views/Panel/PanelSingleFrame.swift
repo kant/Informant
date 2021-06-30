@@ -49,6 +49,9 @@ struct PanelSingleFrame<Content: View>: View {
 
 				// Path
 				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection.itemPath)
+
+				// Tags
+				ComponentsPanelTags(tags: selection.selectionTags)
 			}
 		}
 	}

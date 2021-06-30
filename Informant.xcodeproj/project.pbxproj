@@ -50,6 +50,9 @@
 		9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */; };
 		9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */; };
 		9A9C1B93268B8378001CF265 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */; };
+		9A9C1B97268B9D22001CF265 /* ComponentsPanelTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */; };
+		9A9C1B99268B9E2D001CF265 /* SelectionTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B98268B9E2D001CF265 /* SelectionTags.swift */; };
+		9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9C1B9E268BB88E001CF265 /* WrappingHStack */; };
 		9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */; };
 		9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */; };
 		9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9C1D522668368B0085ECEA /* CloudKit.framework */; };
@@ -164,6 +167,8 @@
 		9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceCloseController.swift; sourceTree = "<group>"; };
 		9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCloseButton.swift; sourceTree = "<group>"; };
 		9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsPanelTags.swift; sourceTree = "<group>"; };
+		9A9C1B98268B9E2D001CF265 /* SelectionTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTags.swift; sourceTree = "<group>"; };
 		9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionProtocol.swift; sourceTree = "<group>"; };
 		9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelection.swift; sourceTree = "<group>"; };
 		9A9C1D522668368B0085ECEA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -192,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
+				9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */,
 				9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				9A2DDF6A268143EF00DB84BA /* SelectionTypes */,
+				9A9C1B98268B9E2D001CF265 /* SelectionTags.swift */,
 				9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */,
 				9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */,
 				9ABE17AC26346D2600EE9F48 /* InterfaceData.swift */,
@@ -458,6 +465,7 @@
 		9ABE178A2632325A00EE9F48 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */,
 				9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */,
 				9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */,
 			);
@@ -483,6 +491,7 @@
 			name = Informant;
 			packageProductDependencies = (
 				9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */,
+				9A9C1B9E268BB88E001CF265 /* WrappingHStack */,
 			);
 			productName = Informant;
 			productReference = 9A43162026265A1F0071227C /* Informant.app */;
@@ -571,6 +580,7 @@
 			mainGroup = 9A43161726265A1F0071227C;
 			packageReferences = (
 				9A64FCA82626814B00CE52E4 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				9A9C1B9D268BB88E001CF265 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 9A43162126265A1F0071227C /* Products */;
 			projectDirPath = "";
@@ -627,6 +637,7 @@
 				9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */,
 				9ABE17A526346C7D00EE9F48 /* MultiSelection.swift in Sources */,
 				9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */,
+				9A9C1B99268B9E2D001CF265 /* SelectionTags.swift in Sources */,
 				9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */,
 				9A2DDF8F2686971200DB84BA /* SingleVolumeSelection.swift in Sources */,
 				9ABE179A26323B7200EE9F48 /* Style.swift in Sources */,
@@ -659,6 +670,7 @@
 				9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */,
 				9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* ExtensionsShortcuts.swift in Sources */,
+				9A9C1B97268B9D22001CF265 /* ComponentsPanelTags.swift in Sources */,
 				9A2DDF95268A585A00DB84BA /* SingleErrorSelection.swift in Sources */,
 				9A2DDF8926865C5300DB84BA /* CacheHelper.swift in Sources */,
 				9A2DDF832682A81E00DB84BA /* PanelSingleAudioItem.swift in Sources */,
@@ -1034,6 +1046,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		9A9C1B9D268BB88E001CF265 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1041,6 +1061,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9A64FCA82626814B00CE52E4 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		9A9C1B9E268BB88E001CF265 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A9C1B9D268BB88E001CF265 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
