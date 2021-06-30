@@ -55,6 +55,8 @@ struct ContentView: View {
 					// Settings button stack
 					HStack(spacing: 0) {
 
+						// Additional file tags
+
 						// Ensures buttons align to the right
 						Spacer()
 

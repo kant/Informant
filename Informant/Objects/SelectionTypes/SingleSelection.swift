@@ -28,8 +28,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var itemDateCreatedAsString: String?
 	var itemDateModifiedAsString: String?
 
-	var itemExtension: String!
-
 	// MARK: - Async work block
 	var workQueue: [DispatchWorkItem] = []
 
@@ -42,6 +40,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 	/// Determines if the file is an application or not
 	var isApplication: Bool?
+
+	/// Determines if the file is downloaded or not
+	var isDownloaded: Bool?
 
 	/// The user's Finder tags tacked on to the file
 	var selectionTags: SelectionTags?
@@ -136,18 +137,29 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 				isHidden = resources.isHidden
 				isApplication = resources.isApplication
 				iCloudContainerName = resources.ubiquitousItemContainerDisplayName
+				isDownloaded = checkIfDownloaded()
 			}
 		}
 
 		// Stop accessing the resource
 		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 
-		// MARK: - See if the file is an iCloud Sync file
-		// Grab the extension and unique type identifier
-		itemExtension = url.pathExtension
+		// MARK: - Modify Size
+		if isDownloaded == false {
+			itemSizeAsString = nil
+		}
 
 		// MARK: - Modify File Path
 		itemPath = tildeAbbreviatedPath(itemPath)
+	}
+
+	/// Check if the file is downloaded
+	func checkIfDownloaded() -> Bool {
+		if url.pathExtension != "icloud" {
+			return true
+		} else {
+			return false
+		}
 	}
 
 	/// Modifies the root directory of the path to a ~
