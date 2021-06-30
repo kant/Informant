@@ -210,9 +210,9 @@ class StatusBarController {
 		window.setIsVisible(true)
 		monitorsStart()
 
-		// Makes sure close button is tappable
-		if let child = window.childWindows {
-			child[0].orderFront(nil)
+		// Makes sure close button is tappable by ordering it to the front
+		if let child = window.childWindows?.first {
+			child.orderFront(nil)
 		}
 	}
 
