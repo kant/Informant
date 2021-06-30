@@ -58,6 +58,7 @@ class SelectionTags {
 		return selectionTags
 	}
 
+	/// Contains all possible colours that macOS supports for tags
 	enum TagMatch {
 		static let Red = SelectionTag(label: "Red", color: .red)
 		static let Orange = SelectionTag(label: "Orange", color: .orange)
@@ -68,6 +69,7 @@ class SelectionTags {
 		static let Gray = SelectionTag(label: "Gray", color: .gray)
 	}
 
+	/// A basic selection tag unit. Can go without colour to just represent a singular tag
 	class SelectionTag {
 
 		var label: String

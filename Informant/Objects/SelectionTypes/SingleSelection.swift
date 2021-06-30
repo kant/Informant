@@ -146,20 +146,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		// Grab the extension and unique type identifier
 		itemExtension = url.pathExtension
 
-		// If the path extension is .icloud then we want to delete it and ignore it
-		if itemExtension == "icloud" {
-			let urlWithoutICloudExtension = url.deletingPathExtension()
-			itemExtension = urlWithoutICloudExtension.pathExtension
-			isiCloudSyncFile = true
-		}
-
-		// Determine if the file is hidden or not. Or if it's simply a hidden iCloud file.
-		// i.e. determine whether or not the period on the front of the file should be removed
-		if isHidden == true && isiCloudSyncFile == true {
-			itemTitle?.removeFirst()
-			isHidden = false
-		}
-
 		// MARK: - Modify File Path
 		itemPath = tildeAbbreviatedPath(itemPath)
 	}
