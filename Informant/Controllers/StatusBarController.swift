@@ -133,14 +133,16 @@ class StatusBarController {
 	// Simply toggles display of panel based on toggle method. Only changes visibility
 	func toggleWindow(toggleMethod: ToggleMethod) {
 
-		// Check to see if the active space changed
-		// Close panel if it's visible and end execution
 		if window.isVisible {
+
+			// Close panel if it's visible in the current window and end execution
 			if window.isOnActiveSpace {
 				hideWindow()
 			}
+
+			// Otherwise, show the window on the current active space
 			else {
-				window.orderFrontRegardless()
+				showWindow()
 			}
 			return
 		}
@@ -180,10 +182,13 @@ class StatusBarController {
 		func hideWindowLogic() {
 			windowScreenPositions[window.screen.hashValue] = window.frame.origin
 			window.setIsVisible(false)
+			window.alphaValue = 1
 			monitorsStop()
 			interfaceHidingState = .Hidden
-			window.alphaValue = 1
 			setIsPanelBeingDragged(false)
+
+			// Delete current selection in memory
+			InterfaceHelper.selectionInMemory = nil
 		}
 
 		// This sets the window's alpha value prior to animating it
