@@ -64,8 +64,8 @@ extension Text {
 			.opacity(Style.Text.opacity)
 	}
 
-	func PanelTagFont() -> some View {
-		self.font(.system(size: 11))
+	func PanelTagFont(size: CGFloat = 11) -> some View {
+		self.font(.system(size: size))
 			.fontWeight(.medium)
 	}
 

@@ -56,6 +56,8 @@ struct ContentView: View {
 					HStack(spacing: 0) {
 
 						// Additional file tags
+						ComponentsPanelAttributes(interfaceData?.selection)
+							.padding([.leading], 10)
 
 						// Ensures buttons align to the right
 						Spacer()

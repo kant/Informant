@@ -53,6 +53,7 @@
 		9A9C1B97268B9D22001CF265 /* ComponentsPanelTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */; };
 		9A9C1B99268B9E2D001CF265 /* SelectionTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B98268B9E2D001CF265 /* SelectionTags.swift */; };
 		9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9C1B9E268BB88E001CF265 /* WrappingHStack */; };
+		9A9C1BA1268D2734001CF265 /* ComponentsPanelAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1BA0268D2734001CF265 /* ComponentsPanelAttributes.swift */; };
 		9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */; };
 		9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */; };
 		9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9C1D522668368B0085ECEA /* CloudKit.framework */; };
@@ -169,6 +170,7 @@
 		9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsPanelTags.swift; sourceTree = "<group>"; };
 		9A9C1B98268B9E2D001CF265 /* SelectionTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTags.swift; sourceTree = "<group>"; };
+		9A9C1BA0268D2734001CF265 /* ComponentsPanelAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsPanelAttributes.swift; sourceTree = "<group>"; };
 		9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionProtocol.swift; sourceTree = "<group>"; };
 		9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelection.swift; sourceTree = "<group>"; };
 		9A9C1D522668368B0085ECEA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -468,6 +470,7 @@
 				9A9C1B96268B9D22001CF265 /* ComponentsPanelTags.swift */,
 				9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */,
 				9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */,
+				9A9C1BA0268D2734001CF265 /* ComponentsPanelAttributes.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				9A2DDF702681534F00DB84BA /* SingleDirectorySelection.swift in Sources */,
 				9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */,
 				9ABE177E263229FE00EE9F48 /* PanelNoItem.swift in Sources */,
+				9A9C1BA1268D2734001CF265 /* ComponentsPanelAttributes.swift in Sources */,
 				9A481FA92677E945006B91C2 /* InactiveWindowTapHelper.swift in Sources */,
 				9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */,
 				9A2DDF722681537D00DB84BA /* SingleApplicationSelection.swift in Sources */,
