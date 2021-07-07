@@ -35,6 +35,9 @@ class SettingsWindowController {
 
 		// Setup view
 		window.contentViewController = NSHostingController(rootView: SettingsView())
+
+		#warning("Remove this from production")
+		open()
 	}
 
 	/// Opens up the settings window
