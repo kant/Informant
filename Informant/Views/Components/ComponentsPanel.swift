@@ -390,6 +390,7 @@ struct ComponentsPanelIconButton: View {
 	}
 }
 
+/// Shows a label on hover behind the content. When clicked an action is performed. Typically this is used with text objects.
 struct ComponentsPanelLabelButton<Content: View>: View {
 
 	let content: Content

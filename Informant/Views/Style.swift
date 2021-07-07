@@ -64,6 +64,11 @@ extension Text {
 			.opacity(Style.Text.opacity)
 	}
 
+	func SettingsVersionFont() -> some View {
+		self.H4()
+			.opacity(0.8)
+	}
+
 	func SettingsLabelButtonFont(size: CGFloat = 17) -> some View {
 		self.font(.system(size: size))
 			.fontWeight(.medium)

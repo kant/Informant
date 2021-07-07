@@ -57,6 +57,7 @@ struct SettingsLeftSideView: View {
 
 			Spacer()
 
+			// App image stack
 			VStack(spacing: 6) {
 
 				// App icon
@@ -72,14 +73,12 @@ struct SettingsLeftSideView: View {
 
 				// Copyright
 				Text("©2021 Ty Irvine")
-					.H4()
-					.opacity(0.8)
+					.SettingsVersionFont()
 
 				// Version
 				if let version = version {
 					Text(version)
-						.H4()
-						.opacity(0.8)
+						.SettingsVersionFont()
 				}
 			}
 
