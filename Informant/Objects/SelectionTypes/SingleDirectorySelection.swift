@@ -17,7 +17,7 @@ class SingleDirectorySelection: SingleSelection {
 		super.init(urls, selection: selection)
 		
 		// Get access to directory
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true, isiCloudSyncFile == false {
+		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true, isiCloudSyncFile == nil || isiCloudSyncFile == false {
 			
 			// Get directory size
 			findDirectorySize()
