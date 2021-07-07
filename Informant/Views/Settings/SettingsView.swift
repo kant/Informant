@@ -15,14 +15,11 @@ struct SettingsView: View {
 		// Main stack
 		HStack {
 
-			// Makes sure view is centered
-			Spacer(minLength: 0)
-
 			// Left side
 			SettingsLeftSideView()
+				.frame(width: 260)
 
 			// Divider
-			Spacer(minLength: 0)
 			Divider()
 			Spacer(minLength: 0)
 
@@ -39,34 +36,84 @@ struct SettingsView: View {
 
 struct SettingsLeftSideView: View {
 
-	let version: String!
+	var version: String!
+	var name: String!
 
 	init() {
-		if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+
+		let info = Bundle.main.infoDictionary
+
+		if let appVersion = info?["CFBundleShortVersionString"] as? String {
 			version = appVersion
-		} else {
-			version = nil
+		}
+
+		if let appName = info?["CFBundleName"] as? String {
+			name = appName
 		}
 	}
 
 	var body: some View {
 		VStack(alignment: .center) {
 
-			// App icon
-			Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+			Spacer()
 
-			// Name
-			
-			
-			// Version
-			if version != nil {
-				Text(version)
+			VStack(spacing: 6) {
+
+				// App icon
+				Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+					.offset(y: 9.0)
+
+				// Name
+				if let name = name {
+					Text(name)
+						.font(.system(size: 25))
+						.fontWeight(.medium)
+				}
+
+				// Copyright
+				Text("©2021 Ty Irvine")
+					.H4()
+					.opacity(0.8)
+
+				// Version
+				if let version = version {
+					Text(version)
+						.H4()
+						.opacity(0.8)
+				}
 			}
 
+			Spacer()
 
-			// Help
+			// Link stack
+			VStack(alignment: .leading, spacing: 12) {
 
-			// Feedback
+				// Acknowledgements
+				ComponentsPanelLabelButton {
+					// TODO: Add button functionality
+				} content: {
+					Text("→ Privacy Policy")
+						.SettingsLabelButtonFont()
+				}
+
+				// Feedback
+				ComponentsPanelLabelButton {
+					// TODO: Add button functionality
+				} content: {
+					Text("→ Feedback")
+						.SettingsLabelButtonFont()
+				}
+
+				// Help
+				ComponentsPanelLabelButton {
+					// TODO: Add button functionality
+				} content: {
+					Text("→ Help")
+						.SettingsLabelButtonFont()
+				}
+			}
+
+			Spacer()
 		}
 	}
 }

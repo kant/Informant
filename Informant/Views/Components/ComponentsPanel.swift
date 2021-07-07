@@ -411,14 +411,14 @@ struct ComponentsPanelLabelButton<Content: View>: View {
 			ZStack(alignment: .leading) {
 
 				// Backing
-				if isHovering {
-					Color(.displayP3, white: 0.5, opacity: 0.10)
-						.cornerRadius(5.0)
-				}
+				Color(.displayP3, white: 0.75, opacity: 0.2)
+					.cornerRadius(5.0)
+					.opacity(isHovering ? 1 : 0)
+					.animation(.easeInOut(duration: 0.2))
 
 				// Label
 				content
-					.padding(3.0)
+					.padding(4.0)
 					.frame(maxWidth: .infinity)
 					.fixedSize(horizontal: true, vertical: false)
 			}
