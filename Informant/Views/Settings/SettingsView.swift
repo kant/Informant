@@ -120,7 +120,22 @@ struct SettingsLeftSideView: View {
 struct SettingsRightSideView: View {
 	var body: some View {
 		VStack(alignment: .center) {
-			Text("Right Side")
+
+			// Launch informant on system startup
+
+			// Disable menubar-utility size finder
+
+			// Shortcut to activate panel
+
+			// Pick root url
+
+			// Toggle 'where' or 'full path'
+
+			// Show name
+
+			// Show path
+
+			// Show created
 		}
 	}
 }
