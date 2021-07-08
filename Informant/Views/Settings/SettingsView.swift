@@ -10,6 +10,16 @@ import SwiftUI
 
 // This is the main settings window view
 struct SettingsView: View {
+
+	let appDelegate: AppDelegate!
+
+	@ObservedObject var interfaceState: InterfaceState
+
+	init() {
+		appDelegate = AppDelegate.current()
+		interfaceState = appDelegate.interfaceState
+	}
+
 	var body: some View {
 
 		// Main stack
@@ -24,7 +34,7 @@ struct SettingsView: View {
 			Spacer(minLength: 0)
 
 			// Right side
-			SettingsRightSideView()
+			SettingsRightSideView(interfaceState: interfaceState)
 
 			// Makes sure view is centered
 			Spacer(minLength: 0)
@@ -84,6 +94,7 @@ struct SettingsLeftSideView: View {
 
 			Spacer()
 
+			#warning("Put these into the content manager!")
 			// Link stack
 			VStack(alignment: .leading, spacing: 12) {
 
@@ -118,24 +129,104 @@ struct SettingsLeftSideView: View {
 }
 
 struct SettingsRightSideView: View {
+
+	@ObservedObject var interfaceState: InterfaceState
+
 	var body: some View {
-		VStack(alignment: .center) {
+		VStack(alignment: .leading, spacing: 0) {
 
-			// Launch informant on system startup
+			// MARK: - System
+			Text("System")
+				.SettingsLabelFont()
 
-			// Disable menubar-utility size finder
+			VStack(alignment: .leading, spacing: 12) {
 
-			// Shortcut to activate panel
+				// Pick root url
+				if let rootURL = interfaceState.settingsRootURL {
+					SettingsPickRootURL(rootURL: rootURL)
+				}
 
-			// Pick root url
+				// Launch informant on system startup
+				Toggle(" " + ContentManager.SettingsLabels.launchOnStartup, isOn: $interfaceState.settingsSystemStartupBool)
 
-			// Toggle 'where' or 'full path'
+				// Enable menubar-utility
+				Toggle(" " + ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
+			}
 
-			// Show name
+			// Divides system and panel
+			Spacer().frame(height: 30)
 
-			// Show path
+			// MARK: - Panel
+			Text("Panel")
+				.SettingsLabelFont(padding: 7)
 
-			// Show created
+			VStack(alignment: .leading, spacing: 12) {
+
+				// Shortcut to activate panel
+				HStack {
+					Text(ContentManager.SettingsLabels.toggleDetailsPanel)
+					KeyboardShortcuts.Recorder(for: .togglePopover)
+				}
+
+				// Show where a selected file is located instead of the full path
+				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelShowFullPath)
+
+				// Enable created property
+				Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelEnableCreatedProp)
+
+				// Enable path property
+				Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelEnablePathProp)
+
+				// Enable name property
+				Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelEnableNameProp)
+			}
+		}
+		.fixedSize()
+	}
+}
+
+struct SettingsPickRootURL: View {
+
+	let rootURL: String
+
+	@State var isHovering: Bool = false
+
+	var body: some View {
+
+		// Root URL Stack
+		HStack {
+
+			// Label
+			Text(ContentManager.SettingsLabels.pickRootURL)
+
+			// Button
+			ZStack {
+
+				// Backing
+				RoundedRectangle(cornerRadius: 7)
+					.opacity(isHovering ? 0.15 : 0.07)
+					.animation(.easeInOut(duration: 0.25), value: isHovering)
+
+				// Root url
+				ScrollView(.horizontal, showsIndicators: false) {
+					Text(rootURL)
+						.PanelPathFont()
+						.padding(5)
+				}
+				.frame(width: 200)
+
+				// Clear button
+				HStack {
+					// Button goes here
+				}
+			}
+			.fixedSize(horizontal: false, vertical: true)
+			.whenHovered { hovering in
+				isHovering = hovering
+			}
+			.onTapGesture {
+				AppDelegate.current().securityBookmarkHelper.pickRootURL()
+			}
 		}
 	}
 }

@@ -14,5 +14,5 @@ import KeyboardShortcuts
 
 // Declare shortcut names in here with the static tag. These shortcuts are then available globally.
 extension KeyboardShortcuts.Name {
-	static let togglePopover = Self("togglePopover")
+	static let togglePopover = Self("togglePopover", default: .init(.backtick, modifiers: [.control]))
 }

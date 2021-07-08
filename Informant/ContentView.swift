@@ -17,13 +17,13 @@ struct ContentView: View {
 	var interfaceData: InterfaceData?
 
 	/// Lets us know if the object is being dragged in the snap zone
-	@ObservedObject var settingsData: InterfaceState
+	@ObservedObject var interfaceState: InterfaceState
 
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
 		interfaceData = appDelegate.interfaceData
-		settingsData = appDelegate.interfaceState
+		interfaceState = appDelegate.interfaceState
 	}
 
 	var body: some View {
@@ -39,11 +39,11 @@ struct ContentView: View {
 
 					// Please see PanelCloseButton.swift for partnering logic
 					.whenHovered { hovering in
-						if settingsData.closeHoverZone != .Button || hovering {
-							settingsData.isMouseHoveringClose = hovering
+						if interfaceState.closeHoverZone != .Button || hovering {
+							interfaceState.isMouseHoveringClose = hovering
 						}
 
-						settingsData.isMouseHoveringPanel = hovering
+						interfaceState.isMouseHoveringPanel = hovering
 					}
 
 				// MARK: - Panel Bottom Buttons
@@ -110,15 +110,15 @@ struct ContentView: View {
 			}
 
 			// Blurs view when being dragged in the snap zone
-			.blur(radius: settingsData.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
+			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
+			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 
 			// MARK: - Panel Snap Zone Indicator
 			ZStack {
 				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
-					.opacity(settingsData.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
 			}
-			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
+			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)

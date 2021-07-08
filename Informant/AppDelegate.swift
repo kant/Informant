@@ -36,22 +36,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var interfaceCloseController: InterfaceCloseController?
 
 	/// This contians all data needed for the interface.
-	public var interfaceData = InterfaceData()
+	public var interfaceData: InterfaceData!
 
 	/// This contains all the settings data needed for the application
-	public var interfaceState = InterfaceState()
+	public var interfaceState: InterfaceState!
 
 	/// This is the window that displays all settings to the user
-	public var settingsWindow = NSSettingsWindow()
+	public var settingsWindow: NSSettingsWindow!
 
 	/// This sets up and controls the settings window's state
-	public var settingsWindowController: SettingsWindowController?
+	public var settingsWindowController: SettingsWindowController!
 
 	/// This helps work out the security scoping issue
-	public var securityBookmarkHelper = SecurityBookmarkHelper()
+	public var securityBookmarkHelper: SecurityBookmarkHelper!
 
 	/// This keeps tracks of any items that need to be cached for later use
-	public var cache = Cache()
+	public var cache: Cache!
 
 	/// The view for the interface.
 	public var contentView: ContentView!
@@ -60,9 +60,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_: Notification) {
 
-		// MARK: - Content View Init
+		// MARK: - Settings Init
+
+		registerUserDefaults()
+
+		// MARK: - App initialization
+
+		securityBookmarkHelper = SecurityBookmarkHelper()
+
+		interfaceData = InterfaceData()
+
+		interfaceState = InterfaceState()
 
 		contentView = ContentView()
+
+		cache = Cache()
 
 		// MARK: - Menu Init
 
@@ -143,7 +155,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		)
 
 		// Setup the settings window
-		settingsWindowController = SettingsWindowController(settingsWindow)
+		if let settingsWindow = settingsWindow {
+			settingsWindowController = SettingsWindowController(settingsWindow)
+		}
 
 		// MARK: - Privacy Init
 

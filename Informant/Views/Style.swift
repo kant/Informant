@@ -64,6 +64,13 @@ extension Text {
 			.opacity(Style.Text.opacity)
 	}
 
+	func SettingsLabelFont(padding: CGFloat = 10) -> some View {
+		self.font(.system(size: 16))
+			.fontWeight(.medium)
+			.opacity(0.3)
+			.padding([.bottom], padding)
+	}
+
 	func SettingsVersionFont() -> some View {
 		self.H4()
 			.opacity(0.8)

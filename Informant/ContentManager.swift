@@ -21,6 +21,28 @@ class ContentManager {
 		static let panelErrorTitle = NSLocalizedString("Unable to get selection", comment: "The title displayed when the selection errors out")
 	}
 
+	// MARK: - Settings Labels
+	public enum SettingsLabels {
+
+		static let pickRootURL = NSLocalizedString("Root URL:", comment: "Pick the root url used to give security access to the app.")
+
+		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
+
+		static let launchOnStartup = NSLocalizedString("Launch Informant on system startup", comment: "Asks the user if they want the app to launch on startup")
+
+		static let menubarUtility = NSLocalizedString("Enable menubar-utility", comment: "Asks the user if they want the menubar-utility enabled")
+
+		static let toggleDetailsPanel = NSLocalizedString("Toggle panel:", comment: "Asks the user what shortcut they want to toggle the details panel")
+
+		static let showFullPath = NSLocalizedString("Show full-path", comment: "Asks the user if they want to see where the file is located instead of the full path")
+
+		static let enableName = NSLocalizedString("Enable name property", comment: "")
+
+		static let enablePath = NSLocalizedString("Enable path property", comment: "")
+
+		static let enableCreated = NSLocalizedString("Enable created property", comment: "")
+	}
+
 	// MARK: - Labels
 	public enum Labels {
 
