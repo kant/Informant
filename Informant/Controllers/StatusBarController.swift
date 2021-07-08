@@ -60,7 +60,7 @@ class StatusBarController {
 			statusBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
 
 			// Status bar icon image size
-			statusBarButton.image?.size = NSSize(width: 18, height: 18)
+			statusBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
 
 			// Decides whether or not the icon follows the macOS menubar colouring
 			statusBarButton.image?.isTemplate = true

@@ -65,16 +65,16 @@ extension Text {
 	}
 
 	func SettingsLabelFont(padding: CGFloat = 10) -> some View {
-		self.font(.system(size: 16))
+		self.font(.system(size: 18))
 			.fontWeight(.medium)
-			.opacity(0.3)
+			.opacity(1)
 			.padding([.bottom], padding)
 	}
 
 	func SettingsVersionFont() -> some View {
 		self.H4(lineLimit: 3)
 			.lineSpacing(2.0)
-			.opacity(0.8)
+			.opacity(0.9)
 	}
 
 	func SettingsLabelButtonFont(size: CGFloat = 17) -> some View {
