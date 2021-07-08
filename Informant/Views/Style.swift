@@ -56,11 +56,11 @@ extension Text {
 			.lineLimit(1)
 	}
 
-	func H4() -> some View {
+	func H4(lineLimit: Int = 1) -> some View {
 		self.font(.system(size: Style.Font.h4_Size))
 			.fontWeight(.medium)
 			.kerning(-0.25)
-			.lineLimit(1)
+			.lineLimit(lineLimit)
 			.opacity(Style.Text.opacity)
 	}
 
@@ -72,7 +72,8 @@ extension Text {
 	}
 
 	func SettingsVersionFont() -> some View {
-		self.H4()
+		self.H4(lineLimit: 3)
+			.lineSpacing(2.0)
 			.opacity(0.8)
 	}
 

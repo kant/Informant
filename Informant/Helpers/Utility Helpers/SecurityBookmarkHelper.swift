@@ -14,9 +14,7 @@ class SecurityBookmarkHelper {
 
 	var rootURL: URL? {
 		willSet(value) {
-			if let url = value?.path {
-				AppDelegate.current().interfaceState.settingsRootURL = url
-			}
+			AppDelegate.current().interfaceState.settingsRootURL = value?.path
 		}
 	}
 
@@ -60,6 +58,7 @@ class SecurityBookmarkHelper {
 
 	/// Remove security scoped url from user defaults
 	func deleteRootURLPermission() {
+		rootURL = nil
 		UserDefaults.standard.removeObject(forKey: .keyRootURLBookmarkData)
 	}
 

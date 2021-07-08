@@ -12,7 +12,16 @@ class ContentManager {
 
 	// MARK: - Messages
 	public enum Messages {
+
 		static let setupAccessibilityNotEnabled = NSLocalizedString("Access Not Enabled", comment: "The message that appears if the user declines accessibility access.")
+
+		static let settingsRootURLDescriptor = NSLocalizedString(
+			"""
+			Choose Macintosh HD. This gives us the security
+			privileges needed to show additional metadata.
+			""",
+			comment: ""
+		)
 	}
 
 	// MARK: - Titles
@@ -24,7 +33,19 @@ class ContentManager {
 	// MARK: - Settings Labels
 	public enum SettingsLabels {
 
-		static let pickRootURL = NSLocalizedString("Root URL:", comment: "Pick the root url used to give security access to the app.")
+		static let panel = NSLocalizedString("Panel", comment: "")
+
+		static let system = NSLocalizedString("System", comment: "")
+
+		static let privacyPolicy = NSLocalizedString("Privacy Policy", comment: "")
+
+		static let feedback = NSLocalizedString("Feedback", comment: "")
+
+		static let help = NSLocalizedString("Help", comment: "")
+
+		static let none = NSLocalizedString("None", comment: "")
+
+		static let pickRootURL = NSLocalizedString("Disk URL:", comment: "Pick the root url used to give security access to the app.")
 
 		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
 
@@ -32,7 +53,7 @@ class ContentManager {
 
 		static let menubarUtility = NSLocalizedString("Enable menubar-utility", comment: "Asks the user if they want the menubar-utility enabled")
 
-		static let toggleDetailsPanel = NSLocalizedString("Toggle panel:", comment: "Asks the user what shortcut they want to toggle the details panel")
+		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 
 		static let showFullPath = NSLocalizedString("Show full-path", comment: "Asks the user if they want to see where the file is located instead of the full path")
 

@@ -49,6 +49,8 @@ struct SettingsLeftSideView: View {
 	var version: String!
 	var name: String!
 
+	let linkIcon = "→ "
+
 	init() {
 
 		let info = Bundle.main.infoDictionary
@@ -94,7 +96,7 @@ struct SettingsLeftSideView: View {
 
 			Spacer()
 
-			#warning("Put these into the content manager!")
+			#warning("Add link functionality")
 			// Link stack
 			VStack(alignment: .leading, spacing: 12) {
 
@@ -102,7 +104,7 @@ struct SettingsLeftSideView: View {
 				ComponentsPanelLabelButton {
 					// TODO: Add button functionality
 				} content: {
-					Text("→ Privacy Policy")
+					Text(linkIcon + ContentManager.SettingsLabels.privacyPolicy)
 						.SettingsLabelButtonFont()
 				}
 
@@ -110,7 +112,7 @@ struct SettingsLeftSideView: View {
 				ComponentsPanelLabelButton {
 					// TODO: Add button functionality
 				} content: {
-					Text("→ Feedback")
+					Text(linkIcon + ContentManager.SettingsLabels.feedback)
 						.SettingsLabelButtonFont()
 				}
 
@@ -118,7 +120,7 @@ struct SettingsLeftSideView: View {
 				ComponentsPanelLabelButton {
 					// TODO: Add button functionality
 				} content: {
-					Text("→ Help")
+					Text(linkIcon + ContentManager.SettingsLabels.help)
 						.SettingsLabelButtonFont()
 				}
 			}
@@ -135,29 +137,8 @@ struct SettingsRightSideView: View {
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
 
-			// MARK: - System
-			Text("System")
-				.SettingsLabelFont()
-
-			VStack(alignment: .leading, spacing: 12) {
-
-				// Pick root url
-				if let rootURL = interfaceState.settingsRootURL {
-					SettingsPickRootURL(rootURL: rootURL)
-				}
-
-				// Launch informant on system startup
-				Toggle(" " + ContentManager.SettingsLabels.launchOnStartup, isOn: $interfaceState.settingsSystemStartupBool)
-
-				// Enable menubar-utility
-				Toggle(" " + ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
-			}
-
-			// Divides system and panel
-			Spacer().frame(height: 30)
-
 			// MARK: - Panel
-			Text("Panel")
+			Text(ContentManager.SettingsLabels.panel)
 				.SettingsLabelFont(padding: 7)
 
 			VStack(alignment: .leading, spacing: 12) {
@@ -180,6 +161,25 @@ struct SettingsRightSideView: View {
 				// Enable name property
 				Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelEnableNameProp)
 			}
+
+			// Divides system and panel
+			Spacer().frame(height: 30)
+
+			// MARK: - System
+			Text(ContentManager.SettingsLabels.system)
+				.SettingsLabelFont()
+
+			VStack(alignment: .leading, spacing: 12) {
+
+				// Pick root url
+				SettingsPickRootURL(interfaceState.settingsRootURL)
+
+				// Launch informant on system startup
+				Toggle(" " + ContentManager.SettingsLabels.launchOnStartup, isOn: $interfaceState.settingsSystemStartupBool)
+
+				// Enable menubar-utility
+				Toggle(" " + ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
+			}
 		}
 		.fixedSize()
 	}
@@ -187,46 +187,68 @@ struct SettingsRightSideView: View {
 
 struct SettingsPickRootURL: View {
 
-	let rootURL: String
+	let rootURL: String?
 
 	@State var isHovering: Bool = false
 
+	let securityBookmarkHelper: SecurityBookmarkHelper
+
+	init(_ rootURL: String?) {
+		self.rootURL = rootURL
+		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
+	}
+
 	var body: some View {
 
-		// Root URL Stack
-		HStack {
+		// Descriptor
+		VStack(alignment: .leading) {
 
-			// Label
-			Text(ContentManager.SettingsLabels.pickRootURL)
+			// Root URL Stack
+			HStack {
 
-			// Button
-			ZStack {
+				// Label
+				Text(ContentManager.SettingsLabels.pickRootURL)
 
-				// Backing
-				RoundedRectangle(cornerRadius: 7)
-					.opacity(isHovering ? 0.15 : 0.07)
-					.animation(.easeInOut(duration: 0.25), value: isHovering)
+				// Button
+				ZStack {
 
-				// Root url
-				ScrollView(.horizontal, showsIndicators: false) {
-					Text(rootURL)
-						.PanelPathFont()
-						.padding(5)
+					// Backing
+					RoundedRectangle(cornerRadius: 7)
+						.opacity(isHovering ? 0.15 : 0.07)
+						.animation(.easeInOut(duration: 0.25), value: isHovering)
+
+					// Root url
+					ScrollView(.horizontal, showsIndicators: false) {
+						Text(rootURL ?? ContentManager.SettingsLabels.none)
+							.PanelPathFont()
+							.padding(4)
+							.opacity(rootURL != nil ? 1 : 0.5)
+					}
+					.frame(width: 200)
+
+					// Clear button stack
+					HStack {
+
+						Spacer()
+
+						// Clear button
+						ComponentsPanelIconButton("xmark.circle.fill", size: 13.5) {
+							securityBookmarkHelper.deleteRootURLPermission()
+						}
+					}
 				}
-				.frame(width: 200)
-
-				// Clear button
-				HStack {
-					// Button goes here
+				.fixedSize(horizontal: false, vertical: true)
+				.whenHovered { hovering in
+					isHovering = hovering
+				}
+				.onTapGesture {
+					securityBookmarkHelper.pickRootURL()
 				}
 			}
-			.fixedSize(horizontal: false, vertical: true)
-			.whenHovered { hovering in
-				isHovering = hovering
-			}
-			.onTapGesture {
-				AppDelegate.current().securityBookmarkHelper.pickRootURL()
-			}
+
+			// Descriptor
+			Text(ContentManager.Messages.settingsRootURLDescriptor)
+				.SettingsVersionFont()
 		}
 	}
 }
