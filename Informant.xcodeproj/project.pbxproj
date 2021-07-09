@@ -72,6 +72,7 @@
 		9AEA9F2C2697D1A200806AAE /* MenubarUtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */; };
 		9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
+		9AF9BF522698C4CD006FAA39 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 9AF9BF512698C4CD006FAA39 /* LaunchAtLogin */; };
 		9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceState.swift */; };
 		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
 /* End PBXBuildFile section */
@@ -204,6 +205,7 @@
 			files = (
 				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
 				9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */,
+				9AF9BF522698C4CD006FAA39 /* LaunchAtLogin in Frameworks */,
 				9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +494,7 @@
 				9A43161D26265A1F0071227C /* Frameworks */,
 				9A43161E26265A1F0071227C /* Resources */,
 				9A7F3B402626A01100BD878F /* Embed App Extensions */,
+				9AF9BF532698C649006FAA39 /* Launch at Login Helper */,
 			);
 			buildRules = (
 			);
@@ -501,6 +504,7 @@
 			packageProductDependencies = (
 				9A64FCA92626814B00CE52E4 /* KeyboardShortcuts */,
 				9A9C1B9E268BB88E001CF265 /* WrappingHStack */,
+				9AF9BF512698C4CD006FAA39 /* LaunchAtLogin */,
 			);
 			productName = Informant;
 			productReference = 9A43162026265A1F0071227C /* Informant.app */;
@@ -590,6 +594,7 @@
 			packageReferences = (
 				9A64FCA82626814B00CE52E4 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				9A9C1B9D268BB88E001CF265 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				9AF9BF502698C4CD006FAA39 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 9A43162126265A1F0071227C /* Products */;
 			projectDirPath = "";
@@ -631,6 +636,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9AF9BF532698C649006FAA39 /* Launch at Login Helper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Launch at Login Helper";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9A43161C26265A1F0071227C /* Sources */ = {
@@ -1068,6 +1094,14 @@
 				minimumVersion = 2.1.1;
 			};
 		};
+		9AF9BF502698C4CD006FAA39 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1080,6 +1114,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9A9C1B9D268BB88E001CF265 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
+		};
+		9AF9BF512698C4CD006FAA39 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9AF9BF502698C4CD006FAA39 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
