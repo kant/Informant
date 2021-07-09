@@ -14,7 +14,7 @@ class StatusBarController {
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
 
-	private var settings: InterfaceState!
+	private var settings: InterfaceState
 
 	// Monitors
 	public var monitorMouseDismiss: GlobalEventMonitor?
@@ -293,12 +293,22 @@ class StatusBarController {
 
 	/// Simply updates the menubar utility interface and presents it with the correct value
 	func updateMenubarUtility() {
-		MenubarUtilityHelper.updateSize(statusItem)
+		checkMenubarUtilitySettings()
 	}
 
 	/// Simply removes the menubar utility interface
 	func hideMenubarUtility() {
 		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
+	}
+
+	/// Checks if the menubar utility is visible based on user settings
+	func checkMenubarUtilitySettings() {
+		if settings.settingsMenubarUtilityBool {
+			MenubarUtilityHelper.updateSize(statusItem)
+		}
+		else {
+			MenubarUtilityHelper.wipeMenubarInterface(statusItem, resetState: false)
+		}
 	}
 
 	// MARK: - Monitor Handler Functions
