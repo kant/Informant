@@ -135,11 +135,17 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 
 	var body: some View {
 
-		// Content is being calculated or bluntly unavailable
-		if value == SelectionHelper.State.Unavailable || value == SelectionHelper.State.Calculating {
+		// Content is being calculated
+		if value == SelectionHelper.State.Calculating {
 			content
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
+		}
+
+		// Or bluntly unavailable
+		else if value == SelectionHelper.State.Unavailable {
+			content
+				.lineLimit(lineLimit)
 		}
 
 		// Content is good to go
@@ -216,7 +222,7 @@ struct ComponentsPanelItemStack<Content: View>: View {
 			let combinedCharCount = self.firstValue!.count + self.secondValue!.count
 
 			// Get width of the window
-			let windowWidthAsChars = Int(AppDelegate.current().window.frame.size.width / 11)
+			let windowWidthAsChars = Int(AppDelegate.current().panel.frame.size.width / 11)
 
 			// Check to see if the combined count of the first item's value & the second item's value exceeds the window width as chars
 			if combinedCharCount >= windowWidthAsChars {
@@ -324,7 +330,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 		VStack(alignment: .leading, spacing: 0) {
 
 			// ----------- Label -------------
-			ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath)
+			ComponentsPanelItemLabel(label: label)
 
 			// ------------ Path --------------
 			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {
@@ -384,6 +390,7 @@ struct ComponentsPanelIconButton: View {
 	}
 }
 
+/// Shows a label on hover behind the content. When clicked an action is performed. Typically this is used with text objects.
 struct ComponentsPanelLabelButton<Content: View>: View {
 
 	let content: Content
@@ -405,14 +412,14 @@ struct ComponentsPanelLabelButton<Content: View>: View {
 			ZStack(alignment: .leading) {
 
 				// Backing
-				if isHovering {
-					Color(.displayP3, white: 0.5, opacity: 0.10)
-						.cornerRadius(5.0)
-				}
+				Color(.displayP3, white: 0.75, opacity: 0.2)
+					.cornerRadius(5.0)
+					.opacity(isHovering ? 1 : 0)
+					.animation(.easeInOut(duration: 0.2))
 
 				// Label
 				content
-					.padding(3.0)
+					.padding(4.0)
 					.frame(maxWidth: .infinity)
 					.fixedSize(horizontal: true, vertical: false)
 			}

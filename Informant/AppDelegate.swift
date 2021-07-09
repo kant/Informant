@@ -12,11 +12,15 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 	/// This is the panel interface
-	public var window: NSPanel!
+	public var panel: NSPanel!
 
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
+	/// We use this to access the menubar status item
+	public var statusItem: NSStatusItem!
+
+	// MARK: - Interface
 	/// Controls the interface panel menu
 	public var interfaceMenuController: InterfaceMenuController?
 
@@ -29,14 +33,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is an alert akin to the Xcode 'Build Succeeded' alert
 	public var interfaceAlert: NSPanel!
 
+	/// This is the close button for the window
+	public var interfaceClose: NSPanel!
+
+	/// This is the controller for the close button
+	public var interfaceCloseController: InterfaceCloseController?
+
 	/// This contians all data needed for the interface.
-	public var interfaceData = InterfaceData()
+	public var interfaceData: InterfaceData!
 
 	/// This contains all the settings data needed for the application
-	public var settingsData = SettingsData()
+	public var interfaceState: InterfaceState!
 
+	// MARK: - Interface Helpers
+	public var panelInterfaceHelper = InterfaceHelper()
+	public var menubarInterfaceHelper = InterfaceHelper()
+
+	// MARK: - Settings
+	/// This is the window that displays all settings to the user
+	public var settingsWindow: NSSettingsWindow!
+
+	/// This sets up and controls the settings window's state
+	public var settingsWindowController: SettingsWindowController!
+
+	// MARK: - Extra
 	/// This helps work out the security scoping issue
-	public var securityBookmarkHelper = SecurityBookmarkHelper()
+	public var securityBookmarkHelper: SecurityBookmarkHelper!
+
+	/// This keeps tracks of any items that need to be cached for later use
+	public var cache: Cache!
 
 	/// The view for the interface.
 	public var contentView: ContentView!
@@ -45,9 +70,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_: Notification) {
 
-		// MARK: - Content View Init
+		// MARK: - Settings Init
+
+		registerUserDefaults()
+
+		// MARK: - App initialization
+
+		securityBookmarkHelper = SecurityBookmarkHelper()
+
+		interfaceData = InterfaceData()
+
+		interfaceState = InterfaceState()
 
 		contentView = ContentView()
+
+		cache = Cache()
 
 		// MARK: - Menu Init
 
@@ -70,7 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// MARK: - Window Init
 
 		/// This is the main interface used by the application
-		window = NSPanel(
+		panel = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
 			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless],
 			backing: .buffered, defer: false
@@ -78,33 +115,59 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// TODO: This needs to be adjusted so that it's actually in the center
 		// Centers window in middle of screen on launch
-		window.center()
+		panel.center()
 
 		// Hide the titlebar
-		window.titlebarAppearsTransparent = true
-		window.titleVisibility = .hidden
+		panel.titlebarAppearsTransparent = true
+		panel.titleVisibility = .hidden
 
 		// Hide all Titlebar Controls
-		window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-		window.standardWindowButton(.closeButton)?.isHidden = true
-		window.standardWindowButton(.zoomButton)?.isHidden = true
+		panel.standardWindowButton(.miniaturizeButton)?.isHidden = true
+		panel.standardWindowButton(.closeButton)?.isHidden = true
+		panel.standardWindowButton(.zoomButton)?.isHidden = true
 
 		// Brings window to the top level but not above the menubar
-		window.level = .floating
-		window.becomesKeyOnlyIfNeeded = true
+		panel.level = .floating
+		panel.becomesKeyOnlyIfNeeded = true
 
 		// Nice smooth exit
-		window.animationBehavior = .none
+		panel.animationBehavior = .none
 
 		// Other self explained window settings
-		window.isMovableByWindowBackground = true
+		panel.isMovableByWindowBackground = true
 
 		// TODO: Deprecate, I don't believe this is necessary
 		// Makes sure that the window can be reopened after being closed
-		window.isReleasedWhenClosed = false
+		panel.isReleasedWhenClosed = false
 
 		// Set the view controller
-		window.contentViewController = NSHostingController(rootView: contentView)
+		panel.contentViewController = NSHostingController(rootView: contentView)
+
+		// MARK: - Close Init
+
+		interfaceClose = NSPanel(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: [.fullSizeContentView, .nonactivatingPanel],
+			backing: .buffered,
+			defer: false
+		)
+
+		// Sets up the close button (positions, sets up view, etc.)
+		interfaceCloseController = InterfaceCloseController(interfaceClose)
+
+		// MARK: - Settings Init
+
+		settingsWindow = NSSettingsWindow(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: [.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar],
+			backing: .buffered,
+			defer: false
+		)
+
+		// Setup the settings window
+		if let settingsWindow = settingsWindow {
+			settingsWindowController = SettingsWindowController(settingsWindow)
+		}
 
 		// MARK: - Privacy Init
 
@@ -154,8 +217,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		)
 	}
 
+	// Insert code here to tear down your application
 	func applicationWillTerminate(_: Notification) {
-		// Insert code here to tear down your application
+
+		// Stop listening to mouse
+		statusBarController?.monitorMouseDismiss?.stop()
+
+		// Stop listening to the keyboard
+		statusBarController?.monitorKeyPress?.stop()
 	}
 
 	// --- Selectors for the panel movement notifications ⤵︎ ---

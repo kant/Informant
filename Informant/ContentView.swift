@@ -17,13 +17,13 @@ struct ContentView: View {
 	var interfaceData: InterfaceData?
 
 	/// Lets us know if the object is being dragged in the snap zone
-	@ObservedObject var settingsData: SettingsData
+	@ObservedObject var interfaceState: InterfaceState
 
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
 		interfaceData = appDelegate.interfaceData
-		settingsData = appDelegate.settingsData
+		interfaceState = appDelegate.interfaceState
 	}
 
 	var body: some View {
@@ -37,6 +37,15 @@ struct ContentView: View {
 				VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
 					.edgesIgnoringSafeArea(.all)
 
+					// Please see PanelCloseButton.swift for partnering logic
+					.whenHovered { hovering in
+						if interfaceState.closeHoverZone != .Button || hovering {
+							interfaceState.isMouseHoveringClose = hovering
+						}
+
+						interfaceState.isMouseHoveringPanel = hovering
+					}
+
 				// MARK: - Panel Bottom Buttons
 				VStack {
 
@@ -45,6 +54,10 @@ struct ContentView: View {
 
 					// Settings button stack
 					HStack(spacing: 0) {
+
+						// Additional file tags
+						ComponentsPanelAttributes(interfaceData?.selection)
+							.padding([.leading], 11)
 
 						// Ensures buttons align to the right
 						Spacer()
@@ -80,9 +93,14 @@ struct ContentView: View {
 
 					case .Application: PanelSingleApplicationItem(interfaceData?.selection)
 
+					case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
+
 					// MARK: - Multi
 					// More than one item selected
 					case .Multi: PanelMultiItem(interfaceData?.selection)
+
+					// Errors
+					case .Error: PanelErrorItem()
 
 					// No items selected
 					default: PanelNoItem()
@@ -92,15 +110,15 @@ struct ContentView: View {
 			}
 
 			// Blurs view when being dragged in the snap zone
-			.blur(radius: settingsData.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
+			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
+			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 
 			// MARK: - Panel Snap Zone Indicator
 			ZStack {
 				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
-					.opacity(settingsData.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
 			}
-			.animation(.easeInOut, value: self.settingsData.isPanelInSnapZone)
+			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)

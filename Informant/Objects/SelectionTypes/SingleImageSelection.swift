@@ -66,16 +66,6 @@ class SingleImageSelection: SingleSelection {
 			}
 		}
 
-		/*
-		 print(camera)
-		 print(focalLength)
-		 print(aperture)
-		 print(shutterSpeed)
-		 print(iso)
-		 print(dimensions)
-		 print(colorProfile)
-		 */
-
 		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}
 }

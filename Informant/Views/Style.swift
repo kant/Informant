@@ -26,6 +26,13 @@ class Style {
 		static let h3_Size: CGFloat = 11
 		static let h4_Size: CGFloat = 11
 	}
+
+	public enum Colour {
+		static let gray_mid = Color(.displayP3, red: 0.5, green: 0.5, blue: 0.5, opacity: 0.35)
+		static let black_light = Color(.displayP3, red: 0, green: 0, blue: 0, opacity: 0.1)
+		static let black_mid = Color(.displayP3, red: 0, green: 0, blue: 0, opacity: 0.4)
+		static let white_light = Color(.displayP3, red: 1, green: 1, blue: 1, opacity: 0.15)
+	}
 }
 
 extension Text {
@@ -49,12 +56,36 @@ extension Text {
 			.lineLimit(1)
 	}
 
-	func H4() -> some View {
+	func H4(lineLimit: Int = 1) -> some View {
 		self.font(.system(size: Style.Font.h4_Size))
 			.fontWeight(.medium)
 			.kerning(-0.25)
-			.lineLimit(1)
+			.lineLimit(lineLimit)
 			.opacity(Style.Text.opacity)
+	}
+
+	func SettingsLabelFont(padding: CGFloat = 10) -> some View {
+		self.font(.system(size: 18))
+			.fontWeight(.medium)
+			.opacity(1)
+			.padding([.bottom], padding)
+	}
+
+	func SettingsVersionFont() -> some View {
+		self.H4(lineLimit: 3)
+			.lineSpacing(2.0)
+			.opacity(0.9)
+	}
+
+	func SettingsLabelButtonFont(size: CGFloat = 17) -> some View {
+		self.font(.system(size: size))
+			.fontWeight(.medium)
+			.foregroundColor(.blue)
+	}
+
+	func PanelTagFont(size: CGFloat = 11) -> some View {
+		self.font(.system(size: size))
+			.fontWeight(.medium)
 	}
 
 	func PanelPadIconFont() -> some View {
@@ -82,5 +113,12 @@ extension Text {
 
 	func TildeFont() -> Text {
 		self.font(.custom(Style.Text.fontSFCompact, size: 18))
+	}
+}
+
+extension Image {
+	func PanelCloseFont() -> some View {
+		self.font(.system(size: 9, weight: .semibold))
+			.opacity(0.8)
 	}
 }

@@ -14,29 +14,76 @@ import SwiftUI
 class InterfaceHelper {
 
 	/// Used to keep track of the previous selection. It makes sure that we don't make duplicate updates to the interface.
-	static var selectionInMemory: [String]?
+	private var selectionInMemory: [String]?
+
+	/// Resets the state of the interface helper
+	public func ResetState() {
+		selectionInMemory = nil
+	}
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	public static func GetFinderSelection() -> InterfaceData? {
+	func GetFinderSelection() -> CheckedSelection? {
 
-		guard let selectedFiles: [String] = AppleScripts.findSelectedFiles() else {
+		// Grab appDelegate first
+		let appDelegate = AppDelegate.current()
+
+		// Store the selection into memory
+		guard let selection = AppleScriptsHelper.findSelectedFiles() else {
+			return nil
+		}
+
+		// Check for errors first, if found, restart memory state
+		if selection.error == true {
+			ResetState()
+			return CheckedSelection(selection, state: .errorSelection)
+		}
+
+		// Get the selected files
+		guard let paths: [String] = selection.paths else {
 			return nil
 		}
 
 		// Make sure the selection is not a duplicate
-		if selectionInMemory == selectedFiles {
-			return AppDelegate.current().interfaceData
+		if selectionInMemory == paths {
+			return CheckedSelection(selection, state: .duplicateSelection)
 		} else {
-			selectionInMemory = selectedFiles
+			selectionInMemory = paths
+		}
+
+		// Cancel all background tasks
+		if let blocks = appDelegate.interfaceData?.selection?.workQueue {
+			for block in blocks {
+				block.cancel()
+			}
+
+			appDelegate.securityBookmarkHelper.stopAccessingRootURL()
 		}
 
 		// Block executed if only one file is selected
-		if selectedFiles.count >= 1 {
-			return InterfaceData(selectedFiles)
+		if paths.count >= 1 {
+			return CheckedSelection(selection, state: .uniqueSelection)
 		}
 
 		return nil
+	}
+
+	/// This takes account for the selection and returns the correct interface data
+	static func GetInterfaceData() -> InterfaceData? {
+
+		// Get the selection
+		guard let checkedSelection = AppDelegate.current().panelInterfaceHelper.GetFinderSelection() else {
+			return nil
+		}
+
+		switch checkedSelection.state {
+
+		case .errorSelection: return InterfaceData(nil, error: true)
+
+		case .duplicateSelection: return AppDelegate.current().interfaceData
+
+		case .uniqueSelection: return InterfaceData(checkedSelection.selection.paths, error: false)
+		}
 	}
 
 	// Display interface with selected items
@@ -46,7 +93,7 @@ class InterfaceHelper {
 		let appDelegate = AppDelegate.current()
 
 		// Check to make sure a file is selected before executing logic
-		let selectedItems: InterfaceData? = InterfaceHelper.GetFinderSelection()
+		let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData()
 
 		// Find selected files
 		appDelegate.interfaceData = selectedItems
@@ -63,16 +110,16 @@ class InterfaceHelper {
 		let appDelegate = AppDelegate.current()
 
 		// Make the window resizeable while the interface gets updated
-		appDelegate.window.styleMask.insert(.resizable)
+		appDelegate.panel.styleMask.insert(.resizable)
 
 		// Create the SwiftUI view that provides the panel contents.
 		appDelegate.contentView = ContentView()
 
 		// Set the SwiftUI view to the panel view
-		appDelegate.window.contentViewController = NSHostingController(rootView: appDelegate.contentView)
+		appDelegate.panel.contentViewController = NSHostingController(rootView: appDelegate.contentView)
 
 		// Remove the ability to resize the window
-		appDelegate.window.styleMask.remove(.resizable)
+		appDelegate.panel.styleMask.remove(.resizable)
 	}
 
 	/// Generic function to run toggle

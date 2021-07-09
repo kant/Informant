@@ -58,7 +58,7 @@ class InterfaceMenuController {
 	func openMenu() {
 
 		// Find x & y coordinates
-		let panelFrame = appDelegate.window.frame
+		let panelFrame = appDelegate.panel.frame
 		var x = panelFrame.maxX
 		var y = panelFrame.minY
 
@@ -73,13 +73,12 @@ class InterfaceMenuController {
 
 	/// Simply hides the panel
 	@objc func togglePanel() {
-		appDelegate.statusBarController?.hideWindow()
+		appDelegate.statusBarController?.hideInterfaces()
 	}
 
-	// TODO: Add preferences window
 	/// Simply opens up the preferences window
 	@objc func openPreferences() {
-		print("Finish Preferences")
+		appDelegate.settingsWindowController?.open()
 	}
 
 	/// Quits application all together

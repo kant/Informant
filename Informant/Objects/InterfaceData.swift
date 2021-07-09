@@ -16,7 +16,13 @@ class InterfaceData: ObservableObject {
 
 	private(set) var urls: [String]?
 
-	init?(_ urls: [String]? = nil) {
+	init?(_ urls: [String]? = nil, error: Bool? = nil) {
+
+		// Check to make sure there are no errors first
+		if error == true {
+			selection = SingleErrorSelection()
+			return
+		}
 
 		// Check to see if the urls object is nil or not
 		guard let filePaths = urls else {

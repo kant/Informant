@@ -11,14 +11,14 @@ class StatusBarController {
 
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
-	private var window: NSPanel!
+	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
 
-	private var settings: SettingsData!
+	private var settings: InterfaceState!
 
 	// Monitors
-	private var monitorMouseDismiss: GlobalEventMonitor?
-	private var monitorKeyPress: GlobalEventMonitor?
+	public var monitorMouseDismiss: GlobalEventMonitor?
+	public var monitorKeyPress: GlobalEventMonitor?
 	private var monitorMouseDrag: GlobalEventMonitor?
 
 	/// Stores the window's position for each screen
@@ -46,24 +46,30 @@ class StatusBarController {
 
 		// Initialization of all objects
 		appDelegate = AppDelegate.current()
-		window = appDelegate.window
+		panel = appDelegate.panel
 		statusBar = NSStatusBar.system
 
-		settings = appDelegate.settingsData
+		settings = appDelegate.interfaceState
 
 		// Creates a status bar item with a fixed length
-		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+		appDelegate.statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+
+		statusItem = appDelegate.statusItem
 
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
+
 			// Status bar icon image
 			statusBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
 
 			// Status bar icon image size
-			statusBarButton.image?.size = NSSize(width: 18, height: 18)
+			statusBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
 
 			// Decides whether or not the icon follows the macOS menubar colouring
 			statusBarButton.image?.isTemplate = true
+
+			statusBarButton.imagePosition = .imageTrailing
+			statusBarButton.imageHugsTitle = false
 
 			// Updates constraint keeping the image in mind
 			statusBarButton.updateConstraints()
@@ -81,6 +87,20 @@ class StatusBarController {
 
 		// Monitors mouse drags on the panel
 		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDrag)
+
+		// These get stopped when the application is torn down
+		monitorMouseDismiss?.start()
+		monitorKeyPress?.start()
+	}
+
+	// MARK: - Monitor Control Functions
+
+	func monitorsStart() {
+		monitorMouseDrag?.start()
+	}
+
+	func monitorsStop() {
+		monitorMouseDrag?.stop()
 	}
 
 	// MARK: - Extraneous Methods
@@ -92,11 +112,22 @@ class StatusBarController {
 
 	/// Find status item button location
 	func statusItemButtonPosition() -> NSPoint {
+
 		// Find status item position by accessing it's button's window!
-		let statusItemFrame = statusItem.button!.window!.frame
+		guard let statusItemFrame = statusItem.button?.window?.frame else {
+			return NSPoint()
+		}
+
+		// Get the image
+		guard let image = statusItem.button?.image else {
+			return NSPoint()
+		}
+
+		// Get the middle of the image
+		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
 
 		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+		let xPositionAdjustedByWindow = imageMidPosition - (panel.frame.width / 2.0)
 
 		// Move the panel down a hair so it's not riding directly on the menu bar
 		let yPosition = statusItemFrame.origin.y - 6.0
@@ -133,14 +164,16 @@ class StatusBarController {
 	// Simply toggles display of panel based on toggle method. Only changes visibility
 	func toggleWindow(toggleMethod: ToggleMethod) {
 
-		// Check to see if the active space changed
-		// Close panel if it's visible and end execution
-		if window.isVisible {
-			if window.isOnActiveSpace {
-				hideWindow()
+		if panel.isVisible {
+
+			// Close panel if it's visible in the current window and end execution
+			if panel.isOnActiveSpace {
+				hideInterfaces()
 			}
+
+			// Otherwise, show the window on the current active space
 			else {
-				window.orderFrontRegardless()
+				showPanel()
 			}
 			return
 		}
@@ -151,65 +184,99 @@ class StatusBarController {
 		case ToggleMethod.Key:
 			// Find panel's position by using the screen's index
 			if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
-				window.setFrameOrigin(screenOrigin)
+				panel.setFrameOrigin(screenOrigin)
 			}
 
 			// If it doesn't have a screen position then just open it by the status item button and
 			// save new panel origin to dictionary
 			else {
-				window.setFrameTopLeftPoint(statusItemButtonPosition())
-				windowScreenPositions[window.screen.hashValue] = window.frame.origin
+				panel.setFrameTopLeftPoint(statusItemButtonPosition())
+				windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
 			}
 			break
 
 		case ToggleMethod.Click:
-			window.setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.setFrameTopLeftPoint(statusItemButtonPosition())
 			break
 		}
 
-		showWindow()
+		showPanel()
 	}
 
 	// MARK: - Window Functions
 
+	/// Shows the panel and updates the interface.
+	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
+	func showPanel() {
+
+		// Show panel
+		updatePanel()
+		panel.setIsVisible(true)
+		monitorsStart()
+
+		// Makes sure close button is tappable by ordering it to the front
+		if let child = panel.childWindows?.first {
+			child.orderFront(nil)
+		}
+	}
+
 	/// Hides the panel, stops monitoring for clicks and stores panel's position using the screen's hash where the panel is opened
 	/// and restores focus to previously active application.
-	func hideWindow() {
+	func hideInterfaces() {
+
+		if panel.isVisible {
+			hidePanel()
+		}
+		else {
+			hideMenubarUtility()
+		}
+	}
+
+	/// Simply hides the panel
+	func hidePanel() {
 
 		/// This runs all logic involved to hide the panel, including resetting the alpha value back to 1
 		func hideWindowLogic() {
-			windowScreenPositions[window.screen.hashValue] = window.frame.origin
-			window.setIsVisible(false)
+			windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
+			panel.setIsVisible(false)
+			panel.alphaValue = 1
 			monitorsStop()
 			interfaceHidingState = .Hidden
-			window.alphaValue = 1
 			setIsPanelBeingDragged(false)
+
+			// Delete current selection in memory
+			appDelegate.panelInterfaceHelper.ResetState()
 		}
 
 		// This sets the window's alpha value prior to animating it
-		window.alphaValue = 1
+		panel.alphaValue = 1
 
 		// This is the window's hiding animation
 		NSAnimationContext.runAnimationGroup { (context) -> Void in
 			context.duration = TimeInterval(0.25)
-			window.animator().alphaValue = 0
+			panel.animator().alphaValue = 0
 		} completionHandler: {
 			hideWindowLogic()
 		}
 	}
 
-	/// Shows the panel and updates the interface.
-	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
-	func showWindow() {
-		updateWindow()
-		window.setIsVisible(true)
-		monitorsStart()
-	}
-
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
 	/// As well, makes sure that hiding state is set properly.
-	func updateWindow() {
+	func updateInterfaces() {
 
+		// Wipe the menubar utility
+		updateMenubarUtility()
+
+		// Make sure the interface is visible
+		if panel.isVisible {
+			updatePanel()
+		}
+	}
+
+	/// Updates the panel interface itself. This can be used to force updates
+	func updatePanel() {
+
+		// Open up the interface
 		InterfaceHelper.DisplayUpdatedInterface()
 
 		// Check for null interface data and set hiding state accordingly.
@@ -224,18 +291,14 @@ class StatusBarController {
 		}
 	}
 
-	// MARK: - Monitor Control Functions
-
-	func monitorsStart() {
-		monitorMouseDismiss?.start()
-		monitorKeyPress?.start()
-		monitorMouseDrag?.start()
+	/// Simply updates the menubar utility interface and presents it with the correct value
+	func updateMenubarUtility() {
+		MenubarUtilityHelper.updateSize(statusItem)
 	}
 
-	func monitorsStop() {
-		monitorMouseDismiss?.stop()
-		monitorKeyPress?.stop()
-		monitorMouseDrag?.stop()
+	/// Simply removes the menubar utility interface
+	func hideMenubarUtility() {
+		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
 	}
 
 	// MARK: - Monitor Handler Functions
@@ -245,16 +308,16 @@ class StatusBarController {
 	func windowHandlerMouseDismiss(event: NSEvent?) {
 
 		// If we're interacting with the application panel then don't do anything
-		if event?.window == appDelegate.window {
+		if event?.window == appDelegate.panel {
 			return
 		}
 
 		// Get finder items
-		let selectedItems: [String]? = AppleScripts.findSelectedFiles()
+		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems != nil && window.isVisible {
-			updateWindow()
+		if selectedItems != nil {
+			updateInterfaces()
 		}
 
 		// No items are selected, therefore prep to hide the interface
@@ -262,14 +325,15 @@ class StatusBarController {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide
-				updateWindow()
+				updateInterfaces()
 				break
 
 			case .ReadyToHide:
-				hideWindow()
+				hideInterfaces()
 				break
 
 			case .Hidden:
+				hideInterfaces()
 				break
 			}
 		}
@@ -295,7 +359,7 @@ class StatusBarController {
 
 			// Checks every 10 items. A good blend between performance and power consumption
 			if keyCounter >= 10 {
-				updateWindow()
+				updateInterfaces()
 				keyCounter = 0
 				return
 			}
@@ -309,20 +373,20 @@ class StatusBarController {
 		switch key {
 		// If arrow press then update the interface
 		case 123, 124, 125, 126:
-			updateWindow()
+			updateInterfaces()
 			break
 
 		// If esc key press is detected on down press then hide the interface
 		case 53:
 			if event?.type == NSEvent.EventType.keyDown {
-				hideWindow()
+				hideInterfaces()
 			}
 			break
 
 		// If ⌘ + a is pressed to signify a select all then update the interface
 		case 0:
 			if event?.modifierFlags.contains(.command) == true {
-				updateWindow()
+				updateInterfaces()
 			}
 			break
 
@@ -337,7 +401,7 @@ class StatusBarController {
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
 		// Make sure the mouse is dragging on the panel - if not then back out
-		if isPanelBeingDragged != true, event?.window != appDelegate.window {
+		if isPanelBeingDragged != true, event?.window != appDelegate.panel {
 			return
 		}
 
@@ -372,13 +436,13 @@ class StatusBarController {
 		// ------------- Panel Snap Zone is established ---------------
 
 		// Get the center point of the panel
-		let panelTopCenter = NSPoint(x: window.frame.midX, y: window.frame.maxY)
+		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
 		// Make the panel blurred if it's being dragged and in the snap zone
-		if isPanelInSnapZone && window.alphaValue == 1.0 {
+		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
 		}
 
@@ -396,7 +460,7 @@ class StatusBarController {
 			// Animates window to 0 opacity and then calls to the next animation phase
 			NSAnimationContext.runAnimationGroup { (context) -> Void in
 				context.duration = TimeInterval(0.15)
-				window.animator().alphaValue = 0
+				panel.animator().alphaValue = 0
 			} completionHandler: {
 				panelMoveAndSetAlphaAnimation()
 			}
@@ -409,8 +473,8 @@ class StatusBarController {
 
 		/// Snaps window to starting position and then makes it visible
 		func panelMoveAndSetAlphaAnimation() {
-			window.animator().setFrameTopLeftPoint(statusItemButtonPosition())
-			window.animator().alphaValue = 1
+			panel.animator().setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.animator().alphaValue = 1
 			setIsPanelBeingDragged(false)
 		}
 	}

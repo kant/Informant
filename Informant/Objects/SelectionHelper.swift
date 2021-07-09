@@ -11,10 +11,12 @@ class SelectionHelper {
 
 	public enum SelectionType {
 		case None
+		case Error
 		case Single
 		case Multi
 		case Directory
 		case Application
+		case Volume
 		case Image
 		case Movie
 		case Audio
@@ -22,7 +24,8 @@ class SelectionHelper {
 
 	public enum State {
 		static let Unavailable = "Unavailable"
-		static let Calculating = "Calculating"
+		static let Calculating = "Calculating..."
+		static let StopCalculating = "Finished"
 	}
 
 	// MARK: - Utility Methods
@@ -110,6 +113,11 @@ class SelectionHelper {
 		}
 	}
 
+	/// Formats raw byte size into a familliar 10MB, 3.2GB, etc.
+	static func formatBytes(_ byteCount: Int64) -> String {
+		return ByteCountFormatter().string(fromByteCount: byteCount)
+	}
+
 	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {
@@ -145,8 +153,9 @@ class SelectionHelper {
 			kUTTypeImage,
 			kUTTypeMovie,
 			kUTTypeAudio,
-			kUTTypeDirectory,
 			kUTTypeApplication,
+			kUTTypeVolume,
+			kUTTypeDirectory,
 		]
 
 		// Grabs the UTI type id and compares that to all the types we want to identify
@@ -178,6 +187,8 @@ class SelectionHelper {
 				case kUTTypeDirectory: return SingleDirectorySelection(urls)
 
 				case kUTTypeApplication: return SingleApplicationSelection(urls)
+
+				case kUTTypeVolume: return SingleVolumeSelection(urls)
 
 				default: return SingleSelection(urls)
 			}
