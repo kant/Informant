@@ -17,6 +17,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
+	/// We use this to access the menubar status item
+	public var statusItem: NSStatusItem!
+
+	// MARK: - Interface
 	/// Controls the interface panel menu
 	public var interfaceMenuController: InterfaceMenuController?
 
@@ -41,12 +45,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This contains all the settings data needed for the application
 	public var interfaceState: InterfaceState!
 
+	// MARK: - Settings
 	/// This is the window that displays all settings to the user
 	public var settingsWindow: NSSettingsWindow!
 
 	/// This sets up and controls the settings window's state
 	public var settingsWindowController: SettingsWindowController!
 
+	// MARK: - Extra
 	/// This helps work out the security scoping issue
 	public var securityBookmarkHelper: SecurityBookmarkHelper!
 
@@ -207,8 +213,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		)
 	}
 
+	// Insert code here to tear down your application
 	func applicationWillTerminate(_: Notification) {
-		// Insert code here to tear down your application
+
+		// Stop listening to mouse
+		statusBarController?.monitorMouseDismiss?.stop()
 	}
 
 	// --- Selectors for the panel movement notifications ⤵︎ ---

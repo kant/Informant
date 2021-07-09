@@ -11,13 +11,13 @@ class StatusBarController {
 
 	private var statusBar: NSStatusBar
 	private var statusItem: NSStatusItem
-	private var window: NSPanel!
+	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
 
 	private var settings: InterfaceState!
 
 	// Monitors
-	private var monitorMouseDismiss: GlobalEventMonitor?
+	public var monitorMouseDismiss: GlobalEventMonitor?
 	private var monitorKeyPress: GlobalEventMonitor?
 	private var monitorMouseDrag: GlobalEventMonitor?
 
@@ -46,13 +46,15 @@ class StatusBarController {
 
 		// Initialization of all objects
 		appDelegate = AppDelegate.current()
-		window = appDelegate.window
+		panel = appDelegate.window
 		statusBar = NSStatusBar.system
 
 		settings = appDelegate.interfaceState
 
 		// Creates a status bar item with a fixed length
-		statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+		appDelegate.statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+
+		statusItem = appDelegate.statusItem
 
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
@@ -76,11 +78,26 @@ class StatusBarController {
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
 
+		// This gets stopped when the application is torn down
+		monitorMouseDismiss?.start()
+
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
 
 		// Monitors mouse drags on the panel
 		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDrag)
+	}
+
+	// MARK: - Monitor Control Functions
+
+	func monitorsStart() {
+		monitorKeyPress?.start()
+		monitorMouseDrag?.start()
+	}
+
+	func monitorsStop() {
+		monitorKeyPress?.stop()
+		monitorMouseDrag?.stop()
 	}
 
 	// MARK: - Extraneous Methods
@@ -96,7 +113,7 @@ class StatusBarController {
 		let statusItemFrame = statusItem.button!.window!.frame
 
 		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = statusItemFrame.midX - (window.frame.width / 2.0)
+		let xPositionAdjustedByWindow = statusItemFrame.midX - (panel.frame.width / 2.0)
 
 		// Move the panel down a hair so it's not riding directly on the menu bar
 		let yPosition = statusItemFrame.origin.y - 6.0
@@ -133,10 +150,10 @@ class StatusBarController {
 	// Simply toggles display of panel based on toggle method. Only changes visibility
 	func toggleWindow(toggleMethod: ToggleMethod) {
 
-		if window.isVisible {
+		if panel.isVisible {
 
 			// Close panel if it's visible in the current window and end execution
-			if window.isOnActiveSpace {
+			if panel.isOnActiveSpace {
 				hideWindow()
 			}
 
@@ -153,19 +170,19 @@ class StatusBarController {
 		case ToggleMethod.Key:
 			// Find panel's position by using the screen's index
 			if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
-				window.setFrameOrigin(screenOrigin)
+				panel.setFrameOrigin(screenOrigin)
 			}
 
 			// If it doesn't have a screen position then just open it by the status item button and
 			// save new panel origin to dictionary
 			else {
-				window.setFrameTopLeftPoint(statusItemButtonPosition())
-				windowScreenPositions[window.screen.hashValue] = window.frame.origin
+				panel.setFrameTopLeftPoint(statusItemButtonPosition())
+				windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
 			}
 			break
 
 		case ToggleMethod.Click:
-			window.setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.setFrameTopLeftPoint(statusItemButtonPosition())
 			break
 		}
 
@@ -180,9 +197,9 @@ class StatusBarController {
 
 		/// This runs all logic involved to hide the panel, including resetting the alpha value back to 1
 		func hideWindowLogic() {
-			windowScreenPositions[window.screen.hashValue] = window.frame.origin
-			window.setIsVisible(false)
-			window.alphaValue = 1
+			windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
+			panel.setIsVisible(false)
+			panel.alphaValue = 1
 			monitorsStop()
 			interfaceHidingState = .Hidden
 			setIsPanelBeingDragged(false)
@@ -192,12 +209,12 @@ class StatusBarController {
 		}
 
 		// This sets the window's alpha value prior to animating it
-		window.alphaValue = 1
+		panel.alphaValue = 1
 
 		// This is the window's hiding animation
 		NSAnimationContext.runAnimationGroup { (context) -> Void in
 			context.duration = TimeInterval(0.25)
-			window.animator().alphaValue = 0
+			panel.animator().alphaValue = 0
 		} completionHandler: {
 			hideWindowLogic()
 		}
@@ -207,11 +224,11 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
 		updateWindow()
-		window.setIsVisible(true)
+		panel.setIsVisible(true)
 		monitorsStart()
 
 		// Makes sure close button is tappable by ordering it to the front
-		if let child = window.childWindows?.first {
+		if let child = panel.childWindows?.first {
 			child.orderFront(nil)
 		}
 	}
@@ -234,20 +251,6 @@ class StatusBarController {
 		}
 	}
 
-	// MARK: - Monitor Control Functions
-
-	func monitorsStart() {
-		monitorMouseDismiss?.start()
-		monitorKeyPress?.start()
-		monitorMouseDrag?.start()
-	}
-
-	func monitorsStop() {
-		monitorMouseDismiss?.stop()
-		monitorKeyPress?.stop()
-		monitorMouseDrag?.stop()
-	}
-
 	// MARK: - Monitor Handler Functions
 
 	// MARK: Mouse Dismiss
@@ -262,8 +265,10 @@ class StatusBarController {
 		// Get finder items
 		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
+		
+		
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems != nil && window.isVisible {
+		if selectedItems != nil && panel.isVisible {
 			updateWindow()
 		}
 
@@ -382,13 +387,13 @@ class StatusBarController {
 		// ------------- Panel Snap Zone is established ---------------
 
 		// Get the center point of the panel
-		let panelTopCenter = NSPoint(x: window.frame.midX, y: window.frame.maxY)
+		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
 		// Make the panel blurred if it's being dragged and in the snap zone
-		if isPanelInSnapZone && window.alphaValue == 1.0 {
+		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
 		}
 
@@ -406,7 +411,7 @@ class StatusBarController {
 			// Animates window to 0 opacity and then calls to the next animation phase
 			NSAnimationContext.runAnimationGroup { (context) -> Void in
 				context.duration = TimeInterval(0.15)
-				window.animator().alphaValue = 0
+				panel.animator().alphaValue = 0
 			} completionHandler: {
 				panelMoveAndSetAlphaAnimation()
 			}
@@ -419,8 +424,8 @@ class StatusBarController {
 
 		/// Snaps window to starting position and then makes it visible
 		func panelMoveAndSetAlphaAnimation() {
-			window.animator().setFrameTopLeftPoint(statusItemButtonPosition())
-			window.animator().alphaValue = 1
+			panel.animator().setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.animator().alphaValue = 1
 			setIsPanelBeingDragged(false)
 		}
 	}
