@@ -10,12 +10,16 @@ import SwiftUI
 /// Root single item selection view
 struct PanelSingleFrame<Content: View>: View {
 
+	@ObservedObject var interfaceState: InterfaceState
+
 	@ObservedObject var selection: SingleSelection
+
 	var content: Content
 
 	init(_ selection: SelectionProtocol?, @ViewBuilder content: @escaping () -> Content) {
 		self.selection = selection as! SingleSelection
 		self.content = content()
+		self.interfaceState = AppDelegate.current().interfaceState
 	}
 
 	var body: some View {
@@ -42,7 +46,14 @@ struct PanelSingleFrame<Content: View>: View {
 				}
 
 				// Created
-				ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection.itemDateCreatedAsString)
+				if interfaceState.settingsPanelEnableCreatedProp {
+					ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection.itemDateCreatedAsString)
+				}
+
+				// Name
+				if interfaceState.settingsPanelEnableNameProp {
+					ComponentsPanelItemField(label: ContentManager.Labels.panelName, value: selection.itemTitle, lineLimit: 4)
+				}
 
 				// MARK: - Inject content here
 				content
@@ -51,7 +62,9 @@ struct PanelSingleFrame<Content: View>: View {
 				ComponentsPanelTags(tags: selection.selectionTags)
 
 				// Path
-				ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: selection.itemPath)
+				if interfaceState.settingsPanelEnablePathProp, let path = selection.getPath(interfaceState) {
+					ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: path)
+				}
 			}
 		}
 	}

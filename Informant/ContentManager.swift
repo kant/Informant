@@ -82,6 +82,8 @@ class ContentManager {
 
 		static let panelCreated = NSLocalizedString("Created", comment: "This is the file's creation date displayed in the panel")
 
+		static let panelName = NSLocalizedString("Name", comment: "This is the file's name displayed on the panel")
+
 		static let panelPath = NSLocalizedString("Path", comment: "This is the file's path displayed in the panel")
 
 		static let panelExpandedPath = NSLocalizedString("Expanded Path", comment: "This is the label that appears after clicking the path label on the panel")

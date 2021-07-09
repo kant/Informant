@@ -15,7 +15,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 	// MARK: - Single Selection Fields
 	var url: URL!
-	var itemPath: String?
 	var itemTitle: String?
 	var itemIcon: NSImage?
 
@@ -50,8 +49,13 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	/// The iCloud container where this document is actully stored
 	var iCloudContainerName: String?
 
+	/// Placeholder for delegate
+	let appDelegate: AppDelegate
+
 	/// Establishes a single selection foundation and then picks out a type
 	required init(_ urls: [String], selection: SelectionType = .Single) {
+
+		appDelegate = AppDelegate.current()
 
 		selectionType = selection
 
@@ -63,7 +67,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		// MARK: - Get Selection Resources
 		/// Keys used to determine what resources to grab
 		let keys: Set<URLResourceKey> = [
-			.canonicalPathKey,
 			.localizedNameKey,
 			.effectiveIconKey,
 
@@ -81,14 +84,14 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		]
 
 		// Start accessing security scoped resource
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
+		if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
 
 			// Assigning resources to fileResources object
 			itemResources = SelectionHelper.getURLResources(url, keys)
 
 			// MARK: - Fill in fields
 			if let resources = itemResources {
-				itemPath = resources.canonicalPath
+
 				itemTitle = resources.localizedName
 
 				// Check icon for nil before unwrapping
@@ -142,15 +145,12 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		}
 
 		// Stop accessing the resource
-		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
 
 		// MARK: - Modify Size
 		if isDownloaded == false {
 			itemSizeAsString = nil
 		}
-
-		// MARK: - Modify File Path
-		itemPath = tildeAbbreviatedPath(itemPath)
 	}
 
 	/// Check if the file is downloaded
@@ -160,6 +160,27 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		} else {
 			return false
 		}
+	}
+
+	/// Checks the url and settings and decides if the full url should be shown
+	func getPath(_ interfaceState: InterfaceState) -> String? {
+
+		var path: String?
+
+		// Check if the user wants to see where the file is located or the full path length
+		if interfaceState.settingsPanelShowFullPath == false {
+			var whereURL = url
+			whereURL?.deleteLastPathComponent()
+			path = whereURL?.path
+		}
+
+		// Otherwise show the full path
+		else {
+			path = url.path
+		}
+
+		// Abbreviate the path
+		return tildeAbbreviatedPath(path)
 	}
 
 	/// Modifies the root directory of the path to a ~
