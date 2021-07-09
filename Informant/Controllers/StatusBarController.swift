@@ -173,7 +173,7 @@ class StatusBarController {
 
 			// Otherwise, show the window on the current active space
 			else {
-				showWindow()
+				showPanel()
 			}
 			return
 		}
@@ -200,17 +200,40 @@ class StatusBarController {
 			break
 		}
 
-		showWindow()
+		showPanel()
 	}
 
 	// MARK: - Window Functions
+
+	/// Shows the panel and updates the interface.
+	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
+	func showPanel() {
+
+		// Show panel
+		updatePanel()
+		panel.setIsVisible(true)
+		monitorsStart()
+
+		// Makes sure close button is tappable by ordering it to the front
+		if let child = panel.childWindows?.first {
+			child.orderFront(nil)
+		}
+	}
 
 	/// Hides the panel, stops monitoring for clicks and stores panel's position using the screen's hash where the panel is opened
 	/// and restores focus to previously active application.
 	func hideInterfaces() {
 
-		// Wipe the menubar utility
-		updateMenubarUtility()
+		if panel.isVisible {
+			hidePanel()
+		}
+		else {
+			hideMenubarUtility()
+		}
+	}
+
+	/// Simply hides the panel
+	func hidePanel() {
 
 		/// This runs all logic involved to hide the panel, including resetting the alpha value back to 1
 		func hideWindowLogic() {
@@ -222,7 +245,7 @@ class StatusBarController {
 			setIsPanelBeingDragged(false)
 
 			// Delete current selection in memory
-			InterfaceHelper.selectionInMemory = nil
+			appDelegate.panelInterfaceHelper.ResetState()
 		}
 
 		// This sets the window's alpha value prior to animating it
@@ -237,49 +260,34 @@ class StatusBarController {
 		}
 	}
 
-	/// Shows the panel and updates the interface.
-	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
-	func showWindow() {
-
-		// Wipe the menubar util
-		hideMenubarUtility()
-
-		// Show panel
-		panel.setIsVisible(true)
-		updateInterfaces()
-		monitorsStart()
-
-		// Makes sure close button is tappable by ordering it to the front
-		if let child = panel.childWindows?.first {
-			child.orderFront(nil)
-		}
-	}
-
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
 	/// As well, makes sure that hiding state is set properly.
 	func updateInterfaces() {
 
+		// Wipe the menubar utility
+		updateMenubarUtility()
+
 		// Make sure the interface is visible
 		if panel.isVisible {
+			updatePanel()
+		}
+	}
 
-			// Open up the interface
-			InterfaceHelper.DisplayUpdatedInterface()
+	/// Updates the panel interface itself. This can be used to force updates
+	func updatePanel() {
 
-			// Check for null interface data and set hiding state accordingly.
-			// When interface data is present -> .Open
-			if appDelegate.interfaceData != nil {
-				appDelegate.statusBarController?.interfaceHidingState = .Open
-			}
+		// Open up the interface
+		InterfaceHelper.DisplayUpdatedInterface()
 
-			// When no interface data is present -> .ReadyToHide
-			else {
-				appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
-			}
+		// Check for null interface data and set hiding state accordingly.
+		// When interface data is present -> .Open
+		if appDelegate.interfaceData != nil {
+			appDelegate.statusBarController?.interfaceHidingState = .Open
 		}
 
-		// If the interface is not visible then update the menubar utility
+		// When no interface data is present -> .ReadyToHide
 		else {
-			updateMenubarUtility()
+			appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
 		}
 	}
 
@@ -325,6 +333,7 @@ class StatusBarController {
 				break
 
 			case .Hidden:
+				hideInterfaces()
 				break
 			}
 		}

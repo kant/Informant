@@ -14,16 +14,16 @@ import SwiftUI
 class InterfaceHelper {
 
 	/// Used to keep track of the previous selection. It makes sure that we don't make duplicate updates to the interface.
-	static var selectionInMemory: [String]?
+	private var selectionInMemory: [String]?
 
 	/// Resets the state of the interface helper
-	private static func ResetState() {
+	public func ResetState() {
 		selectionInMemory = nil
 	}
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	public static func GetFinderSelection() -> CheckedSelection? {
+	func GetFinderSelection() -> CheckedSelection? {
 
 		// Grab appDelegate first
 		let appDelegate = AppDelegate.current()
@@ -72,7 +72,7 @@ class InterfaceHelper {
 	static func GetInterfaceData() -> InterfaceData? {
 
 		// Get the selection
-		guard let checkedSelection = InterfaceHelper.GetFinderSelection() else {
+		guard let checkedSelection = AppDelegate.current().panelInterfaceHelper.GetFinderSelection() else {
 			return nil
 		}
 

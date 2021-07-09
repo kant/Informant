@@ -21,10 +21,11 @@ class MenubarUtilityHelper {
 		var size: String?
 		
 		/// Gets the state of the selection and if it's a duplicate
-		guard let checkedSelection = InterfaceHelper.GetFinderSelection() else {
+		guard let checkedSelection = AppDelegate.current().menubarInterfaceHelper.GetFinderSelection() else {
 			wipeMenubarInterface(statusItem)
 			return
 		}
+		
 		
 		// Error selection found
 		if checkedSelection.state == .errorSelection {
@@ -48,7 +49,7 @@ class MenubarUtilityHelper {
 		
 			// Make sure selection is only one item. Any more and we wipe the interface
 			if selection.count > 1 {
-				wipeMenubarInterface(statusItem)
+				wipeMenubarInterface(statusItem, resetState: true)
 				return
 			}
 		
@@ -66,7 +67,7 @@ class MenubarUtilityHelper {
 			
 				// End execution if it's a directory
 				if resources.isDirectory == true {
-					wipeMenubarInterface(statusItem)
+					wipeMenubarInterface(statusItem, resetState: true)
 					return
 				}
 
@@ -100,8 +101,11 @@ class MenubarUtilityHelper {
 	}
 	
 	/// For when there's no size available
-	static func wipeMenubarInterface(_ statusItem: NSStatusItem) {
-		sizeAsString = ""
+	static func wipeMenubarInterface(_ statusItem: NSStatusItem, resetState: Bool = false) {
 		statusItem.button?.attributedTitle = NSAttributedString(string: "")
+		
+		if resetState == true {
+			sizeAsString = ""
+		}
 	}
 }

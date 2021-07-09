@@ -45,6 +45,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This contains all the settings data needed for the application
 	public var interfaceState: InterfaceState!
 
+	// MARK: - Interface Helpers
+	public var panelInterfaceHelper = InterfaceHelper()
+	public var menubarInterfaceHelper = InterfaceHelper()
+
 	// MARK: - Settings
 	/// This is the window that displays all settings to the user
 	public var settingsWindow: NSSettingsWindow!
