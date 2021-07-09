@@ -23,7 +23,7 @@ class InterfaceHelper {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	public static func GetFinderSelection() -> InterfaceData? {
+	public static func GetFinderSelection() -> CheckedSelection? {
 
 		// Grab appDelegate first
 		let appDelegate = AppDelegate.current()
@@ -36,7 +36,7 @@ class InterfaceHelper {
 		// Check for errors first, if found, restart memory state
 		if selection.error == true {
 			ResetState()
-			return InterfaceData(nil, error: true)
+			return CheckedSelection(selection, state: .errorSelection)
 		}
 
 		// Get the selected files
@@ -46,7 +46,7 @@ class InterfaceHelper {
 
 		// Make sure the selection is not a duplicate
 		if selectionInMemory == paths {
-			return appDelegate.interfaceData
+			return CheckedSelection(selection, state: .duplicateSelection)
 		} else {
 			selectionInMemory = paths
 		}
@@ -62,10 +62,28 @@ class InterfaceHelper {
 
 		// Block executed if only one file is selected
 		if paths.count >= 1 {
-			return InterfaceData(paths)
+			return CheckedSelection(selection, state: .uniqueSelection)
 		}
 
 		return nil
+	}
+
+	/// This takes account for the selection and returns the correct interface data
+	static func GetInterfaceData() -> InterfaceData? {
+
+		// Get the selection
+		guard let checkedSelection = InterfaceHelper.GetFinderSelection() else {
+			return nil
+		}
+
+		switch checkedSelection.state {
+
+		case .errorSelection: return InterfaceData(nil, error: true)
+
+		case .duplicateSelection: return AppDelegate.current().interfaceData
+
+		case .uniqueSelection: return InterfaceData(checkedSelection.selection.paths, error: false)
+		}
 	}
 
 	// Display interface with selected items
@@ -75,7 +93,7 @@ class InterfaceHelper {
 		let appDelegate = AppDelegate.current()
 
 		// Check to make sure a file is selected before executing logic
-		let selectedItems: InterfaceData? = InterfaceHelper.GetFinderSelection()
+		let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData()
 
 		// Find selected files
 		appDelegate.interfaceData = selectedItems

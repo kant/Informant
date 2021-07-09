@@ -70,6 +70,7 @@
 		9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */; };
 		9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */; };
 		9AEA9F2C2697D1A200806AAE /* MenubarUtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */; };
+		9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
 		9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceState.swift */; };
 		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
@@ -188,6 +189,7 @@
 		9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceMenuController.swift; sourceTree = "<group>"; };
 		9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarUtilityHelper.swift; sourceTree = "<group>"; };
+		9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedSelection.swift; sourceTree = "<group>"; };
 		9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHelper.swift; sourceTree = "<group>"; };
 		9AFF98D0266F111800E31D2A /* InterfaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceState.swift; sourceTree = "<group>"; };
 		9AFF98D326705BC100E31D2A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -297,6 +299,7 @@
 				9AFF98D0266F111800E31D2A /* InterfaceState.swift */,
 				9A481FA82677E945006B91C2 /* InactiveWindowTapHelper.swift */,
 				9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */,
+				9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */,
 			);
 			path = "Interface Helpers";
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */,
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,
+				9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */,
 				9A2DDF912686989000DB84BA /* PanelSingleVolumeItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

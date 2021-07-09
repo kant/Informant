@@ -112,11 +112,22 @@ class StatusBarController {
 
 	/// Find status item button location
 	func statusItemButtonPosition() -> NSPoint {
+
 		// Find status item position by accessing it's button's window!
-		let statusItemFrame = statusItem.button!.window!.frame
+		guard let statusItemFrame = statusItem.button?.window?.frame else {
+			return NSPoint()
+		}
+
+		// Get the image
+		guard let image = statusItem.button?.image else {
+			return NSPoint()
+		}
+
+		// Get the middle of the image
+		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
 
 		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = statusItemFrame.midX - (panel.frame.width / 2.0)
+		let xPositionAdjustedByWindow = imageMidPosition - (panel.frame.width / 2.0)
 
 		// Move the panel down a hair so it's not riding directly on the menu bar
 		let yPosition = statusItemFrame.origin.y - 6.0
@@ -229,8 +240,13 @@ class StatusBarController {
 	/// Shows the panel and updates the interface.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
-		updateInterfaces()
+
+		// Wipe the menubar util
+		hideMenubarUtility()
+
+		// Show panel
 		panel.setIsVisible(true)
+		updateInterfaces()
 		monitorsStart()
 
 		// Makes sure close button is tappable by ordering it to the front
@@ -246,6 +262,7 @@ class StatusBarController {
 		// Make sure the interface is visible
 		if panel.isVisible {
 
+			// Open up the interface
 			InterfaceHelper.DisplayUpdatedInterface()
 
 			// Check for null interface data and set hiding state accordingly.
@@ -269,6 +286,11 @@ class StatusBarController {
 	/// Simply updates the menubar utility interface and presents it with the correct value
 	func updateMenubarUtility() {
 		MenubarUtilityHelper.updateSize(statusItem)
+	}
+
+	/// Simply removes the menubar utility interface
+	func hideMenubarUtility() {
+		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
 	}
 
 	// MARK: - Monitor Handler Functions

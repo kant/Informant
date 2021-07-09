@@ -18,7 +18,7 @@ class MenubarUtilityHelper {
 		var size: String?
 		
 		// Get selection
-		guard let selection = AppleScriptsHelper.findSelectedFiles()?.paths else {
+		guard let selection = InterfaceHelper.GetFinderSelection()?.selection.paths else {
 			wipeMenubarInterface(statusItem)
 			return
 		}
