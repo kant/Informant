@@ -241,12 +241,17 @@ class StatusBarController {
 			panel.setIsVisible(false)
 			panel.alphaValue = 1
 			monitorsStop()
-			interfaceHidingState = .Hidden
 			setIsPanelBeingDragged(false)
 
 			// Delete current selection in memory
 			appDelegate.panelInterfaceHelper.ResetState()
 		}
+
+		// Makes sure to set the state of the panel as hidden
+		interfaceHidingState = .Hidden
+
+		// Hide close button
+		settings.isMouseHoveringClose = false
 
 		// This sets the window's alpha value prior to animating it
 		panel.alphaValue = 1
