@@ -84,69 +84,71 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.ubiquitousItemContainerDisplayNameKey
 		]
 
-		// Start accessing security scoped resource
+		// Start accessing security scoped resource to get tags
 		if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
-
-			// Assigning resources to fileResources object
-			itemResources = SelectionHelper.getURLResources(url, keys)
-
-			// MARK: - Fill in fields
-			if let resources = itemResources {
-
-				itemTitle = resources.localizedName
-
-				// Check icon for nil before unwrapping
-				if let icon = resources.effectiveIcon {
-					itemIcon = (icon as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+			do {
+				let resources = try url.resourceValues(forKeys: [.tagNamesKey, .localizedTypeDescriptionKey])
+				if let tags = resources.tagNames, let kind = resources.localizedTypeDescription {
+					selectionTags = SelectionTags(tags: tags)
+					itemKind = kind
 				}
-
-				itemKind = resources.localizedTypeDescription
-
-				// Check filesize for being nil before unwrapping
-				if let size = resources.totalFileSize {
-					itemSize = size
-					itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
-				} else {
-					itemSizeAsString = SelectionHelper.State.Unavailable
-				}
-
-				// Format dates as strings
-				let dateFormatter = DateFormatter()
-				dateFormatter.dateStyle = .medium
-				dateFormatter.timeStyle = .short
-				dateFormatter.doesRelativeDateFormatting = true
-
-				// Make sure created date is non-nil
-				if let createdDate = resources.creationDate {
-					itemDateCreated = createdDate
-					itemDateCreatedAsString = dateFormatter.string(from: createdDate)
-				}
-
-				// Make sure modified date is non-nil
-				if let modifiedDate = resources.contentModificationDate {
-					itemDateModified = modifiedDate
-					itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: modifiedDate)
-				}
-
-				// Get Finder tags
-				do {
-					let resources = try url.resourceValues(forKeys: [.tagNamesKey])
-					if let tags = resources.tagNames {
-						selectionTags = SelectionTags(tags: tags)
-					}
-				} catch { }
-
-				// Fill in remaining flags
-				isiCloudSyncFile = resources.isUbiquitousItem
-				isHidden = resources.isHidden
-				isApplication = resources.isApplication
-				iCloudContainerName = resources.ubiquitousItemContainerDisplayName
-				isDownloaded = checkIfDownloaded()
-			}
+			} catch { }
 		}
 
 		// Stop accessing the resource
 		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+
+		// Assigning resources to fileResources object
+		itemResources = SelectionHelper.getURLResources(url, keys)
+
+		// MARK: - Fill in fields
+		if let resources = itemResources {
+
+			itemTitle = resources.localizedName
+
+			// Check icon for nil before unwrapping
+			if let icon = resources.effectiveIcon {
+				itemIcon = (icon as? NSImage)?.resized(to: ContentManager.Icons.panelHeaderIconSize)
+			}
+
+			// Get the kind description if no description was already found
+			if itemKind == nil {
+				itemKind = resources.localizedTypeDescription
+			}
+
+			// Check filesize for being nil before unwrapping
+			if let size = resources.totalFileSize {
+				itemSize = size
+				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
+			} else {
+				itemSizeAsString = SelectionHelper.State.Unavailable
+			}
+
+			// Format dates as strings
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+			dateFormatter.timeStyle = .short
+			dateFormatter.doesRelativeDateFormatting = true
+
+			// Make sure created date is non-nil
+			if let createdDate = resources.creationDate {
+				itemDateCreated = createdDate
+				itemDateCreatedAsString = dateFormatter.string(from: createdDate)
+			}
+
+			// Make sure modified date is non-nil
+			if let modifiedDate = resources.contentModificationDate {
+				itemDateModified = modifiedDate
+				itemDateModifiedAsString = ContentManager.Labels.panelModified + " " + dateFormatter.string(from: modifiedDate)
+			}
+
+			// Fill in remaining flags
+			isiCloudSyncFile = resources.isUbiquitousItem
+			isHidden = resources.isHidden
+			isApplication = resources.isApplication
+			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
+			isDownloaded = checkIfDownloaded()
+		}
 
 		// MARK: - Modify Size
 		if isDownloaded == false {
