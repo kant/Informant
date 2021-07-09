@@ -17,8 +17,26 @@ class MenubarUtilityHelper {
 		/// Contains formatted size
 		var size: String?
 		
-		// Get selection
-		guard let selection = InterfaceHelper.GetFinderSelection()?.selection.paths else {
+		/// Gets the state of the selection and if it's a duplicate
+		guard let checkedSelection = InterfaceHelper.GetFinderSelection() else {
+			wipeMenubarInterface(statusItem)
+			return
+		}
+		
+		// Reacts to the state of the selection
+		switch checkedSelection.state {
+		case .errorSelection: wipeMenubarInterface(statusItem)
+			return
+			
+		case .duplicateSelection:
+			return
+			
+		case .uniqueSelection:
+			break
+		}
+		
+		/// Path selection
+		guard let selection = checkedSelection.selection.paths else {
 			wipeMenubarInterface(statusItem)
 			return
 		}
