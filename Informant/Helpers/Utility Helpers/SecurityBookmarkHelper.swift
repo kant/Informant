@@ -10,7 +10,7 @@ import SwiftUI
 
 class SecurityBookmarkHelper {
 
-	let panel = NSOpenPanel()
+	let openPanel = NSOpenPanel()
 
 	var rootURL: URL? {
 		willSet(value) {
@@ -19,13 +19,13 @@ class SecurityBookmarkHelper {
 	}
 
 	init() {
-		panel.allowsMultipleSelection = false
-		panel.canChooseDirectories = true
-		panel.canChooseFiles = false
-		panel.showsHiddenFiles = false
+		openPanel.allowsMultipleSelection = false
+		openPanel.canChooseDirectories = true
+		openPanel.canChooseFiles = false
+		openPanel.showsHiddenFiles = false
 
-		panel.prompt = "Grant Access"
-		panel.directoryURL = URL(fileURLWithPath: "/")
+		openPanel.prompt = "Grant Access"
+		openPanel.directoryURL = URL(fileURLWithPath: "/")
 	}
 
 	/// Requests the root url through an NSOpenPanel
@@ -37,12 +37,12 @@ class SecurityBookmarkHelper {
 
 	/// Opens the NSOpenPanel to store a new root url
 	func pickRootURL() {
-		panel.beginSheetModal(for: AppDelegate.current().settingsWindow) { response in
-			if response == .OK, let url = self.panel.url {
+		openPanel.beginSheetModal(for: AppDelegate.current().settingsWindow) { response in
+			if response == .OK, let url = self.openPanel.url {
 				self.storeRootURLPermission(url)
 			} else {
-				self.panel.close()
-				self.panel.setFrame(NSRect(x: 0, y: 0, width: 500, height: 400), display: false)
+				self.openPanel.close()
+				self.openPanel.setFrame(NSRect(x: 0, y: 0, width: 500, height: 400), display: false)
 			}
 		}
 	}
