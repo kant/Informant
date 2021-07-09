@@ -26,7 +26,6 @@ class MenubarUtilityHelper {
 			return
 		}
 		
-		
 		// Error selection found
 		if checkedSelection.state == .errorSelection {
 			wipeMenubarInterface(statusItem)
