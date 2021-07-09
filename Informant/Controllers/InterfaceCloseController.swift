@@ -17,8 +17,8 @@ class InterfaceCloseController {
 	init(_ panel: NSPanel) {
 
 		// Get position for panel
-		let parentTop = appDelegate.window.frame.maxY
-		let parentLeft = appDelegate.window.frame.minX
+		let parentTop = appDelegate.panel.frame.maxY
+		let parentLeft = appDelegate.panel.frame.minX
 
 		// Offset and set
 		let offsetX: CGFloat = 5
@@ -46,6 +46,6 @@ class InterfaceCloseController {
 		panel.isMovableByWindowBackground = false
 
 		// Add as child
-		appDelegate.window.addChildWindow(panel, ordered: .above)
+		appDelegate.panel.addChildWindow(panel, ordered: .above)
 	}
 }

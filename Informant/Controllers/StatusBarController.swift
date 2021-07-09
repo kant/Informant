@@ -46,7 +46,7 @@ class StatusBarController {
 
 		// Initialization of all objects
 		appDelegate = AppDelegate.current()
-		panel = appDelegate.window
+		panel = appDelegate.panel
 		statusBar = NSStatusBar.system
 
 		settings = appDelegate.interfaceState
@@ -258,7 +258,7 @@ class StatusBarController {
 	func windowHandlerMouseDismiss(event: NSEvent?) {
 
 		// If we're interacting with the application panel then don't do anything
-		if event?.window == appDelegate.window {
+		if event?.window == appDelegate.panel {
 			return
 		}
 
@@ -352,7 +352,7 @@ class StatusBarController {
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
 		// Make sure the mouse is dragging on the panel - if not then back out
-		if isPanelBeingDragged != true, event?.window != appDelegate.window {
+		if isPanelBeingDragged != true, event?.window != appDelegate.panel {
 			return
 		}
 

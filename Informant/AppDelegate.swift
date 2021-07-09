@@ -12,7 +12,7 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 	/// This is the panel interface
-	public var window: NSPanel!
+	public var panel: NSPanel!
 
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// MARK: - Window Init
 
 		/// This is the main interface used by the application
-		window = NSPanel(
+		panel = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
 			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless],
 			backing: .buffered, defer: false
@@ -111,33 +111,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// TODO: This needs to be adjusted so that it's actually in the center
 		// Centers window in middle of screen on launch
-		window.center()
+		panel.center()
 
 		// Hide the titlebar
-		window.titlebarAppearsTransparent = true
-		window.titleVisibility = .hidden
+		panel.titlebarAppearsTransparent = true
+		panel.titleVisibility = .hidden
 
 		// Hide all Titlebar Controls
-		window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-		window.standardWindowButton(.closeButton)?.isHidden = true
-		window.standardWindowButton(.zoomButton)?.isHidden = true
+		panel.standardWindowButton(.miniaturizeButton)?.isHidden = true
+		panel.standardWindowButton(.closeButton)?.isHidden = true
+		panel.standardWindowButton(.zoomButton)?.isHidden = true
 
 		// Brings window to the top level but not above the menubar
-		window.level = .floating
-		window.becomesKeyOnlyIfNeeded = true
+		panel.level = .floating
+		panel.becomesKeyOnlyIfNeeded = true
 
 		// Nice smooth exit
-		window.animationBehavior = .none
+		panel.animationBehavior = .none
 
 		// Other self explained window settings
-		window.isMovableByWindowBackground = true
+		panel.isMovableByWindowBackground = true
 
 		// TODO: Deprecate, I don't believe this is necessary
 		// Makes sure that the window can be reopened after being closed
-		window.isReleasedWhenClosed = false
+		panel.isReleasedWhenClosed = false
 
 		// Set the view controller
-		window.contentViewController = NSHostingController(rootView: contentView)
+		panel.contentViewController = NSHostingController(rootView: contentView)
 
 		// MARK: - Close Init
 

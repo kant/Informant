@@ -222,7 +222,7 @@ struct ComponentsPanelItemStack<Content: View>: View {
 			let combinedCharCount = self.firstValue!.count + self.secondValue!.count
 
 			// Get width of the window
-			let windowWidthAsChars = Int(AppDelegate.current().window.frame.size.width / 11)
+			let windowWidthAsChars = Int(AppDelegate.current().panel.frame.size.width / 11)
 
 			// Check to see if the combined count of the first item's value & the second item's value exceeds the window width as chars
 			if combinedCharCount >= windowWidthAsChars {
