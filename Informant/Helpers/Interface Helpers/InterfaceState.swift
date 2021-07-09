@@ -42,43 +42,43 @@ class InterfaceState: ObservableObject {
 	// MARK: - Settings Data
 
 	@Published var settingsRootURL: String? = UserDefaults.standard.string(forKey: .keyRootURL) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyRootURL)
 		}
 	}
 
 	@Published var settingsSystemStartupBool: Bool = UserDefaults.standard.bool(forKey: .keySystemStartupBool) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keySystemStartupBool)
 		}
 	}
 
 	@Published var settingsMenubarUtilityBool: Bool = UserDefaults.standard.bool(forKey: .keyMenubarUtilityBool) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarUtilityBool)
 		}
 	}
 
 	@Published var settingsPanelShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelShowFullPath) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelShowFullPath)
 		}
 	}
 
 	@Published var settingsPanelEnableNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableNameProp) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableNameProp)
 		}
 	}
 
 	@Published var settingsPanelEnablePathProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnablePathProp) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelEnablePathProp)
 		}
 	}
 
 	@Published var settingsPanelEnableCreatedProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableCreatedProp) {
-		didSet(value) {
+		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableCreatedProp)
 		}
 	}
