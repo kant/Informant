@@ -18,7 +18,7 @@ class StatusBarController {
 
 	// Monitors
 	public var monitorMouseDismiss: GlobalEventMonitor?
-	private var monitorKeyPress: GlobalEventMonitor?
+	public var monitorKeyPress: GlobalEventMonitor?
 	private var monitorMouseDrag: GlobalEventMonitor?
 
 	/// Stores the window's position for each screen
@@ -58,6 +58,7 @@ class StatusBarController {
 
 		// Initializes menu bar button
 		if let statusBarButton = statusItem.button {
+
 			// Status bar icon image
 			statusBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
 
@@ -66,6 +67,9 @@ class StatusBarController {
 
 			// Decides whether or not the icon follows the macOS menubar colouring
 			statusBarButton.image?.isTemplate = true
+
+			statusBarButton.imagePosition = .imageTrailing
+			statusBarButton.imageHugsTitle = false
 
 			// Updates constraint keeping the image in mind
 			statusBarButton.updateConstraints()
@@ -78,25 +82,24 @@ class StatusBarController {
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
 
-		// This gets stopped when the application is torn down
-		monitorMouseDismiss?.start()
-
 		// Monitors key events
 		monitorKeyPress = GlobalEventMonitor(mask: [.keyDown, .keyUp], handler: windowHandlerArrowKeys)
 
 		// Monitors mouse drags on the panel
 		monitorMouseDrag = GlobalEventMonitor(mask: [.leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDrag)
+
+		// These get stopped when the application is torn down
+		monitorMouseDismiss?.start()
+		monitorKeyPress?.start()
 	}
 
 	// MARK: - Monitor Control Functions
 
 	func monitorsStart() {
-		monitorKeyPress?.start()
 		monitorMouseDrag?.start()
 	}
 
 	func monitorsStop() {
-		monitorKeyPress?.stop()
 		monitorMouseDrag?.stop()
 	}
 
@@ -154,7 +157,7 @@ class StatusBarController {
 
 			// Close panel if it's visible in the current window and end execution
 			if panel.isOnActiveSpace {
-				hideWindow()
+				hideInterfaces()
 			}
 
 			// Otherwise, show the window on the current active space
@@ -193,7 +196,10 @@ class StatusBarController {
 
 	/// Hides the panel, stops monitoring for clicks and stores panel's position using the screen's hash where the panel is opened
 	/// and restores focus to previously active application.
-	func hideWindow() {
+	func hideInterfaces() {
+
+		// Wipe the menubar utility
+		updateMenubarUtility()
 
 		/// This runs all logic involved to hide the panel, including resetting the alpha value back to 1
 		func hideWindowLogic() {
@@ -223,7 +229,7 @@ class StatusBarController {
 	/// Shows the panel and updates the interface.
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showWindow() {
-		updateWindow()
+		updateInterfaces()
 		panel.setIsVisible(true)
 		monitorsStart()
 
@@ -235,20 +241,34 @@ class StatusBarController {
 
 	/// Simply updates the interface. Just here to avoid code duplication. Also updates current item selection.
 	/// As well, makes sure that hiding state is set properly.
-	func updateWindow() {
+	func updateInterfaces() {
 
-		InterfaceHelper.DisplayUpdatedInterface()
+		// Make sure the interface is visible
+		if panel.isVisible {
 
-		// Check for null interface data and set hiding state accordingly.
-		// When interface data is present -> .Open
-		if appDelegate.interfaceData != nil {
-			appDelegate.statusBarController?.interfaceHidingState = .Open
+			InterfaceHelper.DisplayUpdatedInterface()
+
+			// Check for null interface data and set hiding state accordingly.
+			// When interface data is present -> .Open
+			if appDelegate.interfaceData != nil {
+				appDelegate.statusBarController?.interfaceHidingState = .Open
+			}
+
+			// When no interface data is present -> .ReadyToHide
+			else {
+				appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
+			}
 		}
 
-		// When no interface data is present -> .ReadyToHide
+		// If the interface is not visible then update the menubar utility
 		else {
-			appDelegate.statusBarController?.interfaceHidingState = .ReadyToHide
+			updateMenubarUtility()
 		}
+	}
+
+	/// Simply updates the menubar utility interface and presents it with the correct value
+	func updateMenubarUtility() {
+		MenubarUtilityHelper.updateSize(statusItem)
 	}
 
 	// MARK: - Monitor Handler Functions
@@ -265,11 +285,9 @@ class StatusBarController {
 		// Get finder items
 		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
-		
-		
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems != nil && panel.isVisible {
-			updateWindow()
+		if selectedItems != nil {
+			updateInterfaces()
 		}
 
 		// No items are selected, therefore prep to hide the interface
@@ -277,11 +295,11 @@ class StatusBarController {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide
-				updateWindow()
+				updateInterfaces()
 				break
 
 			case .ReadyToHide:
-				hideWindow()
+				hideInterfaces()
 				break
 
 			case .Hidden:
@@ -310,7 +328,7 @@ class StatusBarController {
 
 			// Checks every 10 items. A good blend between performance and power consumption
 			if keyCounter >= 10 {
-				updateWindow()
+				updateInterfaces()
 				keyCounter = 0
 				return
 			}
@@ -324,20 +342,20 @@ class StatusBarController {
 		switch key {
 		// If arrow press then update the interface
 		case 123, 124, 125, 126:
-			updateWindow()
+			updateInterfaces()
 			break
 
 		// If esc key press is detected on down press then hide the interface
 		case 53:
 			if event?.type == NSEvent.EventType.keyDown {
-				hideWindow()
+				hideInterfaces()
 			}
 			break
 
 		// If ⌘ + a is pressed to signify a select all then update the interface
 		case 0:
 			if event?.modifierFlags.contains(.command) == true {
-				updateWindow()
+				updateInterfaces()
 			}
 			break
 

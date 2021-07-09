@@ -218,6 +218,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Stop listening to mouse
 		statusBarController?.monitorMouseDismiss?.stop()
+
+		// Stop listening to the keyboard
+		statusBarController?.monitorKeyPress?.stop()
 	}
 
 	// --- Selectors for the panel movement notifications ⤵︎ ---

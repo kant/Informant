@@ -40,11 +40,17 @@ class SecurityBookmarkHelper {
 		openPanel.beginSheetModal(for: AppDelegate.current().settingsWindow) { response in
 			if response == .OK, let url = self.openPanel.url {
 				self.storeRootURLPermission(url)
+				self.closePanel()
 			} else {
-				self.openPanel.close()
-				self.openPanel.setFrame(NSRect(x: 0, y: 0, width: 500, height: 400), display: false)
+				self.closePanel()
 			}
 		}
+	}
+
+	/// Simple closer for the panel
+	func closePanel() {
+		openPanel.close()
+		openPanel.setFrame(NSRect(x: 0, y: 0, width: 500, height: 400), display: false)
 	}
 
 	/// Stores the provided security scoped url into user defaults

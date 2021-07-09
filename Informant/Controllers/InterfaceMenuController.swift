@@ -73,7 +73,7 @@ class InterfaceMenuController {
 
 	/// Simply hides the panel
 	@objc func togglePanel() {
-		appDelegate.statusBarController?.hideWindow()
+		appDelegate.statusBarController?.hideInterfaces()
 	}
 
 	/// Simply opens up the preferences window

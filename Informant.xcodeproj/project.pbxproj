@@ -69,6 +69,7 @@
 		9AC1AFB8265C1FCA006D1FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC1AFB7265C1FCA006D1FC8 /* Main.storyboard */; };
 		9AC1AFBA265C2020006D1FC8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */; };
 		9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */; };
+		9AEA9F2C2697D1A200806AAE /* MenubarUtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
 		9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceState.swift */; };
 		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
@@ -186,6 +187,7 @@
 		9AC1AFB7265C1FCA006D1FC8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9AC1AFB9265C2020006D1FC8 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		9AC1AFBB265C3F8C006D1FC8 /* InterfaceMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceMenuController.swift; sourceTree = "<group>"; };
+		9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarUtilityHelper.swift; sourceTree = "<group>"; };
 		9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHelper.swift; sourceTree = "<group>"; };
 		9AFF98D0266F111800E31D2A /* InterfaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceState.swift; sourceTree = "<group>"; };
 		9AFF98D326705BC100E31D2A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -305,6 +307,7 @@
 				9A481FB1267921BE006B91C2 /* PasteboardHelper.swift */,
 				9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */,
 				9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */,
+				9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */,
 			);
 			path = "Utility Helpers";
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */,
 				9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */,
 				9A7F3B512626BA2700BD878F /* ExtensionsGlobal.swift in Sources */,
+				9AEA9F2C2697D1A200806AAE /* MenubarUtilityHelper.swift in Sources */,
 				9ABE17762632295400EE9F48 /* PanelSingleItem.swift in Sources */,
 				9A2DDF7B2682A3CF00DB84BA /* PanelSingleFrame.swift in Sources */,
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
