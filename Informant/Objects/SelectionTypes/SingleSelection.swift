@@ -15,6 +15,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 	// MARK: - Single Selection Fields
 	var url: URL!
+	var itemPath: String?
 	var itemTitle: String?
 	var itemIcon: NSImage?
 
@@ -151,6 +152,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		if isDownloaded == false {
 			itemSizeAsString = nil
 		}
+
+		// Backup item path
+		itemPath = url.path
 	}
 
 	/// Check if the file is downloaded
@@ -163,24 +167,21 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	}
 
 	/// Checks the url and settings and decides if the full url should be shown
-	func getPath(_ interfaceState: InterfaceState) -> String? {
-
-		var path: String?
+	func isPathFullLength(_ interfaceState: InterfaceState) -> Bool {
 
 		// Check if the user wants to see where the file is located or the full path length
 		if interfaceState.settingsPanelShowFullPath == false {
 			var whereURL = url
 			whereURL?.deleteLastPathComponent()
-			path = whereURL?.path
+			itemPath = tildeAbbreviatedPath(whereURL?.path)
+			return false
 		}
 
 		// Otherwise show the full path
 		else {
-			path = url.path
+			itemPath = tildeAbbreviatedPath(url.path)
+			return true
 		}
-
-		// Abbreviate the path
-		return tildeAbbreviatedPath(path)
 	}
 
 	/// Modifies the root directory of the path to a ~

@@ -330,7 +330,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 		VStack(alignment: .leading, spacing: 0) {
 
 			// ----------- Label -------------
-			ComponentsPanelItemLabel(label: ContentManager.Labels.panelPath)
+			ComponentsPanelItemLabel(label: label)
 
 			// ------------ Path --------------
 			ComponentsPanelItemUnavailable(value: value, lineLimit: lineLimit) {

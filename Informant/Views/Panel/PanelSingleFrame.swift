@@ -62,8 +62,11 @@ struct PanelSingleFrame<Content: View>: View {
 				ComponentsPanelTags(tags: selection.selectionTags)
 
 				// Path
-				if interfaceState.settingsPanelEnablePathProp, let path = selection.getPath(interfaceState) {
-					ComponentsPanelItemPathField(label: ContentManager.Labels.panelPath, value: path)
+				if interfaceState.settingsPanelEnablePathProp, let isPathFullLength = selection.isPathFullLength(interfaceState) {
+					ComponentsPanelItemPathField(
+						label: isPathFullLength ? ContentManager.Labels.panelPath : ContentManager.Labels.panelWhere,
+						value: selection.itemPath
+					)
 				}
 			}
 		}
