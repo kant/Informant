@@ -409,10 +409,11 @@ struct ComponentsPanelIconMenuButton: View {
 		self.action = action
 	}
 
+	/// Keeps track of the pressed state of the button
 	@State var pressed: Bool = false
 
 	/// Keeps track of the buttons pressed state
-	@State var toggled: Bool = false
+	@State var popped: Bool?
 
 	var body: some View {
 
@@ -423,12 +424,28 @@ struct ComponentsPanelIconMenuButton: View {
 			.opacity(pressed ? 1 : 0.6)
 			.inactiveWindowTap { pressed in
 
-				// Only register mouse ups
-				if !pressed {
-					_ = action()
+				// Makes sure to lock us out in the case that a state is found
+				if popped == nil {
+
+					// Only register mouse ups
+					if !pressed {
+						popped = action()
+					}
+
+					self.pressed = pressed
 				}
 
-				self.pressed = pressed
+				// Once another press is made it unlocks
+				else if !pressed {
+					popped = nil
+				}
+			}
+
+			// This makes sure to unlock the toggle above in the case that the user clicks away outside the button
+			.whenHovered { hovering in
+				if hovering == false, popped != nil {
+					popped = nil
+				}
 			}
 	}
 }
