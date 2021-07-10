@@ -206,14 +206,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			self,
 			selector: #selector(didMove),
 			name: NSPanel.didMoveNotification,
-			object: nil
+			object: panel
 		)
 
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(willMove),
 			name: NSPanel.willMoveNotification,
-			object: nil
+			object: panel
 		)
 	}
 
