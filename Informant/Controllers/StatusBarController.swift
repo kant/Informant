@@ -209,6 +209,9 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showPanel() {
 
+		// Reset panel snap zone always
+		settings.setIsPanelInSnapZone(false)
+
 		// Show panel
 		updatePanel()
 		panel.setIsVisible(true)
@@ -242,6 +245,9 @@ class StatusBarController {
 			panel.alphaValue = 1
 			monitorsStop()
 			setIsPanelBeingDragged(false)
+
+			// Reset panel snap zone always
+			settings.setIsPanelInSnapZone(false)
 
 			// Delete current selection in memory
 			appDelegate.panelInterfaceHelper.ResetState()
