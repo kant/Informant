@@ -431,19 +431,25 @@ struct ComponentsPanelIconMenuButton: View {
 					if !pressed {
 						popped = action()
 					}
-
-					self.pressed = pressed
 				}
 
 				// Once another press is made it unlocks
 				else if !pressed {
 					popped = nil
 				}
+
+				self.pressed = pressed
 			}
 
-			// This makes sure to unlock the toggle above in the case that the user clicks away outside the button
 			.whenHovered { hovering in
-				if hovering == false, popped != nil {
+
+				// Makes button a normal color when not hovering on it
+				if popped == nil, hovering == false, pressed == true {
+					pressed = false
+				}
+
+				// This makes sure to unlock the toggle above in the case that the user clicks away outside the button
+				else if hovering == false, popped != nil {
 					popped = nil
 				}
 			}
