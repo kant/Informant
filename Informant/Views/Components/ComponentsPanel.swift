@@ -346,6 +346,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 
 // MARK: - Panel Buttons
 
+/// Basic icon button
 struct ComponentsPanelIconButton: View {
 
 	/// The name of the icon in Assets.xcassets
@@ -387,6 +388,48 @@ struct ComponentsPanelIconButton: View {
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
+	}
+}
+
+/// Button icon that reacts with an NSMenuDelegateModified
+struct ComponentsPanelIconMenuButton: View {
+
+	/// The name of the icon in Assets.xcassets
+	var iconName: String
+
+	/// Default size is 16.0
+	var size: CGFloat
+
+	/// Logic for button to execute
+	var action: () -> Bool
+
+	init(_ iconName: String, size: CGFloat = 16, action: @escaping () -> Bool) {
+		self.iconName = iconName
+		self.size = size
+		self.action = action
+	}
+
+	@State var pressed: Bool = false
+
+	/// Keeps track of the buttons pressed state
+	@State var toggled: Bool = false
+
+	var body: some View {
+
+		Image(iconName)
+			.resizable()
+			.frame(width: size, height: size)
+			.padding(5)
+			.opacity(pressed ? 1 : 0.6)
+			.inactiveWindowTap { pressed in
+
+				// Only register mouse ups
+				if !pressed {
+					_ = action()
+				}
+
+				self.pressed = pressed
+			}
 	}
 }
 
