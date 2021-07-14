@@ -7,12 +7,30 @@
 		<key>Informant.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>InformantSync.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>9A43161F26265A1F0071227C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9A43163426265A210071227C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9A43163F26265A210071227C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

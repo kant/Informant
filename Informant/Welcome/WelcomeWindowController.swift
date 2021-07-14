@@ -35,9 +35,11 @@ class WelcomeWindowController {
 		// Setup view
 		window.contentViewController = NSHostingController(rootView: WelcomeAuthView())
 
-		// TODO: Remove from production
-		#warning("Remove this from production")
-		open()
+		/*
+		 // TODO: Remove from production
+		 #warning("Remove this from production")
+		 open()
+		 */
 	}
 
 	/// Opens up the settings window

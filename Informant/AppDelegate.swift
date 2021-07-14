@@ -178,17 +178,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// MARK: - Privacy Init
 
 		// TODO: Clean up this section - it asks for accessiblity permissions
-		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
+		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true]
 		let accessEnabled = AXIsProcessTrustedWithOptions(options)
 
 		// A simple error message if access is not enabled
 		if !accessEnabled {
 			print(ContentManager.Messages.setupAccessibilityNotEnabled)
 		}
-
-		// TODO: Build this into the greeting panel and settings panel
-		// Request permission to root folder
-		securityBookmarkHelper.requestRootURLPermission()
 
 		// MARK: - Welcome Init
 
