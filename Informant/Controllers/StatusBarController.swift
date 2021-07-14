@@ -14,7 +14,7 @@ class StatusBarController {
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
 
-	private var settings: InterfaceState!
+	private var settings: InterfaceState
 
 	// Monitors
 	public var monitorMouseDismiss: GlobalEventMonitor?
@@ -209,6 +209,9 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showPanel() {
 
+		// Reset panel snap zone always
+		settings.setIsPanelInSnapZone(false)
+
 		// Show panel
 		updatePanel()
 		panel.setIsVisible(true)
@@ -241,12 +244,20 @@ class StatusBarController {
 			panel.setIsVisible(false)
 			panel.alphaValue = 1
 			monitorsStop()
-			interfaceHidingState = .Hidden
 			setIsPanelBeingDragged(false)
+
+			// Reset panel snap zone always
+			settings.setIsPanelInSnapZone(false)
 
 			// Delete current selection in memory
 			appDelegate.panelInterfaceHelper.ResetState()
 		}
+
+		// Makes sure to set the state of the panel as hidden
+		interfaceHidingState = .Hidden
+
+		// Hide close button
+		settings.isMouseHoveringClose = false
 
 		// This sets the window's alpha value prior to animating it
 		panel.alphaValue = 1
@@ -293,12 +304,22 @@ class StatusBarController {
 
 	/// Simply updates the menubar utility interface and presents it with the correct value
 	func updateMenubarUtility() {
-		MenubarUtilityHelper.updateSize(statusItem)
+		checkMenubarUtilitySettings()
 	}
 
 	/// Simply removes the menubar utility interface
 	func hideMenubarUtility() {
 		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
+	}
+
+	/// Checks if the menubar utility is visible based on user settings
+	func checkMenubarUtilitySettings() {
+		if settings.settingsMenubarUtilityBool {
+			MenubarUtilityHelper.updateSize(statusItem)
+		}
+		else {
+			MenubarUtilityHelper.wipeMenubarInterface(statusItem, resetState: false)
+		}
 	}
 
 	// MARK: - Monitor Handler Functions

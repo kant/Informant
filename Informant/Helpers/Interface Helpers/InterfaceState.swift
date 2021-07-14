@@ -57,6 +57,11 @@ class InterfaceState: ObservableObject {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarUtilityBool)
 		}
+
+		didSet {
+			// Check current visibility
+			AppDelegate.current().statusBarController?.checkMenubarUtilitySettings()
+		}
 	}
 
 	@Published var settingsPanelShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelShowFullPath) {

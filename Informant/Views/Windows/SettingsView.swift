@@ -6,6 +6,7 @@
 //
 
 import KeyboardShortcuts
+import LaunchAtLogin
 import SwiftUI
 
 // This is the main settings window view
@@ -73,7 +74,7 @@ struct SettingsLeftSideView: View {
 			VStack(spacing: 6) {
 
 				// App icon
-				Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+				Image(nsImage: NSImage(named: ContentManager.Images.appIcon) ?? NSImage())
 					.offset(y: 9.0)
 
 				// Name
@@ -175,7 +176,7 @@ struct SettingsRightSideView: View {
 				SettingsPickRootURL(interfaceState.settingsRootURL)
 
 				// Launch informant on system startup
-				Toggle(" " + ContentManager.SettingsLabels.launchOnStartup, isOn: $interfaceState.settingsSystemStartupBool)
+				LaunchAtLogin.Toggle(" " + ContentManager.SettingsLabels.launchOnStartup)
 
 				// Enable menubar-utility
 				Toggle(" " + ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)

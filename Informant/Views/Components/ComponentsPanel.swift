@@ -346,6 +346,7 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 
 // MARK: - Panel Buttons
 
+/// Basic icon button
 struct ComponentsPanelIconButton: View {
 
 	/// The name of the icon in Assets.xcassets
@@ -387,6 +388,71 @@ struct ComponentsPanelIconButton: View {
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
+	}
+}
+
+/// Button icon that reacts with an NSMenuDelegateModified
+struct ComponentsPanelIconMenuButton: View {
+
+	/// The name of the icon in Assets.xcassets
+	var iconName: String
+
+	/// Default size is 16.0
+	var size: CGFloat
+
+	/// Logic for button to execute
+	var action: () -> Bool
+
+	init(_ iconName: String, size: CGFloat = 16, action: @escaping () -> Bool) {
+		self.iconName = iconName
+		self.size = size
+		self.action = action
+	}
+
+	/// Keeps track of the pressed state of the button
+	@State var pressed: Bool = false
+
+	/// Keeps track of the buttons pressed state
+	@State var popped: Bool?
+
+	var body: some View {
+
+		Image(iconName)
+			.resizable()
+			.frame(width: size, height: size)
+			.padding(5)
+			.opacity(pressed ? 1 : 0.6)
+			.inactiveWindowTap { pressed in
+
+				// Makes sure to lock us out in the case that a state is found
+				if popped == nil {
+
+					// Only register mouse ups
+					if !pressed {
+						popped = action()
+					}
+				}
+
+				// Once another press is made it unlocks
+				else if !pressed {
+					popped = nil
+				}
+
+				self.pressed = pressed
+			}
+
+			.whenHovered { hovering in
+
+				// Makes button a normal color when not hovering on it
+				if popped == nil, hovering == false, pressed == true {
+					pressed = false
+				}
+
+				// This makes sure to unlock the toggle above in the case that the user clicks away outside the button
+				else if hovering == false, popped != nil {
+					popped = nil
+				}
+			}
 	}
 }
 

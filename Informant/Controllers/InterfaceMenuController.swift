@@ -9,6 +9,29 @@ import Foundation
 import KeyboardShortcuts
 import SwiftUI
 
+/*
+ class NSMenuDelegateModified: NSObject, NSMenuDelegate, ObservableObject {
+
+ 	var menu: NSMenu
+
+ 	@Published var isVisible: Bool?
+
+ 	internal init(menu: NSMenu) {
+ 		self.menu = menu
+ 		super.init()
+ 		self.menu.delegate = self
+ 	}
+
+ 	func menuDidClose(_ menu: NSMenu) {
+ 		isVisible = false
+ 	}
+
+ 	func menuWillOpen(_ menu: NSMenu) {
+ 		isVisible = true
+ 	}
+ }
+ */
+
 class InterfaceMenuController {
 
 	let appDelegate: AppDelegate!
@@ -55,7 +78,7 @@ class InterfaceMenuController {
 	// MARK: - Menu Logic
 
 	/// Pops up menu at the panel menu button.
-	func openMenu() {
+	func openMenu() -> Bool {
 
 		// Find x & y coordinates
 		let panelFrame = appDelegate.panel.frame
@@ -68,7 +91,7 @@ class InterfaceMenuController {
 
 		let coordinates = NSPoint(x: x, y: y)
 
-		menu.popUp(positioning: nil, at: coordinates, in: nil)
+		return menu.popUp(positioning: nil, at: coordinates, in: nil)
 	}
 
 	/// Simply hides the panel

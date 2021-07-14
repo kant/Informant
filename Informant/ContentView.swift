@@ -39,11 +39,13 @@ struct ContentView: View {
 
 					// Please see PanelCloseButton.swift for partnering logic
 					.whenHovered { hovering in
-						if interfaceState.closeHoverZone != .Button || hovering {
-							interfaceState.isMouseHoveringClose = hovering
-						}
+						if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
+							if interfaceState.closeHoverZone != .Button || hovering {
+								interfaceState.isMouseHoveringClose = hovering
+							}
 
-						interfaceState.isMouseHoveringPanel = hovering
+							interfaceState.isMouseHoveringPanel = hovering
+						}
 					}
 
 				// MARK: - Panel Bottom Buttons
@@ -63,8 +65,8 @@ struct ContentView: View {
 						Spacer()
 
 						// More button
-						ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton) {
-							appDelegate.interfaceMenuController?.openMenu()
+						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton) {
+							appDelegate.interfaceMenuController!.openMenu()
 						}
 					}
 				}
