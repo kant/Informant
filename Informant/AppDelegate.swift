@@ -51,10 +51,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	// MARK: - Settings
 	/// This is the window that displays all settings to the user
-	public var settingsWindow: NSSettingsWindow!
+	public var settingsWindow: NSInformantWindow!
 
 	/// This sets up and controls the settings window's state
 	public var settingsWindowController: SettingsWindowController!
+
+	/// This sets up and controls the welcome window
+	public var welcomeWindowController: WelcomeWindowController!
+
+	/// This is the welcome window that's presented when the user first starts the application
+	public var welcomeWindow: NSInformantWindow!
 
 	// MARK: - Extra
 	/// This helps work out the security scoping issue
@@ -157,7 +163,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Settings Init
 
-		settingsWindow = NSSettingsWindow(
+		settingsWindow = NSInformantWindow(
 			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
 			styleMask: [.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar],
 			backing: .buffered,
@@ -183,6 +189,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// TODO: Build this into the greeting panel and settings panel
 		// Request permission to root folder
 		securityBookmarkHelper.requestRootURLPermission()
+
+		// MARK: - Welcome Init
+
+		welcomeWindow = NSInformantWindow(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: [.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar],
+			backing: .buffered,
+			defer: false
+		)
+
+		// Setup the welcome window
+		if let welcomeWindow = welcomeWindow {
+			welcomeWindowController = WelcomeWindowController(welcomeWindow)
+		}
 
 		// MARK: - App Init
 

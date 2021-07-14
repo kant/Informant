@@ -74,7 +74,7 @@ struct SettingsLeftSideView: View {
 			VStack(spacing: 6) {
 
 				// App icon
-				Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+				Image(nsImage: NSImage(named: ContentManager.Images.appIcon) ?? NSImage())
 					.offset(y: 9.0)
 
 				// Name

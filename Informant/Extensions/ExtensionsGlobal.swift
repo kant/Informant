@@ -83,7 +83,7 @@ extension NSPanel {
 }
 
 /// Allows NSWindow to be focusable
-class NSSettingsWindow: NSWindow {
+class NSInformantWindow: NSWindow {
 	override open var canBecomeKey: Bool {
 		return true
 	}

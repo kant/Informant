@@ -1,30 +1,29 @@
 //
-//  SettingsWindowController.swift
+//  File.swift
 //  Informant
 //
-//  Created by Ty Irvine on 2021-06-29.
+//  Created by Ty Irvine on 2021-07-13.
 //
 
 import Foundation
 import SwiftUI
 
-class SettingsWindowController {
+class WelcomeWindowController {
 
-	var appDelegate: AppDelegate
-
-	/// So we can maintain reference to the window
 	var window: NSInformantWindow
-
-	// ------------- Initialization ⤵︎ -------------
+	var appDelegate: AppDelegate
 
 	init(_ windowRef: NSInformantWindow) {
 
-		// Grab reference to the delegate & window
-		appDelegate = AppDelegate.current()
 		window = windowRef
+		appDelegate = AppDelegate.current()
 
 		// Setup window
 		window.titlebarAppearsTransparent = true
+
+		// Hide toolbar controls
+		window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+		window.standardWindowButton(.zoomButton)?.isHidden = true
 
 		// Misc.
 		window.isMovableByWindowBackground = true
@@ -34,13 +33,11 @@ class SettingsWindowController {
 		window.animationBehavior = .default
 
 		// Setup view
-		window.contentViewController = NSHostingController(rootView: SettingsView())
+		window.contentViewController = NSHostingController(rootView: WelcomeView())
 
 		// TODO: Remove from production
-		/*
-		 #warning("Remove this from production")
-		 open()
-		 */
+		#warning("Remove this from production")
+		open()
 	}
 
 	/// Opens up the settings window
