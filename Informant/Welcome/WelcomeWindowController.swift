@@ -33,7 +33,7 @@ class WelcomeWindowController {
 		window.animationBehavior = .default
 
 		// Setup view
-		window.contentViewController = NSHostingController(rootView: WelcomeView())
+		window.contentViewController = NSHostingController(rootView: WelcomeAuthView())
 
 		// TODO: Remove from production
 		#warning("Remove this from production")

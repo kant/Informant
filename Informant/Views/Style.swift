@@ -33,6 +33,10 @@ class Style {
 		static let black_mid = Color(.displayP3, red: 0, green: 0, blue: 0, opacity: 0.4)
 		static let white_light = Color(.displayP3, red: 1, green: 1, blue: 1, opacity: 0.15)
 	}
+
+	public enum Padding {
+		static let welcomeWindow: CGFloat = 25.0
+	}
 }
 
 extension Text {
@@ -62,6 +66,19 @@ extension Text {
 			.kerning(-0.25)
 			.lineLimit(lineLimit)
 			.opacity(Style.Text.opacity)
+	}
+
+	func Body(size: CGFloat = 14, weight: Font.Weight = .regular) -> some View {
+		self.font(.system(size: size, weight: weight))
+			.lineSpacing(3.0)
+			.multilineTextAlignment(.center)
+			.fixedSize(horizontal: false, vertical: true)
+	}
+
+	func WelcomeHeaderFont() -> some View {
+		self.font(.system(size: 22))
+			.fontWeight(.semibold)
+			.multilineTextAlignment(.center)
 	}
 
 	func SettingsLabelFont(padding: CGFloat = 10) -> some View {
