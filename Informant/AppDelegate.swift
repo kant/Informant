@@ -72,9 +72,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// The view for the interface.
 	public var contentView: ContentView!
 
+	/// Lets us know the state of accessibility permission
+	var privacyAccessibilityEnabled: Bool?
+
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {
+
+		// MARK: - Privacy Init
+
+		// TODO: Clean up this section - it asks for accessiblity permissions
+		// Check accssibility authorization. Reminder: This only shows up with no sandbox or a distribution profile
+		privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Settings Init
 
@@ -173,17 +182,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Setup the settings window
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
-		}
-
-		// MARK: - Privacy Init
-
-		// TODO: Clean up this section - it asks for accessiblity permissions
-		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true]
-		let accessEnabled = AXIsProcessTrustedWithOptions(options)
-
-		// A simple error message if access is not enabled
-		if !accessEnabled {
-			print(ContentManager.Messages.setupAccessibilityNotEnabled)
 		}
 
 		// MARK: - Welcome Init
