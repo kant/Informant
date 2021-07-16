@@ -14,6 +14,7 @@ struct PanelNoItem: View {
 			Text(ContentManager.Titles.panelNoItemsSelected)
 				.H1()
 				.opacity(Style.Text.opacity)
+				.padding([.top], 1)
 		}
 	}
 }
