@@ -49,50 +49,50 @@ struct ComponentsPanelErrorFrame: View {
 
 	let icon: String
 	let label: String
+	let padding: CGFloat
 	let action: (() -> Void)?
 	let buttonLabel: String?
 
-	internal init(icon: String, label: String, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+	internal init(icon: String, label: String, padding: CGFloat, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
 		self.icon = icon
 		self.label = label
+		self.padding = padding
 		self.action = action
 		self.buttonLabel = buttonLabel
 	}
 
 	var body: some View {
-		ComponentsPanelReducedFrame {
-			VStack(spacing: 6) {
 
-				Text(icon)
-					.H1()
-					.opacity(Style.Text.opacity)
+		VStack(alignment: .center, spacing: 6) {
 
-				Text(label)
-					.H1()
-					.opacity(Style.Text.opacity)
+			Text(icon)
+				.H1()
+				.opacity(Style.Text.opacity)
 
-				// Button
-				if let action = action, let buttonLabel = buttonLabel {
+			Text(label)
+				.H1()
+				.opacity(Style.Text.opacity)
 
-					Button {
-						action()
-					} label: {
-						ZStack {
-							RoundedRectangle(cornerRadius: 6.0)
-								.opacity(0.1)
+			// Button
+			if let action = action, let buttonLabel = buttonLabel {
 
-							Text(buttonLabel)
-								.H3(opacity: 0.85)
-								.padding([.vertical], 4)
-								.padding([.horizontal], 9)
-						}
+				Button {
+					action()
+				} label: {
+					ZStack {
+						RoundedRectangle(cornerRadius: 6.0)
+							.opacity(0.1)
+
+						Text(buttonLabel)
+							.H3(opacity: 0.85)
+							.padding([.vertical], 4)
+							.padding([.horizontal], 9)
 					}
-					.buttonStyle(BorderlessButtonStyle())
 				}
+				.buttonStyle(BorderlessButtonStyle())
 			}
 		}
-		.fixedSize()
-		.padding([.vertical], 10)
+		.padding([.vertical], padding)
 	}
 }
 

@@ -27,7 +27,7 @@ class ContentManager {
 	// MARK: - Titles
 	public enum Titles {
 		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
-		static let panelErrorTitle = NSLocalizedString("Unable to get selection", comment: "The title displayed when the selection errors out")
+		static let panelErrorTitle = NSLocalizedString("Can't get selection", comment: "The title displayed when the selection errors out")
 	}
 
 	// MARK: - Settings Labels

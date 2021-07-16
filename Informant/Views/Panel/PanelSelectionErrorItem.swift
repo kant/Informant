@@ -12,7 +12,9 @@ struct PanelSelectionErrorItem: View {
 	var body: some View {
 		ComponentsPanelErrorFrame(
 			icon: "􀇾",
-			label: ContentManager.Titles.panelErrorTitle
+			label: ContentManager.Titles.panelErrorTitle,
+			padding: 6
 		)
+		.padding([.bottom], 2)
 	}
 }

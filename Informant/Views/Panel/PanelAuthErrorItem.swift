@@ -12,6 +12,7 @@ struct PanelAuthErrorItem: View {
 		ComponentsPanelErrorFrame(
 			icon: "􀎣",
 			label: "Unauthorized",
+			padding: 0,
 			buttonLabel: "Authorize") {
 				print("Time to auth")
 		}
