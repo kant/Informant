@@ -209,6 +209,9 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showPanel() {
 
+		// Get the authorization status here
+		settings.privacyAccessibilityEnabled = AXIsProcessTrusted()
+
 		// Reset panel snap zone always
 		settings.setIsPanelInSnapZone(false)
 
@@ -263,7 +266,7 @@ class StatusBarController {
 		panel.alphaValue = 1
 
 		// This is the window's hiding animation
-		NSAnimationContext.runAnimationGroup { (context) -> Void in
+		NSAnimationContext.runAnimationGroup { context -> Void in
 			context.duration = TimeInterval(0.25)
 			panel.animator().alphaValue = 0
 		} completionHandler: {
@@ -275,8 +278,13 @@ class StatusBarController {
 	/// As well, makes sure that hiding state is set properly.
 	func updateInterfaces() {
 
+		// Get the authorization status here
+		settings.privacyAccessibilityEnabled = AXIsProcessTrusted()
+
 		// Wipe the menubar utility
-		updateMenubarUtility()
+		if settings.privacyAccessibilityEnabled == true {
+			updateMenubarUtility()
+		}
 
 		// Make sure the interface is visible
 		if panel.isVisible {
@@ -479,7 +487,7 @@ class StatusBarController {
 			settings.setIsPanelInSnapZone(false)
 
 			// Animates window to 0 opacity and then calls to the next animation phase
-			NSAnimationContext.runAnimationGroup { (context) -> Void in
+			NSAnimationContext.runAnimationGroup { context -> Void in
 				context.duration = TimeInterval(0.15)
 				panel.animator().alphaValue = 0
 			} completionHandler: {

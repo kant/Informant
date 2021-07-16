@@ -225,6 +225,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			name: NSPanel.willMoveNotification,
 			object: panel
 		)
+
+		DistributedNotificationCenter.default().addObserver(
+			forName: NSNotification.Name("com.apple.accessibility.api"),
+			object: nil,
+			queue: nil
+		) { _ in
+			self.didAccessibilityChange()
+		}
 	}
 
 	// Insert code here to tear down your application
@@ -235,6 +243,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Stop listening to the keyboard
 		statusBarController?.monitorKeyPress?.stop()
+	}
+
+	// --- Selectors for sys. pref. changes ⤵︎ ---
+
+	@objc func didAccessibilityChange() {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			self.interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
+		}
 	}
 
 	// --- Selectors for the panel movement notifications ⤵︎ ---

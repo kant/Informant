@@ -92,12 +92,16 @@ class InterfaceHelper {
 		// Grab current app delegate
 		let appDelegate = AppDelegate.current()
 
-		// Check to make sure a file is selected before executing logic
-		let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData()
+		// Check accessibility
+		if appDelegate.interfaceState.privacyAccessibilityEnabled == true {
 
-		// Find selected files
-		appDelegate.interfaceData = selectedItems
-		appDelegate.contentView.interfaceData = appDelegate.interfaceData
+			// Check to make sure a file is selected before executing logic
+			let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData()
+
+			// Find selected files
+			appDelegate.interfaceData = selectedItems
+			appDelegate.contentView.interfaceData = appDelegate.interfaceData
+		}
 
 		// Update popover after hotkey press
 		UpdateInterface()
