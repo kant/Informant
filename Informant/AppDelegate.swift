@@ -57,10 +57,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var settingsWindowController: SettingsWindowController!
 
 	/// This sets up and controls the welcome window
-	public var welcomeWindowController: WelcomeWindowController!
+	public var authWindowController: WelcomeWindowController!
 
 	/// This is the welcome window that's presented when the user first starts the application
-	public var welcomeWindow: NSInformantWindow!
+	public var privacyAccessibilityWindow: NSInformantWindow!
 
 	// MARK: - Extra
 	/// This helps work out the security scoping issue
@@ -92,10 +92,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		cache = Cache()
 
-//		// MARK: - Privacy Init
-//
-//		// Check accssibility authorization. Reminder: This only shows up with no sandbox or a distribution profile
-//		interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
+		// MARK: - Privacy Init
+
+		// Check accssibility authorization. Reminder: Prompt only shows up with no sandbox or a distribution profile
+		interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Menu Init
 
@@ -180,19 +180,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
 
-		// MARK: - Welcome Init
+		// MARK: - Privacy Accessibiltiy Window Init
 
-		welcomeWindow = NSInformantWindow(
+		privacyAccessibilityWindow = NSInformantWindow(
 			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
 			styleMask: [.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar],
 			backing: .buffered,
 			defer: false
 		)
 
-		// Setup the welcome window
-		if let welcomeWindow = welcomeWindow {
-			welcomeWindowController = WelcomeWindowController(welcomeWindow)
+		// Setup the auth window
+		if let authWindow = privacyAccessibilityWindow {
+			authWindowController = WelcomeWindowController(authWindow)
 		}
+
+		// Open the auth window if no access is available
+		if interfaceState.privacyAccessibilityEnabled == false {
+			authWindowController.open()
+		}
+
+		// MARK: - Welcome Window Init
 
 		// MARK: - App Init
 
@@ -250,7 +257,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	@objc func didAccessibilityChange() {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-			self.interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
+			let isProcessTrusted = AXIsProcessTrusted()
+
+			if isProcessTrusted {
+				self.authWindowController.close()
+			}
+
+			self.interfaceState.privacyAccessibilityEnabled = isProcessTrusted
 			self.statusBarController?.updateInterfaces()
 		}
 	}

@@ -40,8 +40,6 @@ class WelcomeWindowController {
 		 #warning("Remove this from production")
 		 open()
 		 */
-		
-		// Start authorization sequence
 	}
 
 	/// Opens up the settings window
@@ -49,5 +47,10 @@ class WelcomeWindowController {
 		window.center()
 		window.makeKeyAndOrderFront(nil)
 		NSRunningApplication.current.activate(options: .activateIgnoringOtherApps)
+	}
+
+	/// Closes down the window
+	func close() {
+		window.close()
 	}
 }

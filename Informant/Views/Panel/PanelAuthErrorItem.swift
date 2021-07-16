@@ -14,7 +14,9 @@ struct PanelAuthErrorItem: View {
 			label: "Unauthorized",
 			padding: 0,
 			buttonLabel: "Authorize") {
-				print("Time to auth")
+
+				// Open the window to get the user to enable accessibility access
+				AppDelegate.current().authWindowController.open()
 		}
 	}
 }
