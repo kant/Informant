@@ -278,13 +278,8 @@ class StatusBarController {
 	/// As well, makes sure that hiding state is set properly.
 	func updateInterfaces() {
 
-		// Get the authorization status here
-		settings.privacyAccessibilityEnabled = AXIsProcessTrusted()
-
 		// Wipe the menubar utility
-		if settings.privacyAccessibilityEnabled == true {
-			updateMenubarUtility()
-		}
+		updateMenubarUtility()
 
 		// Make sure the interface is visible
 		if panel.isVisible {
@@ -322,7 +317,7 @@ class StatusBarController {
 
 	/// Checks if the menubar utility is visible based on user settings
 	func checkMenubarUtilitySettings() {
-		if settings.settingsMenubarUtilityBool {
+		if settings.settingsMenubarUtilityBool, settings.privacyAccessibilityEnabled == true {
 			MenubarUtilityHelper.updateSize(statusItem)
 		}
 		else {

@@ -226,6 +226,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			object: panel
 		)
 
+		/// https://stackoverflow.com/a/56206516/13142325
 		DistributedNotificationCenter.default().addObserver(
 			forName: NSNotification.Name("com.apple.accessibility.api"),
 			object: nil,
@@ -250,6 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@objc func didAccessibilityChange() {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			self.interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
+			self.statusBarController?.updateInterfaces()
 		}
 	}
 
