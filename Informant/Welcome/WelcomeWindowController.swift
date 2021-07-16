@@ -40,6 +40,8 @@ class WelcomeWindowController {
 		 #warning("Remove this from production")
 		 open()
 		 */
+		
+		// Start authorization sequence
 	}
 
 	/// Opens up the settings window

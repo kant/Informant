@@ -72,18 +72,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// The view for the interface.
 	public var contentView: ContentView!
 
-	/// Lets us know the state of accessibility permission
-	var privacyAccessibilityEnabled: Bool?
-
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {
-
-		// MARK: - Privacy Init
-
-		// TODO: Clean up this section - it asks for accessiblity permissions
-		// Check accssibility authorization. Reminder: This only shows up with no sandbox or a distribution profile
-		privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Settings Init
 
@@ -100,6 +91,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		contentView = ContentView()
 
 		cache = Cache()
+
+//		// MARK: - Privacy Init
+//
+//		// Check accssibility authorization. Reminder: This only shows up with no sandbox or a distribution profile
+//		interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Menu Init
 

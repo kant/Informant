@@ -44,6 +44,58 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
+/// Used for error messages on the panel
+struct ComponentsPanelErrorFrame: View {
+
+	let icon: String
+	let label: String
+	let action: (() -> Void)?
+	let buttonLabel: String?
+
+	internal init(icon: String, label: String, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+		self.icon = icon
+		self.label = label
+		self.action = action
+		self.buttonLabel = buttonLabel
+	}
+
+	var body: some View {
+		ComponentsPanelReducedFrame {
+			VStack(spacing: 6) {
+
+				Text(icon)
+					.H1()
+					.opacity(Style.Text.opacity)
+
+				Text(label)
+					.H1()
+					.opacity(Style.Text.opacity)
+
+				// Button
+				if let action = action, let buttonLabel = buttonLabel {
+
+					Button {
+						action()
+					} label: {
+						ZStack {
+							RoundedRectangle(cornerRadius: 6.0)
+								.opacity(0.1)
+
+							Text(buttonLabel)
+								.H3(opacity: 0.85)
+								.padding([.vertical], 4)
+								.padding([.horizontal], 9)
+						}
+					}
+					.buttonStyle(BorderlessButtonStyle())
+				}
+			}
+		}
+		.fixedSize()
+		.padding([.vertical], 10)
+	}
+}
+
 // MARK: - Panel Labels
 
 struct ComponentsPanelHeader: View {

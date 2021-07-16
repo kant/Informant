@@ -10,6 +10,7 @@ import Foundation
 /// Parameters can be added here that need to be observed for the content view
 class InterfaceState: ObservableObject {
 
+	// MARK: - Interface State
 	/// Detects if the panel itself is in the panel snap zone
 	@Published var isPanelInSnapZone: Bool = false
 
@@ -39,8 +40,12 @@ class InterfaceState: ObservableObject {
 	/// Keeps track of which hover zone the mouse is in
 	@Published var closeHoverZone: CloseHoverZones?
 
-	// MARK: - Settings Data
+	// MARK: - Privacy Data
 
+	/// Lets us know the state of accessibility permission
+	@Published var privacyAccessibilityEnabled: Bool? = AXIsProcessTrusted()
+
+	// MARK: - Settings Data
 	@Published var settingsRootURL: String? = UserDefaults.standard.string(forKey: .keyRootURL) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyRootURL)

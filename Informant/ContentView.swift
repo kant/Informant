@@ -76,36 +76,45 @@ struct ContentView: View {
 				// So we can add padding to the main interface
 				VStack(alignment: .center, spacing: 0) {
 
-					// Figure out which view to present based on the # of items selected
-					switch interfaceData?.selection?.selectionType {
+					// Confirm that accessibility is enabled
+					if interfaceState.privacyAccessibilityEnabled == true {
 
-					// MARK: - Singles
+						// MARK: - Selection View Picker
+						// Figure out which view to present based on the # of items selected
+						switch interfaceData?.selection?.selectionType {
 
-					// One item selected - no metadata
-					case .Single: PanelSingleItem(interfaceData?.selection)
+						// MARK: - Singles
+						// One item selected - no metadata
+						case .Single: PanelSingleItem(interfaceData?.selection)
 
-					// One item selected - with metadata ⤵︎
-					case .Image: PanelSingleImageItem(interfaceData?.selection)
+						// One item selected - with metadata ⤵︎
+						case .Image: PanelSingleImageItem(interfaceData?.selection)
 
-					case .Movie: PanelSingleMovieItem(interfaceData?.selection)
+						case .Movie: PanelSingleMovieItem(interfaceData?.selection)
 
-					case .Audio: PanelSingleAudioItem(interfaceData?.selection)
+						case .Audio: PanelSingleAudioItem(interfaceData?.selection)
 
-					case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
+						case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
 
-					case .Application: PanelSingleApplicationItem(interfaceData?.selection)
+						case .Application: PanelSingleApplicationItem(interfaceData?.selection)
 
-					case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
+						case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
 
-					// MARK: - Multi
-					// More than one item selected
-					case .Multi: PanelMultiItem(interfaceData?.selection)
+						// MARK: - Multi
+						// More than one item selected
+						case .Multi: PanelMultiItem(interfaceData?.selection)
 
-					// Errors
-					case .Error: PanelErrorItem()
+						// Errors
+						case .Error: PanelSelectionErrorItem()
 
-					// No items selected
-					default: PanelNoItem()
+						// No items selected
+						default: PanelNoItem()
+						}
+					}
+
+					// Otherwise show the 'not-authorized' view
+					else {
+						PanelAuthErrorItem()
 					}
 				}
 				.padding(.horizontal, 15)
