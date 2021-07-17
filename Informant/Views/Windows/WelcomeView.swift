@@ -5,12 +5,15 @@
 //  Created by Ty Irvine on 2021-07-16.
 //
 
+import LaunchAtLogin
 import SwiftUI
 
 // TODO: Finish this view
 struct WelcomeView: View {
 	
 	private let confettiFrameSize: CGFloat = 140
+	
+//	public var interfaceState: InterfaceState
 	
 	var body: some View {
 
@@ -31,23 +34,29 @@ struct WelcomeView: View {
 				ComponentsWindowAppIcon()
 			}
 	
-			// Text stack
-			VStack {
-				
-				// Welcome message
-				Text("You're ready to use Informant!")
-					.WelcomeHeaderFont()
-					.fixedSize(horizontal: false, vertical: true)
+			// Welcome message
+			Text("You're ready to use Informant!")
+				.WelcomeHeaderFont()
+				.fixedSize(horizontal: false, vertical: true)
 			
-				Spacer().frame(height: 5)
+			Spacer().frame(height: 5)
 			
-				// How to use Informant
-				Text("To use Informant, select a file, and its size will appear in the menu bar.")
 					.Body()
+			// How to use Informant
+			Text("To use Informant, select a file, and its size will appear in the menu bar.")
+				.Body()
 			
-				Spacer().frame(height: Style.Padding.welcomeWindow)
+			Spacer().frame(height: Style.Padding.welcomeWindow)
+				
+			// How-to-use image
+				
+			Divider().frame(height: Style.Padding.welcomeWindow)
 			
+			// Options stack
+			VStack(spacing: Style.Padding.welcomeWindow) {
+				
 				// Ask if they want to be logged in automatically
+				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup)
 			
 				// Ask for root url
 			}
