@@ -83,7 +83,17 @@ extension NSPanel {
 }
 
 /// Allows NSWindow to be focusable
-class NSInformantWindow: NSWindow {
+class NSIFWindow: NSWindow {
+
+	init(_ styleMask: NSWindow.StyleMask) {
+		super.init(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: styleMask,
+			backing: .buffered,
+			defer: false
+		)
+	}
+
 	override open var canBecomeKey: Bool {
 		return true
 	}

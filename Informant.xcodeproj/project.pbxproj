@@ -48,7 +48,7 @@
 		9A7F3B4C2626A37E00BD878F /* AppleScriptsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */; };
 		9A7F3B512626BA2700BD878F /* ExtensionsGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */; };
 		9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9061A0266AC1780043A334 /* PanelProtocol.swift */; };
-		9A97E0C1269E68C600FF757B /* WelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C0269E68C600FF757B /* WelcomeWindowController.swift */; };
+		9A97E0C1269E68C600FF757B /* IFWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C0269E68C600FF757B /* IFWindowController.swift */; };
 		9A97E0C3269E6BA400FF757B /* WelcomeAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C2269E6BA400FF757B /* WelcomeAuthView.swift */; };
 		9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */; };
 		9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */; };
@@ -172,7 +172,7 @@
 		9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScriptsHelper.swift; sourceTree = "<group>"; };
 		9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsGlobal.swift; sourceTree = "<group>"; };
 		9A9061A0266AC1780043A334 /* PanelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelProtocol.swift; sourceTree = "<group>"; };
-		9A97E0C0269E68C600FF757B /* WelcomeWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowController.swift; sourceTree = "<group>"; };
+		9A97E0C0269E68C600FF757B /* IFWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFWindowController.swift; sourceTree = "<group>"; };
 		9A97E0C2269E6BA400FF757B /* WelcomeAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAuthView.swift; sourceTree = "<group>"; };
 		9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceCloseController.swift; sourceTree = "<group>"; };
 		9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCloseButton.swift; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 		9A97E0BF269E68B100FF757B /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				9A97E0C0269E68C600FF757B /* WelcomeWindowController.swift */,
+				9A97E0C0269E68C600FF757B /* IFWindowController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,
 				9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */,
-				9A97E0C1269E68C600FF757B /* WelcomeWindowController.swift in Sources */,
+				9A97E0C1269E68C600FF757B /* IFWindowController.swift in Sources */,
 				9A2DDF912686989000DB84BA /* PanelSingleVolumeItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

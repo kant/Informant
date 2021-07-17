@@ -16,7 +16,7 @@ struct PanelAuthErrorItem: View {
 			buttonLabel: "Authorize") {
 
 				// Open the window to get the user to enable accessibility access
-				AppDelegate.current().authWindowController.open()
+				AppDelegate.current().privacyAccessibilityWindowController.open()
 		}
 	}
 }

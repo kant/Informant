@@ -51,16 +51,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	// MARK: - Settings
 	/// This is the window that displays all settings to the user
-	public var settingsWindow: NSInformantWindow!
+	public var settingsWindow: NSIFWindow!
 
 	/// This sets up and controls the settings window's state
 	public var settingsWindowController: SettingsWindowController!
 
-	/// This sets up and controls the welcome window
-	public var authWindowController: WelcomeWindowController!
+	/// This sets up and controls the privacy accessibility authorization window
+	public var privacyAccessibilityWindowController: IFWindowController<WelcomeAuthView>!
 
-	/// This is the welcome window that's presented when the user first starts the application
-	public var privacyAccessibilityWindow: NSInformantWindow!
+	/// This is the auth window that's presented when the user doesn't have accessibility controls enabled
+	public var privacyAccessibilityWindow: NSIFWindow!
+
+	/// This sets up and controls the welcome window
+	public var welcomeWindowController: IFWindowController<EmptyView>!
+
+	/// This is the welcome window that appears the first time the app is opened after an install
+	public var welcomeWindow: NSIFWindow!
 
 	// MARK: - Extra
 	/// This helps work out the security scoping issue
@@ -168,12 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Settings Init
 
-		settingsWindow = NSInformantWindow(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar],
-			backing: .buffered,
-			defer: false
-		)
+		settingsWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar])
 
 		// Setup the settings window
 		if let settingsWindow = settingsWindow {
@@ -182,24 +183,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Privacy Accessibiltiy Window Init
 
-		privacyAccessibilityWindow = NSInformantWindow(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar],
-			backing: .buffered,
-			defer: false
-		)
+		privacyAccessibilityWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
 
 		// Setup the auth window
 		if let authWindow = privacyAccessibilityWindow {
-			authWindowController = WelcomeWindowController(authWindow)
+			privacyAccessibilityWindowController = IFWindowController(authWindow, WelcomeAuthView())
 		}
 
 		// Open the auth window if no access is available
 		if interfaceState.privacyAccessibilityEnabled == false {
-			authWindowController.open()
+			privacyAccessibilityWindowController.open()
 		}
 
 		// MARK: - Welcome Window Init
+
+		// Check if this is the first app execution after install
+		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
+
+			welcomeWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
+
+			// Setup the welcome window
+			if let welcomeWindow = welcomeWindow {
+				welcomeWindowController = IFWindowController(welcomeWindow, EmptyView())
+			}
+		}
 
 		// MARK: - App Init
 
@@ -257,10 +264,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	@objc func didAccessibilityChange() {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+
+			// Check to see if accessibility controls are enabled in sys. prefs.
 			let isProcessTrusted = AXIsProcessTrusted()
 
+			// Accessibility controls were just enabled
 			if isProcessTrusted {
-				self.authWindowController.close()
+				self.privacyAccessibilityWindowController.close()
+
+				// Check if it's the first app run after install
+				if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
+					self.welcomeWindowController.open()
+
+					// Write that the first run after install has been acknowledged
+					UserDefaults.standard.setValue(false, forKey: .keyShowWelcomeWindow)
+				}
 			}
 
 			self.interfaceState.privacyAccessibilityEnabled = isProcessTrusted

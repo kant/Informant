@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-class WelcomeWindowController {
+class IFWindowController<Content: View> {
 
-	var window: NSInformantWindow
+	var window: NSIFWindow
 	var appDelegate: AppDelegate
 
-	init(_ windowRef: NSInformantWindow) {
+	init(_ windowRef: NSIFWindow, _ rootView: Content) {
 
 		window = windowRef
 		appDelegate = AppDelegate.current()
@@ -33,7 +33,7 @@ class WelcomeWindowController {
 		window.animationBehavior = .default
 
 		// Setup view
-		window.contentViewController = NSHostingController(rootView: WelcomeAuthView())
+		window.contentViewController = NSHostingController(rootView: rootView)
 
 		/*
 		 // TODO: Remove from production

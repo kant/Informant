@@ -18,7 +18,8 @@ extension AppDelegate {
 			.keyPanelEnablePathProp: true,
 			.keyPanelEnableCreatedProp: true,
 			.keyPanelEnableNameProp: false,
-			.keyPanelShowFullPath: true
+			.keyPanelShowFullPath: true,
+			.keyShowWelcomeWindow: true
 		])
 	}
 }
@@ -41,4 +42,6 @@ public extension String {
 	static let keyPanelEnablePathProp = "panelEnablePathProp"
 	
 	static let keyPanelEnableCreatedProp = "panelEnableCreatedProp"
+	
+	static let keyShowWelcomeWindow = "welcomeWindowShow"
 }
