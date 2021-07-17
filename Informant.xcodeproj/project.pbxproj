@@ -49,7 +49,8 @@
 		9A7F3B512626BA2700BD878F /* ExtensionsGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */; };
 		9A9061A1266AC1780043A334 /* PanelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9061A0266AC1780043A334 /* PanelProtocol.swift */; };
 		9A97E0C1269E68C600FF757B /* IFWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C0269E68C600FF757B /* IFWindowController.swift */; };
-		9A97E0C3269E6BA400FF757B /* WelcomeAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C2269E6BA400FF757B /* WelcomeAuthView.swift */; };
+		9A97E0C3269E6BA400FF757B /* AuthAccessibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C2269E6BA400FF757B /* AuthAccessibilityView.swift */; };
+		9A97E0C526A2573700FF757B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C426A2573700FF757B /* WelcomeView.swift */; };
 		9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */; };
 		9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */; };
 		9A9C1B93268B8378001CF265 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */; };
@@ -173,7 +174,8 @@
 		9A7F3B502626BA2700BD878F /* ExtensionsGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsGlobal.swift; sourceTree = "<group>"; };
 		9A9061A0266AC1780043A334 /* PanelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelProtocol.swift; sourceTree = "<group>"; };
 		9A97E0C0269E68C600FF757B /* IFWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFWindowController.swift; sourceTree = "<group>"; };
-		9A97E0C2269E6BA400FF757B /* WelcomeAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAuthView.swift; sourceTree = "<group>"; };
+		9A97E0C2269E6BA400FF757B /* AuthAccessibilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAccessibilityView.swift; sourceTree = "<group>"; };
+		9A97E0C426A2573700FF757B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceCloseController.swift; sourceTree = "<group>"; };
 		9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCloseButton.swift; sourceTree = "<group>"; };
 		9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
@@ -474,7 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				9A7F3B28262693BE00BD878F /* SettingsView.swift */,
-				9A97E0C2269E6BA400FF757B /* WelcomeAuthView.swift */,
+				9A97E0C2269E6BA400FF757B /* AuthAccessibilityView.swift */,
+				9A97E0C426A2573700FF757B /* WelcomeView.swift */,
 			);
 			path = Windows;
 			sourceTree = "<group>";
@@ -724,7 +727,7 @@
 				9A7F3B4C2626A37E00BD878F /* AppleScriptsHelper.swift in Sources */,
 				9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */,
 				9A64FC9D26266D0800CE52E4 /* GlobalEventMonitor.swift in Sources */,
-				9A97E0C3269E6BA400FF757B /* WelcomeAuthView.swift in Sources */,
+				9A97E0C3269E6BA400FF757B /* AuthAccessibilityView.swift in Sources */,
 				9A7F3B2226268F5F00BD878F /* ExtensionsShortcuts.swift in Sources */,
 				9A9C1B97268B9D22001CF265 /* ComponentsPanelTags.swift in Sources */,
 				9A2DDF95268A585A00DB84BA /* SingleErrorSelection.swift in Sources */,
@@ -735,6 +738,7 @@
 				9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */,
 				9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */,
 				9A481FB2267921BE006B91C2 /* PasteboardHelper.swift in Sources */,
+				9A97E0C526A2573700FF757B /* WelcomeView.swift in Sources */,
 				9A481FAE26782335006B91C2 /* PanelAlert.swift in Sources */,
 				9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */,
 				9A97E0C1269E68C600FF757B /* IFWindowController.swift in Sources */,

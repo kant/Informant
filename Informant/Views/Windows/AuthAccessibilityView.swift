@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeAuthView: View {
+struct AuthAccessibilityView: View {
 
 	private let appIconSize: CGFloat = 100
 

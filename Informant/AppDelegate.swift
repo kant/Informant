@@ -57,13 +57,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var settingsWindowController: SettingsWindowController!
 
 	/// This sets up and controls the privacy accessibility authorization window
-	public var privacyAccessibilityWindowController: IFWindowController<WelcomeAuthView>!
+	public var privacyAccessibilityWindowController: IFWindowController<AuthAccessibilityView>!
 
 	/// This is the auth window that's presented when the user doesn't have accessibility controls enabled
 	public var privacyAccessibilityWindow: NSIFWindow!
 
 	/// This sets up and controls the welcome window
-	public var welcomeWindowController: IFWindowController<EmptyView>!
+	public var welcomeWindowController: IFWindowController<WelcomeView>!
 
 	/// This is the welcome window that appears the first time the app is opened after an install
 	public var welcomeWindow: NSIFWindow!
@@ -187,7 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Setup the auth window
 		if let authWindow = privacyAccessibilityWindow {
-			privacyAccessibilityWindowController = IFWindowController(authWindow, WelcomeAuthView())
+			privacyAccessibilityWindowController = IFWindowController(authWindow, AuthAccessibilityView())
 		}
 
 		// Open the auth window if no access is available
@@ -204,7 +204,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 			// Setup the welcome window
 			if let welcomeWindow = welcomeWindow {
-				welcomeWindowController = IFWindowController(welcomeWindow, EmptyView())
+				welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView())
 			}
 		}
 
