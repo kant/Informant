@@ -9,17 +9,13 @@ import SwiftUI
 
 struct AuthAccessibilityView: View {
 
-	private let appIconSize: CGFloat = 100
-
 	var body: some View {
 
 		// Main stack
 		VStack(alignment: .center) {
 
 			// Image
-			Image(nsImage: NSImage(named: ContentManager.Images.appIcon) ?? NSImage())
-				.resizable()
-				.frame(width: appIconSize, height: appIconSize, alignment: .center)
+			ComponentsWindowAppIcon()
 
 			// Welcome
 			Text("Authorize Informant")

@@ -51,6 +51,7 @@
 		9A97E0C1269E68C600FF757B /* IFWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C0269E68C600FF757B /* IFWindowController.swift */; };
 		9A97E0C3269E6BA400FF757B /* AuthAccessibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C2269E6BA400FF757B /* AuthAccessibilityView.swift */; };
 		9A97E0C526A2573700FF757B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C426A2573700FF757B /* WelcomeView.swift */; };
+		9A97E0C726A32CDA00FF757B /* ComponentsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A97E0C626A32CDA00FF757B /* ComponentsWindow.swift */; };
 		9A9C1B8F268AA575001CF265 /* InterfaceCloseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */; };
 		9A9C1B91268AA706001CF265 /* PanelCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */; };
 		9A9C1B93268B8378001CF265 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */; };
@@ -176,6 +177,7 @@
 		9A97E0C0269E68C600FF757B /* IFWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFWindowController.swift; sourceTree = "<group>"; };
 		9A97E0C2269E6BA400FF757B /* AuthAccessibilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAccessibilityView.swift; sourceTree = "<group>"; };
 		9A97E0C426A2573700FF757B /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		9A97E0C626A32CDA00FF757B /* ComponentsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsWindow.swift; sourceTree = "<group>"; };
 		9A9C1B8E268AA575001CF265 /* InterfaceCloseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceCloseController.swift; sourceTree = "<group>"; };
 		9A9C1B90268AA706001CF265 /* PanelCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelCloseButton.swift; sourceTree = "<group>"; };
 		9A9C1B92268B8378001CF265 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				9ABE178B2632328100EE9F48 /* ComponentsPanel.swift */,
 				9A481FAF267914DA006B91C2 /* ComponentsExtra.swift */,
 				9A9C1BA0268D2734001CF265 /* ComponentsPanelAttributes.swift */,
+				9A97E0C626A32CDA00FF757B /* ComponentsWindow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */,
 				9A2DDF8F2686971200DB84BA /* SingleVolumeSelection.swift in Sources */,
 				9ABE179A26323B7200EE9F48 /* Style.swift in Sources */,
+				9A97E0C726A32CDA00FF757B /* ComponentsWindow.swift in Sources */,
 				9A43165626265D1C0071227C /* StatusBarController.swift in Sources */,
 				9A2DDF702681534F00DB84BA /* SingleDirectorySelection.swift in Sources */,
 				9ABE17D326372F5C00EE9F48 /* InterfaceHelper.swift in Sources */,

@@ -34,12 +34,6 @@ class IFWindowController<Content: View> {
 
 		// Setup view
 		window.contentViewController = NSHostingController(rootView: rootView)
-
-		/*
-		 // TODO: Remove from production
-		 #warning("Remove this from production")
-		 open()
-		 */
 	}
 
 	/// Opens up the settings window

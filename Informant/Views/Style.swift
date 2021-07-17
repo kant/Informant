@@ -37,6 +37,10 @@ class Style {
 	public enum Padding {
 		static let welcomeWindow: CGFloat = 25.0
 	}
+
+	public enum Icons {
+		static let appIconSize: CGFloat = 100
+	}
 }
 
 extension Text {
