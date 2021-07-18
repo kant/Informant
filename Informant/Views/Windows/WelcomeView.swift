@@ -13,7 +13,7 @@ struct WelcomeView: View {
 	
 	private let confettiFrameSize: CGFloat = 140
 	
-//	public var interfaceState: InterfaceState
+	@ObservedObject public var interfaceState: InterfaceState
 	
 	var body: some View {
 
@@ -27,7 +27,7 @@ struct WelcomeView: View {
 					.offset(y: 25)
 					.rotationEffect(Angle(degrees: -8))
 					.mask(
-						LinearGradient(gradient: Gradient(colors: [.black, .black.opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.54), endPoint: UnitPoint(x: 0.5, y: 0.59))
+						LinearGradient(gradient: Gradient(colors: [.black, .black.opacity(0)]), startPoint: UnitPoint(x: 0.5, y: 0.53), endPoint: UnitPoint(x: 0.5, y: 0.58))
 					)
 					.frame(width: confettiFrameSize, height: confettiFrameSize, alignment: .center)
 					
@@ -41,7 +41,6 @@ struct WelcomeView: View {
 			
 			Spacer().frame(height: 5)
 			
-					.Body()
 			// How to use Informant
 			Text("To use Informant, select a file, and its size will appear in the menu bar.")
 				.Body()
@@ -50,16 +49,19 @@ struct WelcomeView: View {
 				
 			// How-to-use image
 				
-			Divider().frame(height: Style.Padding.welcomeWindow)
+			Divider().frame(height: Style.Padding.welcomeWindow + 10)
 			
 			// Options stack
-			VStack(spacing: Style.Padding.welcomeWindow) {
+			VStack(alignment: .center, spacing: Style.Padding.welcomeWindow) {
 				
 				// Ask if they want to be logged in automatically
 				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup)
 			
 				// Ask for root url
+				SettingsPickRootURL(interfaceState.settingsRootURL, AppDelegate.current().welcomeWindow, .center)
+					.fixedSize(horizontal: false, vertical: true)
 			}
+			.padding([.horizontal], 15)
 		}
 		.padding([.horizontal, .bottom], Style.Padding.welcomeWindow)
 		.frame(width: 350)

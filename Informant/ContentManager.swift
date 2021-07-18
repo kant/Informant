@@ -16,10 +16,7 @@ class ContentManager {
 		static let setupAccessibilityNotEnabled = NSLocalizedString("Access Not Enabled", comment: "The message that appears if the user declines accessibility access.")
 
 		static let settingsRootURLDescriptor = NSLocalizedString(
-			"""
-			Choose Macintosh HD. This gives us the security
-			privileges needed to show additional metadata.
-			""",
+			"Required inorder to display additional metadata and the size of a directory. Choose Macintosh HD.",
 			comment: ""
 		)
 	}
@@ -45,7 +42,7 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
-		static let pickRootURL = NSLocalizedString("Disk URL:", comment: "Pick the root url used to give security access to the app.")
+		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
 		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
 

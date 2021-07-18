@@ -204,7 +204,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Setup the welcome window
 		if let welcomeWindow = welcomeWindow {
-			welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView())
+			welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView(interfaceState: interfaceState))
 		}
 
 		#warning("Remove from production")
