@@ -198,18 +198,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// MARK: - Welcome Window Init
 
 		// Check if this is the first app execution after install
-//		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
+		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
 
-		welcomeWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
+			welcomeWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
 
-		// Setup the welcome window
-		if let welcomeWindow = welcomeWindow {
-			welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView(interfaceState: interfaceState))
+			// Setup the welcome window
+			if let welcomeWindow = welcomeWindow {
+				welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView(interfaceState: interfaceState))
+			}
 		}
-
-		#warning("Remove from production")
-		welcomeWindowController.open()
-//		}
 
 		// MARK: - App Init
 
