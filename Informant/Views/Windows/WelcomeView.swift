@@ -29,7 +29,7 @@ struct WelcomeView: View {
 			
 			// App icon
 			ZStack {
-				Image("confetti")
+				Image("welcome-confetti")
 					.scaleEffect(0.5)
 					.offset(y: 25)
 					.rotationEffect(Angle(degrees: -8))
@@ -42,14 +42,14 @@ struct WelcomeView: View {
 			}
 	
 			// Welcome message
-			Text("You're ready to use Informant!")
+			Text(ContentManager.WelcomeLabels.welcomeReadyToUse)
 				.WelcomeHeaderFont()
 				.fixedSize(horizontal: false, vertical: true)
 			
 			Spacer().frame(height: 5)
 			
 			// How to use Informant
-			Text("To use Informant, select a file, and its size will appear in the menu bar.")
+			Text(ContentManager.WelcomeLabels.welcomeHowToUse)
 				.Body()
 			
 			Spacer().frame(height: Style.Padding.welcomeWindow)

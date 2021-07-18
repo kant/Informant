@@ -23,7 +23,7 @@ struct ComponentsPanelTags: View {
 			VStack(alignment: .leading) {
 
 				// Label
-				ComponentsPanelItemLabel(label: "Tags")
+				ComponentsPanelItemLabel(label: ContentManager.Labels.panelTags)
 
 				// All tags
 				WrappingHStack(tags.colourTags, id: \.self, alignment: .leading, spacing: .constant(5)) { tag in

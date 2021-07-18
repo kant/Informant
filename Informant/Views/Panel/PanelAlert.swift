@@ -27,7 +27,7 @@ struct PanelAlert: View {
 			Spacer()
 				.frame(height: 10.0)
 
-			Text("Copied")
+			Text(ContentManager.Extra.popUpCopied)
 				.PanelAlertFont(19)
 
 			Spacer()

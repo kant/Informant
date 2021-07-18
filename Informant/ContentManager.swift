@@ -23,8 +23,40 @@ class ContentManager {
 
 	// MARK: - Titles
 	public enum Titles {
+
 		static let panelNoItemsSelected = NSLocalizedString("No items selected", comment: "String displayed when no items are selected.")
+
 		static let panelErrorTitle = NSLocalizedString("Can't get selection", comment: "The title displayed when the selection errors out")
+	}
+	
+	// MARK: - Colors
+
+	// MARK: - Welcome Labels
+	public enum WelcomeLabels {
+
+		// Authorization labels
+		static let authorizeInformant = NSLocalizedString("Authorize Informant", comment: "Used on authorization welcome screen")
+
+		static let authorizeNeedPermission = NSLocalizedString("Informant needs your permission to read file metadata.", comment: "Used on the authorize panel, it's the body string")
+
+		// Authorization instruction labels
+		static let authorizedInstructionSystemPreferences = NSLocalizedString("Open System Preferences", comment: "Used on auth instructions")
+
+		static let authorizedInstructionSecurity = NSLocalizedString("Click Security & Privacy", comment: "Used on auth instructions")
+
+		static let authorizedInstructionPrivacy = NSLocalizedString("Click Privacy", comment: "Used on auth instructions")
+
+		static let authorizedInstructionScrollAndClick = NSLocalizedString("Scroll down and click Accessibility", comment: "Used on auth instructions")
+
+		static let authorizedInstructionCheckInformant = NSLocalizedString("Check Informant", comment: "Used on auth instructions")
+
+		// Auth. Padlock tidbit
+		static let authorizedInstructionClickLock = NSLocalizedString("If the checkbox is greyed out, click the lock and enter your password.", comment: "Used on authorized welcome panel")
+
+		// Welcome labels
+		static let welcomeReadyToUse = NSLocalizedString("You're ready to use Informant!", comment: "Used on welcome panel")
+
+		static let welcomeHowToUse = NSLocalizedString("To use Informant, select a file, and its size will appear in the menu bar.", comment: "Used on welcome panel")
 	}
 
 	// MARK: - Settings Labels
@@ -117,6 +149,14 @@ class ContentManager {
 
 		static let panelPurgeable = NSLocalizedString("Purgeable", comment: "Purgeable, Used on volume panel view")
 
+		static let panelTags = NSLocalizedString("Tags", comment: "Used on tags panel view")
+
+		static let panelHidden = NSLocalizedString("Hidden", comment: "Used on bottom of the panel view to indicate a hidden file")
+
+		static let panelUnauthorized = NSLocalizedString("Unauthorized", comment: "Used on panel when accessibility api is disabled")
+
+		static let panelAuthorized = NSLocalizedString("Authorized", comment: "Used on panel when accessibility api is disabled")
+
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
 
@@ -155,6 +195,8 @@ class ContentManager {
 		static let items = NSLocalizedString("items", comment: "Items, used in the single directory selection")
 
 		static let item = NSLocalizedString("item", comment: "Singular version of items")
+
+		static let popUpCopied = NSLocalizedString("Copied", comment: "Used on the copied popup")
 	}
 
 	// MARK: - Images

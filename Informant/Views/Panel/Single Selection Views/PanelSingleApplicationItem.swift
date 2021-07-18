@@ -19,7 +19,7 @@ struct PanelSingleApplicationItem: View, PanelProtocol {
 		PanelSingleFrame(selection) {
 
 			// Version #
-			ComponentsPanelItemField(label: "Version", value: selection?.version)
+			ComponentsPanelItemField(label: ContentManager.Labels.panelVersion, value: selection?.version)
 		}
 	}
 }
