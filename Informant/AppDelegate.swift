@@ -181,7 +181,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
 
-		// MARK: - Privacy Accessibiltiy Window Init
+		// MARK: - Privacy Accessibility Window Init
 
 		privacyAccessibilityWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
 

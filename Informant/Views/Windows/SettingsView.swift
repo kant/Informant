@@ -208,7 +208,7 @@ struct SettingsPickRootURL: View {
 	var body: some View {
 
 		// Descriptor
-		VStack {
+		VStack(alignment: textAlignment == .leading ? .leading : .center) {
 
 			// Root URL Stack
 			HStack {
@@ -258,5 +258,6 @@ struct SettingsPickRootURL: View {
 				.SettingsVersionFont()
 				.multilineTextAlignment(textAlignment)
 		}
+		.frame(width: 275)
 	}
 }
