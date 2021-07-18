@@ -60,13 +60,13 @@ class SelectionTags {
 
 	/// Contains all possible colours that macOS supports for tags
 	enum TagMatch {
-		static let Red = SelectionTag(label: "Red", color: .red)
-		static let Orange = SelectionTag(label: "Orange", color: .orange)
-		static let Yellow = SelectionTag(label: "Yellow", color: .yellow)
-		static let Green = SelectionTag(label: "Green", color: .green)
-		static let Blue = SelectionTag(label: "Blue", color: .blue)
-		static let Purple = SelectionTag(label: "Purple", color: .purple)
-		static let Gray = SelectionTag(label: "Gray", color: .gray)
+		static let Red = SelectionTag(label: ContentManager.Colors.Red, color: .red)
+		static let Orange = SelectionTag(label: ContentManager.Colors.Orange, color: .orange)
+		static let Yellow = SelectionTag(label: ContentManager.Colors.Yellow, color: .yellow)
+		static let Green = SelectionTag(label: ContentManager.Colors.Green, color: .green)
+		static let Blue = SelectionTag(label: ContentManager.Colors.Blue, color: .blue)
+		static let Purple = SelectionTag(label: ContentManager.Colors.Purple, color: .purple)
+		static let Gray = SelectionTag(label: ContentManager.Colors.Gray, color: .gray)
 	}
 
 	/// A basic selection tag unit. Can go without colour to just represent a singular tag

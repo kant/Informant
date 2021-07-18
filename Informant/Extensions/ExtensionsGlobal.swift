@@ -32,8 +32,7 @@ extension String {
 		let breakupSentence = components(separatedBy: " ")
 		var newSentence = ""
 
-		// Loop the array and split each word from it's first letter. Capitalize the first letter and then
-		// concaitenate
+		// Loop the array and split each word from it's first letter. Capitalize the first letter and then concatenate
 		for wordInSentence in breakupSentence {
 			let firstLetter = wordInSentence.first!.uppercased()
 			let remainingWord = wordInSentence.suffix(wordInSentence.count - 1)

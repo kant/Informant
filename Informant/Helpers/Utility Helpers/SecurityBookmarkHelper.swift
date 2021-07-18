@@ -24,7 +24,7 @@ class SecurityBookmarkHelper {
 		openPanel.canChooseFiles = false
 		openPanel.showsHiddenFiles = false
 
-		openPanel.prompt = "Grant Access"
+		openPanel.prompt = ContentManager.Titles.openPanelGrantAccess
 		openPanel.directoryURL = URL(fileURLWithPath: "/")
 	}
 
