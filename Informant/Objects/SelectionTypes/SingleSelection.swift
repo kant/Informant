@@ -205,7 +205,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		let type = selectionType
 
 		// Check if the url has a stored byte size in the cache
-		if let cachedSize = url.getCachedByteSize(type) {
+		if let cachedSize = url.getCachedByteSize() {
 			itemSizeAsString = SelectionHelper.formatBytes(cachedSize)
 			return
 		}

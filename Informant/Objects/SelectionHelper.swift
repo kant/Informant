@@ -62,6 +62,51 @@ class SelectionHelper {
 		return nil
 	}
 
+	// MARK: - Sizing Methods
+	/// Grabs the size of the selection and then caches it
+	static func grabSize(_ url: URL, skipDirectories: Bool = false) -> String? {
+
+		let keys: Set<URLResourceKey> = [
+			.isDirectoryKey,
+			.totalFileSizeKey,
+		]
+
+		// Get the url resources
+		let itemResources = SelectionHelper.getURLResources(url, keys)
+
+		// Unwrap the isDirectory value
+		guard let isDirectory = itemResources?.isDirectory else {
+			return nil
+		}
+
+		// Check if the current selection is a directory and if we should skip directories
+		if isDirectory, skipDirectories {
+			return nil
+		}
+
+		// Check if the size is already cached, if so return that
+		else if let cachedSize = url.getCachedByteSize() {
+			return SelectionHelper.formatBytes(cachedSize)
+		}
+
+		// Otherwise grab a new size
+		else {
+
+			// Check if it's a directory
+			if isDirectory {
+				
+			}
+
+			// Otherwise just return a normal size
+			else if let totalSize = itemResources?.totalFileSize {
+				return SelectionHelper.formatBytes(Int64(totalSize))
+			}
+
+			// If everything fails just return nil
+			return nil
+		}
+	}
+
 	// MARK: - Formatting Methods
 	/// Formats the x & y dimensions of a media item into a universal format
 	static func formatDimensions(x: Any?, y: Any?) -> String? {

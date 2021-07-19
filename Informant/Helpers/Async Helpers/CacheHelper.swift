@@ -17,7 +17,7 @@ class Cache {
 	}
 
 	/// Retrieves the byte size from the cache
-	func getByteSizeInCache(_ url: URL, _ type: SelectionHelper.SelectionType) -> DirectorySize? {
+	func getByteSizeInCache(_ url: URL) -> DirectorySize? {
 
 		// Gets the object out of the cache
 		guard let directorySize = directorySizeCache[url] else {
@@ -86,7 +86,7 @@ extension URL {
 	}
 
 	/// Retrieves the byte size from the cache
-	func getCachedByteSize(_ type: SelectionHelper.SelectionType) -> Int64? {
-		return AppDelegate.current().cache.getByteSizeInCache(self, type)?.bytes
+	func getCachedByteSize() -> Int64? {
+		return AppDelegate.current().cache.getByteSizeInCache(self)?.bytes
 	}
 }

@@ -115,7 +115,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	func getDirectorySize(_ url: URL) {
 		
 		// Get size of url from the cache
-		if let size = cache.getByteSizeInCache(url, .Directory) {
+		if let size = cache.getByteSizeInCache(url) {
 			itemSize? += Int(size.bytes)
 		}
 	

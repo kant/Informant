@@ -17,9 +17,6 @@ class MenubarUtilityHelper {
 	/// Update utility size
 	static func updateSize(_ statusItem: NSStatusItem) {
 		
-		/// Contains formatted size
-		var size: String?
-		
 		/// Gets the state of the selection and if it's a duplicate
 		guard let checkedSelection = AppDelegate.current().menubarInterfaceHelper.GetFinderSelection() else {
 			wipeMenubarInterface(statusItem)
@@ -55,33 +52,13 @@ class MenubarUtilityHelper {
 			// Get URL
 			let url = URL(fileURLWithPath: selection[0])
 		
-			// Keys
-			let keys: Set<URLResourceKey> = [
-				.totalFileSizeKey,
-				.isDirectoryKey
-			]
-		
-			// Get the resources
-			if let resources = SelectionHelper.getURLResources(url, keys) {
-			
-				// End execution if it's a directory
-				if resources.isDirectory == true {
-					wipeMenubarInterface(statusItem, resetState: true)
-					return
-				}
-
-				// Get the size
-				else if let fileSize = resources.totalFileSize {
-					size = SelectionHelper.formatBytes(Int64(fileSize))
-				}
-			}
-		
-			// Format size as string
-			guard let size = size else {
+			// Get nil checked formatted size
+			guard let size = SelectionHelper.grabSize(url) else {
 				wipeMenubarInterface(statusItem)
 				return
 			}
 		
+			// Format size as string
 			sizeAsString = size + "    "
 		
 			updateMenubarInterface(statusItem)
