@@ -124,19 +124,22 @@ struct ComponentsPanelHeader: View {
 			}
 
 			// Header stack
-			if headerTitle != nil, headerSubtitle != nil {
-				VStack(alignment: .leading, spacing: 0) {
-					// Title
-					Text(headerTitle!).PanelTitleFont()
+			VStack(alignment: .leading, spacing: 0) {
 
-					Spacer()
-						.frame(height: 2)
-
-					// Subtitle
-					Text(headerSubtitle!).H4()
+				// Title
+				if let headerTitle = headerTitle {
+					Text(headerTitle).PanelTitleFont()
 				}
-				.padding(.leading, 7)
+
+				Spacer()
+					.frame(height: 2)
+
+				// Subtitle
+				if let headerSubtitle = headerSubtitle {
+					Text(headerSubtitle).H4()
+				}
 			}
+			.padding(.leading, 7)
 
 			Spacer(minLength: 0)
 		}

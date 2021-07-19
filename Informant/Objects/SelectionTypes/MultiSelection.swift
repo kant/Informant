@@ -51,7 +51,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 			asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))
 		} else {
-			itemSizeAsString = State.Unavailable
+			itemSizeAsString = nil
 		}
 		
 		// MARK: - Establish Icon Collection
