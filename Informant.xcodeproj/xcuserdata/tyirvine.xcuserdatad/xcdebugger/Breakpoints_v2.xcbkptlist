@@ -46,9 +46,9 @@
             filePath = "Informant/Controllers/InterfaceHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "DisplayUpdatedInterface()"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "DisplayUpdatedInterface(force:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

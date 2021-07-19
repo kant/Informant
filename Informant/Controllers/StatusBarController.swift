@@ -216,7 +216,7 @@ class StatusBarController {
 		settings.setIsPanelInSnapZone(false)
 
 		// Show panel
-		updatePanel()
+		updatePanel(force: true)
 		panel.setIsVisible(true)
 		monitorsStart()
 
@@ -288,10 +288,10 @@ class StatusBarController {
 	}
 
 	/// Updates the panel interface itself. This can be used to force updates
-	func updatePanel() {
+	func updatePanel(force: Bool = false) {
 
 		// Open up the interface
-		InterfaceHelper.DisplayUpdatedInterface()
+		InterfaceHelper.DisplayUpdatedInterface(force: force)
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open
