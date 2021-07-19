@@ -100,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Privacy Init
 
-		// Check accssibility authorization. Reminder: Prompt only shows up with no sandbox or a distribution profile
+		// Check accessibility authorization. Reminder: Prompt only shows up with no sandbox or a distribution profile
 		interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Menu Init

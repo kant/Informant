@@ -12,8 +12,8 @@ class Style {
 	public enum Text {
 		static let opacity = 0.5
 		static let darkOpacity = 0.7
-		static let fontSFCompact = "SF Compact Display"
-		static let fontSFMono = "SF Mono"
+		static let fontSFCompact = "SFCompactDisplay-Regular"
+		static let fontSFMono = "SFMono-Regular"
 	}
 
 	public enum Button {

@@ -30,6 +30,8 @@
 	<string>Do you allow automation for this app?</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>./Assets.xcassets/</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
