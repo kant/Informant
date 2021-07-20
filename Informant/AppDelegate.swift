@@ -51,16 +51,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	// MARK: - Settings
 	/// This is the window that displays all settings to the user
-	public var settingsWindow: NSInformantWindow!
+	public var settingsWindow: NSIFWindow!
 
 	/// This sets up and controls the settings window's state
 	public var settingsWindowController: SettingsWindowController!
 
-	/// This sets up and controls the welcome window
-	public var welcomeWindowController: WelcomeWindowController!
+	/// This sets up and controls the privacy accessibility authorization window
+	public var privacyAccessibilityWindowController: IFWindowController<AuthAccessibilityView>!
 
-	/// This is the welcome window that's presented when the user first starts the application
-	public var welcomeWindow: NSInformantWindow!
+	/// This is the auth window that's presented when the user doesn't have accessibility controls enabled
+	public var privacyAccessibilityWindow: NSIFWindow!
+
+	/// This sets up and controls the welcome window
+	public var welcomeWindowController: IFWindowController<WelcomeView>!
+
+	/// This is the welcome window that appears the first time the app is opened after an install
+	public var welcomeWindow: NSIFWindow!
 
 	// MARK: - Extra
 	/// This helps work out the security scoping issue
@@ -71,6 +77,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	/// The view for the interface.
 	public var contentView: ContentView!
+
+	// MARK: - Async work blocks
+	/// You can put background tasks on here to be completed. We use this because dispatch work items are cancellable
+	var workQueue: [DispatchWorkItem] = []
 
 	// ------------------ Main Program ⤵︎ ------------------
 
@@ -91,6 +101,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		contentView = ContentView()
 
 		cache = Cache()
+
+		// MARK: - Privacy Init
+
+		// Check accessibility authorization. Reminder: Prompt only shows up with no sandbox or a distribution profile
+		interfaceState.privacyAccessibilityEnabled = AXIsProcessTrusted()
 
 		// MARK: - Menu Init
 
@@ -163,45 +178,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Settings Init
 
-		settingsWindow = NSInformantWindow(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar],
-			backing: .buffered,
-			defer: false
-		)
+		settingsWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .miniaturizable, .unifiedTitleAndToolbar])
 
 		// Setup the settings window
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
 
-		// MARK: - Privacy Init
+		// MARK: - Privacy Accessibility Window Init
 
-		// TODO: Clean up this section - it asks for accessiblity permissions
-		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
-		let accessEnabled = AXIsProcessTrustedWithOptions(options)
+		privacyAccessibilityWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
 
-		// A simple error message if access is not enabled
-		if !accessEnabled {
-			print(ContentManager.Messages.setupAccessibilityNotEnabled)
+		// Setup the auth window
+		if let authWindow = privacyAccessibilityWindow {
+			privacyAccessibilityWindowController = IFWindowController(authWindow, AuthAccessibilityView())
 		}
 
-		// TODO: Build this into the greeting panel and settings panel
-		// Request permission to root folder
-		securityBookmarkHelper.requestRootURLPermission()
+		// Open the auth window if no access is available
+		if interfaceState.privacyAccessibilityEnabled == false {
+			privacyAccessibilityWindowController.open()
+		}
 
-		// MARK: - Welcome Init
+		// MARK: - Welcome Window Init
 
-		welcomeWindow = NSInformantWindow(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar],
-			backing: .buffered,
-			defer: false
-		)
+		// Check if this is the first app execution after install
+		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
 
-		// Setup the welcome window
-		if let welcomeWindow = welcomeWindow {
-			welcomeWindowController = WelcomeWindowController(welcomeWindow)
+			welcomeWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
+
+			// Setup the welcome window
+			if let welcomeWindow = welcomeWindow {
+				welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView(interfaceState: interfaceState))
+			}
 		}
 
 		// MARK: - App Init
@@ -235,6 +243,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			name: NSPanel.willMoveNotification,
 			object: panel
 		)
+
+		/// https://stackoverflow.com/a/56206516/13142325
+		DistributedNotificationCenter.default().addObserver(
+			forName: NSNotification.Name("com.apple.accessibility.api"),
+			object: nil,
+			queue: nil
+		) { _ in
+			self.didAccessibilityChange()
+		}
 	}
 
 	// Insert code here to tear down your application
@@ -245,6 +262,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Stop listening to the keyboard
 		statusBarController?.monitorKeyPress?.stop()
+	}
+
+	// --- Selectors for sys. pref. changes ⤵︎ ---
+
+	@objc func didAccessibilityChange() {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+
+			// Check to see if accessibility controls are enabled in sys. prefs.
+			let isProcessTrusted = AXIsProcessTrusted()
+
+			// Accessibility controls were just enabled
+			if isProcessTrusted {
+				self.privacyAccessibilityWindowController.close()
+
+				// Check if it's the first app run after install
+				if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
+					self.welcomeWindowController.open()
+
+					// Write that the first run after install has been acknowledged
+					UserDefaults.standard.setValue(false, forKey: .keyShowWelcomeWindow)
+				}
+			}
+
+			self.interfaceState.privacyAccessibilityEnabled = isProcessTrusted
+			self.statusBarController?.updateInterfaces()
+		}
 	}
 
 	// --- Selectors for the panel movement notifications ⤵︎ ---

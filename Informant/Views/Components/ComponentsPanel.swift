@@ -44,6 +44,58 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 	}
 }
 
+/// Used for error messages on the panel
+struct ComponentsPanelErrorFrame: View {
+
+	let icon: String
+	let label: String
+	let padding: CGFloat
+	let action: (() -> Void)?
+	let buttonLabel: String?
+
+	internal init(icon: String, label: String, padding: CGFloat, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+		self.icon = icon
+		self.label = label
+		self.padding = padding
+		self.action = action
+		self.buttonLabel = buttonLabel
+	}
+
+	var body: some View {
+
+		VStack(alignment: .center, spacing: 6) {
+
+			Text(icon)
+				.H1()
+				.opacity(Style.Text.opacity)
+
+			Text(label)
+				.H1()
+				.opacity(Style.Text.opacity)
+
+			// Button
+			if let action = action, let buttonLabel = buttonLabel {
+
+				Button {
+					action()
+				} label: {
+					ZStack {
+						RoundedRectangle(cornerRadius: 6.0)
+							.opacity(0.1)
+
+						Text(buttonLabel)
+							.H3(opacity: 0.85)
+							.padding([.vertical], 4)
+							.padding([.horizontal], 9)
+					}
+				}
+				.buttonStyle(BorderlessButtonStyle())
+			}
+		}
+		.padding([.vertical], padding)
+	}
+}
+
 // MARK: - Panel Labels
 
 struct ComponentsPanelHeader: View {
@@ -72,19 +124,22 @@ struct ComponentsPanelHeader: View {
 			}
 
 			// Header stack
-			if headerTitle != nil, headerSubtitle != nil {
-				VStack(alignment: .leading, spacing: 0) {
-					// Title
-					Text(headerTitle!).PanelTitleFont()
+			VStack(alignment: .leading, spacing: 0) {
 
-					Spacer()
-						.frame(height: 2)
-
-					// Subtitle
-					Text(headerSubtitle!).H4()
+				// Title
+				if let headerTitle = headerTitle {
+					Text(headerTitle).PanelTitleFont()
 				}
-				.padding(.leading, 7)
+
+				Spacer()
+					.frame(height: 2)
+
+				// Subtitle
+				if let headerSubtitle = headerSubtitle {
+					Text(headerSubtitle).H4()
+				}
 			}
+			.padding(.leading, 7)
 
 			Spacer(minLength: 0)
 		}
@@ -136,14 +191,14 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	var body: some View {
 
 		// Content is being calculated
-		if value == SelectionHelper.State.Calculating {
+		if value == SelectionHelper.State.Calculating.localized {
 			content
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
 		}
 
 		// Or bluntly unavailable
-		else if value == SelectionHelper.State.Unavailable {
+		else if value == SelectionHelper.State.Unavailable.localized {
 			content
 				.lineLimit(lineLimit)
 		}

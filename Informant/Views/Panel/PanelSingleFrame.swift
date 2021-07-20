@@ -39,7 +39,7 @@ struct PanelSingleFrame<Content: View>: View {
 
 				// Kind & Size
 				// We set the second value to calculating so it doesn't resize once it finds the correct calculation
-				ComponentsPanelItemStack(firstValue: selection.itemKind, secondValue: SelectionHelper.State.Calculating) {
+				ComponentsPanelItemStack(firstValue: selection.itemKind, secondValue: SelectionHelper.State.Calculating.localized) {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelKind, value: selection.itemKind, lineLimit: 2)
 				} secondItem: {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelSize, value: selection.itemSizeAsString)

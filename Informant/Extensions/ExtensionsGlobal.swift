@@ -32,8 +32,7 @@ extension String {
 		let breakupSentence = components(separatedBy: " ")
 		var newSentence = ""
 
-		// Loop the array and split each word from it's first letter. Capitalize the first letter and then
-		// concaitenate
+		// Loop the array and split each word from it's first letter. Capitalize the first letter and then concatenate
 		for wordInSentence in breakupSentence {
 			let firstLetter = wordInSentence.first!.uppercased()
 			let remainingWord = wordInSentence.suffix(wordInSentence.count - 1)
@@ -83,7 +82,17 @@ extension NSPanel {
 }
 
 /// Allows NSWindow to be focusable
-class NSInformantWindow: NSWindow {
+class NSIFWindow: NSWindow {
+
+	init(_ styleMask: NSWindow.StyleMask) {
+		super.init(
+			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
+			styleMask: styleMask,
+			backing: .buffered,
+			defer: false
+		)
+	}
+
 	override open var canBecomeKey: Bool {
 		return true
 	}

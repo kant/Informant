@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeAuthView: View {
-
-	private let appIconSize: CGFloat = 100
+struct AuthAccessibilityView: View {
 
 	var body: some View {
 
@@ -17,29 +15,27 @@ struct WelcomeAuthView: View {
 		VStack(alignment: .center) {
 
 			// Image
-			Image(nsImage: NSImage(named: ContentManager.Images.appIcon) ?? NSImage())
-				.resizable()
-				.frame(width: appIconSize, height: appIconSize, alignment: .center)
+			ComponentsWindowAppIcon()
 
 			// Welcome
-			Text("Authorize Informant")
+			Text(ContentManager.WelcomeLabels.authorizeInformant)
 				.WelcomeHeaderFont()
 
 			Spacer().frame(height: 5)
 
 			// How to authorize
-			Text("Informant needs your permission to read file metadata.")
+			Text(ContentManager.WelcomeLabels.authorizeNeedPermission)
 				.Body()
 
 			Spacer().frame(height: Style.Padding.welcomeWindow)
 
 			// What to do about lock
 			VStack {
-				SecurityGuidanceBox(label: "Open System Preferences", color: .blue)
-				SecurityGuidanceBox(label: "Click Security & Privacy", color: .blue)
-				SecurityGuidanceBox(label: "Click Privacy", color: .blue)
-				SecurityGuidanceBox(label: "Scroll down and click Accessibility", color: .blue)
-				SecurityGuidanceBox(label: "Check Informant", color: .blue, arrow: false)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionSystemPreferences, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionSecurity, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionPrivacy, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionScrollAndClick, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionCheckInformant, color: .blue, arrow: false)
 			}
 
 			Spacer().frame(height: Style.Padding.welcomeWindow)
@@ -47,7 +43,7 @@ struct WelcomeAuthView: View {
 			// Lock description
 			VStack(spacing: 10) {
 
-				Text("If the checkbox is greyed out, click the lock and enter your password.")
+				Text(ContentManager.WelcomeLabels.authorizedInstructionClickLock)
 					.Body(size: 13, weight: .medium)
 
 				HStack {

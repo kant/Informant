@@ -24,20 +24,23 @@ class SecurityBookmarkHelper {
 		openPanel.canChooseFiles = false
 		openPanel.showsHiddenFiles = false
 
-		openPanel.prompt = "Grant Access"
+		openPanel.prompt = ContentManager.Titles.openPanelGrantAccess
 		openPanel.directoryURL = URL(fileURLWithPath: "/")
 	}
 
+	// DEPRECATED
 	/// Requests the root url through an NSOpenPanel
-	func requestRootURLPermission() {
-		if isAccessToRootURLStale() == true {
-			pickRootURL()
-		}
-	}
+	/*
+	 func requestRootURLPermission() {
+	 	if isAccessToRootURLStale() == true {
+	 		pickRootURL()
+	 	}
+	 }
+	 */
 
 	/// Opens the NSOpenPanel to store a new root url
-	func pickRootURL() {
-		openPanel.beginSheetModal(for: AppDelegate.current().settingsWindow) { response in
+	func pickRootURL(_ windowRef: NSWindow) {
+		openPanel.beginSheetModal(for: windowRef) { response in
 			if response == .OK, let url = self.openPanel.url {
 				self.storeRootURLPermission(url)
 				self.closePanel()

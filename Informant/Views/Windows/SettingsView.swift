@@ -194,15 +194,21 @@ struct SettingsPickRootURL: View {
 
 	let securityBookmarkHelper: SecurityBookmarkHelper
 
-	init(_ rootURL: String?) {
+	let textAlignment: TextAlignment
+
+	let windowRef: NSWindow
+
+	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading) {
 		self.rootURL = rootURL
+		self.textAlignment = textAlignment
+		self.windowRef = windowRef
 		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
 	}
 
 	var body: some View {
 
 		// Descriptor
-		VStack(alignment: .leading) {
+		VStack(alignment: textAlignment == .leading ? .leading : .center) {
 
 			// Root URL Stack
 			HStack {
@@ -223,9 +229,9 @@ struct SettingsPickRootURL: View {
 						Text(rootURL ?? ContentManager.SettingsLabels.none)
 							.PanelPathFont()
 							.padding(4)
+							.padding([.leading], 5)
 							.opacity(rootURL != nil ? 1 : 0.5)
 					}
-					.frame(width: 200)
 
 					// Clear button stack
 					HStack {
@@ -243,13 +249,15 @@ struct SettingsPickRootURL: View {
 					isHovering = hovering
 				}
 				.onTapGesture {
-					securityBookmarkHelper.pickRootURL()
+					securityBookmarkHelper.pickRootURL(windowRef)
 				}
 			}
 
 			// Descriptor
 			Text(ContentManager.Messages.settingsRootURLDescriptor)
 				.SettingsVersionFont()
+				.multilineTextAlignment(textAlignment)
 		}
+		.frame(width: 275)
 	}
 }

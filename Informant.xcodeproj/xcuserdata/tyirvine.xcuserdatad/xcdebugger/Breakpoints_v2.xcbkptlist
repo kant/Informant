@@ -7,97 +7,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3C463F24-7DA7-460F-8CD3-7C0100825BCC"
-            shouldBeEnabled = "No"
+            uuid = "941CD16A-3430-4F4E-B041-DC56486B88CB"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Informant/Settings/SecurityBookmarkHelper.swift"
+            filePath = "Informant/Controllers/StatusBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "startAccessingRootURL()"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "updatePanel(force:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "05137771-F63E-4DD1-ADDC-02D9CA3803D2"
-            shouldBeEnabled = "No"
+            uuid = "BD19710C-4CF0-4DF3-AA32-100838242A02"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Informant/Helpers/Utility Helpers/AppleScriptsHelper.swift"
+            filePath = "Informant/Controllers/StatusBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "findSelectedFiles()"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "updatePanel(force:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "40EEB8FB-B459-4594-B31A-353531E2FA6E"
-            shouldBeEnabled = "No"
+            uuid = "245E7F27-6BC8-4E74-B7B3-2886B374A2F5"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Informant/Controllers/InterfaceHelper.swift"
+            filePath = "Informant/Controllers/StatusBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "DisplayUpdatedInterface()"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "updatePanel(force:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EE00E501-E17A-44BC-AB35-9F0DE9C1CE9E"
+            uuid = "6EA3FC20-6ACF-4FCC-8010-0785F316F2C9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Informant/Views/PanelCloseButton.swift"
+            filePath = "Informant/Controllers/StatusBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "windowHandlerMouseDismiss(event:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1784D9C0-8F38-41C0-B05C-3DF7B4767D42"
-            shouldBeEnabled = "No"
+            uuid = "B0D4BEC0-6237-4046-A1E8-8A115378DD1B"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Informant/Views/PanelCloseButton.swift"
+            filePath = "Informant/Controllers/StatusBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F49C0A3C-3F80-4512-8D3D-B438CEAEBCC8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Informant/Views/Components/ComponentsPanelTags.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "windowHandlerMouseDismiss(event:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

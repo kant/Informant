@@ -209,11 +209,14 @@ class StatusBarController {
 	/// [For more info see this documentation](https://www.notion.so/brewsoftwarehouse/Major-display-issue-06dede77d6cd499e86d1e92b5fc188b1)
 	func showPanel() {
 
+		// Get the authorization status here
+		settings.privacyAccessibilityEnabled = AXIsProcessTrusted()
+
 		// Reset panel snap zone always
 		settings.setIsPanelInSnapZone(false)
 
 		// Show panel
-		updatePanel()
+		updatePanel(force: true)
 		panel.setIsVisible(true)
 		monitorsStart()
 
@@ -263,7 +266,7 @@ class StatusBarController {
 		panel.alphaValue = 1
 
 		// This is the window's hiding animation
-		NSAnimationContext.runAnimationGroup { (context) -> Void in
+		NSAnimationContext.runAnimationGroup { context -> Void in
 			context.duration = TimeInterval(0.25)
 			panel.animator().alphaValue = 0
 		} completionHandler: {
@@ -285,10 +288,10 @@ class StatusBarController {
 	}
 
 	/// Updates the panel interface itself. This can be used to force updates
-	func updatePanel() {
+	func updatePanel(force: Bool = false) {
 
 		// Open up the interface
-		InterfaceHelper.DisplayUpdatedInterface()
+		InterfaceHelper.DisplayUpdatedInterface(force: force)
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open
@@ -309,16 +312,16 @@ class StatusBarController {
 
 	/// Simply removes the menubar utility interface
 	func hideMenubarUtility() {
-		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
+		MenubarUtilityHelper.wipeMenubarInterface()
 	}
 
 	/// Checks if the menubar utility is visible based on user settings
 	func checkMenubarUtilitySettings() {
-		if settings.settingsMenubarUtilityBool {
-			MenubarUtilityHelper.updateSize(statusItem)
+		if settings.settingsMenubarUtilityBool, settings.privacyAccessibilityEnabled == true {
+			MenubarUtilityHelper.updateSize()
 		}
 		else {
-			MenubarUtilityHelper.wipeMenubarInterface(statusItem, resetState: false)
+			MenubarUtilityHelper.wipeMenubarInterface(resetState: false)
 		}
 	}
 
@@ -337,12 +340,12 @@ class StatusBarController {
 		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems != nil {
+		if selectedItems != nil, eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 			updateInterfaces()
 		}
 
 		// No items are selected, therefore prep to hide the interface
-		else if eventTypeCheck(event, types: [.leftMouseDown, .rightMouseDown]) {
+		else if eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide
@@ -479,7 +482,7 @@ class StatusBarController {
 			settings.setIsPanelInSnapZone(false)
 
 			// Animates window to 0 opacity and then calls to the next animation phase
-			NSAnimationContext.runAnimationGroup { (context) -> Void in
+			NSAnimationContext.runAnimationGroup { context -> Void in
 				context.duration = TimeInterval(0.15)
 				panel.animator().alphaValue = 0
 			} completionHandler: {

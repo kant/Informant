@@ -23,9 +23,21 @@ class SelectionHelper {
 	}
 
 	public enum State {
-		static let Unavailable = "Unavailable"
-		static let Calculating = "Calculating..."
-		static let StopCalculating = "Finished"
+
+		case Unavailable
+		case Calculating
+		case StopCalculating
+
+		var localized: String {
+			switch self {
+				case .Unavailable:
+					return ContentManager.State.unavailable
+				case .Calculating:
+					return ContentManager.State.calculating
+				case .StopCalculating:
+					return ContentManager.State.finished
+			}
+		}
 	}
 
 	// MARK: - Utility Methods
@@ -60,6 +72,185 @@ class SelectionHelper {
 		}
 
 		return nil
+	}
+
+	// MARK: - Sizing Methods
+
+	/// Checks if the file at the url is downloaded
+	static func checkIsDownloaded(_ url: URL) -> Bool {
+		if url.pathExtension != "icloud" {
+			return true
+		}
+		else {
+			return false
+		}
+	}
+
+	/// Attempts to find the directory's size on a background thread, then commits changes found to the
+	/// interface on the main thread. As well, it caches sizes found to reduce power consumption.
+	///
+	/// Threads are started but cannot be stopped. The only thing that we can prevent atm. is updating the interface.
+	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil, skipDirectories: Bool = false) {
+
+		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
+		func updateInterfacesForSize(bytes: Int64?, state: State? = nil) {
+
+			let sizeAsString: String?
+
+			// Nil check the bytes
+			if let bytes = bytes {
+				sizeAsString = formatBytes(bytes)
+			}
+
+			// If no bytes are available, then report the state
+			else if let state = state {
+				sizeAsString = state.localized
+			}
+
+			// If nothing is available close the field
+			else {
+				sizeAsString = nil
+			}
+
+			// Update interfaces
+			MenubarUtilityHelper.updateMenubarInterface(size: sizeAsString)
+
+			// Check to make sure interface data is present
+			if let panelSelection = panelSelection {
+				panelSelection.itemSizeAsString = sizeAsString
+			}
+		}
+
+		// --------------- Function ⤵︎ ----------------
+
+		let appDelegate = AppDelegate.current()
+
+		let keys: Set<URLResourceKey> = [
+			.isDirectoryKey,
+			.isApplicationKey,
+			.totalFileSizeKey,
+			.isUbiquitousItemKey,
+		]
+
+		// Get the url resources
+		let itemResources = SelectionHelper.getURLResources(url, keys)
+
+		// Unwrap the isDirectory value
+		let isDirectory = itemResources?.isDirectory
+
+		// Unwrap the isUbiquitousItem value
+		let isiCloudSyncFile = itemResources?.isUbiquitousItem
+
+		// Check if the current selection is a directory and if we should skip directories
+		if isDirectory == true, skipDirectories {
+			return
+		}
+
+		// Check if the size is already cached, if so return that
+		else if let cachedSize = url.getCachedByteSize() {
+			return updateInterfacesForSize(bytes: Int64(cachedSize))
+		}
+
+		// Otherwise grab a new size
+		else {
+
+			// If the file is not downloaded then we don't show it's size
+			if checkIsDownloaded(url) == false || (isDirectory == true && isiCloudSyncFile == true) {
+				return updateInterfacesForSize(bytes: nil, state: nil)
+			}
+
+			// If it's a directory, find the size and update the
+			else if isDirectory == true {
+
+				// Get permission to work
+				if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
+
+					// Let the users know we're calculating
+					updateInterfacesForSize(bytes: nil, state: .Calculating)
+
+					// Check to make sure there are no work items on the queue
+					if appDelegate.workQueue.count >= 1 {
+						return
+					}
+
+					/// Holds the selection type in memory
+					var type: SelectionType
+
+					// Find type of selection
+					if itemResources?.isApplication == true {
+						type = .Application
+					}
+					else {
+						type = .Directory
+					}
+
+					// ------------ Setup work blocks ⤵︎ --------------
+					// Executes on the background
+					appDelegate.workQueue.append(DispatchWorkItem {
+
+						// Grab reference to the work item upon start of the execution
+						guard let workItem = appDelegate.workQueue.last else {
+							return
+						}
+
+						/// Holds raw size in memory
+						var rawSize: Int64?
+
+						// Grab directory size
+						do {
+							rawSize = try FileManager.default.allocatedSizeOfDirectory(at: url)
+						}
+						catch {
+							rawSize = nil
+						}
+
+						// Make sure the work item wasn't cancelled. Otherwise we just don't update the interface as the op. is cancelled.
+						// We can't stop the execution of the actual FileManager enumerator atm unfortunately.
+						if workItem.isCancelled == false {
+
+							// Update the user interface
+							DispatchQueue.main.async {
+
+								// Updates the interface when a size is found correctly
+								if let size = rawSize {
+									updateInterfacesForSize(bytes: size)
+									url.storeByteSize(size, type: type)
+								}
+
+								// Otherwise let the users know we couldn't find a size
+								else {
+									updateInterfacesForSize(bytes: nil, state: .Unavailable)
+									#warning("I'm going to keep this in here for a while to make sure everything still works correctly.")
+									print("🧀 - Unavailable")
+								}
+
+								// Clean up execution
+								appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+								appDelegate.workQueue.removeAll()
+							}
+						}
+					})
+
+					// We grab the last work queue item because it's the most current
+					if let workItem = appDelegate.workQueue.last {
+						DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workItem)
+					}
+				}
+
+				// If no access is permitted then nil the value out
+				else {
+					return updateInterfacesForSize(bytes: nil, state: nil)
+				}
+			}
+
+			// Otherwise just return a normal size
+			else if let totalSize = itemResources?.totalFileSize {
+				return updateInterfacesForSize(bytes: Int64(totalSize))
+			}
+
+			// If everything fails just return nil
+			return
+		}
 	}
 
 	// MARK: - Formatting Methods

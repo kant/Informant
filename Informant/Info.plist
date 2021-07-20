@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
@@ -30,6 +30,8 @@
 	<string>Do you allow automation for this app?</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

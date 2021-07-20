@@ -13,11 +13,11 @@ class SettingsWindowController {
 	var appDelegate: AppDelegate
 
 	/// So we can maintain reference to the window
-	var window: NSInformantWindow
+	var window: NSIFWindow
 
 	// ------------- Initialization ⤵︎ -------------
 
-	init(_ windowRef: NSInformantWindow) {
+	init(_ windowRef: NSIFWindow) {
 
 		// Grab reference to the delegate & window
 		appDelegate = AppDelegate.current()

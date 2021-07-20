@@ -12,8 +12,8 @@ class Style {
 	public enum Text {
 		static let opacity = 0.5
 		static let darkOpacity = 0.7
-		static let fontSFCompact = "SF Compact Display"
-		static let fontSFMono = "SF Mono"
+		static let fontSFCompact = "SFCompactDisplay-Regular"
+		static let fontSFMono = "SFMono-Regular"
 	}
 
 	public enum Button {
@@ -36,6 +36,10 @@ class Style {
 
 	public enum Padding {
 		static let welcomeWindow: CGFloat = 25.0
+	}
+
+	public enum Icons {
+		static let appIconSize: CGFloat = 100
 	}
 }
 

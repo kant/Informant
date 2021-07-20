@@ -23,7 +23,7 @@ class InterfaceHelper {
 
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
-	func GetFinderSelection() -> CheckedSelection? {
+	func GetFinderSelection(force: Bool = false) -> CheckedSelection? {
 
 		// Grab appDelegate first
 		let appDelegate = AppDelegate.current()
@@ -39,6 +39,11 @@ class InterfaceHelper {
 			return CheckedSelection(selection, state: .errorSelection)
 		}
 
+		// Make sure it's not a forced selection
+		if force {
+			return CheckedSelection(selection, state: .uniqueSelection)
+		}
+
 		// Get the selected files
 		guard let paths: [String] = selection.paths else {
 			return nil
@@ -52,13 +57,13 @@ class InterfaceHelper {
 		}
 
 		// Cancel all background tasks
-		if let blocks = appDelegate.interfaceData?.selection?.workQueue {
-			for block in blocks {
-				block.cancel()
-			}
-
-			appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+		for block in appDelegate.workQueue {
+			block.cancel()
 		}
+
+		// Clean up execution
+		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+		appDelegate.workQueue.removeAll()
 
 		// Block executed if only one file is selected
 		if paths.count >= 1 {
@@ -69,10 +74,10 @@ class InterfaceHelper {
 	}
 
 	/// This takes account for the selection and returns the correct interface data
-	static func GetInterfaceData() -> InterfaceData? {
+	static func GetInterfaceData(force: Bool = false) -> InterfaceData? {
 
 		// Get the selection
-		guard let checkedSelection = AppDelegate.current().panelInterfaceHelper.GetFinderSelection() else {
+		guard let checkedSelection = AppDelegate.current().panelInterfaceHelper.GetFinderSelection(force: force) else {
 			return nil
 		}
 
@@ -87,17 +92,21 @@ class InterfaceHelper {
 	}
 
 	// Display interface with selected items
-	public static func DisplayUpdatedInterface() {
+	public static func DisplayUpdatedInterface(force: Bool = false) {
 
 		// Grab current app delegate
 		let appDelegate = AppDelegate.current()
 
-		// Check to make sure a file is selected before executing logic
-		let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData()
+		// Check accessibility
+		if appDelegate.interfaceState.privacyAccessibilityEnabled == true {
 
-		// Find selected files
-		appDelegate.interfaceData = selectedItems
-		appDelegate.contentView.interfaceData = appDelegate.interfaceData
+			// Check to make sure a file is selected before executing logic
+			let selectedItems: InterfaceData? = InterfaceHelper.GetInterfaceData(force: force)
+
+			// Find selected files
+			appDelegate.interfaceData = selectedItems
+			appDelegate.contentView.interfaceData = appDelegate.interfaceData
+		}
 
 		// Update popover after hotkey press
 		UpdateInterface()

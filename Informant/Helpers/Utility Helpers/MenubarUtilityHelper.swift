@@ -15,26 +15,23 @@ class MenubarUtilityHelper {
 	static var sizeAsString: String = ""
 	
 	/// Update utility size
-	static func updateSize(_ statusItem: NSStatusItem) {
-		
-		/// Contains formatted size
-		var size: String?
+	static func updateSize() {
 		
 		/// Gets the state of the selection and if it's a duplicate
 		guard let checkedSelection = AppDelegate.current().menubarInterfaceHelper.GetFinderSelection() else {
-			wipeMenubarInterface(statusItem)
+			wipeMenubarInterface()
 			return
 		}
 		
 		// Error selection found
 		if checkedSelection.state == .errorSelection {
-			wipeMenubarInterface(statusItem)
+			wipeMenubarInterface()
 			return
 		}
 		
 		// Duplicate selection found
 		else if checkedSelection.state == .duplicateSelection {
-			updateMenubarInterface(statusItem)
+			updateMenubarInterface(size: sizeAsString)
 			return
 		}
 		
@@ -42,66 +39,58 @@ class MenubarUtilityHelper {
 		else {
 			/// Path selection
 			guard let selection = checkedSelection.selection.paths else {
-				wipeMenubarInterface(statusItem)
+				wipeMenubarInterface()
 				return
 			}
 		
 			// Make sure selection is only one item. Any more and we wipe the interface
 			if selection.count > 1 {
-				wipeMenubarInterface(statusItem, resetState: true)
+				wipeMenubarInterface(resetState: true)
 				return
 			}
 		
 			// Get URL
 			let url = URL(fileURLWithPath: selection[0])
-		
-			// Keys
-			let keys: Set<URLResourceKey> = [
-				.totalFileSizeKey,
-				.isDirectoryKey
-			]
-		
-			// Get the resources
-			if let resources = SelectionHelper.getURLResources(url, keys) {
 			
-				// End execution if it's a directory
-				if resources.isDirectory == true {
-					wipeMenubarInterface(statusItem, resetState: true)
-					return
-				}
-
-				// Get the size
-				else if let fileSize = resources.totalFileSize {
-					size = SelectionHelper.formatBytes(Int64(fileSize))
-				}
-			}
-		
-			// Format size as string
-			guard let size = size else {
-				wipeMenubarInterface(statusItem)
-				return
-			}
-		
-			sizeAsString = size + "    "
-		
-			updateMenubarInterface(statusItem)
+			// Initiate check for size
+			SelectionHelper.grabSize(url)
 		}
 	}
 	
 	/// Updates the status item
-	static func updateMenubarInterface(_ statusItem: NSStatusItem) {
+	static func updateMenubarInterface(size: String? = nil) {
+		
+		// Change the size as string if needed
+		if let size = size {
+			sizeAsString = size
+		}
+		
+		// Otherwise empty out the interface
+		else {
+			sizeAsString = ""
+		}
+		
+		// Format string prior to use
+		let formattedSize = sizeAsString == "" ? "" : sizeAsString + " "
 		
 		// Get formatted font ready
 		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
-		let attrString = NSAttributedString(string: sizeAsString, attributes: [.font: font, .baselineOffset: -0.5])
+		
+		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
+		let paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.alignment = .left
+		
+		// Put the attributed string all together
+		let attrString = NSAttributedString(string: formattedSize, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
 		
 		// Update the size
-		statusItem.button?.attributedTitle = attrString
+		AppDelegate.current().statusItem.button?.attributedTitle = attrString
 	}
 	
 	/// For when there's no size available
-	static func wipeMenubarInterface(_ statusItem: NSStatusItem, resetState: Bool = false) {
-		statusItem.button?.attributedTitle = NSAttributedString(string: "")
+	static func wipeMenubarInterface(resetState: Bool = false) {
+		
+		AppDelegate.current().statusItem.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
 			sizeAsString = ""

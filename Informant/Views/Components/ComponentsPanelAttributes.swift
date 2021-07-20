@@ -23,7 +23,7 @@ struct ComponentsPanelAttributes: View, PanelProtocol {
 
 			// Hidden file
 			if selection?.isHidden == true {
-				ComponentsAttribute(icon: "􀋯", label: "Hidden")
+				ComponentsAttribute(icon: "􀋯", label: ContentManager.Labels.panelHidden)
 			}
 
 			// iCloud Container

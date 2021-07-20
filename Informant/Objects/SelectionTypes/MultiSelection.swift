@@ -45,13 +45,13 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		itemSize = 0
 		
 		// Tell the user we're starting to calculate
-		itemSizeAsString = SelectionHelper.State.Calculating
+		itemSizeAsString = SelectionHelper.State.Calculating.localized
 		
 		// Async request file size
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 			asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))
 		} else {
-			itemSizeAsString = State.Unavailable
+			itemSizeAsString = nil
 		}
 		
 		// MARK: - Establish Icon Collection
@@ -115,7 +115,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	func getDirectorySize(_ url: URL) {
 		
 		// Get size of url from the cache
-		if let size = cache.getByteSizeInCache(url, .Directory) {
+		if let size = cache.getByteSizeInCache(url) {
 			itemSize? += Int(size.bytes)
 		}
 	
