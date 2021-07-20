@@ -175,6 +175,9 @@ struct SettingsRightSideView: View {
 				// Pick root url
 				SettingsPickRootURL(interfaceState.settingsRootURL)
 
+				// Skips the sizing of directories all together
+				Toggle(" " + ContentManager.SettingsLabels.skipDirectories, isOn: $interfaceState.settingsPanelSkipDirectories)
+
 				// Launch informant on system startup
 				LaunchAtLogin.Toggle(" " + ContentManager.SettingsLabels.launchOnStartup)
 

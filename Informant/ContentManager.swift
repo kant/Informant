@@ -104,6 +104,8 @@ class ContentManager {
 
 		static let showFullPath = NSLocalizedString("Show full-path", comment: "Asks the user if they want to see where the file is located instead of the full path")
 
+		static let skipDirectories = NSLocalizedString("Skip getting size for folders and apps", comment: "Asks the user if they want to prevent the app from sizing directories.")
+
 		static let enableName = NSLocalizedString("Enable name property", comment: "")
 
 		static let enablePath = NSLocalizedString("Enable path property", comment: "")

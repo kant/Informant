@@ -75,6 +75,12 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsPanelSkipDirectories: Bool = UserDefaults.standard.bool(forKey: .keyPanelSkipDirectories) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyPanelSkipDirectories)
+		}
+	}
+
 	@Published var settingsPanelEnableNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableNameProp) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableNameProp)
