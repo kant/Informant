@@ -18,7 +18,7 @@ extension AppDelegate {
 			.keyPanelEnablePathProp: true,
 			.keyPanelEnableCreatedProp: true,
 			.keyPanelEnableNameProp: false,
-			.keyPanelShowFullPath: true,
+			.keyPanelShowFullPath: false,
 			.keyPanelSkipDirectories: false,
 			.keyShowWelcomeWindow: true
 		])
