@@ -345,7 +345,7 @@ class StatusBarController {
 		}
 
 		// No items are selected, therefore prep to hide the interface
-		else if eventTypeCheck(event, types: [.leftMouseDown, .rightMouseDown]) {
+		else if eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide

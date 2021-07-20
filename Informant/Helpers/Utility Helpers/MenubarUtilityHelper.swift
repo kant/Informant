@@ -73,8 +73,6 @@ class MenubarUtilityHelper {
 		// Format string prior to use
 		let formattedSize = sizeAsString == "" ? "" : sizeAsString + " "
 		
-		print(formattedSize)
-		
 		// Get formatted font ready
 		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
 		
