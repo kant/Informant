@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is the controller for the close button
 	public var interfaceCloseController: InterfaceCloseController?
 
-	/// This contians all data needed for the interface.
+	/// This contains all data needed for the interface.
 	public var interfaceData: InterfaceData!
 
 	/// This contains all the settings data needed for the application
@@ -119,36 +119,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Alert Init
 
-		interfaceAlert = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 210, height: 210),
-			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
-			backing: .buffered, defer: false
-		)
+		interfaceAlert = NSPanel(width: 210, height: 210, styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel])
 
 		// Initialized the interface alert panel
 		interfaceAlertController = InterfaceAlertController()
 
 		// MARK: - Main Panel Init
 
-		// TODO: Tuck this into a function
 		/// This is the main interface used by the application
-		panel = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless],
-			backing: .buffered, defer: false
-		)
+		panel = NSPanel(width: 260, height: 500, styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless])
 
 		// Initiate setup
 		panelController = InterfacePanelController(panel, contentView)
 
 		// MARK: - Close Init
 
-		interfaceClose = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .nonactivatingPanel],
-			backing: .buffered,
-			defer: false
-		)
+		interfaceClose = NSPanel(width: 0, height: 0, styleMask: [.fullSizeContentView, .nonactivatingPanel])
 
 		// Sets up the close button (positions, sets up view, etc.)
 		interfaceCloseController = InterfaceCloseController(interfaceClose)

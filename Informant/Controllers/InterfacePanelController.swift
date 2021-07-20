@@ -17,10 +17,6 @@ class InterfacePanelController<Content: View> {
 		// Assign ref.
 		panel = panelRef
 
-		// TODO: This needs to be adjusted so that it's actually in the center
-		// Centers window in middle of screen on launch
-		panel.center()
-
 		// Hide the titlebar
 		panel.titlebarAppearsTransparent = true
 		panel.titleVisibility = .hidden

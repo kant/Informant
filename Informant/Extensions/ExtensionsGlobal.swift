@@ -81,6 +81,19 @@ extension NSPanel {
 	}
 }
 
+// Shortens NSPanel initialization
+extension NSPanel {
+
+	convenience init(width: CGFloat, height: CGFloat, styleMask: NSPanel.StyleMask) {
+		self.init(
+			contentRect: NSRect(x: 0, y: 0, width: width, height: height),
+			styleMask: styleMask,
+			backing: .buffered,
+			defer: false
+		)
+	}
+}
+
 /// Allows NSWindow to be focusable
 class NSIFWindow: NSWindow {
 
