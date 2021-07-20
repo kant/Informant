@@ -75,7 +75,11 @@ class SelectionHelper {
 	}
 
 	// MARK: - Sizing Methods
-	/// Grabs the size of the selection and then caches it
+
+	/// Attempts to find the directory's size on a background thread, then commits changes found to the
+	/// interface on the main thread. As well, it caches sizes found to reduce power consumption.
+	///
+	/// Threads are started but cannot be stopped. The only thing that we can prevent atm. is updating the interface.
 	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil, skipDirectories: Bool = false) {
 
 		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
@@ -153,11 +157,6 @@ class SelectionHelper {
 						return
 					}
 
-					print("Raw size reset")
-
-					/// Holds raw size in memory
-					var rawSize: Int64?
-
 					/// Holds the selection type in memory
 					var type: SelectionType
 
@@ -171,8 +170,17 @@ class SelectionHelper {
 
 					// ------------ Setup work blocks ⤵︎ --------------
 					// Executes on the background
-					appDelegate.workQueue.insert(DispatchWorkItem {
+					appDelegate.workQueue.append(DispatchWorkItem {
 
+						// Grab reference to the work item upon start of the execution
+						guard let workItem = appDelegate.workQueue.last else {
+							return
+						}
+
+						/// Holds raw size in memory
+						var rawSize: Int64?
+
+						// Grab directory size
 						do {
 							rawSize = try FileManager.default.allocatedSizeOfDirectory(at: url)
 						}
@@ -180,37 +188,37 @@ class SelectionHelper {
 							rawSize = nil
 						}
 
-						print("Block 1 - size: \(rawSize) , count: \(appDelegate.workQueue.count)")
+						// Make sure the work item wasn't cancelled. Otherwise we just don't update the interface as the op. is cancelled.
+						// We can't stop the execution of the actual FileManager enumerator atm unfortunately.
+						if workItem.isCancelled == false {
 
-						// Stop access on the main thread after completion of this block.
-						// Check the queue to make sure the work item still exists
-						if appDelegate.workQueue.count >= 1 {
-							DispatchQueue.main.async(execute: appDelegate.workQueue[1])
+							// Update the user interface
+							DispatchQueue.main.async {
+
+								// Updates the interface when a size is found correctly
+								if let size = rawSize {
+									updateInterfacesForSize(bytes: size)
+									url.storeByteSize(size, type: type)
+								}
+
+								// Otherwise let the users know we couldn't find a size
+								else {
+									updateInterfacesForSize(bytes: nil, state: .Unavailable)
+									#warning("I'm going to keep this in here for a while to make sure everything still works correctly.")
+									print("🧀 - Unavailable")
+								}
+
+								// Clean up execution
+								appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+								appDelegate.workQueue.removeAll()
+							}
 						}
-					}, at: 0)
+					})
 
-					// Executes on the main thread
-					appDelegate.workQueue.insert(DispatchWorkItem {
-
-						print("Block 2 - size: \(rawSize)")
-
-						if let size = rawSize {
-							updateInterfacesForSize(bytes: size)
-							url.storeByteSize(size, type: type)
-						}
-						else {
-							updateInterfacesForSize(bytes: nil, state: .Unavailable)
-							print("🧀 ", "Unavailable")
-						}
-					}, at: 1)
-
-					appDelegate.workQueue[0].notify(queue: DispatchQueue.main) {
-						print("💥 Remove items")
-						appDelegate.workQueue.removeAll()
+					// We grab the last work queue item because it's the most current
+					if let workItem = appDelegate.workQueue.last {
+						DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workItem)
 					}
-
-					// Get directory size
-					DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: appDelegate.workQueue[0])
 				}
 
 				// If no access is permitted then nil the value out

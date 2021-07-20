@@ -61,9 +61,9 @@ class InterfaceHelper {
 			block.cancel()
 		}
 
+		// Clean up execution
 		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
-
-		print("Work Items Wiped")
+		appDelegate.workQueue.removeAll()
 
 		// Block executed if only one file is selected
 		if paths.count >= 1 {
