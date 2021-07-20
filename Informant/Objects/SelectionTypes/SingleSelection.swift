@@ -20,16 +20,12 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var itemIcon: NSImage?
 
 	var itemKind: String?
-	var itemSize: Int?
 	@Published var itemSizeAsString: String?
 
 	var itemDateCreated: Date?
 	var itemDateModified: Date?
 	var itemDateCreatedAsString: String?
 	var itemDateModifiedAsString: String?
-
-	// MARK: - Async work block
-	var workQueue: [DispatchWorkItem] = []
 
 	// MARK: - File Tags
 	/// Determines if the file has the .icloud extension
@@ -101,6 +97,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		// Assigning resources to fileResources object
 		itemResources = SelectionHelper.getURLResources(url, keys)
 
+		// Grab size
+		SelectionHelper.grabSize(url, panelSelection: self)
+
 		// MARK: - Fill in fields
 		if let resources = itemResources {
 
@@ -117,12 +116,11 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			}
 
 			// Check filesize for being nil before unwrapping
-			if let size = resources.totalFileSize {
-				itemSize = size
-				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
-			} else {
-				itemSizeAsString = SelectionHelper.State.Unavailable
-			}
+//			if let size = resources.totalFileSize {
+//				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
+//			} else {
+//				itemSizeAsString = SelectionHelper.State.Unavailable.localized
+//			}
 
 			// Format dates as strings
 			let dateFormatter = DateFormatter()
@@ -200,50 +198,52 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	}
 
 	/// Attempts to find the directory's size on a background thread, then commits changes found on the main thread
-	func findDirectorySize() {
+	/*
+	 func findDirectorySize() {
 
-		let type = selectionType
+	 	let type = selectionType
 
-		// Check if the url has a stored byte size in the cache
-		if let cachedSize = url.getCachedByteSize() {
-			itemSizeAsString = SelectionHelper.formatBytes(cachedSize)
-			return
-		}
+	 	// Check if the url has a stored byte size in the cache
+	 	if let cachedSize = url.getCachedByteSize() {
+	 		itemSizeAsString = SelectionHelper.formatBytes(cachedSize)
+	 		return
+	 	}
 
-		// Tell the user we're calculating the total size
-		itemSizeAsString = SelectionHelper.State.Calculating
+	 	// Tell the user we're calculating the total size
+	 	itemSizeAsString = SelectionHelper.State.Calculating
 
-		// Holds raw size in memory
-		var rawSize: Int64?
+	 	// Holds raw size in memory
+	 	var rawSize: Int64?
 
-		// ------------ Setup work blocks ⤵︎ --------------
-		// Executes on the background
-		workQueue.append(DispatchWorkItem {
+	 	// ------------ Setup work blocks ⤵︎ --------------
+	 	// Executes on the background
+	 	workQueue.append(DispatchWorkItem {
 
-			do {
-				rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
-			} catch {
-				rawSize = nil
-			}
+	 		do {
+	 			rawSize = try FileManager.default.allocatedSizeOfDirectory(at: self.url)
+	 		} catch {
+	 			rawSize = nil
+	 		}
 
-			// Stop access on the main thread after completion of this block
-			DispatchQueue.main.async(execute: self.workQueue[1])
-		})
+	 		// Stop access on the main thread after completion of this block
+	 		DispatchQueue.main.async(execute: self.workQueue[1])
+	 	})
 
-		// Executes on the main thread
-		workQueue.append(DispatchWorkItem {
+	 	// Executes on the main thread
+	 	workQueue.append(DispatchWorkItem {
 
-			if let size = rawSize {
-				self.itemSizeAsString = SelectionHelper.formatBytes(size)
-				self.url.storeByteSize(size, type: type)
-			} else {
-				self.itemSizeAsString = SelectionHelper.State.Unavailable
-			}
+	 		if let size = rawSize {
+	 			self.itemSizeAsString = SelectionHelper.formatBytes(size)
+	 			self.url.storeByteSize(size, type: type)
+	 		} else {
+	 			self.itemSizeAsString = SelectionHelper.State.Unavailable
+	 		}
 
-			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
-		})
+	 		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+	 	})
 
-		// Get directory size
-		DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workQueue[0])
-	}
+	 	// Get directory size
+	 	DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workQueue[0])
+	 }
+	 */
 }

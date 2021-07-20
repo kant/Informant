@@ -45,7 +45,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		itemSize = 0
 		
 		// Tell the user we're starting to calculate
-		itemSizeAsString = SelectionHelper.State.Calculating
+		itemSizeAsString = SelectionHelper.State.Calculating.localized
 		
 		// Async request file size
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {

@@ -78,6 +78,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// The view for the interface.
 	public var contentView: ContentView!
 
+	// MARK: - Async work blocks
+	/// You can put background tasks on here to be completed. We use this because dispatch work items are cancellable
+	var workQueue: [DispatchWorkItem] = []
+
 	// ------------------ Main Program ⤵︎ ------------------
 
 	func applicationDidFinishLaunching(_: Notification) {

@@ -312,16 +312,16 @@ class StatusBarController {
 
 	/// Simply removes the menubar utility interface
 	func hideMenubarUtility() {
-		MenubarUtilityHelper.wipeMenubarInterface(statusItem)
+		MenubarUtilityHelper.wipeMenubarInterface()
 	}
 
 	/// Checks if the menubar utility is visible based on user settings
 	func checkMenubarUtilitySettings() {
 		if settings.settingsMenubarUtilityBool, settings.privacyAccessibilityEnabled == true {
-			MenubarUtilityHelper.updateSize(statusItem)
+			MenubarUtilityHelper.updateSize()
 		}
 		else {
-			MenubarUtilityHelper.wipeMenubarInterface(statusItem, resetState: false)
+			MenubarUtilityHelper.wipeMenubarInterface(resetState: false)
 		}
 	}
 

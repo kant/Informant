@@ -19,9 +19,6 @@ class SingleDirectorySelection: SingleSelection {
 		// Get access to directory
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true, isiCloudSyncFile != true {
 			
-			// Get directory size
-			findDirectorySize()
-
 			// Get # of items in the directory
 			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
 				self.itemCount = String(itemCount) + " " + (itemCount > 1 ? ContentManager.Extra.items : ContentManager.Extra.item)

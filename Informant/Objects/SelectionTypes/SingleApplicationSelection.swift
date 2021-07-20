@@ -19,9 +19,6 @@ class SingleApplicationSelection: SingleSelection {
 		// Get permission to view metadata
 		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
 
-			// Grab the application size
-			findDirectorySize()
-
 			// Metadata keys we want
 			let keys: NSArray = [
 				kMDItemVersion!

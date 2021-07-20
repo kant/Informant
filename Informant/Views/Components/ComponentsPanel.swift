@@ -191,14 +191,14 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	var body: some View {
 
 		// Content is being calculated
-		if value == SelectionHelper.State.Calculating {
+		if value == SelectionHelper.State.Calculating.localized {
 			content
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)
 		}
 
 		// Or bluntly unavailable
-		else if value == SelectionHelper.State.Unavailable {
+		else if value == SelectionHelper.State.Unavailable.localized {
 			content
 				.lineLimit(lineLimit)
 		}

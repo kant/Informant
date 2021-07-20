@@ -57,13 +57,13 @@ class InterfaceHelper {
 		}
 
 		// Cancel all background tasks
-		if let blocks = appDelegate.interfaceData?.selection?.workQueue {
-			for block in blocks {
-				block.cancel()
-			}
-
-			appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+		for block in appDelegate.workQueue {
+			block.cancel()
 		}
+
+		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+
+		print("Work Items Wiped")
 
 		// Block executed if only one file is selected
 		if paths.count >= 1 {

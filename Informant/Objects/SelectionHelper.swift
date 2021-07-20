@@ -23,9 +23,21 @@ class SelectionHelper {
 	}
 
 	public enum State {
-		static let Unavailable = ContentManager.State.unavailable
-		static let Calculating = ContentManager.State.calculating
-		static let StopCalculating = ContentManager.State.finished
+
+		case Unavailable
+		case Calculating
+		case StopCalculating
+
+		var localized: String {
+			switch self {
+				case .Unavailable:
+					return ContentManager.State.unavailable
+				case .Calculating:
+					return ContentManager.State.calculating
+				case .StopCalculating:
+					return ContentManager.State.finished
+			}
+		}
 	}
 
 	// MARK: - Utility Methods
@@ -64,10 +76,44 @@ class SelectionHelper {
 
 	// MARK: - Sizing Methods
 	/// Grabs the size of the selection and then caches it
-	static func grabSize(_ url: URL, skipDirectories: Bool = false) -> String? {
+	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil, skipDirectories: Bool = false) {
+
+		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
+		func updateInterfacesForSize(bytes: Int64?, state: State? = nil) {
+
+			let sizeAsString: String?
+
+			// Nil check the bytes
+			if let bytes = bytes {
+				sizeAsString = formatBytes(bytes)
+			}
+
+			// If no bytes are available, then report the state
+			else if let state = state {
+				sizeAsString = state.localized
+			}
+
+			// If nothing is available close the field
+			else {
+				sizeAsString = nil
+			}
+
+			// Update interfaces
+			MenubarUtilityHelper.updateMenubarInterface(size: sizeAsString)
+
+			// Check to make sure interface data is present
+			if let panelSelection = panelSelection {
+				panelSelection.itemSizeAsString = sizeAsString
+			}
+		}
+
+		// --------------- Function ⤵︎ ----------------
+
+		let appDelegate = AppDelegate.current()
 
 		let keys: Set<URLResourceKey> = [
 			.isDirectoryKey,
+			.isApplicationKey,
 			.totalFileSizeKey,
 		]
 
@@ -76,34 +122,112 @@ class SelectionHelper {
 
 		// Unwrap the isDirectory value
 		guard let isDirectory = itemResources?.isDirectory else {
-			return nil
+			return
 		}
 
 		// Check if the current selection is a directory and if we should skip directories
 		if isDirectory, skipDirectories {
-			return nil
+			return
 		}
 
 		// Check if the size is already cached, if so return that
 		else if let cachedSize = url.getCachedByteSize() {
-			return SelectionHelper.formatBytes(cachedSize)
+			updateInterfacesForSize(bytes: Int64(cachedSize))
+			return
 		}
 
 		// Otherwise grab a new size
 		else {
 
-			// Check if it's a directory
+			// If it's a directory, find the size and update the
 			if isDirectory {
-				
+
+				// Get permission to work
+				if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
+
+					// Let the users know we're calculating
+					updateInterfacesForSize(bytes: nil, state: .Calculating)
+
+					// Check to make sure there are no work items on the queue
+					if appDelegate.workQueue.count >= 1 {
+						return
+					}
+
+					print("Raw size reset")
+
+					/// Holds raw size in memory
+					var rawSize: Int64?
+
+					/// Holds the selection type in memory
+					var type: SelectionType
+
+					// Find type of selection
+					if itemResources?.isApplication == true {
+						type = .Application
+					}
+					else {
+						type = .Directory
+					}
+
+					// ------------ Setup work blocks ⤵︎ --------------
+					// Executes on the background
+					appDelegate.workQueue.insert(DispatchWorkItem {
+
+						do {
+							rawSize = try FileManager.default.allocatedSizeOfDirectory(at: url)
+						}
+						catch {
+							rawSize = nil
+						}
+
+						print("Block 1 - size: \(rawSize) , count: \(appDelegate.workQueue.count)")
+
+						// Stop access on the main thread after completion of this block.
+						// Check the queue to make sure the work item still exists
+						if appDelegate.workQueue.count >= 1 {
+							DispatchQueue.main.async(execute: appDelegate.workQueue[1])
+						}
+					}, at: 0)
+
+					// Executes on the main thread
+					appDelegate.workQueue.insert(DispatchWorkItem {
+
+						print("Block 2 - size: \(rawSize)")
+
+						if let size = rawSize {
+							updateInterfacesForSize(bytes: size)
+							url.storeByteSize(size, type: type)
+						}
+						else {
+							updateInterfacesForSize(bytes: nil, state: .Unavailable)
+							print("🧀 ", "Unavailable")
+						}
+					}, at: 1)
+
+					appDelegate.workQueue[0].notify(queue: DispatchQueue.main) {
+						print("💥 Remove items")
+						appDelegate.workQueue.removeAll()
+					}
+
+					// Get directory size
+					DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: appDelegate.workQueue[0])
+				}
+
+				// If no access is permitted then nil the value out
+				else {
+					updateInterfacesForSize(bytes: nil, state: nil)
+					return
+				}
 			}
 
 			// Otherwise just return a normal size
 			else if let totalSize = itemResources?.totalFileSize {
-				return SelectionHelper.formatBytes(Int64(totalSize))
+				updateInterfacesForSize(bytes: Int64(totalSize))
+				return
 			}
 
 			// If everything fails just return nil
-			return nil
+			return
 		}
 	}
 

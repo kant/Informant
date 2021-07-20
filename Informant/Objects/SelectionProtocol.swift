@@ -19,13 +19,13 @@ protocol SelectionProtocol: SelectionHelper {
 	var itemTitle: String? { get set }
 
 	/// The size the interface displays
-	var itemSize: Int? { get set }
+//	var itemSize: Int? { get set }
 
 	/// The size of the item as a string
 	var itemSizeAsString: String? { get set }
 
 	/// This is an async execution block that can be executed, paused, resumed, and cancelled
-	var workQueue: [DispatchWorkItem] { get set }
+//	var workQueue: [DispatchWorkItem] { get set }
 
 	init(_ urls: [String], selection: SelectionType)
 }
