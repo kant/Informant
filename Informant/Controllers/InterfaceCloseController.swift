@@ -11,20 +11,17 @@ import SwiftUI
 class InterfaceCloseController {
 
 	var appDelegate = AppDelegate.current()
+	var panel: NSPanel
 
 	// ------------- Initialization ⤵︎ -------------
 
-	init(_ panel: NSPanel) {
+	init(_ panelRef: NSPanel) {
 
-		// Get position for panel
-		let parentTop = appDelegate.panel.frame.maxY
-		let parentLeft = appDelegate.panel.frame.minX
+		// Assign ref. for panel
+		panel = panelRef
 
-		// Offset and set
-		let offsetX: CGFloat = 5
-		let offsetY: CGFloat = 2
-		let topLeft = NSPoint(x: parentLeft - offsetX, y: parentTop - offsetY)
-		panel.setFrameOrigin(topLeft)
+		// Sets the position to the corner of the view
+		setPosition()
 
 		// Titlebar setup
 		panel.titlebarAppearsTransparent = true
@@ -44,8 +41,24 @@ class InterfaceCloseController {
 
 		// Misc.
 		panel.isMovableByWindowBackground = false
+		panel.isMovable = false
 
 		// Add as child
 		appDelegate.panel.addChildWindow(panel, ordered: .above)
+	}
+
+	/// Resets the position of the close button
+	func setPosition() {
+
+		// Get position for panel
+		let parentTop = appDelegate.panel.frame.maxY
+		let parentLeft = appDelegate.panel.frame.minX
+
+		// Offset and set
+		let offsetX: CGFloat = 5
+		let offsetY: CGFloat = 2
+		let topLeft = NSPoint(x: parentLeft - offsetX, y: parentTop - offsetY)
+
+		panel.setFrameOrigin(topLeft)
 	}
 }

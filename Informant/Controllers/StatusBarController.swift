@@ -216,6 +216,9 @@ class StatusBarController {
 		settings.setIsPanelInSnapZone(false)
 		setIsPanelBeingDragged(false)
 
+		// Reset panel's close button position
+		appDelegate.interfaceCloseController?.setPosition()
+
 		// Show panel
 		updatePanel(force: true)
 		panel.setIsVisible(true)
