@@ -76,6 +76,16 @@ class SelectionHelper {
 
 	// MARK: - Sizing Methods
 
+	/// Checks if the file at the url is downloaded
+	static func checkIsDownloaded(_ url: URL) -> Bool {
+		if url.pathExtension != "icloud" {
+			return true
+		}
+		else {
+			return false
+		}
+	}
+
 	/// Attempts to find the directory's size on a background thread, then commits changes found to the
 	/// interface on the main thread. As well, it caches sizes found to reduce power consumption.
 	///
@@ -136,15 +146,19 @@ class SelectionHelper {
 
 		// Check if the size is already cached, if so return that
 		else if let cachedSize = url.getCachedByteSize() {
-			updateInterfacesForSize(bytes: Int64(cachedSize))
-			return
+			return updateInterfacesForSize(bytes: Int64(cachedSize))
 		}
 
 		// Otherwise grab a new size
 		else {
 
+			// If the file is not downloaded then we don't show it's size
+			if checkIsDownloaded(url) == false {
+				return updateInterfacesForSize(bytes: nil, state: nil)
+			}
+
 			// If it's a directory, find the size and update the
-			if isDirectory {
+			else if isDirectory {
 
 				// Get permission to work
 				if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
@@ -223,15 +237,13 @@ class SelectionHelper {
 
 				// If no access is permitted then nil the value out
 				else {
-					updateInterfacesForSize(bytes: nil, state: nil)
-					return
+					return updateInterfacesForSize(bytes: nil, state: nil)
 				}
 			}
 
 			// Otherwise just return a normal size
 			else if let totalSize = itemResources?.totalFileSize {
-				updateInterfacesForSize(bytes: Int64(totalSize))
-				return
+				return updateInterfacesForSize(bytes: Int64(totalSize))
 			}
 
 			// If everything fails just return nil

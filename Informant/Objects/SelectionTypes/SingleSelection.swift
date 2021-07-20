@@ -37,9 +37,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	/// Determines if the file is an application or not
 	var isApplication: Bool?
 
-	/// Determines if the file is downloaded or not
-	var isDownloaded: Bool?
-
 	/// The user's Finder tags tacked on to the file
 	var selectionTags: SelectionTags?
 
@@ -145,25 +142,10 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			isHidden = resources.isHidden
 			isApplication = resources.isApplication
 			iCloudContainerName = resources.ubiquitousItemContainerDisplayName
-			isDownloaded = checkIfDownloaded()
-		}
-
-		// MARK: - Modify Size
-		if isDownloaded == false {
-			itemSizeAsString = nil
 		}
 
 		// Backup item path
 		itemPath = url.path
-	}
-
-	/// Check if the file is downloaded
-	func checkIfDownloaded() -> Bool {
-		if url.pathExtension != "icloud" {
-			return true
-		} else {
-			return false
-		}
 	}
 
 	/// Checks the url and settings and decides if the full url should be shown
