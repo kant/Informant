@@ -214,6 +214,7 @@ class StatusBarController {
 
 		// Reset panel snap zone always
 		settings.setIsPanelInSnapZone(false)
+		setIsPanelBeingDragged(false)
 
 		// Show panel
 		updatePanel(force: true)
