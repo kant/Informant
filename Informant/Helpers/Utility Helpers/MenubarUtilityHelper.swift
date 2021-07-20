@@ -71,11 +71,19 @@ class MenubarUtilityHelper {
 		}
 		
 		// Format string prior to use
-		let formattedSize = sizeAsString == "" ? "" : sizeAsString + "    "
+		let formattedSize = sizeAsString == "" ? "" : sizeAsString + " "
+		
+		print(formattedSize)
 		
 		// Get formatted font ready
 		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
-		let attrString = NSAttributedString(string: formattedSize, attributes: [.font: font, .baselineOffset: -0.5])
+		
+		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
+		let paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.alignment = .left
+		
+		// Put the attributed string all together
+		let attrString = NSAttributedString(string: formattedSize, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
 		
 		// Update the size
 		AppDelegate.current().statusItem.button?.attributedTitle = attrString
