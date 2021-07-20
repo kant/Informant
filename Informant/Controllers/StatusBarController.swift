@@ -214,6 +214,10 @@ class StatusBarController {
 
 		// Reset panel snap zone always
 		settings.setIsPanelInSnapZone(false)
+		setIsPanelBeingDragged(false)
+
+		// Reset panel's close button position
+		appDelegate.interfaceCloseController?.setPosition()
 
 		// Show panel
 		updatePanel(force: true)
@@ -349,6 +353,7 @@ class StatusBarController {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide
+				InterfaceHelper.ResetAllStates()
 				updateInterfaces()
 				break
 
@@ -485,6 +490,7 @@ class StatusBarController {
 			NSAnimationContext.runAnimationGroup { context -> Void in
 				context.duration = TimeInterval(0.15)
 				panel.animator().alphaValue = 0
+				settings.isMouseHoveringClose = false
 			} completionHandler: {
 				panelMoveAndSetAlphaAnimation()
 			}

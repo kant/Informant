@@ -18,7 +18,8 @@ extension AppDelegate {
 			.keyPanelEnablePathProp: true,
 			.keyPanelEnableCreatedProp: true,
 			.keyPanelEnableNameProp: false,
-			.keyPanelShowFullPath: true,
+			.keyPanelShowFullPath: false,
+			.keyPanelSkipDirectories: false,
 			.keyShowWelcomeWindow: true
 		])
 	}
@@ -36,6 +37,8 @@ public extension String {
 	static let keyMenubarUtilityBool = "menubarUtilityBool"
 	
 	static let keyPanelShowFullPath = "panelShowFullPath"
+	
+	static let keyPanelSkipDirectories = "panelSkipDirectories"
 	
 	static let keyPanelEnableNameProp = "panelEnableNameProp"
 	

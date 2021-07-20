@@ -23,7 +23,7 @@ struct ComponentsPanelFullFrame<Content>: View where Content: View {
 		VStack(alignment: .leading, spacing: 0) {
 			content
 		}
-		.padding(.bottom, 18)
+		.padding(.bottom, 19)
 	}
 }
 

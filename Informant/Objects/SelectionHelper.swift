@@ -90,7 +90,7 @@ class SelectionHelper {
 	/// interface on the main thread. As well, it caches sizes found to reduce power consumption.
 	///
 	/// Threads are started but cannot be stopped. The only thing that we can prevent atm. is updating the interface.
-	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil, skipDirectories: Bool = false) {
+	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil) {
 
 		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
 		func updateInterfacesForSize(bytes: Int64?, state: State? = nil) {
@@ -142,8 +142,8 @@ class SelectionHelper {
 		let isiCloudSyncFile = itemResources?.isUbiquitousItem
 
 		// Check if the current selection is a directory and if we should skip directories
-		if isDirectory == true, skipDirectories {
-			return
+		if isDirectory == true, appDelegate.interfaceState.settingsPanelSkipDirectories {
+			return updateInterfacesForSize(bytes: nil, state: nil)
 		}
 
 		// Check if the size is already cached, if so return that

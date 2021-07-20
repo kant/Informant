@@ -21,6 +21,13 @@ class InterfaceHelper {
 		selectionInMemory = nil
 	}
 
+	/// Resets all instances of the interface helper
+	static func ResetAllStates() {
+		let appDelegate = AppDelegate.current()
+		appDelegate.panelInterfaceHelper.ResetState()
+		appDelegate.menubarInterfaceHelper.ResetState()
+	}
+
 	// This grabs the currently selected Finder item(s) and then executes the corresponding logic
 	// based on the Finder items selected.
 	func GetFinderSelection(force: Bool = false) -> CheckedSelection? {
