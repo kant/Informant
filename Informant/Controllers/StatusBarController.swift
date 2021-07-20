@@ -340,7 +340,7 @@ class StatusBarController {
 		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
 		// Otherwise, new items are selected so update the interface and store current item selected for next click
-		if selectedItems != nil {
+		if selectedItems != nil, eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 			updateInterfaces()
 		}
 
