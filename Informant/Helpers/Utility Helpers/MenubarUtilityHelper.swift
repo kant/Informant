@@ -25,28 +25,24 @@ class MenubarUtilityHelper {
 		
 		// Error selection found
 		if checkedSelection.state == .errorSelection {
-			wipeMenubarInterface()
-			return
+			return wipeMenubarInterface()
 		}
 		
 		// Duplicate selection found
 		else if checkedSelection.state == .duplicateSelection {
-			updateMenubarInterface(size: sizeAsString)
-			return
+			return updateMenubarInterface(size: sizeAsString)
 		}
 		
 		// Unique selection found
 		else {
 			/// Path selection
 			guard let selection = checkedSelection.selection.paths else {
-				wipeMenubarInterface()
-				return
+				return wipeMenubarInterface()
 			}
 		
 			// Make sure selection is only one item. Any more and we wipe the interface
 			if selection.count > 1 {
-				wipeMenubarInterface(resetState: true)
-				return
+				return wipeMenubarInterface(resetState: true)
 			}
 		
 			// Get URL
@@ -60,6 +56,11 @@ class MenubarUtilityHelper {
 	/// Updates the status item
 	static func updateMenubarInterface(size: String? = nil) {
 		
+		// Check to make sure the menu bar utility isn't disabled
+		if AppDelegate.current().interfaceState.settingsMenubarUtilityBool == false {
+			return
+		}
+
 		// Change the size as string if needed
 		if let size = size {
 			sizeAsString = size
