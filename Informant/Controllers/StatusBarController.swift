@@ -490,6 +490,7 @@ class StatusBarController {
 			NSAnimationContext.runAnimationGroup { context -> Void in
 				context.duration = TimeInterval(0.15)
 				panel.animator().alphaValue = 0
+				settings.isMouseHoveringClose = false
 			} completionHandler: {
 				panelMoveAndSetAlphaAnimation()
 			}
