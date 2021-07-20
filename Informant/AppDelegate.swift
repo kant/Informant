@@ -14,6 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is the panel interface
 	public var panel: NSPanel!
 
+	/// This is the controller for the main panel
+	public var panelController: InterfacePanelController<ContentView>?
+
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
@@ -125,8 +128,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initialized the interface alert panel
 		interfaceAlertController = InterfaceAlertController()
 
-		// MARK: - Window Init
+		// MARK: - Main Panel Init
 
+		// TODO: Tuck this into a function
 		/// This is the main interface used by the application
 		panel = NSPanel(
 			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
@@ -134,35 +138,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			backing: .buffered, defer: false
 		)
 
-		// TODO: This needs to be adjusted so that it's actually in the center
-		// Centers window in middle of screen on launch
-		panel.center()
-
-		// Hide the titlebar
-		panel.titlebarAppearsTransparent = true
-		panel.titleVisibility = .hidden
-
-		// Hide all Titlebar Controls
-		panel.standardWindowButton(.miniaturizeButton)?.isHidden = true
-		panel.standardWindowButton(.closeButton)?.isHidden = true
-		panel.standardWindowButton(.zoomButton)?.isHidden = true
-
-		// Brings window to the top level but not above the menubar
-		panel.level = .floating
-		panel.becomesKeyOnlyIfNeeded = true
-
-		// Nice smooth exit
-		panel.animationBehavior = .none
-
-		// Other self explained window settings
-		panel.isMovableByWindowBackground = true
-
-		// TODO: Deprecate, I don't believe this is necessary
-		// Makes sure that the window can be reopened after being closed
-		panel.isReleasedWhenClosed = false
-
-		// Set the view controller
-		panel.contentViewController = NSHostingController(rootView: contentView)
+		// Initiate setup
+		panelController = InterfacePanelController(panel, contentView)
 
 		// MARK: - Close Init
 

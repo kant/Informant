@@ -8,7 +8,7 @@
 import LaunchAtLogin
 import SwiftUI
 
-// TODO: Finish this view
+/// This is the welcome view that appears only once on first run after a fresh install. Fresh install determined by user defaults
 struct WelcomeView: View {
 	
 	private let confettiFrameSize: CGFloat = 140
