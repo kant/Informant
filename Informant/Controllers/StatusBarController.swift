@@ -349,6 +349,7 @@ class StatusBarController {
 			switch interfaceHidingState {
 			case .Open:
 				interfaceHidingState = .ReadyToHide
+				InterfaceHelper.ResetAllStates()
 				updateInterfaces()
 				break
 
