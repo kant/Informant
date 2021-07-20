@@ -136,17 +136,13 @@ class SelectionHelper {
 		let itemResources = SelectionHelper.getURLResources(url, keys)
 
 		// Unwrap the isDirectory value
-		guard let isDirectory = itemResources?.isDirectory else {
-			return
-		}
+		let isDirectory = itemResources?.isDirectory
 
 		// Unwrap the isUbiquitousItem value
-		guard let isiCloudSyncFile = itemResources?.isUbiquitousItem else {
-			return
-		}
+		let isiCloudSyncFile = itemResources?.isUbiquitousItem
 
 		// Check if the current selection is a directory and if we should skip directories
-		if isDirectory, skipDirectories {
+		if isDirectory == true, skipDirectories {
 			return
 		}
 
@@ -159,12 +155,12 @@ class SelectionHelper {
 		else {
 
 			// If the file is not downloaded then we don't show it's size
-			if checkIsDownloaded(url) == false || (isDirectory && isiCloudSyncFile) {
+			if checkIsDownloaded(url) == false || (isDirectory == true && isiCloudSyncFile == true) {
 				return updateInterfacesForSize(bytes: nil, state: nil)
 			}
 
 			// If it's a directory, find the size and update the
-			else if isDirectory {
+			else if isDirectory == true {
 
 				// Get permission to work
 				if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {

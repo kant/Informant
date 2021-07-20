@@ -31,7 +31,7 @@ class MenubarUtilityHelper {
 		
 		// Duplicate selection found
 		else if checkedSelection.state == .duplicateSelection {
-			updateMenubarInterface()
+			updateMenubarInterface(size: sizeAsString)
 			return
 		}
 		
@@ -62,12 +62,20 @@ class MenubarUtilityHelper {
 		
 		// Change the size as string if needed
 		if let size = size {
-			sizeAsString = size + "    "
+			sizeAsString = size
 		}
+		
+		// Otherwise empty out the interface
+		else {
+			sizeAsString = ""
+		}
+		
+		// Format string prior to use
+		let formattedSize = sizeAsString == "" ? "" : sizeAsString + "    "
 		
 		// Get formatted font ready
 		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
-		let attrString = NSAttributedString(string: sizeAsString, attributes: [.font: font, .baselineOffset: -0.5])
+		let attrString = NSAttributedString(string: formattedSize, attributes: [.font: font, .baselineOffset: -0.5])
 		
 		// Update the size
 		AppDelegate.current().statusItem.button?.attributedTitle = attrString
