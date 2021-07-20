@@ -27,7 +27,6 @@ class SingleDirectorySelection: SingleSelection {
 		
 		// Otherwise we have no permission to view or it's an iCloud sync file
 		else {
-			itemSizeAsString = nil
 			itemCount = nil
 		}
 	}

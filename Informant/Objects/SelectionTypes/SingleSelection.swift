@@ -112,13 +112,6 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 				itemKind = resources.localizedTypeDescription
 			}
 
-			// Check filesize for being nil before unwrapping
-//			if let size = resources.totalFileSize {
-//				itemSizeAsString = SelectionHelper.formatBytes(Int64(size))
-//			} else {
-//				itemSizeAsString = SelectionHelper.State.Unavailable.localized
-//			}
-
 			// Format dates as strings
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateStyle = .medium

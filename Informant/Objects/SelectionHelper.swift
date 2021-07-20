@@ -129,6 +129,7 @@ class SelectionHelper {
 			.isDirectoryKey,
 			.isApplicationKey,
 			.totalFileSizeKey,
+			.isUbiquitousItemKey,
 		]
 
 		// Get the url resources
@@ -136,6 +137,11 @@ class SelectionHelper {
 
 		// Unwrap the isDirectory value
 		guard let isDirectory = itemResources?.isDirectory else {
+			return
+		}
+
+		// Unwrap the isUbiquitousItem value
+		guard let isiCloudSyncFile = itemResources?.isUbiquitousItem else {
 			return
 		}
 
@@ -153,7 +159,7 @@ class SelectionHelper {
 		else {
 
 			// If the file is not downloaded then we don't show it's size
-			if checkIsDownloaded(url) == false {
+			if checkIsDownloaded(url) == false || (isDirectory && isiCloudSyncFile) {
 				return updateInterfacesForSize(bytes: nil, state: nil)
 			}
 
