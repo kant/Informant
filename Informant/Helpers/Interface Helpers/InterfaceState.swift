@@ -69,9 +69,9 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsPanelShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelShowFullPath) {
+	@Published var settingsPanelDisplayFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelDisplayFullPath) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelShowFullPath)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelDisplayFullPath)
 		}
 	}
 
@@ -81,21 +81,21 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsPanelEnableNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableNameProp) {
+	@Published var settingsPanelHideNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideNameProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableNameProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideNameProp)
 		}
 	}
 
-	@Published var settingsPanelEnablePathProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnablePathProp) {
+	@Published var settingsPanelHidePathProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHidePathProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnablePathProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHidePathProp)
 		}
 	}
 
-	@Published var settingsPanelEnableCreatedProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableCreatedProp) {
+	@Published var settingsPanelHideCreatedProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideCreatedProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableCreatedProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideCreatedProp)
 		}
 	}
 }

@@ -145,7 +145,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	func isPathFullLength(_ interfaceState: InterfaceState) -> Bool {
 
 		// Check if the user wants to see where the file is located or the full path length
-		if interfaceState.settingsPanelShowFullPath == false {
+		if interfaceState.settingsPanelDisplayFullPath == false {
 			var whereURL = url
 			whereURL?.deleteLastPathComponent()
 			itemPath = tildeAbbreviatedPath(whereURL?.path)

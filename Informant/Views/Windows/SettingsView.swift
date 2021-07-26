@@ -136,6 +136,8 @@ struct SettingsRightSideView: View {
 	@ObservedObject var interfaceState: InterfaceState
 
 	var body: some View {
+
+		// Panel and system preferences
 		VStack(alignment: .leading, spacing: 0) {
 
 			// MARK: - Panel
@@ -151,16 +153,16 @@ struct SettingsRightSideView: View {
 				}
 
 				// Show where a selected file is located instead of the full path
-				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelShowFullPath)
+				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
 
 				// Enable created property
-				Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelEnableCreatedProp)
+				Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
 
 				// Enable path property
-				Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelEnablePathProp)
+				Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelHidePathProp)
 
 				// Enable name property
-				Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelEnableNameProp)
+				Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelHideNameProp)
 			}
 
 			// Divides system and panel

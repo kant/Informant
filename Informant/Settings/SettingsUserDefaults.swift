@@ -15,10 +15,10 @@ extension AppDelegate {
 		userdefaults.register(defaults: [
 			.keySystemStartupBool: false,
 			.keyMenubarUtilityBool: true,
-			.keyPanelEnablePathProp: true,
-			.keyPanelEnableCreatedProp: true,
-			.keyPanelEnableNameProp: false,
-			.keyPanelShowFullPath: false,
+			.keyPanelHidePathProp: false,
+			.keyPanelHideCreatedProp: false,
+			.keyPanelHideNameProp: true,
+			.keyPanelDisplayFullPath: false,
 			.keyPanelSkipDirectories: false,
 			.keyShowWelcomeWindow: true
 		])
@@ -36,15 +36,15 @@ public extension String {
 	
 	static let keyMenubarUtilityBool = "menubarUtilityBool"
 	
-	static let keyPanelShowFullPath = "panelShowFullPath"
+	static let keyPanelDisplayFullPath = "panelShowFullPath"
 	
 	static let keyPanelSkipDirectories = "panelSkipDirectories"
 	
-	static let keyPanelEnableNameProp = "panelEnableNameProp"
+	static let keyPanelHideNameProp = "panelEnableNameProp"
 	
-	static let keyPanelEnablePathProp = "panelEnablePathProp"
+	static let keyPanelHidePathProp = "panelEnablePathProp"
 	
-	static let keyPanelEnableCreatedProp = "panelEnableCreatedProp"
+	static let keyPanelHideCreatedProp = "panelEnableCreatedProp"
 	
 	static let keyShowWelcomeWindow = "welcomeWindowShow"
 }

@@ -46,12 +46,12 @@ struct PanelSingleFrame<Content: View>: View {
 				}
 
 				// Created
-				if interfaceState.settingsPanelEnableCreatedProp {
+				if interfaceState.settingsPanelHideCreatedProp == false {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelCreated, value: selection.itemDateCreatedAsString)
 				}
 
 				// Name
-				if interfaceState.settingsPanelEnableNameProp {
+				if interfaceState.settingsPanelHideNameProp == false {
 					ComponentsPanelItemField(label: ContentManager.Labels.panelName, value: selection.itemTitle, lineLimit: 4)
 				}
 
@@ -62,7 +62,7 @@ struct PanelSingleFrame<Content: View>: View {
 				ComponentsPanelTags(tags: selection.selectionTags)
 
 				// Path
-				if interfaceState.settingsPanelEnablePathProp, let isPathFullLength = selection.isPathFullLength(interfaceState) {
+				if interfaceState.settingsPanelHidePathProp == false, let isPathFullLength = selection.isPathFullLength(interfaceState) {
 					ComponentsPanelItemPathField(
 						label: isPathFullLength ? ContentManager.Labels.panelPath : ContentManager.Labels.panelWhere,
 						value: selection.itemPath
