@@ -527,6 +527,7 @@
 				9A43161E26265A1F0071227C /* Resources */,
 				9A7F3B402626A01100BD878F /* Embed App Extensions */,
 				9AF9BF532698C649006FAA39 /* Launch at Login Helper */,
+				9A1AB39A26AF61B700AC9BE9 /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -672,6 +673,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9A1AB39A26AF61B700AC9BE9 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ngit=`sh /etc/profile; which git`\nbundleVersion=`\"$git\" rev-list --all |wc -l`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bundleVersion\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
 		9AF9BF532698C649006FAA39 /* Launch at Login Helper */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -956,7 +975,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.04.5;
+				MARKETING_VERSION = 0.05.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -986,7 +1005,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.04.5;
+				MARKETING_VERSION = 0.05.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

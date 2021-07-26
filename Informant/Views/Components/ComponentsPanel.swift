@@ -479,6 +479,11 @@ struct ComponentsPanelIconMenuButton: View {
 			.opacity(pressed ? 1 : 0.6)
 			.inactiveWindowTap { pressed in
 
+				// Escape if we get two false presses in a row. Some touch pads are sensitive to this.
+				if self.pressed == false, pressed == false {
+					return
+				}
+
 				// Makes sure to lock us out in the case that a state is found
 				if popped == nil {
 
