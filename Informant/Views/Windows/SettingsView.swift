@@ -143,8 +143,6 @@ struct SettingsRightSideView: View {
 	private let hstackTogglePadding: CGFloat = 15
 	private let sectionVerticalPadding: CGFloat = 25
 
-	@State var testbinding = false
-
 	var body: some View {
 
 		// Panel and system preferences
@@ -158,15 +156,13 @@ struct SettingsRightSideView: View {
 			HStack(spacing: hstackTogglePadding) {
 
 				VStack(alignment: .leading, spacing: 10) {
-
-					Toggle("Test", isOn: $testbinding)
-					Toggle("Test", isOn: $testbinding)
+					Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize)
+					Toggle(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind)
 				}
 
 				VStack(alignment: .leading, spacing: 10) {
-
-					Toggle("Test", isOn: $testbinding)
-					Toggle("Test", isOn: $testbinding)
+					Toggle(ContentManager.SettingsLabels.menubarShowDateCreated, isOn: $interfaceState.settingsMenubarShowDateCreated)
+					Toggle(ContentManager.SettingsLabels.menubarShowPath, isOn: $interfaceState.settingsMenubarShowPath)
 				}
 			}
 

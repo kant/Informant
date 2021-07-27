@@ -13,13 +13,25 @@ extension AppDelegate {
 	func registerUserDefaults() {
 		let userdefaults = UserDefaults.standard
 		userdefaults.register(defaults: [
-			.keySystemStartupBool: false,
-			.keyMenubarUtilityBool: true,
+			
+			// Menubar
+			.keyMenubarShowSize: true,
+			.keyMenubarShowKind: false,
+			.keyMenubarShowCreated: false,
+			.keyMenubarShowPath: false,
+			
+			// Panel
 			.keyPanelHidePathProp: false,
 			.keyPanelHideCreatedProp: false,
 			.keyPanelHideNameProp: true,
 			.keyPanelDisplayFullPath: false,
+			
+			// System
+			.keySystemStartupBool: false,
+			.keyMenubarUtilityBool: true,
 			.keyPanelSkipDirectories: false,
+			
+			// Misc.
 			.keyShowWelcomeWindow: true
 		])
 	}
@@ -31,6 +43,14 @@ public extension String {
 	static let keyRootURL = "rootURL"
 	
 	static let keyRootURLBookmarkData = "rootURLBookmarkData"
+	
+	static let keyMenubarShowSize = "menubarShowSize"
+	
+	static let keyMenubarShowKind = "menubarShowKind"
+	
+	static let keyMenubarShowCreated = "menubarShowCreated"
+	
+	static let keyMenubarShowPath = "menubarShowPath"
 	
 	static let keySystemStartupBool = "systemStartupBool"
 	

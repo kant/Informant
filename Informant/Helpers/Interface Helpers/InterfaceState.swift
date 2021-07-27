@@ -98,4 +98,30 @@ class InterfaceState: ObservableObject {
 			UserDefaults.standard.setValue(value, forKey: .keyPanelHideCreatedProp)
 		}
 	}
+
+	// ------------ Menubar Settings ------------- ⤵︎
+
+	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowSize)
+		}
+	}
+
+	@Published var settingsMenubarShowKind: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowKind) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowKind)
+		}
+	}
+
+	@Published var settingsMenubarShowDateCreated: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowCreated) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowCreated)
+		}
+	}
+
+	@Published var settingsMenubarShowPath: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowPath) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowPath)
+		}
+	}
 }

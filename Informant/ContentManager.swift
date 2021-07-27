@@ -94,6 +94,14 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
+		static let menubarShowSize = NSLocalizedString("Show Size", comment: "")
+
+		static let menubarShowKind = NSLocalizedString("Show Kind", comment: "")
+
+		static let menubarShowDateCreated = NSLocalizedString("Show Date Created", comment: "")
+
+		static let menubarShowPath = NSLocalizedString("Show Path", comment: "")
+
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
 		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
