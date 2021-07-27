@@ -36,12 +36,10 @@ struct SettingsView: View {
 
 			// Right side
 			SettingsRightSideView(interfaceState: interfaceState)
-
-			// Makes sure view is centered
-			Spacer(minLength: 0)
+				.frame(width: 400)
 		}
 		.padding([.bottom, .leading, .trailing])
-		.frame(width: 650, height: 400, alignment: .center)
+		.frame(width: 670, height: 450, alignment: .center)
 	}
 }
 
@@ -95,7 +93,7 @@ struct SettingsLeftSideView: View {
 				}
 			}
 
-			Spacer()
+			Spacer().frame(height: 22)
 
 			#warning("Add link functionality")
 			// Link stack
@@ -125,9 +123,11 @@ struct SettingsLeftSideView: View {
 						.SettingsLabelButtonFont()
 				}
 			}
+			.padding(.leading, 4)
 
 			Spacer()
 		}
+		.offset(y: -20)
 	}
 }
 
@@ -152,17 +152,27 @@ struct SettingsRightSideView: View {
 					KeyboardShortcuts.Recorder(for: .togglePopover)
 				}
 
-				// Show where a selected file is located instead of the full path
-				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
+				// Panel toggle stack
+				HStack(spacing: 15) {
 
-				// Enable created property
-				Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
+					// Name & date created
+					VStack(alignment: .leading, spacing: 10) {
+						// Enable name property
+						Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelHideNameProp)
 
-				// Enable path property
-				Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelHidePathProp)
+						// Enable created property
+						Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
+					}
 
-				// Enable name property
-				Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelHideNameProp)
+					// Path properties
+					VStack(alignment: .leading, spacing: 10) {
+						// Show where a selected file is located instead of the full path
+						Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
+
+						// Enable path property
+						Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelHidePathProp)
+					}
+				}
 			}
 
 			// Divides system and panel
