@@ -31,21 +31,22 @@ struct SettingsView: View {
 
 				// Left side
 				SettingsLeftSideView()
-					.frame(width: 260)
+					.frame(width: 270)
 
 				// Divider
 				Divider()
-					.padding(.vertical, 12)
+					.padding(.vertical, 10)
 
 				// Right side
 				SettingsRightSideView(interfaceState: interfaceState)
 					.frame(minWidth: 0, maxWidth: .infinity)
+					.padding(.bottom, 4)
 			}
 
 			Spacer()
 		}
 		.edgesIgnoringSafeArea(.all)
-		.frame(width: 680, height: 430)
+		.frame(width: 670)
 	}
 }
 
@@ -149,8 +150,17 @@ struct SettingsRightSideView: View {
 		VStack(alignment: .leading, spacing: 0) {
 
 			// MARK: - Menu Bar
-			Text(ContentManager.SettingsLabels.menubar)
-				.SettingsLabelFont()
+
+			// Menu bar and descriptor
+			VStack(alignment: .leading, spacing: 4) {
+
+				Text(ContentManager.SettingsLabels.menubar)
+					.SettingsLabelFont(padding: 0)
+
+				Text(ContentManager.SettingsLabels.menubarCopyPathDescriptor)
+					.SettingsVersionFont()
+			}
+			.padding(.bottom, 11)
 
 			// Menu bar settings stack
 			HStack(alignment: .top, spacing: hstackTogglePadding) {
