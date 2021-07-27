@@ -322,7 +322,7 @@ class StatusBarController {
 	/// Checks if the menubar utility is visible based on user settings
 	func checkMenubarUtilitySettings() {
 		if settings.settingsMenubarUtilityBool, settings.privacyAccessibilityEnabled == true {
-			MenubarUtilityHelper.updateSize()
+			MenubarUtilityHelper.update()
 		}
 		else {
 			MenubarUtilityHelper.wipeMenubarInterface(resetState: false)

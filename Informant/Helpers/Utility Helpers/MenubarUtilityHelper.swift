@@ -15,7 +15,7 @@ class MenubarUtilityHelper {
 	static var sizeAsString: String = ""
 	
 	/// Update utility size
-	static func updateSize() {
+	static func update(force: Bool = false) {
 		
 		// Grab reference to the appdelegate
 		let appDelegate = AppDelegate.current()
@@ -32,7 +32,7 @@ class MenubarUtilityHelper {
 		}
 		
 		// Duplicate selection found
-		else if checkedSelection.state == .duplicateSelection, let paths = checkedSelection.selection.paths {
+		else if force == false, checkedSelection.state == .duplicateSelection, let paths = checkedSelection.selection.paths {
 			return updateMenubarInterface(newSize: sizeAsString, url: URL(fileURLWithPath: paths[0]))
 		}
 		
@@ -82,24 +82,24 @@ class MenubarUtilityHelper {
 
 		// MARK: - Verify & Format Size
 		
+		// Check to make sure the menu bar utility isn't disabled
+		if interfaceState.settingsMenubarUtilityBool == false {
+			return
+		}
+
+		// Change the size as string if needed
+		if let size = newSize {
+			sizeAsString = size
+		}
+		
+		// Otherwise empty out the interface
+		else {
+			sizeAsString = ""
+		}
+		
 		// Confirm that we want to see size
 		if interfaceState.settingsMenubarShowSize {
 			
-			// Check to make sure the menu bar utility isn't disabled
-			if interfaceState.settingsMenubarUtilityBool == false {
-				return
-			}
-
-			// Change the size as string if needed
-			if let size = newSize {
-				sizeAsString = size
-			}
-		
-			// Otherwise empty out the interface
-			else {
-				sizeAsString = ""
-			}
-		
 			// Format string prior to use
 			size = sizeAsString
 		}
@@ -226,7 +226,7 @@ class MenubarUtilityHelper {
 						break
 				
 					// Last property
-					case properties.count - 1: finalString.append(" \(property)")
+					case properties.count - 1: finalString.append(" \(property) ")
 						break
 					
 					// Middle property
@@ -236,6 +236,6 @@ class MenubarUtilityHelper {
 			}
 		}
 		
-		return finalString + " "
+		return finalString
 	}
 }

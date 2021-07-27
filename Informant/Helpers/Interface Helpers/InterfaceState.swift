@@ -105,11 +105,19 @@ class InterfaceState: ObservableObject {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowSize)
 		}
+
+		didSet {
+			MenubarUtilityHelper.update(force: true)
+		}
 	}
 
 	@Published var settingsMenubarShowKind: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowKind) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowKind)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
 		}
 	}
 
@@ -117,17 +125,29 @@ class InterfaceState: ObservableObject {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDuration)
 		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
 	}
 
 	@Published var settingsMenubarShowDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDimensions)
 		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
 	}
 
 	@Published var settingsMenubarShowPath: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowPath) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowPath)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
 		}
 	}
 
