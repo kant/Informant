@@ -107,15 +107,15 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsMenubarShowKind: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowKind) {
+	@Published var settingsMenubarShowDuration: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDuration) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowKind)
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDuration)
 		}
 	}
 
-	@Published var settingsMenubarShowDateCreated: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowCreated) {
+	@Published var settingsMenubarShowDateDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowCreated)
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDimensions)
 		}
 	}
 

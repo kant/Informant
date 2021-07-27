@@ -94,13 +94,13 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
-		static let menubarShowSize = NSLocalizedString("Show Size", comment: "")
+		static let menubarShowSize = NSLocalizedString("Size", comment: "")
 
-		static let menubarShowKind = NSLocalizedString("Show Kind", comment: "")
+		static let menubarShowDuration = NSLocalizedString("Duration", comment: "")
 
-		static let menubarShowDateCreated = NSLocalizedString("Show Date Created", comment: "")
+		static let menubarShowDimensions = NSLocalizedString("Dimensions", comment: "")
 
-		static let menubarShowPath = NSLocalizedString("Show Path", comment: "")
+		static let menubarShowPath = NSLocalizedString("Copy-path button", comment: "")
 
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
@@ -108,7 +108,7 @@ class ContentManager {
 
 		static let launchOnStartup = NSLocalizedString("Launch Informant on system startup", comment: "Asks the user if they want the app to launch on startup")
 
-		static let menubarUtility = NSLocalizedString("Enable menubar-utility", comment: "Asks the user if they want the menubar-utility enabled")
+		static let menubarUtility = NSLocalizedString("Enable menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
 
 		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 

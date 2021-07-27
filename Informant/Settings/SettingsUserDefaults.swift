@@ -16,8 +16,8 @@ extension AppDelegate {
 			
 			// Menubar
 			.keyMenubarShowSize: true,
-			.keyMenubarShowKind: false,
-			.keyMenubarShowCreated: false,
+			.keyMenubarShowDuration: false,
+			.keyMenubarShowDimensions: false,
 			.keyMenubarShowPath: false,
 			
 			// Panel
@@ -46,9 +46,9 @@ public extension String {
 	
 	static let keyMenubarShowSize = "menubarShowSize"
 	
-	static let keyMenubarShowKind = "menubarShowKind"
+	static let keyMenubarShowDuration = "menubarShowDuration"
 	
-	static let keyMenubarShowCreated = "menubarShowCreated"
+	static let keyMenubarShowDimensions = "menubarShowDimensions"
 	
 	static let keyMenubarShowPath = "menubarShowPath"
 	

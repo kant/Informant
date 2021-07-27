@@ -157,11 +157,11 @@ struct SettingsRightSideView: View {
 
 				VStack(alignment: .leading, spacing: 10) {
 					Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize)
-					Toggle(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind)
+					Toggle(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration)
 				}
 
 				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.menubarShowDateCreated, isOn: $interfaceState.settingsMenubarShowDateCreated)
+					Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDateDimensions)
 					Toggle(ContentManager.SettingsLabels.menubarShowPath, isOn: $interfaceState.settingsMenubarShowPath)
 				}
 			}
