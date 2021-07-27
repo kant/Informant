@@ -96,6 +96,8 @@ class ContentManager {
 
 		static let menubarShowSize = NSLocalizedString("Size", comment: "")
 
+		static let menubarShowKind = NSLocalizedString("Kind", comment: "")
+
 		static let menubarShowDuration = NSLocalizedString("Duration", comment: "")
 
 		static let menubarShowDimensions = NSLocalizedString("Dimensions", comment: "")
@@ -112,11 +114,11 @@ class ContentManager {
 
 		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 
-		static let showFullPath = NSLocalizedString("Include filename in path", comment: "Asks the user if they want to see where the file is located instead of the full path")
+		static let showFullPath = NSLocalizedString("Include name in path", comment: "Asks the user if they want to see where the file is located instead of the full path")
 
 		static let skipDirectories = NSLocalizedString("Skip getting size for folders and apps", comment: "Asks the user if they want to prevent the app from sizing directories.")
 
-		static let enableName = NSLocalizedString("Hide full filename", comment: "")
+		static let enableName = NSLocalizedString("Hide full name", comment: "")
 
 		static let enablePath = NSLocalizedString("Hide path", comment: "")
 

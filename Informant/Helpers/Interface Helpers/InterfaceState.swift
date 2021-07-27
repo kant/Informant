@@ -107,6 +107,12 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsMenubarShowKind: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowKind) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowKind)
+		}
+	}
+
 	@Published var settingsMenubarShowDuration: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDuration) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDuration)
@@ -122,6 +128,12 @@ class InterfaceState: ObservableObject {
 	@Published var settingsMenubarShowPath: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowPath) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowPath)
+		}
+	}
+
+	@Published var settingsMenubarShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowFullPath) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowFullPath)
 		}
 	}
 }
