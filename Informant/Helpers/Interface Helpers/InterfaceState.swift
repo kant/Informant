@@ -150,10 +150,4 @@ class InterfaceState: ObservableObject {
 			MenubarUtilityHelper.update()
 		}
 	}
-
-	@Published var settingsMenubarShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowFullPath) {
-		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowFullPath)
-		}
-	}
 }

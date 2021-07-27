@@ -140,7 +140,7 @@ struct SettingsRightSideView: View {
 
 	@ObservedObject var interfaceState: InterfaceState
 
-	private let hstackTogglePadding: CGFloat = 15
+	private let hstackTogglePadding: CGFloat = 16
 	private let sectionVerticalPadding: CGFloat = 26
 
 	var body: some View {
@@ -153,7 +153,7 @@ struct SettingsRightSideView: View {
 				.SettingsLabelFont()
 
 			// Menu bar settings stack
-			HStack(spacing: hstackTogglePadding) {
+			HStack(alignment: .top, spacing: hstackTogglePadding) {
 
 				VStack(alignment: .leading, spacing: 10) {
 					Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize)
@@ -166,7 +166,6 @@ struct SettingsRightSideView: View {
 				}
 
 				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsMenubarShowFullPath)
 					Toggle(ContentManager.SettingsLabels.menubarShowPath, isOn: $interfaceState.settingsMenubarShowPath)
 				}
 			}

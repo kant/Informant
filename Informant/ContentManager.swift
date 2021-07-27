@@ -102,7 +102,7 @@ class ContentManager {
 
 		static let menubarShowDimensions = NSLocalizedString("Dimensions", comment: "")
 
-		static let menubarShowPath = NSLocalizedString("Path to clipboard", comment: "")
+		static let menubarShowPath = NSLocalizedString("Path", comment: "")
 
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
