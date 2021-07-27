@@ -45,7 +45,7 @@ struct SettingsView: View {
 			Spacer()
 		}
 		.edgesIgnoringSafeArea(.all)
-		.frame(width: 670, height: 430)
+		.frame(width: 680, height: 430)
 	}
 }
 
@@ -161,7 +161,7 @@ struct SettingsRightSideView: View {
 				}
 
 				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDateDimensions)
+					Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions)
 					Toggle(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration)
 				}
 

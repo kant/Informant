@@ -113,7 +113,7 @@ class SelectionHelper {
 			}
 
 			// Update interfaces
-			MenubarUtilityHelper.updateMenubarInterface(size: sizeAsString)
+			MenubarUtilityHelper.updateMenubarInterface(newSize: sizeAsString, url: url)
 
 			// Check to make sure interface data is present
 			if let panelSelection = panelSelection {

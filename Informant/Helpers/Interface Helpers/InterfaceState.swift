@@ -119,7 +119,7 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsMenubarShowDateDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
+	@Published var settingsMenubarShowDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDimensions)
 		}
