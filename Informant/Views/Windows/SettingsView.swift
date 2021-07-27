@@ -22,24 +22,30 @@ struct SettingsView: View {
 	}
 
 	var body: some View {
+		VStack(alignment: .center, spacing: 0) {
 
-		// Main stack
-		HStack {
+			Spacer()
 
-			// Left side
-			SettingsLeftSideView()
-				.frame(width: 260)
+			// Main stack
+			HStack(alignment: .center, spacing: 0) {
 
-			// Divider
-			Divider()
-			Spacer(minLength: 0)
+				// Left side
+				SettingsLeftSideView()
+					.frame(width: 260)
 
-			// Right side
-			SettingsRightSideView(interfaceState: interfaceState)
-				.frame(width: 400)
+				// Divider
+				Divider()
+					.padding(.vertical, 12)
+
+				// Right side
+				SettingsRightSideView(interfaceState: interfaceState)
+					.frame(width: 400)
+			}
+
+			Spacer()
 		}
-		.padding([.bottom, .leading, .trailing])
-		.frame(width: 670, height: 450, alignment: .center)
+		.edgesIgnoringSafeArea(.all)
+		.frame(width: 670, height: 420)
 	}
 }
 
@@ -127,7 +133,6 @@ struct SettingsLeftSideView: View {
 
 			Spacer()
 		}
-		.offset(y: -20)
 	}
 }
 
@@ -135,10 +140,38 @@ struct SettingsRightSideView: View {
 
 	@ObservedObject var interfaceState: InterfaceState
 
+	private let hstackTogglePadding: CGFloat = 15
+	private let sectionVerticalPadding: CGFloat = 25
+
+	@State var testbinding = false
+
 	var body: some View {
 
 		// Panel and system preferences
 		VStack(alignment: .leading, spacing: 0) {
+
+			// MARK: - Menu Bar
+			Text(ContentManager.SettingsLabels.menubar)
+				.SettingsLabelFont()
+
+			// Menu bar settings stack
+			HStack(spacing: hstackTogglePadding) {
+
+				VStack(alignment: .leading, spacing: 10) {
+
+					Toggle("Test", isOn: $testbinding)
+					Toggle("Test", isOn: $testbinding)
+				}
+
+				VStack(alignment: .leading, spacing: 10) {
+
+					Toggle("Test", isOn: $testbinding)
+					Toggle("Test", isOn: $testbinding)
+				}
+			}
+
+			// Divides menubar and panel
+			Spacer().frame(height: sectionVerticalPadding)
 
 			// MARK: - Panel
 			Text(ContentManager.SettingsLabels.panel)
@@ -153,7 +186,7 @@ struct SettingsRightSideView: View {
 				}
 
 				// Panel toggle stack
-				HStack(spacing: 15) {
+				HStack(spacing: hstackTogglePadding) {
 
 					// Name & date created
 					VStack(alignment: .leading, spacing: 10) {
@@ -176,7 +209,7 @@ struct SettingsRightSideView: View {
 			}
 
 			// Divides system and panel
-			Spacer().frame(height: 30)
+			Spacer().frame(height: sectionVerticalPadding)
 
 			// MARK: - System
 			Text(ContentManager.SettingsLabels.system)

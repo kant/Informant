@@ -80,6 +80,8 @@ class ContentManager {
 	// MARK: - Settings Labels
 	public enum SettingsLabels {
 
+		static let menubar = NSLocalizedString("Menu Bar", comment: "")
+
 		static let panel = NSLocalizedString("Panel", comment: "")
 
 		static let system = NSLocalizedString("System", comment: "")
