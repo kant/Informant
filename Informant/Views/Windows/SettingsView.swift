@@ -39,13 +39,13 @@ struct SettingsView: View {
 
 				// Right side
 				SettingsRightSideView(interfaceState: interfaceState)
-					.frame(width: 400)
+					.frame(minWidth: 0, maxWidth: .infinity)
 			}
 
 			Spacer()
 		}
 		.edgesIgnoringSafeArea(.all)
-		.frame(width: 670, height: 420)
+		.frame(width: 670, height: 430)
 	}
 }
 
@@ -141,7 +141,7 @@ struct SettingsRightSideView: View {
 	@ObservedObject var interfaceState: InterfaceState
 
 	private let hstackTogglePadding: CGFloat = 15
-	private let sectionVerticalPadding: CGFloat = 25
+	private let sectionVerticalPadding: CGFloat = 26
 
 	var body: some View {
 
