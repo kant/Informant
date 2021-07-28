@@ -216,15 +216,15 @@ class MenubarUtilityHelper {
 				switch index {
 				
 					// First property
-					case 0: finalString.append("\(property) •")
+					case 0: finalString.append("\(property)  •")
 						break
 				
 					// Last property
-					case properties.count - 1: finalString.append(" \(property)")
+					case properties.count - 1: finalString.append("  \(property)")
 						break
 					
 					// Middle property
-					default: finalString.append(" \(property) •")
+					default: finalString.append("  \(property)  •")
 						break
 				}
 			}
