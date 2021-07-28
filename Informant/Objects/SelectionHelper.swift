@@ -255,6 +255,21 @@ class SelectionHelper {
 
 	// MARK: - Formatting Methods
 
+	/// Checks the url and settings and decides if the full url should be shown
+	static func formatPathBasedOnSettings(_ url: URL) -> String? {
+
+		// Check if the user wants to see where the file is located or the full path length
+		if AppDelegate.current().interfaceState.settingsPanelDisplayFullPath == false {
+			let shortenedURL = url.deletingLastPathComponent()
+			return SelectionHelper.formatPathTildeAbbreviate(shortenedURL.path)
+		}
+
+		// Otherwise show the full path
+		else {
+			return SelectionHelper.formatPathTildeAbbreviate(url.path)
+		}
+	}
+
 	/// Modifies the root directory of the path to a ~
 	static func formatPathTildeAbbreviate(_ path: String?) -> String? {
 		guard let homeDirectory = FileManager.default.getRealHomeDirectory else {
