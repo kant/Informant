@@ -183,11 +183,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - App Init
 
-		// Update the interface on initialization
-		InterfaceHelper.UpdateInterface()
-
 		// Initialize status bar
 		statusBarController = StatusBarController()
+
+		// Update the interface on initialization
+		InterfaceHelper.UpdateInterface()
 
 		// MARK: - Keyboard Shortcuts
 

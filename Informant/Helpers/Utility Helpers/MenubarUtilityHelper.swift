@@ -175,19 +175,14 @@ class MenubarUtilityHelper {
 		let attrString = NSAttributedString(string: formattedString, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
 		
 		// Update the size
-		if formattedString.isEmpty {
-//			appDelegate.utilityStatusItem.button?.isHidden = true
-		}
-		else {
-//			appDelegate.utilityStatusItem.button?.isHidden = false
-			appDelegate.utilityStatusItem.button?.attributedTitle = attrString
-		}
+		appDelegate.utilityStatusItem?.isVisible = !formattedString.isEmpty
+		appDelegate.utilityStatusItem?.button?.attributedTitle = attrString
 	}
 	
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
 		
-		AppDelegate.current().panelStatusItem.button?.attributedTitle = NSAttributedString(string: "")
+		AppDelegate.current().utilityStatusItem?.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
 			sizeAsString = ""

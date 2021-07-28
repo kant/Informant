@@ -78,7 +78,7 @@ class InterfaceAlertController {
 	}
 
 	/// Displays alert
-	func showAlert() {
+	func showAlert(_ message: String = ContentManager.Extra.popUpCopied) {
 
 		// Find new center
 		if let center = getAlertCenter() {
@@ -91,8 +91,11 @@ class InterfaceAlertController {
 			alert.setIsVisible(true)
 		}
 
+		// Set message for alert
+		alert.contentViewController = NSHostingController(rootView: PanelAlert())
+
 		// Animates the window from transparent to opaque
-		NSAnimationContext.runAnimationGroup { (context) -> Void in
+		NSAnimationContext.runAnimationGroup { context -> Void in
 			context.duration = TimeInterval(0.2)
 			alert.animator().alphaValue = 1
 		} completionHandler: {
@@ -117,7 +120,7 @@ class InterfaceAlertController {
 		alert.alphaValue = 1
 
 		// Animates the window from transparent to opaque
-		NSAnimationContext.runAnimationGroup { (context) -> Void in
+		NSAnimationContext.runAnimationGroup { context -> Void in
 			context.duration = TimeInterval(0.2)
 			alert.animator().alphaValue = 0
 		} completionHandler: {
@@ -133,7 +136,7 @@ class InterfaceAlertController {
 	}
 
 	/// Shows alert and copies path value to pasteboard
-	func showCopyAlertForPath(_ path: String) {
+	func showCopyAlertForPathAndCopyToClipboard(_ path: String) {
 		PasteboardHelper.copyPathToPasteboard(path)
 		showAlert()
 	}

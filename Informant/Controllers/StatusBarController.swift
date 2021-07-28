@@ -11,8 +11,8 @@ class StatusBarController {
 
 	private var statusBar: NSStatusBar
 
-	private var panelStatusItem: NSStatusItem
-	private var utilityStatusItem: NSStatusItem
+	private var panelStatusItem: NSStatusItem?
+	private var utilityStatusItem: NSStatusItem?
 
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
@@ -59,19 +59,11 @@ class StatusBarController {
 		appDelegate.utilityStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
 
 		// Assign status items
-		guard let utilStatus = appDelegate.utilityStatusItem else {
-			return
-		}
-
-		guard let panelStatus = appDelegate.panelStatusItem else {
-			return
-		}
-
-		panelStatusItem = utilStatus
-		utilityStatusItem = panelStatus
+		panelStatusItem = appDelegate.panelStatusItem
+		utilityStatusItem = appDelegate.utilityStatusItem
 
 		// Initializes menu bar button
-		if let panelBarButton = panelStatusItem.button {
+		if let panelBarButton = panelStatusItem?.button {
 
 			// Status bar icon image
 			panelBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
@@ -94,15 +86,18 @@ class StatusBarController {
 		}
 
 		// Initializes the utility menu bar button
-		if let utilityBarButton = utilityStatusItem.button {
+		if let utilityBarButton = utilityStatusItem?.button {
 
 			// Updates the constraints of the button
 			utilityBarButton.updateConstraints()
 
 			// This is what executs upon click
-			utilityBarButton.action = #selector(toggleInterfaceByClick)
+			utilityBarButton.action = #selector(copyPathToClipboard)
 			utilityBarButton.target = self
 		}
+
+		// Start utility button hidden
+		utilityStatusItem?.isVisible = false
 
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
@@ -130,6 +125,13 @@ class StatusBarController {
 
 	// MARK: - Extraneous Methods
 
+	/// Copies the path to the clipboard with settings in mind.
+	@objc func copyPathToClipboard() {
+		if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
+			appDelegate.interfaceAlertController?.showCopyAlertForPathAndCopyToClipboard(paths[0])
+		}
+	}
+
 	/// Small function used to toggle the interface by click
 	@objc func toggleInterfaceByClick() {
 		InterfaceHelper.ToggleInterfaceByClick()
@@ -139,12 +141,12 @@ class StatusBarController {
 	func statusItemButtonPosition() -> NSPoint {
 
 		// Find status item position by accessing it's button's window!
-		guard let statusItemFrame = panelStatusItem.button?.window?.frame else {
+		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
 			return NSPoint()
 		}
 
 		// Get the image
-		guard let image = panelStatusItem.button?.image else {
+		guard let image = panelStatusItem?.button?.image else {
 			return NSPoint()
 		}
 
@@ -467,7 +469,7 @@ class StatusBarController {
 		// ------------ Establish Panel Snap Zone -------------
 
 		// Grab StatusItemButton position
-		guard let statusItemFrame = panelStatusItem.button?.window?.frame else {
+		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
 			return
 		}
 
