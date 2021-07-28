@@ -190,20 +190,21 @@ struct SettingsRightSideView: View {
 
 					// Name & date created
 					VStack(alignment: .leading, spacing: 10) {
-						// Enable name property
-						Toggle(" " + ContentManager.SettingsLabels.enableName, isOn: $interfaceState.settingsPanelHideNameProp)
+						// Hide name property
+						Toggle(" " + ContentManager.SettingsLabels.hideName, isOn: $interfaceState.settingsPanelHideNameProp)
 
-						// Enable created property
-						Toggle(" " + ContentManager.SettingsLabels.enableCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
+						// Hide created property
+						Toggle(" " + ContentManager.SettingsLabels.hideCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
 					}
 
 					// Path properties
 					VStack(alignment: .leading, spacing: 10) {
-						// Show where a selected file is located instead of the full path
-						Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
 
-						// Enable path property
-						Toggle(" " + ContentManager.SettingsLabels.enablePath, isOn: $interfaceState.settingsPanelHidePathProp)
+						// Hide icon property
+						Toggle(" " + ContentManager.SettingsLabels.hideIcon, isOn: $interfaceState.settingsPanelHideIconProp)
+
+						// Hide path property
+						Toggle(" " + ContentManager.SettingsLabels.hidePath, isOn: $interfaceState.settingsPanelHidePathProp)
 					}
 				}
 			}
@@ -219,6 +220,9 @@ struct SettingsRightSideView: View {
 
 				// Pick root url
 				SettingsPickRootURL(interfaceState.settingsRootURL)
+
+				// Show where a selected file is located instead of the full path
+				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
 
 				// Skips the sizing of directories all together
 				Toggle(" " + ContentManager.SettingsLabels.skipDirectories, isOn: $interfaceState.settingsPanelSkipDirectories)

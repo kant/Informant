@@ -99,6 +99,12 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsPanelHideIconProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideIconProp) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideIconProp)
+		}
+	}
+
 	// ------------ Menubar Settings ------------- ⤵︎
 
 	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {

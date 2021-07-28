@@ -28,10 +28,10 @@ struct PanelSingleFrame<Content: View>: View {
 
 			ComponentsPanelHeader(
 				headerTitle: selection.itemTitle,
-				headerIcon: selection.itemIcon,
+				headerIcon: interfaceState.settingsPanelHideIconProp ? nil : selection.itemIcon,
 				headerSubtitle: selection.itemDateModifiedAsString
 			)
-			.padding([.bottom], 7)
+			.padding([.bottom], interfaceState.settingsPanelHideIconProp ? 10 : 7)
 
 			Divider().padding(.bottom, 10)
 

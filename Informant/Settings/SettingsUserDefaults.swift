@@ -24,6 +24,7 @@ extension AppDelegate {
 			.keyPanelHidePathProp: false,
 			.keyPanelHideCreatedProp: false,
 			.keyPanelHideNameProp: true,
+			.keyPanelHideIconProp: false,
 			.keyPanelDisplayFullPath: false,
 			
 			// System
@@ -60,11 +61,13 @@ public extension String {
 	
 	static let keyPanelSkipDirectories = "panelSkipDirectories"
 	
-	static let keyPanelHideNameProp = "panelEnableNameProp"
+	static let keyPanelHideNameProp = "panelHideNameProp"
 	
-	static let keyPanelHidePathProp = "panelEnablePathProp"
+	static let keyPanelHidePathProp = "panelHidePathProp"
 	
-	static let keyPanelHideCreatedProp = "panelEnableCreatedProp"
+	static let keyPanelHideCreatedProp = "panelHideCreatedProp"
+	
+	static let keyPanelHideIconProp = "panelHideIconProp"
 	
 	static let keyShowWelcomeWindow = "welcomeWindowShow"
 }
