@@ -296,9 +296,13 @@ class SelectionHelper {
 
 	/// Formats seconds into a DD:HH:MM:SS format (days, hours, minutes, seconds)
 	static func formatDuration(_ duration: Any?) -> String? {
+
 		guard let contentDuration = duration as? Double else { return nil }
 
-		let interval = TimeInterval(contentDuration)
+		// Round duration by casting to int
+		let roundedDuration = contentDuration.rounded(.toNearestOrAwayFromZero)
+
+		let interval = TimeInterval(roundedDuration)
 
 		// Setup formattter
 		let formatter = DateComponentsFormatter()
