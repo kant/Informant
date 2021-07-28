@@ -128,6 +128,8 @@ class MenubarUtilityHelper {
 			
 			let metadataKeys: NSArray = [
 				kMDItemDurationSeconds!,
+				kMDItemPixelWidth!,
+				kMDItemPixelHeight!,
 			]
 			
 			if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
@@ -139,22 +141,9 @@ class MenubarUtilityHelper {
 					if let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds]) {
 						duration = durationUnwrapped
 					}
-				}
-			}
-			
-			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
-		}
-		
-		// Collect dimensions if it's permitted
-		if interfaceState.settingsMenubarShowDimensions {
-			
-			if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
-				
-				// Get URL Image metadata
-				if let metadata = SelectionHelper.getURLImageMetadata(url) {
-			
+					
 					// Collect dimensions
-					if let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kCGImagePropertyPixelWidth], y: metadata[kCGImagePropertyPixelHeight]) {
+					if let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight]) {
 						dimensions = dimensionsUnwrapped
 					}
 				}
