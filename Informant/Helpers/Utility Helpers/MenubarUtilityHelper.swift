@@ -169,19 +169,25 @@ class MenubarUtilityHelper {
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = .left
+		paragraphStyle.alignment = .center
 		
 		// Put the attributed string all together
 		let attrString = NSAttributedString(string: formattedString, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
 		
 		// Update the size
-		appDelegate.statusItem.button?.attributedTitle = attrString
+		if formattedString.isEmpty {
+//			appDelegate.utilityStatusItem.button?.isHidden = true
+		}
+		else {
+//			appDelegate.utilityStatusItem.button?.isHidden = false
+			appDelegate.utilityStatusItem.button?.attributedTitle = attrString
+		}
 	}
 	
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
 		
-		AppDelegate.current().statusItem.button?.attributedTitle = NSAttributedString(string: "")
+		AppDelegate.current().panelStatusItem.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
 			sizeAsString = ""
@@ -200,7 +206,7 @@ class MenubarUtilityHelper {
 		
 		// If only one property is present then don't loop through
 		if properties.count == 1 {
-			finalString.append("\(properties[0]) ")
+			finalString.append("\(properties[0])")
 		}
 		
 		// Otherwise cycle all the properties to build the final string
@@ -215,7 +221,7 @@ class MenubarUtilityHelper {
 						break
 				
 					// Last property
-					case properties.count - 1: finalString.append(" \(property) ")
+					case properties.count - 1: finalString.append(" \(property)")
 						break
 					
 					// Middle property
