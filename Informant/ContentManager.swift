@@ -80,6 +80,8 @@ class ContentManager {
 	// MARK: - Settings Labels
 	public enum SettingsLabels {
 
+		static let menubar = NSLocalizedString("Menu Bar", comment: "")
+
 		static let panel = NSLocalizedString("Panel", comment: "")
 
 		static let system = NSLocalizedString("System", comment: "")
@@ -92,25 +94,39 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
+		static let menubarShowSize = NSLocalizedString("Size", comment: "")
+
+		static let menubarShowKind = NSLocalizedString("Kind", comment: "")
+
+		static let menubarShowDuration = NSLocalizedString("Duration", comment: "")
+
+		static let menubarShowDimensions = NSLocalizedString("Dimensions", comment: "")
+
+		static let menubarShowPath = NSLocalizedString("Path", comment: "")
+
+		static let menubarCopyPathDescriptor = NSLocalizedString("Click the menu bar utility to copy the path.", comment: "")
+
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
 		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
 
 		static let launchOnStartup = NSLocalizedString("Launch Informant on system startup", comment: "Asks the user if they want the app to launch on startup")
 
-		static let menubarUtility = NSLocalizedString("Enable menubar-utility", comment: "Asks the user if they want the menubar-utility enabled")
+		static let menubarUtility = NSLocalizedString("Enable menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
 
 		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 
-		static let showFullPath = NSLocalizedString("Show full-path", comment: "Asks the user if they want to see where the file is located instead of the full path")
+		static let showFullPath = NSLocalizedString("Include name of selection in path", comment: "Asks the user if they want to see where the file is located instead of the full path")
 
 		static let skipDirectories = NSLocalizedString("Skip getting size for folders and apps", comment: "Asks the user if they want to prevent the app from sizing directories.")
 
-		static let enableName = NSLocalizedString("Enable name property", comment: "")
+		static let hideName = NSLocalizedString("Hide full name", comment: "")
 
-		static let enablePath = NSLocalizedString("Enable path property", comment: "")
+		static let hidePath = NSLocalizedString("Hide path", comment: "")
 
-		static let enableCreated = NSLocalizedString("Enable created property", comment: "")
+		static let hideCreated = NSLocalizedString("Hide date created", comment: "")
+
+		static let hideIcon = NSLocalizedString("Hide icon", comment: "")
 	}
 
 	// MARK: - State
@@ -227,6 +243,8 @@ class ContentManager {
 		static let item = NSLocalizedString("item", comment: "Singular version of items")
 
 		static let popUpCopied = NSLocalizedString("Copied", comment: "Used on the copied popup")
+
+		static let popUpPathCopied = NSLocalizedString("Path Copied", comment: "Used on the copied popup")
 	}
 
 	// MARK: - Images

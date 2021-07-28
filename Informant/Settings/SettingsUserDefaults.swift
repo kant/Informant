@@ -13,13 +13,26 @@ extension AppDelegate {
 	func registerUserDefaults() {
 		let userdefaults = UserDefaults.standard
 		userdefaults.register(defaults: [
+			
+			// Menubar
+			.keyMenubarShowSize: true,
+			.keyMenubarShowKind: false,
+			.keyMenubarShowDuration: false,
+			.keyMenubarShowDimensions: false,
+			
+			// Panel
+			.keyPanelHidePathProp: false,
+			.keyPanelHideCreatedProp: false,
+			.keyPanelHideNameProp: true,
+			.keyPanelHideIconProp: false,
+			.keyPanelDisplayFullPath: false,
+			
+			// System
 			.keySystemStartupBool: false,
 			.keyMenubarUtilityBool: true,
-			.keyPanelEnablePathProp: true,
-			.keyPanelEnableCreatedProp: true,
-			.keyPanelEnableNameProp: false,
-			.keyPanelShowFullPath: false,
 			.keyPanelSkipDirectories: false,
+			
+			// Misc.
 			.keyShowWelcomeWindow: true
 		])
 	}
@@ -32,19 +45,29 @@ public extension String {
 	
 	static let keyRootURLBookmarkData = "rootURLBookmarkData"
 	
+	static let keyMenubarShowSize = "menubarShowSize"
+	
+	static let keyMenubarShowKind = "menubarShowKind"
+	
+	static let keyMenubarShowDuration = "menubarShowDuration"
+	
+	static let keyMenubarShowDimensions = "menubarShowDimensions"
+	
 	static let keySystemStartupBool = "systemStartupBool"
 	
 	static let keyMenubarUtilityBool = "menubarUtilityBool"
 	
-	static let keyPanelShowFullPath = "panelShowFullPath"
+	static let keyPanelDisplayFullPath = "panelShowFullPath"
 	
 	static let keyPanelSkipDirectories = "panelSkipDirectories"
 	
-	static let keyPanelEnableNameProp = "panelEnableNameProp"
+	static let keyPanelHideNameProp = "panelHideNameProp"
 	
-	static let keyPanelEnablePathProp = "panelEnablePathProp"
+	static let keyPanelHidePathProp = "panelHidePathProp"
 	
-	static let keyPanelEnableCreatedProp = "panelEnableCreatedProp"
+	static let keyPanelHideCreatedProp = "panelHideCreatedProp"
+	
+	static let keyPanelHideIconProp = "panelHideIconProp"
 	
 	static let keyShowWelcomeWindow = "welcomeWindowShow"
 }

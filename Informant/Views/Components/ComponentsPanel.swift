@@ -102,7 +102,7 @@ struct ComponentsPanelHeader: View {
 
 	var headerTitle: String?
 	var headerIcon: NSImage?
-	var headerIconCollection: [NSImage]? = []
+	var headerIconCollection: [NSImage]?
 	var headerSubtitle: String?
 
 	/// The frame size of the icon. Originally 42.0, now 48.0
@@ -112,15 +112,21 @@ struct ComponentsPanelHeader: View {
 
 		HStack(alignment: .center, spacing: 0) {
 
-			// Single icon present
-			if headerIcon != nil, headerIconCollection!.count == 0 {
-				Image(nsImage: headerIcon!).resizable().frame(width: size, height: size)
-			}
+			// Icons
+			VStack(alignment: .leading, spacing: 0) {
 
-			// Multiple icons present
-			else {
-				ComponentsPanelHeaderIconStack(icons: headerIconCollection!, size: size)
-					.padding([.trailing], 4)
+				// Single icon present
+				if headerIcon != nil {
+					Image(nsImage: headerIcon!).resizable().frame(width: size, height: size)
+						.padding(.trailing, 7)
+				}
+
+				// Multiple icons present
+				else if headerIconCollection != nil {
+					ComponentsPanelHeaderIconStack(icons: headerIconCollection!, size: size)
+						.padding([.trailing], 4)
+						.padding(.trailing, 7)
+				}
 			}
 
 			// Header stack
@@ -132,14 +138,13 @@ struct ComponentsPanelHeader: View {
 				}
 
 				Spacer()
-					.frame(height: 2)
+					.frame(width: 0, height: 2)
 
 				// Subtitle
 				if let headerSubtitle = headerSubtitle {
 					Text(headerSubtitle).H4()
 				}
 			}
-			.padding(.leading, 7)
 
 			Spacer(minLength: 0)
 		}
@@ -479,6 +484,11 @@ struct ComponentsPanelIconMenuButton: View {
 			.opacity(pressed ? 1 : 0.6)
 			.inactiveWindowTap { pressed in
 
+				// Escape if we get two false presses in a row. Some touch pads are sensitive to this.
+				if self.pressed == false, pressed == false {
+					return
+				}
+
 				// Makes sure to lock us out in the case that a state is found
 				if popped == nil {
 
@@ -607,7 +617,7 @@ struct ComponentsPanelPathButton: View {
 		// When pressed logic
 		.inactiveWindowTap { pressed in
 			if pressed {
-				AppDelegate.current().interfaceAlertController?.showCopyAlertForPath(path)
+				AppDelegate.current().interfaceAlertController?.showCopyAlertForPathAndCopyToClipboard(path)
 			}
 		}
 	}

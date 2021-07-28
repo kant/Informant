@@ -69,9 +69,9 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsPanelShowFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelShowFullPath) {
+	@Published var settingsPanelDisplayFullPath: Bool = UserDefaults.standard.bool(forKey: .keyPanelDisplayFullPath) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelShowFullPath)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelDisplayFullPath)
 		}
 	}
 
@@ -81,21 +81,69 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	@Published var settingsPanelEnableNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableNameProp) {
+	@Published var settingsPanelHideNameProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideNameProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableNameProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideNameProp)
 		}
 	}
 
-	@Published var settingsPanelEnablePathProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnablePathProp) {
+	@Published var settingsPanelHidePathProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHidePathProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnablePathProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHidePathProp)
 		}
 	}
 
-	@Published var settingsPanelEnableCreatedProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelEnableCreatedProp) {
+	@Published var settingsPanelHideCreatedProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideCreatedProp) {
 		willSet(value) {
-			UserDefaults.standard.setValue(value, forKey: .keyPanelEnableCreatedProp)
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideCreatedProp)
+		}
+	}
+
+	@Published var settingsPanelHideIconProp: Bool = UserDefaults.standard.bool(forKey: .keyPanelHideIconProp) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyPanelHideIconProp)
+		}
+	}
+
+	// ------------ Menubar Settings ------------- ⤵︎
+
+	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowSize)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update(force: true)
+		}
+	}
+
+	@Published var settingsMenubarShowKind: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowKind) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowKind)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowDuration: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDuration) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDuration)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDimensions)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
 		}
 	}
 }

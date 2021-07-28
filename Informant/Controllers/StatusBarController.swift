@@ -10,7 +10,10 @@ import SwiftUI
 class StatusBarController {
 
 	private var statusBar: NSStatusBar
-	private var statusItem: NSStatusItem
+
+	private var panelStatusItem: NSStatusItem?
+	private var utilityStatusItem: NSStatusItem?
+
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
 
@@ -52,32 +55,49 @@ class StatusBarController {
 		settings = appDelegate.interfaceState
 
 		// Creates a status bar item with a fixed length
-		appDelegate.statusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+		appDelegate.panelStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
+		appDelegate.utilityStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
 
-		statusItem = appDelegate.statusItem
+		// Assign status items
+		panelStatusItem = appDelegate.panelStatusItem
+		utilityStatusItem = appDelegate.utilityStatusItem
 
 		// Initializes menu bar button
-		if let statusBarButton = statusItem.button {
+		if let panelBarButton = panelStatusItem?.button {
 
 			// Status bar icon image
-			statusBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
+			panelBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
 
 			// Status bar icon image size
-			statusBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
+			panelBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
 
 			// Decides whether or not the icon follows the macOS menubar colouring
-			statusBarButton.image?.isTemplate = true
+			panelBarButton.image?.isTemplate = true
 
-			statusBarButton.imagePosition = .imageTrailing
-			statusBarButton.imageHugsTitle = false
+			panelBarButton.imagePosition = .imageTrailing
+			panelBarButton.imageHugsTitle = false
 
 			// Updates constraint keeping the image in mind
-			statusBarButton.updateConstraints()
+			panelBarButton.updateConstraints()
 
 			// This is the button's action it executes upon activation
-			statusBarButton.action = #selector(toggleInterfaceByClick)
-			statusBarButton.target = self
+			panelBarButton.action = #selector(toggleInterfaceByClick)
+			panelBarButton.target = self
 		}
+
+		// Initializes the utility menu bar button
+		if let utilityBarButton = utilityStatusItem?.button {
+
+			// Updates the constraints of the button
+			utilityBarButton.updateConstraints()
+
+			// This is what executs upon click
+			utilityBarButton.action = #selector(copyPathToClipboard)
+			utilityBarButton.target = self
+		}
+
+		// Start utility button hidden
+		utilityStatusItem?.isVisible = false
 
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
@@ -105,6 +125,25 @@ class StatusBarController {
 
 	// MARK: - Extraneous Methods
 
+	/// Copies the path to the clipboard with settings in mind.
+	@objc func copyPathToClipboard() {
+
+		// Grabs the current selection as paths
+		if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
+
+			let url = URL(fileURLWithPath: paths[0])
+
+			// Format path
+			guard let formattedPath = SelectionHelper.formatPathBasedOnSettings(url) else {
+				return
+			}
+
+			// Show alert
+			let alertController = appDelegate.interfaceAlertController
+			alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath)
+		}
+	}
+
 	/// Small function used to toggle the interface by click
 	@objc func toggleInterfaceByClick() {
 		InterfaceHelper.ToggleInterfaceByClick()
@@ -114,12 +153,12 @@ class StatusBarController {
 	func statusItemButtonPosition() -> NSPoint {
 
 		// Find status item position by accessing it's button's window!
-		guard let statusItemFrame = statusItem.button?.window?.frame else {
+		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
 			return NSPoint()
 		}
 
 		// Get the image
-		guard let image = statusItem.button?.image else {
+		guard let image = panelStatusItem?.button?.image else {
 			return NSPoint()
 		}
 
@@ -322,7 +361,7 @@ class StatusBarController {
 	/// Checks if the menubar utility is visible based on user settings
 	func checkMenubarUtilitySettings() {
 		if settings.settingsMenubarUtilityBool, settings.privacyAccessibilityEnabled == true {
-			MenubarUtilityHelper.updateSize()
+			MenubarUtilityHelper.update()
 		}
 		else {
 			MenubarUtilityHelper.wipeMenubarInterface(resetState: false)
@@ -442,7 +481,7 @@ class StatusBarController {
 		// ------------ Establish Panel Snap Zone -------------
 
 		// Grab StatusItemButton position
-		guard let statusItemFrame = statusItem.button?.window?.frame else {
+		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
 			return
 		}
 

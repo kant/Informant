@@ -98,7 +98,7 @@ extension Text {
 			.opacity(0.9)
 	}
 
-	func SettingsLabelButtonFont(size: CGFloat = 17) -> some View {
+	func SettingsLabelButtonFont(size: CGFloat = 18) -> some View {
 		self.font(.system(size: size))
 			.fontWeight(.medium)
 			.foregroundColor(.blue)

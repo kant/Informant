@@ -14,11 +14,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is the panel interface
 	public var panel: NSPanel!
 
+	/// This is the controller for the main panel
+	public var panelController: InterfacePanelController<ContentView>?
+
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
-	/// We use this to access the menubar status item
-	public var statusItem: NSStatusItem!
+	/// We use this to access the menu bar status item. This toggles the panel open and closed. It's the main button.
+	public var panelStatusItem: NSStatusItem?
+
+	/// We use this to access the menu bar utility status item.
+	public var utilityStatusItem: NSStatusItem?
 
 	// MARK: - Interface
 	/// Controls the interface panel menu
@@ -39,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// This is the controller for the close button
 	public var interfaceCloseController: InterfaceCloseController?
 
-	/// This contians all data needed for the interface.
+	/// This contains all data needed for the interface.
 	public var interfaceData: InterfaceData!
 
 	/// This contains all the settings data needed for the application
@@ -116,62 +122,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - Alert Init
 
-		interfaceAlert = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 210, height: 210),
-			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
-			backing: .buffered, defer: false
-		)
+		interfaceAlert = NSPanel(width: 210, height: 210, styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel])
 
 		// Initialized the interface alert panel
 		interfaceAlertController = InterfaceAlertController()
 
-		// MARK: - Window Init
+		// MARK: - Main Panel Init
 
 		/// This is the main interface used by the application
-		panel = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 500, height: 500),
-			styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless],
-			backing: .buffered, defer: false
-		)
+		panel = NSPanel(width: 260, height: 500, styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel, .borderless])
 
-		// TODO: This needs to be adjusted so that it's actually in the center
-		// Centers window in middle of screen on launch
-		panel.center()
-
-		// Hide the titlebar
-		panel.titlebarAppearsTransparent = true
-		panel.titleVisibility = .hidden
-
-		// Hide all Titlebar Controls
-		panel.standardWindowButton(.miniaturizeButton)?.isHidden = true
-		panel.standardWindowButton(.closeButton)?.isHidden = true
-		panel.standardWindowButton(.zoomButton)?.isHidden = true
-
-		// Brings window to the top level but not above the menubar
-		panel.level = .floating
-		panel.becomesKeyOnlyIfNeeded = true
-
-		// Nice smooth exit
-		panel.animationBehavior = .none
-
-		// Other self explained window settings
-		panel.isMovableByWindowBackground = true
-
-		// TODO: Deprecate, I don't believe this is necessary
-		// Makes sure that the window can be reopened after being closed
-		panel.isReleasedWhenClosed = false
-
-		// Set the view controller
-		panel.contentViewController = NSHostingController(rootView: contentView)
+		// Initiate setup
+		panelController = InterfacePanelController(panel, contentView)
 
 		// MARK: - Close Init
 
-		interfaceClose = NSPanel(
-			contentRect: NSRect(x: 0, y: 0, width: 0, height: 0),
-			styleMask: [.fullSizeContentView, .nonactivatingPanel],
-			backing: .buffered,
-			defer: false
-		)
+		interfaceClose = NSPanel(width: 0, height: 0, styleMask: [.fullSizeContentView, .nonactivatingPanel])
 
 		// Sets up the close button (positions, sets up view, etc.)
 		interfaceCloseController = InterfaceCloseController(interfaceClose)
@@ -184,6 +150,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
+
+		#warning("Remove from production")
+		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 
@@ -214,11 +183,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// MARK: - App Init
 
-		// Update the interface on initialization
-		InterfaceHelper.UpdateInterface()
-
 		// Initialize status bar
 		statusBarController = StatusBarController()
+
+		// Update the interface on initialization
+		InterfaceHelper.UpdateInterface()
 
 		// MARK: - Keyboard Shortcuts
 
