@@ -152,7 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		#warning("Remove from production")
-//		settingsWindowController.open()
+		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 

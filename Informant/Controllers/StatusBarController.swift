@@ -140,7 +140,7 @@ class StatusBarController {
 
 			// Show alert
 			let alertController = appDelegate.interfaceAlertController
-			alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath, message: ContentManager.Extra.popUpPathCopied)
+			alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath)
 		}
 	}
 

@@ -154,8 +154,15 @@ struct SettingsRightSideView: View {
 			// Menu bar and descriptor
 			VStack(alignment: .leading, spacing: 4) {
 
-				Text(ContentManager.SettingsLabels.menubar)
-					.SettingsLabelFont(padding: 0)
+				// Menu label and toggle
+				HStack(alignment: .center, spacing: 10) {
+					Text(ContentManager.SettingsLabels.menubar)
+						.SettingsLabelFont(padding: 0)
+
+					// Enable menubar-utility
+					Toggle("", isOn: $interfaceState.settingsMenubarUtilityBool)
+						.offset(y: -1.5)
+				}
 
 				Text(ContentManager.SettingsLabels.menubarCopyPathDescriptor)
 					.SettingsVersionFont()
@@ -229,9 +236,6 @@ struct SettingsRightSideView: View {
 
 				// Launch informant on system startup
 				LaunchAtLogin.Toggle(" " + ContentManager.SettingsLabels.launchOnStartup)
-
-				// Enable menubar-utility
-				Toggle(" " + ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
 			}
 		}
 		.fixedSize()
