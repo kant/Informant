@@ -243,6 +243,8 @@ class ContentManager {
 		static let item = NSLocalizedString("item", comment: "Singular version of items")
 
 		static let popUpCopied = NSLocalizedString("Copied", comment: "Used on the copied popup")
+
+		static let popUpPathCopied = NSLocalizedString("Path Copied", comment: "Used on the copied popup")
 	}
 
 	// MARK: - Images

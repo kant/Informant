@@ -128,7 +128,13 @@ class StatusBarController {
 	/// Copies the path to the clipboard with settings in mind.
 	@objc func copyPathToClipboard() {
 		if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
-			appDelegate.interfaceAlertController?.showCopyAlertForPathAndCopyToClipboard(paths[0])
+
+			// Format path
+			let path = paths[0]
+
+			// Show alert
+			let alertController = appDelegate.interfaceAlertController
+			alertController?.showCopyAlertForPathAndCopyToClipboard(path, message: ContentManager.Extra.popUpPathCopied)
 		}
 	}
 

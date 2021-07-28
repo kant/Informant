@@ -9,25 +9,27 @@ import SwiftUI
 
 struct PanelAlert: View {
 
-	// TODO: Make this flexible
-	/*
-	  let icon: String
-	  let label: String
-	 */
+	let icon: String
+	let label: String
+
+	init(icon: String = "􀉁", label: String = ContentManager.Extra.popUpCopied) {
+		self.icon = icon
+		self.label = label
+	}
 
 	var body: some View {
 		VStack(spacing: 0) {
 
 			Spacer()
 
-			Text("􀉁")
+			Text(icon)
 				.PanelAlertFont(43)
 				.baselineOffset(5)
 
 			Spacer()
 				.frame(height: 10.0)
 
-			Text(ContentManager.Extra.popUpCopied)
+			Text(label)
 				.PanelAlertFont(19)
 
 			Spacer()

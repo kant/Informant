@@ -49,12 +49,7 @@ class InterfaceAlertController {
 		alert.isMovableByWindowBackground = false
 		alert.ignoresMouseEvents = true
 
-		// Position and size alert
-		alert.setContentSize(getAlertSize())
-
-		if let center = getAlertCenter() {
-			alert.setFrameOrigin(center)
-		}
+		updateAlertsPositionAndSize()
 	}
 
 	/// Gets the alert's center based on size and screen size
@@ -77,8 +72,19 @@ class InterfaceAlertController {
 		return CGSize(width: side, height: side)
 	}
 
+	/// Updates the alert view
+	private func updateAlertsPositionAndSize() {
+
+		// Position and size alert
+		alert.setContentSize(getAlertSize())
+
+		if let center = getAlertCenter() {
+			alert.setFrameOrigin(center)
+		}
+	}
+
 	/// Displays alert
-	func showAlert(_ message: String = ContentManager.Extra.popUpCopied) {
+	func showAlert(message: String = ContentManager.Extra.popUpCopied) {
 
 		// Find new center
 		if let center = getAlertCenter() {
@@ -92,7 +98,15 @@ class InterfaceAlertController {
 		}
 
 		// Set message for alert
-		alert.contentViewController = NSHostingController(rootView: PanelAlert())
+		alert.contentViewController = NSHostingController(rootView: PanelAlert(label: message))
+
+		updateAlertsPositionAndSize()
+
+		alert.setContentSize(getAlertSize())
+
+		if let center = getAlertCenter() {
+			alert.setFrameOrigin(center)
+		}
 
 		// Animates the window from transparent to opaque
 		NSAnimationContext.runAnimationGroup { context -> Void in
@@ -136,8 +150,8 @@ class InterfaceAlertController {
 	}
 
 	/// Shows alert and copies path value to pasteboard
-	func showCopyAlertForPathAndCopyToClipboard(_ path: String) {
+	func showCopyAlertForPathAndCopyToClipboard(_ path: String, message: String = ContentManager.Extra.popUpCopied) {
 		PasteboardHelper.copyPathToPasteboard(path)
-		showAlert()
+		showAlert(message: message)
 	}
 }
