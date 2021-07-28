@@ -124,7 +124,7 @@ class MenubarUtilityHelper {
 		}
 		
 		// Collect the duration if it's permitted
-		if interfaceState.settingsMenubarShowDuration {
+		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
 			
 			let metadataKeys: NSArray = [
 				kMDItemDurationSeconds!,
@@ -138,12 +138,16 @@ class MenubarUtilityHelper {
 				if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
 			
 					// Collect duration
-					if let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds]) {
+					if interfaceState.settingsMenubarShowDuration,
+					   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
+					{
 						duration = durationUnwrapped
 					}
 					
 					// Collect dimensions
-					if let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight]) {
+					if interfaceState.settingsMenubarShowDimensions,
+					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
+					{
 						dimensions = dimensionsUnwrapped
 					}
 				}
