@@ -164,20 +164,10 @@ struct SettingsRightSideView: View {
 
 			// Menu bar settings stack
 			HStack(alignment: .top, spacing: hstackTogglePadding) {
-
-				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize)
-					Toggle(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind)
-				}
-
-				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions)
-					Toggle(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration)
-				}
-
-				VStack(alignment: .leading, spacing: 10) {
-					Toggle(ContentManager.SettingsLabels.menubarShowPath, isOn: $interfaceState.settingsMenubarShowPath)
-				}
+				Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize)
+				Toggle(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind)
+				Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions)
+				Toggle(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration)
 			}
 
 			// Divides menubar and panel

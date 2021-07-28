@@ -19,7 +19,6 @@ extension AppDelegate {
 			.keyMenubarShowKind: false,
 			.keyMenubarShowDuration: false,
 			.keyMenubarShowDimensions: false,
-			.keyMenubarShowPath: false,
 			
 			// Panel
 			.keyPanelHidePathProp: false,
@@ -52,8 +51,6 @@ public extension String {
 	static let keyMenubarShowDuration = "menubarShowDuration"
 	
 	static let keyMenubarShowDimensions = "menubarShowDimensions"
-	
-	static let keyMenubarShowPath = "menubarShowPath"
 	
 	static let keySystemStartupBool = "systemStartupBool"
 	

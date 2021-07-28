@@ -79,8 +79,7 @@ class MenubarUtilityHelper {
 		var kind: String = ""
 		var dimensions: String = ""
 		var duration: String = ""
-		var path: String = ""
-
+		
 		// MARK: - Verify & Format Size
 		
 		// Check to make sure the menu bar utility isn't disabled
@@ -164,26 +163,16 @@ class MenubarUtilityHelper {
 			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 		}
 		
-		// Check if we should show path button
-		if interfaceState.settingsMenubarShowPath {
-			let formattedPath = url.deletingLastPathComponent().path
-			
-			if let tildePath = SelectionHelper.formatPathTildeAbbreviate(formattedPath) {
-				path = tildePath
-			}
-		}
-		
 		// MARK: - Assemble Final View For Util.
 		
 		// Collect all values
-		let properties = [size, dimensions, duration, kind, path]
+		let properties = [size, kind, dimensions, duration]
 		
 		// Prepare the formatted string for the view
 		let formattedString = formatProperties(properties)
 		
 		// Get formatted fonts ready
 		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
-		let pathFont = NSFont.monospacedSystemFont(ofSize: 13, weight: .medium)
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
