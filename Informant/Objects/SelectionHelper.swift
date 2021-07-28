@@ -254,6 +254,20 @@ class SelectionHelper {
 	}
 
 	// MARK: - Formatting Methods
+
+	/// Modifies the root directory of the path to a ~
+	static func formatPathTildeAbbreviate(_ path: String?) -> String? {
+		guard let homeDirectory = FileManager.default.getRealHomeDirectory else {
+			return nil
+		}
+
+		guard let shortenedPath = path?.replacingOccurrences(of: homeDirectory, with: "~") else {
+			return nil
+		}
+
+		return shortenedPath
+	}
+
 	/// Formats the x & y dimensions of a media item into a universal format
 	static func formatDimensions(x: Any?, y: Any?) -> String? {
 		guard let pixelwidth = x as? Int else { return nil }

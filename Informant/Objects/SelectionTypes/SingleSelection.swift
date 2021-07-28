@@ -148,27 +148,14 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		if interfaceState.settingsPanelDisplayFullPath == false {
 			var whereURL = url
 			whereURL?.deleteLastPathComponent()
-			itemPath = tildeAbbreviatedPath(whereURL?.path)
+			itemPath = SelectionHelper.formatPathTildeAbbreviate(whereURL?.path)
 			return false
 		}
 
 		// Otherwise show the full path
 		else {
-			itemPath = tildeAbbreviatedPath(url.path)
+			itemPath = SelectionHelper.formatPathTildeAbbreviate(url.path)
 			return true
 		}
-	}
-
-	/// Modifies the root directory of the path to a ~
-	func tildeAbbreviatedPath(_ path: String?) -> String? {
-		guard let homeDirectory = FileManager.default.getRealHomeDirectory else {
-			return nil
-		}
-
-		guard let shortenedPath = path?.replacingOccurrences(of: homeDirectory, with: "~") else {
-			return nil
-		}
-
-		return shortenedPath
 	}
 }
