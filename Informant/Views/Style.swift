@@ -41,6 +41,11 @@ class Style {
 	public enum Icons {
 		static let appIconSize: CGFloat = 100
 	}
+
+	public enum Menu {
+		static let juicyImageHeight: CGFloat = 27
+		static let juicyImageWidth: CGFloat = 20
+	}
 }
 
 extension Text {

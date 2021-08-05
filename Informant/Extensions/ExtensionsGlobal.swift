@@ -152,6 +152,37 @@ extension NSImage {
 	}
 }
 
+// Reads the inital state of the linked value
+extension NSMenuItem {
+
+	/// Simply sets the initial state of the nsmenuitem
+	func manageState(setting: Bool, on: () -> Void, off: () -> Void) {
+		if setting == true {
+			on()
+		} else {
+			off()
+		}
+	}
+
+	/// Makes the button more juicy to click
+	func juicyWithoutImage() {
+		self.image = NSImage()
+		self.image?.size = NSSize(width: 0.01, height: Style.Menu.juicyImageHeight)
+	}
+
+	/// Makes the button more juicy to click when an image is present
+	func juicyWithImage() {
+		self.image?.isTemplate = true
+		self.image?.size = NSSize(width: Style.Menu.juicyImageWidth, height: Style.Menu.juicyImageHeight)
+	}
+
+	/// Sets up the image for the nsmenuitem
+	func setupImage(_ resourceName: String) {
+		self.image = #imageLiteral(resourceName: resourceName)
+		self.juicyWithImage()
+	}
+}
+
 // MARK: - Miscellaneous Extensions
 
 // Grabs the true home directory for the user

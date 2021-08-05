@@ -220,7 +220,7 @@ struct SettingsRightSideView: View {
 				SettingsPickRootURL(interfaceState.settingsRootURL)
 
 				// Enable menubar-utility
-				Toggle(ContentManager.SettingsLabels.menubarUtility.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarUtilityShow.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
 
 				// Show where a selected file is located instead of the full path
 				Toggle(ContentManager.SettingsLabels.showFullPath.toggleLabel(), isOn: $interfaceState.settingsPanelDisplayFullPath)

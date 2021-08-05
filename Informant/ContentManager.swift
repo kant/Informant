@@ -112,7 +112,9 @@ class ContentManager {
 
 		static let launchOnStartup = NSLocalizedString("Launch Informant on system startup", comment: "Asks the user if they want the app to launch on startup")
 
-		static let menubarUtility = NSLocalizedString("Enable menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
+		static let menubarUtilityShow = NSLocalizedString("Show menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
+
+		static let menubarUtilityHide = NSLocalizedString("Hide menu bar utility", comment: "Asks the user if they want the menubar-utility disabled")
 
 		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 
@@ -127,6 +129,10 @@ class ContentManager {
 		static let hideCreated = NSLocalizedString("Hide date created", comment: "")
 
 		static let hideIcon = NSLocalizedString("Hide icon", comment: "")
+
+		static let pause = NSLocalizedString("Pause Informant", comment: "")
+
+		static let resume = NSLocalizedString("Resume Informant", comment: "")
 	}
 
 	// MARK: - State

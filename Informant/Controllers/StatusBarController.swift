@@ -144,6 +144,7 @@ class StatusBarController {
 			toggleInterfaceByClick()
 		}
 		else {
+			appDelegate.interfaceMenuController?.updateMenu()
 			panelStatusItem?.menu = appDelegate.interfaceMenu
 			panelStatusItem?.button?.performClick(nil)
 			panelStatusItem?.menu = nil
