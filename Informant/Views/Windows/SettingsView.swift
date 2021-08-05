@@ -162,10 +162,10 @@ struct SettingsRightSideView: View {
 
 			// Menu bar settings stack
 			HStack(alignment: .top, spacing: hstackTogglePadding) {
-				Toggle(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarShowSize.toggleLabel(), isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarShowKind.toggleLabel(), isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarShowDimensions.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarShowDuration.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
 			}
 
 			// Divides menubar and panel
@@ -189,20 +189,20 @@ struct SettingsRightSideView: View {
 					// Name & date created
 					VStack(alignment: .leading, spacing: 10) {
 						// Hide name property
-						Toggle(" " + ContentManager.SettingsLabels.hideName, isOn: $interfaceState.settingsPanelHideNameProp)
+						Toggle(ContentManager.SettingsLabels.hideName.toggleLabel(), isOn: $interfaceState.settingsPanelHideNameProp)
 
 						// Hide created property
-						Toggle(" " + ContentManager.SettingsLabels.hideCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
+						Toggle(ContentManager.SettingsLabels.hideCreated.toggleLabel(), isOn: $interfaceState.settingsPanelHideCreatedProp)
 					}
 
 					// Path properties
 					VStack(alignment: .leading, spacing: 10) {
 
 						// Hide icon property
-						Toggle(" " + ContentManager.SettingsLabels.hideIcon, isOn: $interfaceState.settingsPanelHideIconProp)
+						Toggle(ContentManager.SettingsLabels.hideIcon.toggleLabel(), isOn: $interfaceState.settingsPanelHideIconProp)
 
 						// Hide path property
-						Toggle(" " + ContentManager.SettingsLabels.hidePath, isOn: $interfaceState.settingsPanelHidePathProp)
+						Toggle(ContentManager.SettingsLabels.hidePath.toggleLabel(), isOn: $interfaceState.settingsPanelHidePathProp)
 					}
 				}
 			}
@@ -220,16 +220,16 @@ struct SettingsRightSideView: View {
 				SettingsPickRootURL(interfaceState.settingsRootURL)
 
 				// Enable menubar-utility
-				Toggle(ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
+				Toggle(ContentManager.SettingsLabels.menubarUtility.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
 
 				// Show where a selected file is located instead of the full path
-				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
+				Toggle(ContentManager.SettingsLabels.showFullPath.toggleLabel(), isOn: $interfaceState.settingsPanelDisplayFullPath)
 
 				// Skips the sizing of directories all together
-				Toggle(" " + ContentManager.SettingsLabels.skipDirectories, isOn: $interfaceState.settingsPanelSkipDirectories)
+				Toggle(ContentManager.SettingsLabels.skipDirectories.toggleLabel(), isOn: $interfaceState.settingsPanelSkipDirectories)
 
 				// Launch informant on system startup
-				LaunchAtLogin.Toggle(" " + ContentManager.SettingsLabels.launchOnStartup)
+				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup.toggleLabel())
 			}
 		}
 		.fixedSize()
