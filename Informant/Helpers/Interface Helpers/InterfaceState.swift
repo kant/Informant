@@ -105,6 +105,12 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsPauseApp: Bool = UserDefaults.standard.bool(forKey: .keyPauseApp) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyPauseApp)
+		}
+	}
+
 	// ------------ Menubar Settings ------------- ⤵︎
 
 	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {

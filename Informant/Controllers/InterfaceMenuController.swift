@@ -12,6 +12,7 @@ import SwiftUI
 class InterfaceMenuController {
 
 	let appDelegate: AppDelegate!
+	let interfaceState: InterfaceState!
 	let menu: NSMenu!
 
 	// Menu items
@@ -26,6 +27,7 @@ class InterfaceMenuController {
 	init() {
 		// Grab app delegate
 		appDelegate = AppDelegate.current()
+		interfaceState = appDelegate.interfaceState
 
 		// Setup interface menu
 		menu = appDelegate.interfaceMenu
@@ -59,15 +61,15 @@ class InterfaceMenuController {
 
 	/// Updates the menu
 	func updateMenu() {
-		pauseMenuItem.manageState(setting: false) {
+		pauseMenuItem.manageState(setting: interfaceState.settingsPauseApp) {
 			pauseMenuItem.title = ContentManager.SettingsLabels.resume
-			pauseMenuItem.setupImage("resume.png")
+			pauseMenuItem.setupImage("play.png")
 		} off: {
 			pauseMenuItem.title = ContentManager.SettingsLabels.pause
 			pauseMenuItem.setupImage("pause.png")
 		}
 
-		menuBarUtilityMenuItem.manageState(setting: appDelegate.interfaceState.settingsMenubarUtilityBool) {
+		menuBarUtilityMenuItem.manageState(setting: interfaceState.settingsMenubarUtilityBool) {
 			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityHide.capitalized
 			menuBarUtilityMenuItem.setupImage("hide.png")
 		} off: {
@@ -95,42 +97,21 @@ class InterfaceMenuController {
 		return menu.popUp(positioning: nil, at: coordinates, in: nil)
 	}
 
-	/*
-	 /// Pops up the menu at the status item button.
-	 func openMenuAtStatusItem() -> Bool {
-
-	 	// Find x & y coordinates
-	 	guard let statusFrame = appDelegate.panelStatusItem?.button?.window?.frame else {
-	 		return false
-	 	}
-
-	 	var x = statusFrame.maxX
-	 	var y = statusFrame.minY
-
-	 	// Offset coordinates
-	 	y += 3.0
-	 	x -= 30.0
-
-	 	let coordinates = NSPoint(x: x, y: y)
-
-	 	return menu.popUp(positioning: nil, at: coordinates, in: nil)
-	 }
-	 */
-
 	// Pause functionality
 	@objc func pause() {
-		pauseMenuItem.manageState(setting: false) {
-
+		pauseMenuItem.manageState(setting: interfaceState.settingsPauseApp) {
+			interfaceState.settingsPauseApp = false
 		} off: {
+			interfaceState.settingsPauseApp = true
 		}
 	}
 
 	// Menu bar functionality
 	@objc func enableMenuBarUtility() {
-		menuBarUtilityMenuItem.manageState(setting: appDelegate.interfaceState.settingsMenubarUtilityBool) {
-			appDelegate.interfaceState.settingsMenubarUtilityBool = false
+		menuBarUtilityMenuItem.manageState(setting: interfaceState.settingsMenubarUtilityBool) {
+			interfaceState.settingsMenubarUtilityBool = false
 		} off: {
-			appDelegate.interfaceState.settingsMenubarUtilityBool = true
+			interfaceState.settingsMenubarUtilityBool = true
 		}
 	}
 

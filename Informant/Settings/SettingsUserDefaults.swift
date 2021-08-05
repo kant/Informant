@@ -33,7 +33,8 @@ extension AppDelegate {
 			.keyPanelSkipDirectories: false,
 			
 			// Misc.
-			.keyShowWelcomeWindow: true
+			.keyShowWelcomeWindow: true,
+			.keyPauseApp: false
 		])
 	}
 }
@@ -44,6 +45,8 @@ public extension String {
 	static let keyRootURL = "rootURL"
 	
 	static let keyRootURLBookmarkData = "rootURLBookmarkData"
+	
+	static let keyPauseApp = "pauseApp"
 	
 	static let keyMenubarShowSize = "menubarShowSize"
 	
