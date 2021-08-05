@@ -66,7 +66,7 @@ struct ContentView: View {
 
 						// More button
 						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton) {
-							appDelegate.interfaceMenuController!.openMenu()
+							appDelegate.interfaceMenuController!.openMenuAtPanel()
 						}
 					}
 				}

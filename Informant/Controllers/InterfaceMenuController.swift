@@ -78,7 +78,7 @@ class InterfaceMenuController {
 	// MARK: - Menu Logic
 
 	/// Pops up menu at the panel menu button.
-	func openMenu() -> Bool {
+	func openMenuAtPanel() -> Bool {
 
 		// Find x & y coordinates
 		let panelFrame = appDelegate.panel.frame
@@ -93,6 +93,28 @@ class InterfaceMenuController {
 
 		return menu.popUp(positioning: nil, at: coordinates, in: nil)
 	}
+
+	/*
+	 /// Pops up the menu at the status item button.
+	 func openMenuAtStatusItem() -> Bool {
+
+	 	// Find x & y coordinates
+	 	guard let statusFrame = appDelegate.panelStatusItem?.button?.window?.frame else {
+	 		return false
+	 	}
+
+	 	var x = statusFrame.maxX
+	 	var y = statusFrame.minY
+
+	 	// Offset coordinates
+	 	y += 3.0
+	 	x -= 30.0
+
+	 	let coordinates = NSPoint(x: x, y: y)
+
+	 	return menu.popUp(positioning: nil, at: coordinates, in: nil)
+	 }
+	 */
 
 	/// Simply hides the panel
 	@objc func togglePanel() {

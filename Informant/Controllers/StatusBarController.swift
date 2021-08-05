@@ -78,7 +78,8 @@ class StatusBarController {
 			panelBarButton.updateConstraints()
 
 			// This is the button's action it executes upon activation
-			panelBarButton.action = #selector(toggleInterfaceByClick)
+			panelBarButton.action = #selector(statusItemClickDirector)
+			panelBarButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
 			panelBarButton.target = self
 		}
 
@@ -108,22 +109,44 @@ class StatusBarController {
 
 	// MARK: - Extraneous Methods
 
-	/// Copies the path to the clipboard with settings in mind.
-	@objc func copyPathToClipboard() {
+	/*
+	 /// Copies the path to the clipboard with settings in mind.
+	 @objc func copyPathToClipboard() {
 
-		// Grabs the current selection as paths
-		if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
+	 	// Grabs the current selection as paths
+	 	if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
 
-			let url = URL(fileURLWithPath: paths[0])
+	 		let url = URL(fileURLWithPath: paths[0])
 
-			// Format path
-			guard let formattedPath = SelectionHelper.formatPathBasedOnSettings(url) else {
-				return
-			}
+	 		// Format path
+	 		guard let formattedPath = SelectionHelper.formatPathBasedOnSettings(url) else {
+	 			return
+	 		}
 
-			// Show alert
-			let alertController = appDelegate.interfaceAlertController
-			alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath)
+	 		// Show alert
+	 		let alertController = appDelegate.interfaceAlertController
+	 		alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath)
+	 	}
+	 }*/
+
+	/// Routes traffic to the correct left/right action.
+	@objc func statusItemClickDirector() {
+
+		let event = NSApp.currentEvent
+
+		if event?.type == NSEvent.EventType.leftMouseUp {
+
+			// Makes sure to steal focus from any other menu bar apps
+			panelStatusItem?.menu = NSMenu()
+			panelStatusItem?.button?.performClick(nil)
+			panelStatusItem?.menu = nil
+
+			toggleInterfaceByClick()
+		}
+		else {
+			panelStatusItem?.menu = appDelegate.interfaceMenu
+			panelStatusItem?.button?.performClick(nil)
+			panelStatusItem?.menu = nil
 		}
 	}
 
