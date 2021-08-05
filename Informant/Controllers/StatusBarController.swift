@@ -12,7 +12,6 @@ class StatusBarController {
 	private var statusBar: NSStatusBar
 
 	private var panelStatusItem: NSStatusItem?
-	private var utilityStatusItem: NSStatusItem?
 
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
@@ -56,11 +55,9 @@ class StatusBarController {
 
 		// Creates a status bar item with a fixed length
 		appDelegate.panelStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
-		appDelegate.utilityStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
 
 		// Assign status items
 		panelStatusItem = appDelegate.panelStatusItem
-		utilityStatusItem = appDelegate.utilityStatusItem
 
 		// Initializes menu bar button
 		if let panelBarButton = panelStatusItem?.button {
@@ -84,20 +81,6 @@ class StatusBarController {
 			panelBarButton.action = #selector(toggleInterfaceByClick)
 			panelBarButton.target = self
 		}
-
-		// Initializes the utility menu bar button
-		if let utilityBarButton = utilityStatusItem?.button {
-
-			// Updates the constraints of the button
-			utilityBarButton.updateConstraints()
-
-			// This is what executs upon click
-			utilityBarButton.action = #selector(copyPathToClipboard)
-			utilityBarButton.target = self
-		}
-
-		// Start utility button hidden
-		utilityStatusItem?.isVisible = false
 
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
