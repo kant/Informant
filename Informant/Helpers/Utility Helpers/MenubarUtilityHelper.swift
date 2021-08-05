@@ -198,7 +198,7 @@ class MenubarUtilityHelper {
 		
 		var finalString: String = ""
 		
-		let finalStringSpacing = " "
+		let finalStringSpacing = "  "
 		
 		// Filter out properties
 		let properties = props.filter { $0 != "" }

@@ -154,18 +154,9 @@ struct SettingsRightSideView: View {
 			// Menu bar and descriptor
 			VStack(alignment: .leading, spacing: 4) {
 
-				// Menu label and toggle
-				HStack(alignment: .center, spacing: 10) {
-					Text(ContentManager.SettingsLabels.menubar)
-						.SettingsLabelFont(padding: 0)
-
-					// Enable menubar-utility
-					Toggle("", isOn: $interfaceState.settingsMenubarUtilityBool)
-						.offset(y: -1.5)
-				}
-
-				Text(ContentManager.SettingsLabels.menubarCopyPathDescriptor)
-					.SettingsVersionFont()
+				// Menu label
+				Text(ContentManager.SettingsLabels.menubar)
+					.SettingsLabelFont(padding: 0)
 			}
 			.padding(.bottom, 11)
 
@@ -227,6 +218,9 @@ struct SettingsRightSideView: View {
 
 				// Pick root url
 				SettingsPickRootURL(interfaceState.settingsRootURL)
+
+				// Enable menubar-utility
+				Toggle(ContentManager.SettingsLabels.menubarUtility, isOn: $interfaceState.settingsMenubarUtilityBool)
 
 				// Show where a selected file is located instead of the full path
 				Toggle(" " + ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
