@@ -524,12 +524,14 @@ struct ComponentsPanelIconMenuButton: View {
 /// Shows a label on hover behind the content. When clicked an action is performed. Typically this is used with text objects.
 struct ComponentsPanelLabelButton<Content: View>: View {
 
+	let backingColor: Color
 	let content: Content
 	var action: () -> Void
 
 	@State private var isHovering: Bool = false
 
-	internal init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+	internal init(backingColor: Color = Color(.displayP3, white: 0.75, opacity: 1.0), action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+		self.backingColor = backingColor
 		self.content = content()
 		self.action = action
 	}
@@ -543,14 +545,16 @@ struct ComponentsPanelLabelButton<Content: View>: View {
 			ZStack(alignment: .leading) {
 
 				// Backing
-				Color(.displayP3, white: 0.75, opacity: 0.2)
-					.cornerRadius(5.0)
+				backingColor
+					.cornerRadius(6.0)
+					.opacity(0.15)
 					.opacity(isHovering ? 1 : 0)
 					.animation(.easeInOut(duration: 0.2))
 
 				// Label
 				content
 					.padding(4.0)
+					.padding(.trailing, 2.0)
 					.frame(maxWidth: .infinity)
 					.fixedSize(horizontal: true, vertical: false)
 			}
