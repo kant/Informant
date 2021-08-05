@@ -201,7 +201,7 @@ class ContentManager {
 
 		static let panelUnauthorized = NSLocalizedString("Unauthorized", comment: "Used on panel when accessibility api is disabled")
 
-		static let panelAuthorized = NSLocalizedString("Authorized", comment: "Used on panel when accessibility api is disabled")
+		static let panelAuthorize = NSLocalizedString("Authorize", comment: "Used on panel when accessibility api is disabled")
 
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")
