@@ -40,17 +40,6 @@ struct ContentView: View {
 					VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
 						.edgesIgnoringSafeArea(.all)
 
-						// Please see PanelCloseButton.swift for partnering logic
-						.whenHovered { hovering in
-							if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
-								if interfaceState.closeHoverZone != .Button || hovering {
-									interfaceState.isMouseHoveringClose = hovering
-								}
-
-								interfaceState.isMouseHoveringPanel = hovering
-							}
-						}
-
 					// MARK: - Panel Main
 					// So we can add padding to the main interface
 					VStack(alignment: .center, spacing: 0) {
@@ -103,26 +92,26 @@ struct ContentView: View {
 
 				// Blurs view when being dragged in the snap zone
 				.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
-				.animation(.easeInOut, value: self.interfaceState.settingsPauseApp)
+				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
 
 				ZStack {
-					Text("Paused").H2()
+					Text(ContentManager.SettingsLabels.paused).H1()
 						.opacity(interfaceState.settingsPauseApp ? Style.Text.opacity : 0.0)
 				}
-				.animation(.easeInOut, value: self.interfaceState.settingsPauseApp)
+				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
 			}
 
 			// MARK: - Panel Snap Zone Indicator
 
 			// Blurs view when being dragged in the snap zone
 			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
+			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
 
 			ZStack {
-				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
+				Text(ContentManager.Labels.panelSnapZoneIndicator).H1()
 					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
 			}
-			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
+			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
 
 			// MARK: - Panel Bottom Buttons
 
@@ -149,6 +138,18 @@ struct ContentView: View {
 			}
 			.padding(4)
 		}
+
+		// Please see PanelCloseButton.swift for partnering logic
+		.whenHovered { hovering in
+			if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
+				if interfaceState.closeHoverZone != .Button || hovering {
+					interfaceState.isMouseHoveringClose = hovering
+				}
+
+				interfaceState.isMouseHoveringPanel = hovering
+			}
+		}
+
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)
 		.fixedSize()

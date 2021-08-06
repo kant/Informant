@@ -324,14 +324,13 @@ class StatusBarController {
 
 	/// Updates the panel interface itself. This can be used to force updates
 	func updatePanel(force: Bool = false) {
-		
-		// Make sure the app is not paused
-		if settings.settingsPauseApp == true {
-			return
-		}
 
-		// Open up the interface
-		InterfaceHelper.DisplayUpdatedInterface(force: force)
+		// Make sure the app is not paused
+		if settings.settingsPauseApp == false {
+
+			// Open up the interface
+			InterfaceHelper.DisplayUpdatedInterface(force: force)
+		}
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open

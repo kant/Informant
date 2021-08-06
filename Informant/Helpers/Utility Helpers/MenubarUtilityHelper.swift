@@ -179,10 +179,14 @@ class MenubarUtilityHelper {
 		
 		// Update the size
 		statusItem?.button?.attributedTitle = attrString
+		
+		shouldMenubarUtilityAppearDisabled()
 	}
 	
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
+		
+		shouldMenubarUtilityAppearDisabled()
 		
 		statusItem?.button?.attributedTitle = NSAttributedString(string: "")
 		
@@ -192,6 +196,16 @@ class MenubarUtilityHelper {
 	}
 	
 	// MARK: - Helper Functions
+	
+	/// Checks to see if the app is paused, and if so updates the menu bar utility interface accordingly
+	static func shouldMenubarUtilityAppearDisabled() {
+		if AppDelegate.current().interfaceState.settingsPauseApp {
+			statusItem?.button?.appearsDisabled = true
+		}
+		else {
+			statusItem?.button?.appearsDisabled = false
+		}
+	}
 	
 	/// Formats a collected property. Adds spaces and dividers when a value is present, otherwise it returns a blank string
 	static func formatProperties(_ props: [String]) -> String {

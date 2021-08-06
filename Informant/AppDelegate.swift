@@ -183,8 +183,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initialize status bar
 		statusBarController = StatusBarController()
 
-		// Update the interface on initialization
-		InterfaceHelper.UpdateInterface()
+		// MARK: - Additional Setup
+
+		MenubarUtilityHelper.shouldMenubarUtilityAppearDisabled()
 
 		// MARK: - Keyboard Shortcuts
 
