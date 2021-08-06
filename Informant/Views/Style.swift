@@ -21,7 +21,7 @@ class Style {
 	}
 
 	public enum Font {
-		static let h1_Size: CGFloat = 17
+		static let h1_Size: CGFloat = 18
 		static let h2_Size: CGFloat = 17
 		static let h3_Size: CGFloat = 11
 		static let h4_Size: CGFloat = 11
