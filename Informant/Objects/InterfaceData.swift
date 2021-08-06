@@ -36,3 +36,12 @@ class InterfaceData: ObservableObject {
 		selection = SelectionHelper.pickSelectionType(filePaths)
 	}
 }
+
+/// Used to simply have an optional in an observable
+class InterfaceDataWrapper: ObservableObject {
+	@Published public var data: InterfaceData?
+
+	init(data: InterfaceData?) {
+		self.data = data
+	}
+}

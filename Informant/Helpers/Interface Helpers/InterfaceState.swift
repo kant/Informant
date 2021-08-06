@@ -109,6 +109,14 @@ class InterfaceState: ObservableObject {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPauseApp)
 		}
+		
+		didSet(value) {
+			if value == false {
+				MenubarUtilityHelper.wipeMenubarInterface()
+			} else {
+				AppDelegate.current().statusBarController?.updateInterfaces()
+			}
+		}
 	}
 
 	// ------------ Menubar Settings ------------- ⤵︎

@@ -308,6 +308,11 @@ class StatusBarController {
 	/// As well, makes sure that hiding state is set properly.
 	func updateInterfaces() {
 
+		// Make sure the app is not paused
+		if settings.settingsPauseApp == true {
+			return
+		}
+
 		// Wipe the menubar utility
 		updateMenubarUtility()
 
@@ -319,6 +324,11 @@ class StatusBarController {
 
 	/// Updates the panel interface itself. This can be used to force updates
 	func updatePanel(force: Bool = false) {
+		
+		// Make sure the app is not paused
+		if settings.settingsPauseApp == true {
+			return
+		}
 
 		// Open up the interface
 		InterfaceHelper.DisplayUpdatedInterface(force: force)

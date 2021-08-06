@@ -14,7 +14,7 @@ struct ContentView: View {
 	var appDelegate: AppDelegate
 
 	/// This contians all information to be displayed on the interface
-	var interfaceData: InterfaceData?
+	@ObservedObject var interfaceData: InterfaceDataWrapper
 
 	/// Lets us know if the object is being dragged in the snap zone
 	@ObservedObject var interfaceState: InterfaceState
@@ -22,8 +22,8 @@ struct ContentView: View {
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
-		interfaceData = appDelegate.interfaceData
 		interfaceState = appDelegate.interfaceState
+		interfaceData = InterfaceDataWrapper(data: appDelegate.interfaceData)
 	}
 
 	var body: some View {
@@ -60,34 +60,34 @@ struct ContentView: View {
 
 							// MARK: - Selection View Picker
 							// Figure out which view to present based on the # of items selected
-							switch interfaceData?.selection?.selectionType {
+							switch interfaceData.data?.selection?.selectionType {
 
-							// MARK: - Singles
-							// One item selected - no metadata
-							case .Single: PanelSingleItem(interfaceData?.selection)
+								// MARK: - Singles
+								// One item selected - no metadata
+								case .Single: PanelSingleItem(interfaceData.data?.selection)
 
-							// One item selected - with metadata ⤵︎
-							case .Image: PanelSingleImageItem(interfaceData?.selection)
+								// One item selected - with metadata ⤵︎
+								case .Image: PanelSingleImageItem(interfaceData.data?.selection)
 
-							case .Movie: PanelSingleMovieItem(interfaceData?.selection)
+								case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
 
-							case .Audio: PanelSingleAudioItem(interfaceData?.selection)
+								case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
 
-							case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
+								case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
 
-							case .Application: PanelSingleApplicationItem(interfaceData?.selection)
+								case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
 
-							case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
+								case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
 
-							// MARK: - Multi
-							// More than one item selected
-							case .Multi: PanelMultiItem(interfaceData?.selection)
+								// MARK: - Multi
+								// More than one item selected
+								case .Multi: PanelMultiItem(interfaceData.data?.selection)
 
-							// Errors
-							case .Error: PanelSelectionErrorItem()
+								// Errors
+								case .Error: PanelSelectionErrorItem()
 
-							// No items selected
-							default: PanelNoItem()
+								// No items selected
+								default: PanelNoItem()
 							}
 						}
 
@@ -135,7 +135,7 @@ struct ContentView: View {
 				HStack(spacing: 0) {
 
 					// Additional file tags
-					ComponentsPanelAttributes(interfaceData?.selection)
+					ComponentsPanelAttributes(interfaceData.data?.selection)
 						.padding([.leading], 11)
 
 					// Ensures buttons align to the right
