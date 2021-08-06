@@ -31,105 +31,123 @@ struct ContentView: View {
 		// MARK: Full Stacked View
 		ZStack {
 
-			// This is the main panel group
+			// This is the pause blur group
 			Group {
-				// MARK: - Panel Backing Material
-				VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
-					.edgesIgnoringSafeArea(.all)
 
-					// Please see PanelCloseButton.swift for partnering logic
-					.whenHovered { hovering in
-						if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
-							if interfaceState.closeHoverZone != .Button || hovering {
-								interfaceState.isMouseHoveringClose = hovering
+				// This is the main panel group
+				Group {
+					// MARK: - Panel Backing Material
+					VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
+						.edgesIgnoringSafeArea(.all)
+
+						// Please see PanelCloseButton.swift for partnering logic
+						.whenHovered { hovering in
+							if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
+								if interfaceState.closeHoverZone != .Button || hovering {
+									interfaceState.isMouseHoveringClose = hovering
+								}
+
+								interfaceState.isMouseHoveringPanel = hovering
 							}
+						}
 
-							interfaceState.isMouseHoveringPanel = hovering
+					// MARK: - Panel Main
+					// So we can add padding to the main interface
+					VStack(alignment: .center, spacing: 0) {
+
+						// Confirm that accessibility is enabled
+						if interfaceState.privacyAccessibilityEnabled == true {
+
+							// MARK: - Selection View Picker
+							// Figure out which view to present based on the # of items selected
+							switch interfaceData?.selection?.selectionType {
+
+							// MARK: - Singles
+							// One item selected - no metadata
+							case .Single: PanelSingleItem(interfaceData?.selection)
+
+							// One item selected - with metadata ⤵︎
+							case .Image: PanelSingleImageItem(interfaceData?.selection)
+
+							case .Movie: PanelSingleMovieItem(interfaceData?.selection)
+
+							case .Audio: PanelSingleAudioItem(interfaceData?.selection)
+
+							case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
+
+							case .Application: PanelSingleApplicationItem(interfaceData?.selection)
+
+							case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
+
+							// MARK: - Multi
+							// More than one item selected
+							case .Multi: PanelMultiItem(interfaceData?.selection)
+
+							// Errors
+							case .Error: PanelSelectionErrorItem()
+
+							// No items selected
+							default: PanelNoItem()
+							}
+						}
+
+						// Otherwise show the 'not-authorized' view
+						else {
+							PanelAuthErrorItem()
 						}
 					}
-
-				// MARK: - Panel Bottom Buttons
-				VStack {
-
-					// Makes sure button rests on the bottom of the interface
-					Spacer()
-
-					// Settings button stack
-					HStack(spacing: 0) {
-
-						// Additional file tags
-						ComponentsPanelAttributes(interfaceData?.selection)
-							.padding([.leading], 11)
-
-						// Ensures buttons align to the right
-						Spacer()
-
-						// More button
-						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
-							appDelegate.interfaceMenuController!.openMenuAtPanel()
-						}
-					}
+					.padding(.horizontal, 15)
 				}
-				.padding(4)
 
-				// MARK: - Panel Main
-				// So we can add padding to the main interface
-				VStack(alignment: .center, spacing: 0) {
+				// MARK: - Is Paused Indicator
 
-					// Confirm that accessibility is enabled
-					if interfaceState.privacyAccessibilityEnabled == true {
+				// Blurs view when being dragged in the snap zone
+				.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
+				.animation(.easeInOut, value: self.interfaceState.settingsPauseApp)
 
-						// MARK: - Selection View Picker
-						// Figure out which view to present based on the # of items selected
-						switch interfaceData?.selection?.selectionType {
-
-						// MARK: - Singles
-						// One item selected - no metadata
-						case .Single: PanelSingleItem(interfaceData?.selection)
-
-						// One item selected - with metadata ⤵︎
-						case .Image: PanelSingleImageItem(interfaceData?.selection)
-
-						case .Movie: PanelSingleMovieItem(interfaceData?.selection)
-
-						case .Audio: PanelSingleAudioItem(interfaceData?.selection)
-
-						case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
-
-						case .Application: PanelSingleApplicationItem(interfaceData?.selection)
-
-						case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
-
-						// MARK: - Multi
-						// More than one item selected
-						case .Multi: PanelMultiItem(interfaceData?.selection)
-
-						// Errors
-						case .Error: PanelSelectionErrorItem()
-
-						// No items selected
-						default: PanelNoItem()
-						}
-					}
-
-					// Otherwise show the 'not-authorized' view
-					else {
-						PanelAuthErrorItem()
-					}
+				ZStack {
+					Text("Paused").H2()
+						.opacity(interfaceState.settingsPauseApp ? Style.Text.opacity : 0.0)
 				}
-				.padding(.horizontal, 15)
+				.animation(.easeInOut, value: self.interfaceState.settingsPauseApp)
 			}
+
+			// MARK: - Panel Snap Zone Indicator
 
 			// Blurs view when being dragged in the snap zone
 			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
 			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 
-			// MARK: - Panel Snap Zone Indicator
 			ZStack {
 				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
 					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
 			}
 			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
+
+			// MARK: - Panel Bottom Buttons
+
+			VStack {
+
+				// Makes sure button rests on the bottom of the interface
+				Spacer()
+
+				// Settings button stack
+				HStack(spacing: 0) {
+
+					// Additional file tags
+					ComponentsPanelAttributes(interfaceData?.selection)
+						.padding([.leading], 11)
+
+					// Ensures buttons align to the right
+					Spacer()
+
+					// More button
+					ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
+						appDelegate.interfaceMenuController!.openMenuAtPanel()
+					}
+				}
+			}
+			.padding(4)
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)
