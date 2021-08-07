@@ -500,6 +500,21 @@ class StatusBarController {
 	/// This only gets triggered after a drag, so it's okay to build the snap-zone in here. Do not spam this method!
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
+		/// Snaps window to starting position and then makes it visible
+		func panelMoveAndSetAlphaAnimation() {
+			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
+			panel.animator().alphaValue = 1
+			setIsPanelBeingDragged(false)
+		}
+
+		/// Resets all internal variables
+		func reset() {
+			setIsPanelBeingDragged(false)
+			settings.setIsPanelInSnapZone(false)
+		}
+
+		// ---------- Make sure the panel is being dragged ------------
+
 		// Make sure the mouse is dragging on the panel - if not then back out
 		if isPanelBeingDragged != true, event?.window != appDelegate.panel {
 			return
@@ -550,6 +565,25 @@ class StatusBarController {
 			settings.setIsPanelInSnapZone(false)
 		}
 
+		// ------------- Decide if it's worth it to reset position --------------
+
+		// First check if the repositioning is even neccessary
+		let snapPosition = statusItemButtonPositionPanelAdjusted()
+		let panelTopLeftPosition = NSPoint(x: panel.frame.minX, y: panel.frame.maxY)
+
+		// Gather magnitude of change
+		let xMagnitude = (snapPosition.x - panelTopLeftPosition.x).magnitude
+		let yMagnitude = (snapPosition.y - panelTopLeftPosition.y).magnitude
+		let totalMagnitude = xMagnitude + yMagnitude
+
+		// Decide whether it's worth it or not to reposition
+		if totalMagnitude <= 0.5, eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+			reset()
+			return
+		}
+
+		// ------------------ Release of the drag ------------------
+
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
 		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 
@@ -571,13 +605,6 @@ class StatusBarController {
 		// Otherwise backout
 		else {
 			return
-		}
-
-		/// Snaps window to starting position and then makes it visible
-		func panelMoveAndSetAlphaAnimation() {
-			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
-			panel.animator().alphaValue = 1
-			setIsPanelBeingDragged(false)
 		}
 	}
 }
