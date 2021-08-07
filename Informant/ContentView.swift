@@ -173,10 +173,12 @@ struct ContentView: View {
 		// Please see PanelCloseButton.swift for partnering logic
 		.whenHovered { hovering in
 			if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
+
 				if interfaceState.closeHoverZone != .Button || hovering {
 					interfaceState.isMouseHoveringClose = hovering
 				}
 
+				hovering == true ? appDelegate.interfaceCloseController?.setPosition() : ()
 				interfaceState.isMouseHoveringPanel = hovering
 			}
 		}
