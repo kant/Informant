@@ -92,7 +92,7 @@ struct ContentView: View {
 
 				// Blurs view when being dragged in the snap zone
 				.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
-				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
+				.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 
 				ComponentsPanelLabelIconFrame(
 					icon: "􀊇",
@@ -100,7 +100,7 @@ struct ContentView: View {
 					label: ContentManager.SettingsLabels.paused
 				)
 				.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
-				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
+				.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 
 				// When the user clicks on this blurred screen the app resumes operation
 				if interfaceState.settingsPauseApp {
@@ -117,22 +117,33 @@ struct ContentView: View {
 
 			// Blurs view when being dragged in the snap zone
 			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
+			.animation(.easeOut, value: self.interfaceState.isPanelInSnapZone)
 
-			VStack(alignment: .center, spacing: 3) {
+			Group {
+				// MARK: Rotating Icon
+				VStack(spacing: 0) {
+					Text("􀄨")
+						.font(.system(size: 17))
+						.opacity(Style.Text.opacity)
+						.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
+						.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
+						.padding(.top, 14)
+					Spacer()
+				}
 
-				Text("􀄨")
-					.font(.system(size: 17))
-					.opacity(Style.Text.opacity)
-					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
-					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
-
-				Text(ContentManager.Labels.panelSnapZoneIndicator)
-					.H1()
-					.opacity(Style.Text.opacity)
+				// MARK: Label
+				// We use the layout priority of -1 so that this is drawn last. It ensures we don't push out the parent view to be taller.
+				VStack(spacing: 0) {
+					Spacer(minLength: 40)
+					Text(ContentManager.Labels.panelSnapZoneIndicator)
+						.H1()
+						.opacity(Style.Text.opacity)
+					Spacer(minLength: 0)
+				}
+				.layoutPriority(-1)
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
-			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
+			.animation(.easeOut, value: self.interfaceState.isPanelInSnapZone)
 
 			// When the user clicks on this blurred screen the app resumes operation
 			if interfaceState.isPanelInSnapZone {
