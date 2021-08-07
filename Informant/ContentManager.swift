@@ -132,8 +132,10 @@ class ContentManager {
 
 		static let pause = NSLocalizedString("Pause Informant", comment: "")
 
-		static let resume = NSLocalizedString("Resume Informant", comment: "")
-		
+		static let resumeInformant = NSLocalizedString("Resume Informant", comment: "")
+
+		static let resume = NSLocalizedString("Resume", comment: "")
+
 		static let paused = NSLocalizedString("Paused", comment: "")
 	}
 

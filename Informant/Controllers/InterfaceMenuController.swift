@@ -62,7 +62,7 @@ class InterfaceMenuController {
 	/// Updates the menu
 	func updateMenu() {
 		pauseMenuItem.manageState(setting: interfaceState.settingsPauseApp) {
-			pauseMenuItem.title = ContentManager.SettingsLabels.resume
+			pauseMenuItem.title = ContentManager.SettingsLabels.resumeInformant
 			pauseMenuItem.setupImage("play.png")
 		} off: {
 			pauseMenuItem.title = ContentManager.SettingsLabels.pause

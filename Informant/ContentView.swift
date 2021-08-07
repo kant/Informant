@@ -94,11 +94,23 @@ struct ContentView: View {
 				.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
 				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
 
-				ZStack {
-					Text(ContentManager.SettingsLabels.paused).H1()
-						.opacity(interfaceState.settingsPauseApp ? Style.Text.opacity : 0.0)
-				}
+				ComponentsPanelLabelIconFrame(
+					icon: "􀊇",
+					iconSize: 16,
+					label: ContentManager.SettingsLabels.paused
+				)
+				.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
 				.animation(.spring(), value: self.interfaceState.settingsPauseApp)
+
+				// When the user clicks on this blurred screen the app resumes operation
+				if interfaceState.settingsPauseApp {
+					Color.clear
+						.inactiveWindowTap { pressed in
+							if !pressed {
+								interfaceState.settingsPauseApp = false
+							}
+						}
+				}
 			}
 
 			// MARK: - Panel Snap Zone Indicator
@@ -107,11 +119,29 @@ struct ContentView: View {
 			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
 			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
 
-			ZStack {
-				Text(ContentManager.Labels.panelSnapZoneIndicator).H1()
-					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+			VStack(alignment: .center, spacing: 4) {
+
+				Text("􀁶")
+					.font(.system(size: 18))
+					.opacity(Style.Text.opacity)
+					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
+
+				Text(ContentManager.Labels.panelSnapZoneIndicator)
+					.H1()
+					.opacity(Style.Text.opacity)
 			}
+			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
 			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
+
+			// When the user clicks on this blurred screen the app resumes operation
+			if interfaceState.isPanelInSnapZone {
+				Color.clear
+					.inactiveWindowTap { pressed in
+						if !pressed {
+							interfaceState.isPanelInSnapZone = false
+						}
+					}
+			}
 
 			// MARK: - Panel Bottom Buttons
 
@@ -149,7 +179,6 @@ struct ContentView: View {
 				interfaceState.isMouseHoveringPanel = hovering
 			}
 		}
-
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)
 		.fixedSize()

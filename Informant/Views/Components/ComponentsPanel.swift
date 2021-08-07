@@ -47,31 +47,39 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 /// Used for error messages on the panel
 struct ComponentsPanelErrorFrame: View {
 
-	let icon: String
-	let label: String
+	let icon: String?
+	let iconSize: CGFloat
+	let label: String?
 	let padding: CGFloat
+	let spacing: CGFloat
 	let action: (() -> Void)?
 	let buttonLabel: String?
 
-	internal init(icon: String, label: String, padding: CGFloat, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, padding: CGFloat = 0, spacing: CGFloat = 6, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
 		self.icon = icon
+		self.iconSize = iconSize
 		self.label = label
 		self.padding = padding
+		self.spacing = spacing
 		self.action = action
 		self.buttonLabel = buttonLabel
 	}
 
 	var body: some View {
 
-		VStack(alignment: .center, spacing: 6) {
+		VStack(alignment: .center, spacing: spacing) {
 
-			Text(icon)
-				.H1()
-				.opacity(Style.Text.opacity)
+			if let icon = icon {
+				Text(icon)
+					.font(.system(size: iconSize))
+					.opacity(Style.Text.opacity)
+			}
 
-			Text(label)
-				.H1()
-				.opacity(Style.Text.opacity)
+			if let label = label {
+				Text(label)
+					.H1()
+					.opacity(Style.Text.opacity)
+			}
 
 			// Button
 			if let action = action, let buttonLabel = buttonLabel {
@@ -90,9 +98,49 @@ struct ComponentsPanelErrorFrame: View {
 					}
 				}
 				.buttonStyle(BorderlessButtonStyle())
+				.padding(.top, 2)
 			}
 		}
 		.padding([.vertical], padding)
+	}
+}
+
+/// Used to present a label with an icon.
+struct ComponentsPanelLabelIconFrame: View {
+
+	let icon: String?
+	let iconSize: CGFloat
+	let label: String?
+	let bottomPadding: CGFloat
+	let topPadding: CGFloat
+	let stackSpacing: CGFloat
+
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, bottomPadding: CGFloat = 0, topPadding: CGFloat = 0, stackSpacing: CGFloat = 4) {
+		self.icon = icon
+		self.iconSize = iconSize
+		self.label = label
+		self.bottomPadding = bottomPadding
+		self.topPadding = topPadding
+		self.stackSpacing = stackSpacing
+	}
+
+	var body: some View {
+
+		VStack(alignment: .center, spacing: stackSpacing) {
+
+			if let icon = icon {
+				Text(icon)
+					.font(.system(size: iconSize))
+					.opacity(Style.Text.opacity)
+			}
+
+			if let label = label {
+				Text(label)
+					.H1()
+					.opacity(Style.Text.opacity)
+			}
+		}
+		.padding([.vertical], bottomPadding)
 	}
 }
 

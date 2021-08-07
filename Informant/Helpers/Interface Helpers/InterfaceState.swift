@@ -14,6 +14,8 @@ class InterfaceState: ObservableObject {
 	/// Detects if the panel itself is in the panel snap zone
 	@Published var isPanelInSnapZone: Bool = false
 
+	@Published var panelSnapZoneDirection: Double = 0
+
 	/// Helper designed to set the in snap zone of panel
 	public func setIsPanelInSnapZone(_ value: Bool) {
 		isPanelInSnapZone = value
@@ -109,7 +111,7 @@ class InterfaceState: ObservableObject {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyPauseApp)
 		}
-		
+
 		didSet(value) {
 			if value == false {
 				MenubarUtilityHelper.wipeMenubarInterface()

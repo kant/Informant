@@ -152,14 +152,32 @@ class StatusBarController {
 		// Get the middle of the image
 		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
 
-		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = imageMidPosition - (panel.frame.width / 2.0)
-
-		// Move the panel down a hair so it's not riding directly on the menu bar
-		let yPosition = statusItemFrame.origin.y - 6.0
+		let x = imageMidPosition
+		let y = statusItemFrame.origin.y
 
 		// Create and set the panel to the new coordinates
-		return NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
+		return NSPointFromCGPoint(CGPoint(x: x, y: y))
+	}
+
+	/// Finds the position the panel should snap to
+	func statusItemButtonPositionPanelAdjusted() -> NSPoint {
+
+		let statusItemPosition = statusItemButtonPosition()
+
+		// Shave off half the width of the interface off the x-coordinate
+		let x = statusItemPosition.x - (panel.frame.width / 2.0)
+
+		// Move the panel down a hair so it's not riding directly on the menu bar
+		let y = statusItemPosition.y - 6.0
+
+		// Create and set the panel to the new coordinates
+		return NSPointFromCGPoint(CGPoint(x: x, y: y))
+	}
+
+	/// Calculates the angle between one point and another. Returns an angle in degrees.
+	func calculateDirection(pointA: NSPoint, pointB: NSPoint) -> Double {
+
+		return 0
 	}
 
 	/// Helper function to let us know what type of event the provided one is
@@ -216,13 +234,13 @@ class StatusBarController {
 			// If it doesn't have a screen position then just open it by the status item button and
 			// save new panel origin to dictionary
 			else {
-				panel.setFrameTopLeftPoint(statusItemButtonPosition())
+				panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 				windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
 			}
 			break
 
 		case ToggleMethod.Click:
-			panel.setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 			break
 		}
 
@@ -476,13 +494,8 @@ class StatusBarController {
 
 		// ------------ Establish Panel Snap Zone -------------
 
-		// Grab StatusItemButton position
-		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
-			return
-		}
-
 		// Grabs the bottom mid point of the status item button in the menu bar
-		let statusItemBottomMidPoint = NSPoint(x: statusItemFrame.midX, y: statusItemFrame.minY)
+		let statusItemBottomMidPoint = statusItemButtonPosition()
 
 		// Offset it ⤴︎
 		let offset: CGFloat = 150.0
@@ -499,8 +512,12 @@ class StatusBarController {
 
 		// ------------- Panel Snap Zone is established ---------------
 
-		// Get the center point of the panel
+		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
+
+		// Calculate the angle between the top of the panel and the status item
+//		settings.panelSnapZoneDirection =
+		print(panelTopCenter)
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
@@ -538,7 +555,7 @@ class StatusBarController {
 
 		/// Snaps window to starting position and then makes it visible
 		func panelMoveAndSetAlphaAnimation() {
-			panel.animator().setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 			panel.animator().alphaValue = 1
 			setIsPanelBeingDragged(false)
 		}
