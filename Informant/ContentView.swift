@@ -119,12 +119,13 @@ struct ContentView: View {
 			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
 			.animation(.spring(), value: self.interfaceState.isPanelInSnapZone)
 
-			VStack(alignment: .center, spacing: 4) {
+			VStack(alignment: .center, spacing: 3) {
 
-				Text("􀁶")
-					.font(.system(size: 18))
+				Text("􀄨")
+					.font(.system(size: 17))
 					.opacity(Style.Text.opacity)
 					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
+					.animation(.easeInOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
 
 				Text(ContentManager.Labels.panelSnapZoneIndicator)
 					.H1()

@@ -177,7 +177,25 @@ class StatusBarController {
 	/// Calculates the angle between one point and another. Returns an angle in degrees.
 	func calculateDirection(pointA: NSPoint, pointB: NSPoint) -> Double {
 
-		return 0
+		// Get raw y & x magnitudes
+		let rawY = pointA.y - pointB.y
+		let rawX = pointA.x - pointB.x
+
+		// Extract sign of x. See if it's negative or positive
+		let sign = rawX / abs(rawX)
+
+		// We just want the angle for now, so no need for signs.
+		let x = abs(rawX)
+		let y = rawY
+
+		// Get angle. Atan uses radians
+		let rawAngle = (atan(y / x) * (180 / CGFloat.pi))
+		let angle = 90 - rawAngle
+
+		let direction = Double(angle * sign)
+
+		// The sign lets us know which way the angle should point
+		return direction
 	}
 
 	/// Helper function to let us know what type of event the provided one is
@@ -514,11 +532,10 @@ class StatusBarController {
 
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
+		let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY)
 
-		#warning("Remove from prod.")
 		// Calculate the angle between the top of the panel and the status item
-//		settings.panelSnapZoneDirection =
-//		print(panelTopCenter)
+		settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemBottomMidPoint, pointB: panelCenter)
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
