@@ -515,9 +515,10 @@ class StatusBarController {
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
 
+		#warning("Remove from prod.")
 		// Calculate the angle between the top of the panel and the status item
 //		settings.panelSnapZoneDirection =
-		print(panelTopCenter)
+//		print(panelTopCenter)
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
@@ -528,7 +529,7 @@ class StatusBarController {
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone
-		else if isPanelInSnapZone == false {
+		else {
 			settings.setIsPanelInSnapZone(false)
 		}
 
@@ -544,6 +545,8 @@ class StatusBarController {
 				panel.animator().alphaValue = 0
 				settings.isMouseHoveringClose = false
 			} completionHandler: {
+				// This is here just in case everything fails. We don't want the user stuck with the snap zone indicator being visible.
+				self.settings.setIsPanelInSnapZone(false)
 				panelMoveAndSetAlphaAnimation()
 			}
 		}
