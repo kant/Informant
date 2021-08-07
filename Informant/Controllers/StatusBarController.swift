@@ -534,15 +534,15 @@ class StatusBarController {
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
 		let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY)
 
-		// Calculate the angle between the top of the panel and the status item
-		settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemBottomMidPoint, pointB: panelCenter)
-
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
 		// Make the panel blurred if it's being dragged and in the snap zone
 		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
+
+			// Calculate the angle between the top of the panel and the status item
+			settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemBottomMidPoint, pointB: panelCenter)
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone
