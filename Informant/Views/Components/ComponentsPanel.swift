@@ -186,7 +186,7 @@ struct ComponentsPanelHeader: View {
 				}
 
 				Spacer()
-					.frame(width: 0, height: 2)
+					.frame(width: 0, height: 3)
 
 				// Subtitle
 				if let headerSubtitle = headerSubtitle {

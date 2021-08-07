@@ -168,7 +168,7 @@ class MenubarUtilityHelper {
 		let formattedString = formatProperties(properties)
 		
 		// Get formatted fonts ready
-		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
+		let font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .medium)
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
