@@ -115,32 +115,18 @@ struct ContentView: View {
 
 			// MARK: - Panel Snap Zone Indicator
 
-			// Blurs view when being dragged in the snap zone
-			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeOut, value: self.interfaceState.isPanelInSnapZone)
+			.offset(y: interfaceState.isPanelInSnapZone ? 8 : 0)
+			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 
-			Group {
-				// MARK: Rotating Icon
-				VStack(spacing: 0) {
-					Text("􀄨")
-						.font(.system(size: 17))
-						.opacity(Style.Text.opacity)
-						.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
-						.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
-						.padding(.top, 14)
-					Spacer()
-				}
-
-				// MARK: Label
-				// We use the layout priority of -1 so that this is drawn last. It ensures we don't push out the parent view to be taller.
-				VStack(spacing: 0) {
-					Spacer(minLength: 40)
-					Text(ContentManager.Labels.panelSnapZoneIndicator)
-						.H1()
-						.opacity(Style.Text.opacity)
-					Spacer(minLength: 0)
-				}
-				.layoutPriority(-1)
+			// MARK: Rotating Icon
+			VStack(spacing: 0) {
+				Text("􀄨")
+					.font(.system(size: 16))
+					.opacity(Style.Text.opacity)
+					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
+					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
+					.padding(.top, 6)
+				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
 			.animation(.easeOut, value: self.interfaceState.isPanelInSnapZone)

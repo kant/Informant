@@ -127,6 +127,22 @@ class NSIFWindow: NSWindow {
 	}
 }
 
+/*
+ /// Allows for an animateable window
+ class NSIFPanel: NSPanel {
+ 	var lastContentSize: CGSize = .zero
+
+ 	override func setContentSize(_ size: NSSize) {
+
+ 		if self.lastContentSize == size { return } // prevent multiple calls with the same size
+
+ 		self.lastContentSize = size
+
+ 		self.animator().setFrame(NSRect(origin: self.frame.origin, size: size), display: true, animate: true)
+ 	}
+ }
+ */
+
 // Resizes the bitmap of an NSImage
 extension NSImage {
 	/// Scales NSImage to the provided NSSize().

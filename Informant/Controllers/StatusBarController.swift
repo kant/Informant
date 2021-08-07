@@ -503,7 +503,6 @@ class StatusBarController {
 		/// Snaps window to starting position and then makes it visible
 		func panelMoveAndSetAlphaAnimation() {
 			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
-			panel.animator().alphaValue = 1
 			setIsPanelBeingDragged(false)
 		}
 
@@ -590,20 +589,10 @@ class StatusBarController {
 
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
 		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
-
-			// Resets panel blurring
 			settings.setIsPanelInSnapZone(false)
-
-			// Animates window to 0 opacity and then calls to the next animation phase
-			NSAnimationContext.runAnimationGroup { context -> Void in
-				context.duration = TimeInterval(0.15)
-				panel.animator().alphaValue = 0
-				settings.isMouseHoveringClose = false
-			} completionHandler: {
-				// This is here just in case everything fails. We don't want the user stuck with the snap zone indicator being visible.
-				self.settings.setIsPanelInSnapZone(false)
-				panelMoveAndSetAlphaAnimation()
-			}
+			settings.isMouseHoveringClose = false
+			panelMoveAndSetAlphaAnimation()
+			settings.setIsPanelInSnapZone(false)
 		}
 
 		// Otherwise backout
