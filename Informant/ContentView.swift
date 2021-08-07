@@ -125,7 +125,7 @@ struct ContentView: View {
 					.font(.system(size: 17))
 					.opacity(Style.Text.opacity)
 					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
-					.animation(.easeInOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
+					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
 
 				Text(ContentManager.Labels.panelSnapZoneIndicator)
 					.H1()

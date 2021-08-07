@@ -547,6 +547,7 @@ class StatusBarController {
 
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
+		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 10)
 		let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY)
 
 		// See if the panel is in the starting panel position zone
@@ -557,7 +558,7 @@ class StatusBarController {
 			settings.setIsPanelInSnapZone(true)
 
 			// Calculate the angle between the top of the panel and the status item
-			settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemBottomMidPoint, pointB: panelCenter)
+			settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemBottomMidPoint, pointB: panelTopCenterWithOffset)
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone

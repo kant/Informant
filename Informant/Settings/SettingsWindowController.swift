@@ -39,8 +39,8 @@ class SettingsWindowController {
 		// TODO: Remove from production
 		/*
 		 #warning("Remove this from production")
-		 open()
-		 */
+		  open()
+		  */
 	}
 
 	/// Opens up the settings window
