@@ -38,79 +38,83 @@ struct ContentView: View {
 			// This is the pause blur group
 			Group {
 
-				// This is the main panel group
-				Group {
+				// Confirm that accessibility is enabled
+				if interfaceState.privacyAccessibilityEnabled == true {
 
-					// MARK: - Panel Main
-					// So we can add padding to the main interface
-					VStack(alignment: .center, spacing: 0) {
+					// This is for privacy accessibility
+					Group {
 
-						// Confirm that accessibility is enabled
-						if interfaceState.privacyAccessibilityEnabled == true {
+						// This is the main panel group
+						Group {
 
-							// MARK: - Selection View Picker
-							// Figure out which view to present based on the # of items selected
-							switch interfaceData.data?.selection?.selectionType {
+							// MARK: - Panel Main
+							// So we can add padding to the main interface
+							VStack(alignment: .center, spacing: 0) {
 
-								// MARK: - Singles
-								// One item selected - no metadata
-								case .Single: PanelSingleItem(interfaceData.data?.selection)
+								// MARK: - Selection View Picker
+								// Figure out which view to present based on the # of items selected
+								switch interfaceData.data?.selection?.selectionType {
 
-								// One item selected - with metadata ⤵︎
-								case .Image: PanelSingleImageItem(interfaceData.data?.selection)
+									// MARK: - Singles
+									// One item selected - no metadata
+									case .Single: PanelSingleItem(interfaceData.data?.selection)
 
-								case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
+									// One item selected - with metadata ⤵︎
+									case .Image: PanelSingleImageItem(interfaceData.data?.selection)
 
-								case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
+									case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
 
-								case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
+									case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
 
-								case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
+									case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
 
-								case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
+									case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
 
-								// MARK: - Multi
-								// More than one item selected
-								case .Multi: PanelMultiItem(interfaceData.data?.selection)
+									case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
 
-								// Errors
-								case .Error: PanelSelectionErrorItem()
+									// MARK: - Multi
+									// More than one item selected
+									case .Multi: PanelMultiItem(interfaceData.data?.selection)
 
-								// No items selected
-								default: PanelNoItem()
+									// Errors
+									case .Error: PanelSelectionErrorItem()
+
+									// No items selected
+									default: PanelNoItem()
+								}
 							}
+							.padding(.horizontal, 15)
 						}
 
-						// Otherwise show the 'not-authorized' view
-						else {
-							PanelAuthErrorItem()
+						// MARK: - Is Paused Indicator
+
+						// Blurs view when being dragged in the snap zone
+						.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
+						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
+
+						ComponentsPanelLabelIconFrame(
+							icon: "􀊇",
+							iconSize: 16,
+							label: ContentManager.SettingsLabels.paused
+						)
+						.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
+						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
+
+						// When the user clicks on this blurred screen the app resumes operation
+						if interfaceState.settingsPauseApp {
+							Color.clear
+								.inactiveWindowTap { pressed in
+									if !pressed {
+										interfaceState.settingsPauseApp = false
+									}
+								}
 						}
 					}
-					.padding(.horizontal, 15)
 				}
 
-				// MARK: - Is Paused Indicator
-
-				// Blurs view when being dragged in the snap zone
-				.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
-				.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
-
-				ComponentsPanelLabelIconFrame(
-					icon: "􀊇",
-					iconSize: 16,
-					label: ContentManager.SettingsLabels.paused
-				)
-				.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
-				.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
-
-				// When the user clicks on this blurred screen the app resumes operation
-				if interfaceState.settingsPauseApp {
-					Color.clear
-						.inactiveWindowTap { pressed in
-							if !pressed {
-								interfaceState.settingsPauseApp = false
-							}
-						}
+				// Otherwise show the 'not-authorized' view
+				else {
+					PanelAuthErrorItem()
 				}
 
 				// MARK: - Panel Bottom Buttons
@@ -146,9 +150,9 @@ struct ContentView: View {
 			// MARK: Rotating Icon
 			VStack(spacing: 0) {
 				Text("• • •")
-					.font(.system(size: 13))
-					.opacity(0.3)
-					.padding(.top, 3)
+					.font(.system(size: 14))
+					.opacity(0.25)
+					.padding(.top, 2)
 				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)

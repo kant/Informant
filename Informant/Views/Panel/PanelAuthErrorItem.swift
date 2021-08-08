@@ -12,7 +12,7 @@ struct PanelAuthErrorItem: View {
 		ComponentsPanelErrorFrame(
 			icon: "􀎣",
 			label: ContentManager.Labels.panelUnauthorized,
-			padding: 0,
+			spacing: 6,
 			buttonLabel: ContentManager.Labels.panelAuthorize) {
 
 				// Open the window to get the user to enable accessibility access

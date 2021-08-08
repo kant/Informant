@@ -55,7 +55,7 @@ struct ComponentsPanelErrorFrame: View {
 	let action: (() -> Void)?
 	let buttonLabel: String?
 
-	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, padding: CGFloat = 0, spacing: CGFloat = 6, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, padding: CGFloat = 6, spacing: CGFloat = 5, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
 		self.icon = icon
 		self.iconSize = iconSize
 		self.label = label
