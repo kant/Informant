@@ -212,6 +212,7 @@ class StatusBarController {
 
 	/// Helper designed to set the drag state of the object
 	func setIsPanelBeingDragged(_ value: Bool) {
+		// TODO: Add snap animation (.none) to snap zone indicator using this value
 		isPanelBeingDragged = value
 	}
 
