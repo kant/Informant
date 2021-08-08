@@ -559,8 +559,9 @@ class StatusBarController {
 		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
 
+			// TODO: Consider removing this.
 			// Calculate the angle between the top of the panel and the status item
-			settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemCenterMidPoint, pointB: panelTopCenterWithOffset)
+			/* settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemCenterMidPoint, pointB: panelTopCenterWithOffset) */
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone

@@ -145,12 +145,10 @@ struct ContentView: View {
 
 			// MARK: Rotating Icon
 			VStack(spacing: 0) {
-				Text("􀆇")
-					.font(.system(size: 14))
-					.opacity(0.2)
-					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
-					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
-					.padding(.top, 2)
+				Text("• • •")
+					.font(.system(size: 13))
+					.opacity(0.3)
+					.padding(.top, 3)
 				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
