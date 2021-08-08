@@ -31,14 +31,15 @@ struct ContentView: View {
 		// MARK: Full Stacked View
 		ZStack {
 
+			// MARK: - Panel Backing Material
+			VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
+				.edgesIgnoringSafeArea(.all)
+
 			// This is the pause blur group
 			Group {
 
 				// This is the main panel group
 				Group {
-					// MARK: - Panel Backing Material
-					VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
-						.edgesIgnoringSafeArea(.all)
 
 					// MARK: - Panel Main
 					// So we can add padding to the main interface
@@ -111,21 +112,45 @@ struct ContentView: View {
 							}
 						}
 				}
+
+				// MARK: - Panel Bottom Buttons
+
+				VStack {
+
+					// Makes sure button rests on the bottom of the interface
+					Spacer()
+
+					// Settings button stack
+					HStack(spacing: 0) {
+
+						// Additional file tags
+						ComponentsPanelAttributes(interfaceData.data?.selection)
+							.padding([.leading], 11)
+							.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
+							.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
+
+						// Ensures buttons align to the right
+						Spacer()
+
+						// More button
+						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
+							appDelegate.interfaceMenuController!.openMenuAtPanel()
+						}
+					}
+				}
+				.padding(4)
 			}
 
 			// MARK: - Panel Snap Zone Indicator
 
-			.offset(y: interfaceState.isPanelInSnapZone ? 8 : 0)
-			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
-
 			// MARK: Rotating Icon
 			VStack(spacing: 0) {
-				Text("􀄨")
-					.font(.system(size: 16))
-					.opacity(Style.Text.opacity)
+				Text("􀆇")
+					.font(.system(size: 14))
+					.opacity(0.2)
 					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
 					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
-					.padding(.top, 7)
+					.padding(.top, 2)
 				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
@@ -140,31 +165,6 @@ struct ContentView: View {
 						}
 					}
 			}
-
-			// MARK: - Panel Bottom Buttons
-
-			VStack {
-
-				// Makes sure button rests on the bottom of the interface
-				Spacer()
-
-				// Settings button stack
-				HStack(spacing: 0) {
-
-					// Additional file tags
-					ComponentsPanelAttributes(interfaceData.data?.selection)
-						.padding([.leading], 11)
-
-					// Ensures buttons align to the right
-					Spacer()
-
-					// More button
-					ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
-						appDelegate.interfaceMenuController!.openMenuAtPanel()
-					}
-				}
-			}
-			.padding(4)
 		}
 
 		// Please see PanelCloseButton.swift for partnering logic

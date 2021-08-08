@@ -547,7 +547,7 @@ class StatusBarController {
 
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
-		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 22)
+		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 10)
 
 		// TODO: Consider removing
 		/* let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY) */
