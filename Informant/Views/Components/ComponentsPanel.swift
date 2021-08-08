@@ -111,16 +111,12 @@ struct ComponentsPanelLabelIconFrame: View {
 	let icon: String?
 	let iconSize: CGFloat
 	let label: String?
-	let bottomPadding: CGFloat
-	let topPadding: CGFloat
 	let stackSpacing: CGFloat
 
-	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, bottomPadding: CGFloat = 0, topPadding: CGFloat = 0, stackSpacing: CGFloat = 4) {
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, stackSpacing: CGFloat = 4) {
 		self.icon = icon
 		self.iconSize = iconSize
 		self.label = label
-		self.bottomPadding = bottomPadding
-		self.topPadding = topPadding
 		self.stackSpacing = stackSpacing
 	}
 
@@ -140,7 +136,6 @@ struct ComponentsPanelLabelIconFrame: View {
 					.opacity(Style.Text.opacity)
 			}
 		}
-		.padding([.vertical], bottomPadding)
 	}
 }
 
