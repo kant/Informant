@@ -93,9 +93,7 @@ struct ContentView: View {
 						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 
 						ComponentsPanelLabelIconFrame(
-							icon: "􀊇",
-							iconSize: 16,
-							label: ContentManager.SettingsLabels.paused
+							label: ContentManager.SettingsLabels.tapToResume
 						)
 						.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
 						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
@@ -149,10 +147,10 @@ struct ContentView: View {
 
 			// MARK: Rotating Icon
 			VStack(spacing: 0) {
-				Text("• • •")
-					.font(.system(size: 14))
-					.opacity(0.25)
-					.padding(.top, 2)
+				Text("•")
+					.font(.system(size: 16))
+					.opacity(0.5)
+					.padding(.top, 1)
 				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)

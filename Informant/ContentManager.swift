@@ -137,6 +137,8 @@ class ContentManager {
 		static let resume = NSLocalizedString("Resume", comment: "")
 
 		static let paused = NSLocalizedString("Paused", comment: "")
+
+		static let tapToResume = NSLocalizedString("Tap to resume", comment: "")
 	}
 
 	// MARK: - State
