@@ -125,7 +125,7 @@ struct ContentView: View {
 					.opacity(Style.Text.opacity)
 					.rotationEffect(Angle(degrees: interfaceState.panelSnapZoneDirection))
 					.animation(.easeOut(duration: 0.15), value: interfaceState.panelSnapZoneDirection)
-					.padding(.top, 6)
+					.padding(.top, 7)
 				Spacer()
 			}
 			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
