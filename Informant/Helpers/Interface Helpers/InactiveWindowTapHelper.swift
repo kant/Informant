@@ -9,16 +9,18 @@ import Foundation
 import SwiftUI
 
 extension View {
-	func inactiveWindowTap(_ pressed: @escaping (Bool) -> Void) -> some View {
-		modifier(InactiveWindowTapModifier(pressed))
+	func inactiveWindowTap(draggable: Bool = false, _ pressed: @escaping (Bool) -> Void) -> some View {
+		modifier(InactiveWindowTapModifier(pressed, draggable: draggable))
 	}
 }
 
 struct InactiveWindowTapModifier: ViewModifier {
 	let pressed: (Bool) -> Void
+	let draggable: Bool
 
-	init(_ pressed: @escaping (Bool) -> Void) {
+	init(_ pressed: @escaping (Bool) -> Void, draggable: Bool = false) {
 		self.pressed = pressed
+		self.draggable = draggable
 	}
 
 	func body(content: Content) -> some View {
@@ -26,6 +28,7 @@ struct InactiveWindowTapModifier: ViewModifier {
 			GeometryReader { proxy in
 				ClickableViewRepresentable(
 					pressed: pressed,
+					draggable: draggable,
 					frame: proxy.frame(in: .global)
 				)
 			}
@@ -35,6 +38,7 @@ struct InactiveWindowTapModifier: ViewModifier {
 
 private struct ClickableViewRepresentable: NSViewRepresentable {
 	let pressed: (Bool) -> Void
+	let draggable: Bool
 	let frame: NSRect
 
 	func updateNSView(_ nsView: ClickableView, context: Context) {
@@ -42,15 +46,13 @@ private struct ClickableViewRepresentable: NSViewRepresentable {
 	}
 
 	func makeNSView(context: Context) -> ClickableView {
-		ClickableView(frame: frame, pressed: pressed)
+		draggable ? ClickableDraggableView(frame: frame, pressed: pressed) : ClickableView(frame: frame, pressed: pressed)
 	}
 }
 
 class ClickableView: NSView {
 
 	public var pressed: ((Bool) -> Void)?
-
-	private var dragged: Bool?
 
 	init(frame: NSRect, pressed: ((Bool) -> Void)?) {
 		super.init(frame: frame)
@@ -67,7 +69,20 @@ class ClickableView: NSView {
 	}
 
 	override func mouseDown(with event: NSEvent) {
-		if dragged == false {
+		pressed?(true)
+	}
+
+	override func mouseUp(with event: NSEvent) {
+		pressed?(false)
+	}
+}
+
+class ClickableDraggableView: ClickableView {
+
+	private var dragged: Bool?
+
+	override func mouseDown(with event: NSEvent) {
+		if dragged != true {
 			pressed?(true)
 		} else {
 			dragged = false
@@ -75,7 +90,7 @@ class ClickableView: NSView {
 	}
 
 	override func mouseUp(with event: NSEvent) {
-		if dragged == false {
+		if dragged != true {
 			pressed?(false)
 		} else {
 			dragged = false

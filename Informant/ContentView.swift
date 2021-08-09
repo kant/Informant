@@ -114,7 +114,7 @@ struct ContentView: View {
 						// When the user clicks on this blurred screen the app resumes operation
 						if interfaceState.settingsPauseApp {
 							Color.clear
-								.inactiveWindowTap { pressed in
+								.inactiveWindowTap(draggable: true) { pressed in
 									if !pressed {
 										interfaceState.settingsPauseApp = false
 									}
