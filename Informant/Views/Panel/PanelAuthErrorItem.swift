@@ -12,6 +12,7 @@ struct PanelAuthErrorItem: View {
 		ComponentsPanelErrorFrame(
 			icon: "􀎣",
 			label: ContentManager.Labels.panelUnauthorized,
+			padding: 20,
 			spacing: 6,
 			buttonLabel: ContentManager.Labels.panelAuthorize) {
 
