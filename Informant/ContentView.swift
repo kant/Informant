@@ -47,44 +47,57 @@ struct ContentView: View {
 						// This is the main panel group
 						Group {
 
-							// MARK: - Panel Main
-							// So we can add padding to the main interface
-							VStack(alignment: .center, spacing: 0) {
+							// Makes sure that the main panel content is always centred
+							HStack {
 
-								// MARK: - Selection View Picker
-								// Figure out which view to present based on the # of items selected
-								switch interfaceData.data?.selection?.selectionType {
+								Spacer(minLength: 0)
 
-									// MARK: - Singles
-									// One item selected - no metadata
-									case .Single: PanelSingleItem(interfaceData.data?.selection)
+								// MARK: - Panel Main
+								// So we can add padding to the main interface
+								VStack(alignment: .center, spacing: 0) {
 
-									// One item selected - with metadata ⤵︎
-									case .Image: PanelSingleImageItem(interfaceData.data?.selection)
+									Spacer(minLength: 0)
 
-									case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
+									// MARK: - Selection View Picker
+									// Figure out which view to present based on the # of items selected
+									switch interfaceData.data?.selection?.selectionType {
 
-									case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
+										// MARK: - Singles
+										// One item selected - no metadata
+										case .Single: PanelSingleItem(interfaceData.data?.selection)
 
-									case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
+										// One item selected - with metadata ⤵︎
+										case .Image: PanelSingleImageItem(interfaceData.data?.selection)
 
-									case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
+										case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
 
-									case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
+										case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
 
-									// MARK: - Multi
-									// More than one item selected
-									case .Multi: PanelMultiItem(interfaceData.data?.selection)
+										case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
 
-									// Errors
-									case .Error: PanelSelectionErrorItem()
+										case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
 
-									// No items selected
-									default: PanelNoItem()
+										case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
+
+										// MARK: - Multi
+										// More than one item selected
+										case .Multi: PanelMultiItem(interfaceData.data?.selection)
+
+										// Errors
+										case .Error: PanelSelectionErrorItem()
+
+										// No items selected
+										default: PanelNoItem()
+									}
+
+									Spacer(minLength: 0)
 								}
+								.padding(.horizontal, 15)
+
+								Spacer(minLength: 0)
 							}
-							.padding(.horizontal, 15)
 						}
+						.layoutPriority(1)
 
 						// MARK: - Is Paused Indicator
 

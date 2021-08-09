@@ -26,7 +26,7 @@ class ContentManager {
 
 		static let panelNoItemsSelected = NSLocalizedString("No selection", comment: "String displayed when no items are selected.")
 
-		static let panelErrorTitle = NSLocalizedString("Can't get selection", comment: "The title displayed when the selection errors out")
+		static let panelErrorTitle = NSLocalizedString("No access", comment: "The title displayed when the selection errors out")
 
 		static let openPanelGrantAccess = NSLocalizedString("Grant Access", comment: "Open panel's grant access button label")
 	}
