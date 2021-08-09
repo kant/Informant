@@ -10,6 +10,7 @@
 		9A00210726A5E762006DEA70 /* SF-Compact-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A00210526A5E762006DEA70 /* SF-Compact-Display-Regular.otf */; };
 		9A00210826A5E762006DEA70 /* SF-Mono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A00210626A5E762006DEA70 /* SF-Mono-Regular.otf */; };
 		9A2C625E26C0CA9F00726FFB /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C625D26C0CA9F00726FFB /* Debug.swift */; };
+		9A2C626026C0CCEA00726FFB /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C625F26C0CCEA00726FFB /* LinkHelper.swift */; };
 		9A2DDF6C2681441100DB84BA /* SingleImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6B2681441100DB84BA /* SingleImageSelection.swift */; };
 		9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6D2681532F00DB84BA /* SingleMovieSelection.swift */; };
 		9A2DDF702681534F00DB84BA /* SingleDirectorySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6F2681534F00DB84BA /* SingleDirectorySelection.swift */; };
@@ -122,6 +123,7 @@
 		9A00210526A5E762006DEA70 /* SF-Compact-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Display-Regular.otf"; sourceTree = "<group>"; };
 		9A00210626A5E762006DEA70 /* SF-Mono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Mono-Regular.otf"; sourceTree = "<group>"; };
 		9A2C625D26C0CA9F00726FFB /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		9A2C625F26C0CCEA00726FFB /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
 		9A2DDF6B2681441100DB84BA /* SingleImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageSelection.swift; sourceTree = "<group>"; };
 		9A2DDF6D2681532F00DB84BA /* SingleMovieSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMovieSelection.swift; sourceTree = "<group>"; };
 		9A2DDF6F2681534F00DB84BA /* SingleDirectorySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDirectorySelection.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				9A7F3B4B2626A37E00BD878F /* AppleScriptsHelper.swift */,
 				9A2DDF7526825D6700DB84BA /* SecurityBookmarkHelper.swift */,
 				9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */,
+				9A2C625F26C0CCEA00726FFB /* LinkHelper.swift */,
 			);
 			path = "Utility Helpers";
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				9AC1AFBC265C3F8C006D1FC8 /* InterfaceMenuController.swift in Sources */,
 				9A2DDF722681537D00DB84BA /* SingleApplicationSelection.swift in Sources */,
 				9ABEAA192663FA070044E18B /* URLDiskAllocationHelper.swift in Sources */,
+				9A2C626026C0CCEA00726FFB /* LinkHelper.swift in Sources */,
 				9A481FAB26780F86006B91C2 /* InterfaceAlertController.swift in Sources */,
 				9A2DDF6C2681441100DB84BA /* SingleImageSelection.swift in Sources */,
 				9A481FB0267914DA006B91C2 /* ComponentsExtra.swift in Sources */,

@@ -102,13 +102,12 @@ struct SettingsLeftSideView: View {
 
 			Spacer().frame(height: 22)
 
-			#warning("Add link functionality")
 			// Link stack
 			VStack(alignment: .leading, spacing: 12) {
 
-				// Acknowledgements
+				// Privacy policy
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.privacyPolicy)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.privacyPolicy)
 						.SettingsLabelButtonFont()
@@ -116,7 +115,7 @@ struct SettingsLeftSideView: View {
 
 				// Feedback
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.feedback)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.feedback)
 						.SettingsLabelButtonFont()
@@ -124,7 +123,7 @@ struct SettingsLeftSideView: View {
 
 				// Help
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.help)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.help)
 						.SettingsLabelButtonFont()
