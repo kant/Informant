@@ -11,54 +11,59 @@ import SwiftUI
 class InterfaceCloseController {
 
 	var appDelegate = AppDelegate.current()
-	var panel: NSPanel
+	var close: NSPanel
 
 	// ------------- Initialization ⤵︎ -------------
 
 	init(_ panelRef: NSPanel) {
 
 		// Assign ref. for panel
-		panel = panelRef
+		close = panelRef
 
 		// Sets the position to the corner of the view
 		setPosition()
 
 		// Titlebar setup
-		panel.titlebarAppearsTransparent = true
-		panel.titleVisibility = .hidden
+		close.titlebarAppearsTransparent = true
+		close.titleVisibility = .hidden
 
 		// Aesthetics
-		panel.alphaValue = 1.0
-		panel.hasShadow = true
+		close.alphaValue = 1.0
+		close.hasShadow = true
 
 		// Animation
-		panel.animationBehavior = .none
+		close.animationBehavior = .none
 
 		// Assign content to panel
-		panel.contentViewController = NSHostingController(rootView: PanelCloseButton())
-		panel.isOpaque = true
-		panel.backgroundColor = .clear
+		close.contentViewController = NSHostingController(rootView: PanelCloseButton())
+		close.isOpaque = true
+		close.backgroundColor = .clear
 
 		// Misc.
-		panel.isMovableByWindowBackground = false
-		panel.isMovable = false
+		close.isMovableByWindowBackground = false
+		close.isMovable = false
 
 		// Add as child
-		appDelegate.panel.addChildWindow(panel, ordered: .above)
+		appDelegate.panel.addChildWindow(close, ordered: .above)
 	}
 
 	/// Resets the position of the close button
 	func setPosition() {
 
+		let panel: NSPanel = appDelegate.panel
+
 		// Get position for panel
-		let parentTop = appDelegate.panel.frame.maxY
-		let parentLeft = appDelegate.panel.frame.minX
+		let parentOriginY = panel.frame.origin.y
+		let parentOriginX = panel.frame.origin.x
 
-		// Offset and set
+		let parentTop = parentOriginY + panel.frame.height
+		let parentLeft = parentOriginX
+
+		// Offset and finalize
 		let offsetX: CGFloat = 5
-		let offsetY: CGFloat = 2
-		let topLeft = NSPoint(x: parentLeft - offsetX, y: parentTop - offsetY)
+		let offsetY: CGFloat = 6
+		let topLeftOfPanel = NSPoint(x: parentLeft - offsetX, y: parentTop + offsetY)
 
-		panel.setFrameOrigin(topLeft)
+		close.setFrameTopLeftPoint(topLeftOfPanel)
 	}
 }

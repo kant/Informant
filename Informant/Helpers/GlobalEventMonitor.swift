@@ -28,7 +28,9 @@ class GlobalEventMonitor {
 
 	// Starts monitoring
 	public func start() {
-		monitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler) as! NSObject
+		if monitor == nil {
+			monitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler) as! NSObject
+		}
 	}
 
 	// Stops monitoring

@@ -12,7 +12,6 @@ class StatusBarController {
 	private var statusBar: NSStatusBar
 
 	private var panelStatusItem: NSStatusItem?
-	private var utilityStatusItem: NSStatusItem?
 
 	private var panel: NSPanel!
 	private var appDelegate: AppDelegate!
@@ -56,11 +55,9 @@ class StatusBarController {
 
 		// Creates a status bar item with a fixed length
 		appDelegate.panelStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
-		appDelegate.utilityStatusItem = statusBar.statusItem(withLength: NSStatusItem.variableLength)
 
 		// Assign status items
 		panelStatusItem = appDelegate.panelStatusItem
-		utilityStatusItem = appDelegate.utilityStatusItem
 
 		// Initializes menu bar button
 		if let panelBarButton = panelStatusItem?.button {
@@ -81,23 +78,10 @@ class StatusBarController {
 			panelBarButton.updateConstraints()
 
 			// This is the button's action it executes upon activation
-			panelBarButton.action = #selector(toggleInterfaceByClick)
+			panelBarButton.action = #selector(statusItemClickDirector)
+			panelBarButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
 			panelBarButton.target = self
 		}
-
-		// Initializes the utility menu bar button
-		if let utilityBarButton = utilityStatusItem?.button {
-
-			// Updates the constraints of the button
-			utilityBarButton.updateConstraints()
-
-			// This is what executs upon click
-			utilityBarButton.action = #selector(copyPathToClipboard)
-			utilityBarButton.target = self
-		}
-
-		// Start utility button hidden
-		utilityStatusItem?.isVisible = false
 
 		// Monitors mouse events
 		monitorMouseDismiss = GlobalEventMonitor(mask: [.leftMouseDown, .rightMouseDown, .leftMouseUp, .rightMouseUp], handler: windowHandlerMouseDismiss)
@@ -125,22 +109,25 @@ class StatusBarController {
 
 	// MARK: - Extraneous Methods
 
-	/// Copies the path to the clipboard with settings in mind.
-	@objc func copyPathToClipboard() {
+	/// Routes traffic to the correct left/right action.
+	@objc func statusItemClickDirector() {
 
-		// Grabs the current selection as paths
-		if let paths = appDelegate.menubarInterfaceHelper.GetFinderSelection(force: true)?.selection.paths {
+		let event = NSApp.currentEvent
 
-			let url = URL(fileURLWithPath: paths[0])
+		if event?.type == NSEvent.EventType.leftMouseUp {
 
-			// Format path
-			guard let formattedPath = SelectionHelper.formatPathBasedOnSettings(url) else {
-				return
-			}
+			// Makes sure to steal focus from any other menu bar apps
+			panelStatusItem?.menu = NSMenu()
+			panelStatusItem?.button?.performClick(nil)
+			panelStatusItem?.menu = nil
 
-			// Show alert
-			let alertController = appDelegate.interfaceAlertController
-			alertController?.showCopyAlertForPathAndCopyToClipboard(formattedPath)
+			toggleInterfaceByClick()
+		}
+		else {
+			appDelegate.interfaceMenuController?.updateMenu()
+			panelStatusItem?.menu = appDelegate.interfaceMenu
+			panelStatusItem?.button?.performClick(nil)
+			panelStatusItem?.menu = nil
 		}
 	}
 
@@ -165,14 +152,50 @@ class StatusBarController {
 		// Get the middle of the image
 		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
 
-		// Shave off half the width of the interface off the x-coordinate
-		let xPositionAdjustedByWindow = imageMidPosition - (panel.frame.width / 2.0)
-
-		// Move the panel down a hair so it's not riding directly on the menu bar
-		let yPosition = statusItemFrame.origin.y - 6.0
+		let x = imageMidPosition
+		let y = statusItemFrame.origin.y
 
 		// Create and set the panel to the new coordinates
-		return NSPointFromCGPoint(CGPoint(x: xPositionAdjustedByWindow, y: yPosition))
+		return NSPointFromCGPoint(CGPoint(x: x, y: y))
+	}
+
+	/// Finds the position the panel should snap to
+	func statusItemButtonPositionPanelAdjusted() -> NSPoint {
+
+		let statusItemPosition = statusItemButtonPosition()
+
+		// Shave off half the width of the interface off the x-coordinate
+		let x = statusItemPosition.x - (panel.frame.width / 2.0)
+
+		// Move the panel down a hair so it's not riding directly on the menu bar
+		let y = statusItemPosition.y - 6.0
+
+		// Create and set the panel to the new coordinates
+		return NSPointFromCGPoint(CGPoint(x: x, y: y))
+	}
+
+	/// Calculates the angle between one point and another. Returns an angle in degrees.
+	func calculateDirection(pointA: NSPoint, pointB: NSPoint) -> Double {
+
+		// Get raw y & x magnitudes
+		let rawY = pointA.y - pointB.y
+		let rawX = pointA.x - pointB.x
+
+		// Extract sign of x. See if it's negative or positive
+		let sign = rawX / abs(rawX)
+
+		// We just want the angle for now, so no need for signs.
+		let x = abs(rawX)
+		let y = rawY
+
+		// Get angle. Atan uses radians
+		let rawAngle = (atan(y / x) * (180 / CGFloat.pi))
+		let angle = 90 - rawAngle
+
+		let direction = Double(angle * sign)
+
+		// The sign lets us know which way the angle should point
+		return direction
 	}
 
 	/// Helper function to let us know what type of event the provided one is
@@ -189,6 +212,7 @@ class StatusBarController {
 
 	/// Helper designed to set the drag state of the object
 	func setIsPanelBeingDragged(_ value: Bool) {
+		// TODO: Add snap animation (.none) to snap zone indicator using this value
 		isPanelBeingDragged = value
 	}
 
@@ -229,13 +253,13 @@ class StatusBarController {
 			// If it doesn't have a screen position then just open it by the status item button and
 			// save new panel origin to dictionary
 			else {
-				panel.setFrameTopLeftPoint(statusItemButtonPosition())
+				panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 				windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
 			}
 			break
 
 		case ToggleMethod.Click:
-			panel.setFrameTopLeftPoint(statusItemButtonPosition())
+			panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 			break
 		}
 
@@ -321,6 +345,11 @@ class StatusBarController {
 	/// As well, makes sure that hiding state is set properly.
 	func updateInterfaces() {
 
+		// Make sure the app is not paused
+		if settings.settingsPauseApp == true {
+			return
+		}
+
 		// Wipe the menubar utility
 		updateMenubarUtility()
 
@@ -333,8 +362,12 @@ class StatusBarController {
 	/// Updates the panel interface itself. This can be used to force updates
 	func updatePanel(force: Bool = false) {
 
-		// Open up the interface
-		InterfaceHelper.DisplayUpdatedInterface(force: force)
+		// Make sure the app is not paused
+		if settings.settingsPauseApp == false {
+
+			// Open up the interface
+			InterfaceHelper.DisplayUpdatedInterface(force: force)
+		}
 
 		// Check for null interface data and set hiding state accordingly.
 		// When interface data is present -> .Open
@@ -468,6 +501,20 @@ class StatusBarController {
 	/// This only gets triggered after a drag, so it's okay to build the snap-zone in here. Do not spam this method!
 	func windowHandlerMouseDrag(event: NSEvent?) {
 
+		/// Snaps window to starting position and then makes it visible
+		func panelMoveAndSetAlphaAnimation() {
+			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
+			setIsPanelBeingDragged(false)
+		}
+
+		/// Resets all internal variables
+		func reset() {
+			setIsPanelBeingDragged(false)
+			settings.setIsPanelInSnapZone(false)
+		}
+
+		// ---------- Make sure the panel is being dragged ------------
+
 		// Make sure the mouse is dragging on the panel - if not then back out
 		if isPanelBeingDragged != true, event?.window != appDelegate.panel {
 			return
@@ -480,13 +527,9 @@ class StatusBarController {
 
 		// ------------ Establish Panel Snap Zone -------------
 
-		// Grab StatusItemButton position
-		guard let statusItemFrame = panelStatusItem?.button?.window?.frame else {
-			return
-		}
-
 		// Grabs the bottom mid point of the status item button in the menu bar
-		let statusItemBottomMidPoint = NSPoint(x: statusItemFrame.midX, y: statusItemFrame.minY)
+		let statusItemBottomMidPoint = statusItemButtonPosition()
+		let statusItemCenterMidPoint = NSPoint(x: statusItemBottomMidPoint.x, y: statusItemBottomMidPoint.y + (statusBar.thickness / 2))
 
 		// Offset it ⤴︎
 		let offset: CGFloat = 150.0
@@ -503,8 +546,12 @@ class StatusBarController {
 
 		// ------------- Panel Snap Zone is established ---------------
 
-		// Get the center point of the panel
+		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
+		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 10)
+
+		// TODO: Consider removing
+		/* let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY) */
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
@@ -512,39 +559,47 @@ class StatusBarController {
 		// Make the panel blurred if it's being dragged and in the snap zone
 		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
+
+			// TODO: Consider removing this.
+			// Calculate the angle between the top of the panel and the status item
+			/* settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemCenterMidPoint, pointB: panelTopCenterWithOffset) */
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone
-		else if isPanelInSnapZone == false {
+		else {
 			settings.setIsPanelInSnapZone(false)
 		}
 
+		// ------------- Decide if it's worth it to reset position --------------
+
+		// First check if the repositioning is even neccessary
+		let snapPosition = statusItemButtonPositionPanelAdjusted()
+		let panelTopLeftPosition = NSPoint(x: panel.frame.minX, y: panel.frame.maxY)
+
+		// Gather magnitude of change
+		let xMagnitude = (snapPosition.x - panelTopLeftPosition.x).magnitude
+		let yMagnitude = (snapPosition.y - panelTopLeftPosition.y).magnitude
+		let totalMagnitude = xMagnitude + yMagnitude
+
+		// Decide whether it's worth it or not to reposition
+		if totalMagnitude <= 0.5, eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+			reset()
+			return
+		}
+
+		// ------------------ Release of the drag ------------------
+
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
 		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
-
-			// Resets panel blurring
 			settings.setIsPanelInSnapZone(false)
-
-			// Animates window to 0 opacity and then calls to the next animation phase
-			NSAnimationContext.runAnimationGroup { context -> Void in
-				context.duration = TimeInterval(0.15)
-				panel.animator().alphaValue = 0
-				settings.isMouseHoveringClose = false
-			} completionHandler: {
-				panelMoveAndSetAlphaAnimation()
-			}
+			settings.isMouseHoveringClose = false
+			panelMoveAndSetAlphaAnimation()
+			settings.setIsPanelInSnapZone(false)
 		}
 
 		// Otherwise backout
 		else {
 			return
-		}
-
-		/// Snaps window to starting position and then makes it visible
-		func panelMoveAndSetAlphaAnimation() {
-			panel.animator().setFrameTopLeftPoint(statusItemButtonPosition())
-			panel.animator().alphaValue = 1
-			setIsPanelBeingDragged(false)
 		}
 	}
 }

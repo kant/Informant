@@ -50,6 +50,8 @@ class ClickableView: NSView {
 
 	public var pressed: ((Bool) -> Void)?
 
+	private var dragged: Bool?
+
 	init(frame: NSRect, pressed: ((Bool) -> Void)?) {
 		super.init(frame: frame)
 		self.pressed = pressed
@@ -65,10 +67,23 @@ class ClickableView: NSView {
 	}
 
 	override func mouseDown(with event: NSEvent) {
-		pressed?(true)
+		if dragged == false {
+			pressed?(true)
+		} else {
+			dragged = false
+		}
 	}
 
 	override func mouseUp(with event: NSEvent) {
-		pressed?(false)
+		if dragged == false {
+			pressed?(false)
+		} else {
+			dragged = false
+		}
+	}
+
+	// Makes sure to cancel out taps when dragging
+	override func mouseDragged(with event: NSEvent) {
+		dragged = true
 	}
 }

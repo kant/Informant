@@ -24,9 +24,9 @@ class ContentManager {
 	// MARK: - Titles
 	public enum Titles {
 
-		static let panelNoItemsSelected = NSLocalizedString("Nothing selected", comment: "String displayed when no items are selected.")
+		static let panelNoItemsSelected = NSLocalizedString("No selection", comment: "String displayed when no items are selected.")
 
-		static let panelErrorTitle = NSLocalizedString("Can't get selection", comment: "The title displayed when the selection errors out")
+		static let panelErrorTitle = NSLocalizedString("No access", comment: "The title displayed when the selection errors out")
 
 		static let openPanelGrantAccess = NSLocalizedString("Grant Access", comment: "Open panel's grant access button label")
 	}
@@ -80,7 +80,7 @@ class ContentManager {
 	// MARK: - Settings Labels
 	public enum SettingsLabels {
 
-		static let menubar = NSLocalizedString("Menu Bar", comment: "")
+		static let menubar = NSLocalizedString("Menu Bar Utility", comment: "")
 
 		static let panel = NSLocalizedString("Panel", comment: "")
 
@@ -112,7 +112,9 @@ class ContentManager {
 
 		static let launchOnStartup = NSLocalizedString("Launch Informant on system startup", comment: "Asks the user if they want the app to launch on startup")
 
-		static let menubarUtility = NSLocalizedString("Enable menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
+		static let menubarUtilityShow = NSLocalizedString("Show menu bar utility", comment: "Asks the user if they want the menubar-utility enabled")
+
+		static let menubarUtilityHide = NSLocalizedString("Hide menu bar utility", comment: "Asks the user if they want the menubar-utility disabled")
 
 		static let toggleDetailsPanel = NSLocalizedString("Toggle panel shortcut:", comment: "Asks the user what shortcut they want to toggle the details panel")
 
@@ -127,6 +129,16 @@ class ContentManager {
 		static let hideCreated = NSLocalizedString("Hide date created", comment: "")
 
 		static let hideIcon = NSLocalizedString("Hide icon", comment: "")
+
+		static let pause = NSLocalizedString("Pause Informant", comment: "")
+
+		static let resumeInformant = NSLocalizedString("Resume Informant", comment: "")
+
+		static let resume = NSLocalizedString("Resume", comment: "")
+
+		static let paused = NSLocalizedString("Paused", comment: "")
+
+		static let tapToResume = NSLocalizedString("Tap to resume", comment: "")
 	}
 
 	// MARK: - State
@@ -201,7 +213,7 @@ class ContentManager {
 
 		static let panelUnauthorized = NSLocalizedString("Unauthorized", comment: "Used on panel when accessibility api is disabled")
 
-		static let panelAuthorized = NSLocalizedString("Authorized", comment: "Used on panel when accessibility api is disabled")
+		static let panelAuthorize = NSLocalizedString("Authorize", comment: "Used on panel when accessibility api is disabled")
 
 		// Panel Menu Labels
 		static let panelMenuPreferences = NSLocalizedString("Preferences...", comment: "Preferences menu item in panel menu")

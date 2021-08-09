@@ -47,31 +47,39 @@ struct ComponentsPanelReducedFrame<Content>: View where Content: View {
 /// Used for error messages on the panel
 struct ComponentsPanelErrorFrame: View {
 
-	let icon: String
-	let label: String
+	let icon: String?
+	let iconSize: CGFloat
+	let label: String?
 	let padding: CGFloat
+	let spacing: CGFloat
 	let action: (() -> Void)?
 	let buttonLabel: String?
 
-	internal init(icon: String, label: String, padding: CGFloat, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, padding: CGFloat = 6, spacing: CGFloat = 5, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
 		self.icon = icon
+		self.iconSize = iconSize
 		self.label = label
 		self.padding = padding
+		self.spacing = spacing
 		self.action = action
 		self.buttonLabel = buttonLabel
 	}
 
 	var body: some View {
 
-		VStack(alignment: .center, spacing: 6) {
+		VStack(alignment: .center, spacing: spacing) {
 
-			Text(icon)
-				.H1()
-				.opacity(Style.Text.opacity)
+			if let icon = icon {
+				Text(icon)
+					.font(.system(size: iconSize))
+					.opacity(Style.Text.opacity)
+			}
 
-			Text(label)
-				.H1()
-				.opacity(Style.Text.opacity)
+			if let label = label {
+				Text(label)
+					.H1()
+					.opacity(Style.Text.opacity)
+			}
 
 			// Button
 			if let action = action, let buttonLabel = buttonLabel {
@@ -90,9 +98,44 @@ struct ComponentsPanelErrorFrame: View {
 					}
 				}
 				.buttonStyle(BorderlessButtonStyle())
+				.padding(.top, 2)
 			}
 		}
 		.padding([.vertical], padding)
+	}
+}
+
+/// Used to present a label with an icon.
+struct ComponentsPanelLabelIconFrame: View {
+
+	let icon: String?
+	let iconSize: CGFloat
+	let label: String?
+	let stackSpacing: CGFloat
+
+	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, stackSpacing: CGFloat = 4) {
+		self.icon = icon
+		self.iconSize = iconSize
+		self.label = label
+		self.stackSpacing = stackSpacing
+	}
+
+	var body: some View {
+
+		VStack(alignment: .center, spacing: stackSpacing) {
+
+			if let icon = icon {
+				Text(icon)
+					.font(.system(size: iconSize))
+					.opacity(Style.Text.opacity)
+			}
+
+			if let label = label {
+				Text(label)
+					.H1()
+					.opacity(Style.Text.opacity)
+			}
+		}
 	}
 }
 
@@ -138,7 +181,7 @@ struct ComponentsPanelHeader: View {
 				}
 
 				Spacer()
-					.frame(width: 0, height: 2)
+					.frame(width: 0, height: 3)
 
 				// Subtitle
 				if let headerSubtitle = headerSubtitle {
@@ -524,12 +567,14 @@ struct ComponentsPanelIconMenuButton: View {
 /// Shows a label on hover behind the content. When clicked an action is performed. Typically this is used with text objects.
 struct ComponentsPanelLabelButton<Content: View>: View {
 
+	let backingColor: Color
 	let content: Content
 	var action: () -> Void
 
 	@State private var isHovering: Bool = false
 
-	internal init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+	internal init(backingColor: Color = Color(.displayP3, white: 0.75, opacity: 1.0), action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+		self.backingColor = backingColor
 		self.content = content()
 		self.action = action
 	}
@@ -543,14 +588,16 @@ struct ComponentsPanelLabelButton<Content: View>: View {
 			ZStack(alignment: .leading) {
 
 				// Backing
-				Color(.displayP3, white: 0.75, opacity: 0.2)
-					.cornerRadius(5.0)
+				backingColor
+					.cornerRadius(6.0)
+					.opacity(0.15)
 					.opacity(isHovering ? 1 : 0)
 					.animation(.easeInOut(duration: 0.2))
 
 				// Label
 				content
 					.padding(4.0)
+					.padding(.trailing, 2.0)
 					.frame(maxWidth: .infinity)
 					.fixedSize(horizontal: true, vertical: false)
 			}

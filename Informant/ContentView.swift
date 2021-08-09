@@ -14,7 +14,7 @@ struct ContentView: View {
 	var appDelegate: AppDelegate
 
 	/// This contians all information to be displayed on the interface
-	var interfaceData: InterfaceData?
+	@ObservedObject var interfaceData: InterfaceDataWrapper
 
 	/// Lets us know if the object is being dragged in the snap zone
 	@ObservedObject var interfaceState: InterfaceState
@@ -22,8 +22,8 @@ struct ContentView: View {
 	// Initialize app delegate object
 	init() {
 		appDelegate = AppDelegate.current()
-		interfaceData = appDelegate.interfaceData
 		interfaceState = appDelegate.interfaceState
+		interfaceData = InterfaceDataWrapper(data: appDelegate.interfaceData)
 	}
 
 	var body: some View {
@@ -31,24 +31,105 @@ struct ContentView: View {
 		// MARK: Full Stacked View
 		ZStack {
 
-			// This is the main panel group
+			// MARK: - Panel Backing Material
+			VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
+				.edgesIgnoringSafeArea(.all)
+
+			// This is the pause blur group
 			Group {
-				// MARK: - Panel Backing Material
-				VisualEffectView(material: .menu, blendingMode: .behindWindow, emphasized: true)
-					.edgesIgnoringSafeArea(.all)
 
-					// Please see PanelCloseButton.swift for partnering logic
-					.whenHovered { hovering in
-						if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
-							if interfaceState.closeHoverZone != .Button || hovering {
-								interfaceState.isMouseHoveringClose = hovering
+				// Confirm that accessibility is enabled
+				if interfaceState.privacyAccessibilityEnabled == true {
+
+					// This is for privacy accessibility
+					Group {
+
+						// This is the main panel group
+						Group {
+
+							// Makes sure that the main panel content is always centred
+							HStack {
+
+								Spacer(minLength: 0)
+
+								// MARK: - Panel Main
+								// So we can add padding to the main interface
+								VStack(alignment: .center, spacing: 0) {
+
+									Spacer(minLength: 0)
+
+									// MARK: - Selection View Picker
+									// Figure out which view to present based on the # of items selected
+									switch interfaceData.data?.selection?.selectionType {
+
+										// MARK: - Singles
+										// One item selected - no metadata
+										case .Single: PanelSingleItem(interfaceData.data?.selection)
+
+										// One item selected - with metadata ⤵︎
+										case .Image: PanelSingleImageItem(interfaceData.data?.selection)
+
+										case .Movie: PanelSingleMovieItem(interfaceData.data?.selection)
+
+										case .Audio: PanelSingleAudioItem(interfaceData.data?.selection)
+
+										case .Directory: PanelSingleDirectoryItem(interfaceData.data?.selection)
+
+										case .Application: PanelSingleApplicationItem(interfaceData.data?.selection)
+
+										case .Volume: PanelSingleVolumeItem(interfaceData.data?.selection)
+
+										// MARK: - Multi
+										// More than one item selected
+										case .Multi: PanelMultiItem(interfaceData.data?.selection)
+
+										// Errors
+										case .Error: PanelSelectionErrorItem()
+
+										// No items selected
+										default: PanelNoItem()
+									}
+
+									Spacer(minLength: 0)
+								}
+								.padding(.horizontal, 15)
+
+								Spacer(minLength: 0)
 							}
+						}
+						.layoutPriority(1)
 
-							interfaceState.isMouseHoveringPanel = hovering
+						// MARK: - Is Paused Indicator
+
+						// Blurs view when being dragged in the snap zone
+						.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
+						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
+
+						ComponentsPanelLabelIconFrame(
+							label: ContentManager.SettingsLabels.tapToResume
+						)
+						.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
+						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
+
+						// When the user clicks on this blurred screen the app resumes operation
+						if interfaceState.settingsPauseApp {
+							Color.clear
+								.inactiveWindowTap { pressed in
+									if !pressed {
+										interfaceState.settingsPauseApp = false
+									}
+								}
 						}
 					}
+				}
+
+				// Otherwise show the 'not-authorized' view
+				else {
+					PanelAuthErrorItem()
+				}
 
 				// MARK: - Panel Bottom Buttons
+
 				VStack {
 
 					// Makes sure button rests on the bottom of the interface
@@ -58,78 +139,58 @@ struct ContentView: View {
 					HStack(spacing: 0) {
 
 						// Additional file tags
-						ComponentsPanelAttributes(interfaceData?.selection)
+						ComponentsPanelAttributes(interfaceData.data?.selection)
 							.padding([.leading], 11)
+							.blur(radius: interfaceState.settingsPauseApp ? 15.0 : 0.0)
+							.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 
 						// Ensures buttons align to the right
 						Spacer()
 
 						// More button
-						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton) {
-							appDelegate.interfaceMenuController!.openMenu()
+						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
+							appDelegate.interfaceMenuController!.openMenuAtPanel()
 						}
 					}
 				}
 				.padding(4)
-
-				// MARK: - Panel Main
-				// So we can add padding to the main interface
-				VStack(alignment: .center, spacing: 0) {
-
-					// Confirm that accessibility is enabled
-					if interfaceState.privacyAccessibilityEnabled == true {
-
-						// MARK: - Selection View Picker
-						// Figure out which view to present based on the # of items selected
-						switch interfaceData?.selection?.selectionType {
-
-						// MARK: - Singles
-						// One item selected - no metadata
-						case .Single: PanelSingleItem(interfaceData?.selection)
-
-						// One item selected - with metadata ⤵︎
-						case .Image: PanelSingleImageItem(interfaceData?.selection)
-
-						case .Movie: PanelSingleMovieItem(interfaceData?.selection)
-
-						case .Audio: PanelSingleAudioItem(interfaceData?.selection)
-
-						case .Directory: PanelSingleDirectoryItem(interfaceData?.selection)
-
-						case .Application: PanelSingleApplicationItem(interfaceData?.selection)
-
-						case .Volume: PanelSingleVolumeItem(interfaceData?.selection)
-
-						// MARK: - Multi
-						// More than one item selected
-						case .Multi: PanelMultiItem(interfaceData?.selection)
-
-						// Errors
-						case .Error: PanelSelectionErrorItem()
-
-						// No items selected
-						default: PanelNoItem()
-						}
-					}
-
-					// Otherwise show the 'not-authorized' view
-					else {
-						PanelAuthErrorItem()
-					}
-				}
-				.padding(.horizontal, 15)
 			}
-
-			// Blurs view when being dragged in the snap zone
-			.blur(radius: interfaceState.isPanelInSnapZone ? 15.0 : 0.0)
-			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
 
 			// MARK: - Panel Snap Zone Indicator
-			ZStack {
-				Text(ContentManager.Labels.panelSnapZoneIndicator).H2()
-					.opacity(interfaceState.isPanelInSnapZone ? Style.Text.opacity : 0.0)
+
+			// MARK: Rotating Icon
+			VStack(spacing: 0) {
+				Text("•")
+					.font(.system(size: 16))
+					.opacity(0.5)
+					.padding(.top, 1)
+				Spacer()
 			}
-			.animation(.easeInOut, value: self.interfaceState.isPanelInSnapZone)
+			.opacity(interfaceState.isPanelInSnapZone ? 1.0 : 0.0)
+			.animation(.easeOut, value: self.interfaceState.isPanelInSnapZone)
+
+			// When the user clicks on this blurred screen the app resumes operation
+			if interfaceState.isPanelInSnapZone {
+				Color.clear
+					.inactiveWindowTap { pressed in
+						if !pressed {
+							interfaceState.isPanelInSnapZone = false
+						}
+					}
+			}
+		}
+
+		// Please see PanelCloseButton.swift for partnering logic
+		.whenHovered { hovering in
+			if appDelegate.statusBarController?.interfaceHidingState != .Hidden {
+
+				if interfaceState.closeHoverZone != .Button || hovering {
+					interfaceState.isMouseHoveringClose = hovering
+				}
+
+				hovering == true ? appDelegate.interfaceCloseController?.setPosition() : ()
+				interfaceState.isMouseHoveringPanel = hovering
+			}
 		}
 		.frame(width: 256)
 		.edgesIgnoringSafeArea(.top)

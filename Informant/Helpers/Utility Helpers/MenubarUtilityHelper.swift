@@ -14,6 +14,9 @@ class MenubarUtilityHelper {
 	/// Contains the size of the selection
 	static var sizeAsString: String = ""
 	
+	/// Establishes reference to the status item we want to use
+	static let statusItem = AppDelegate.current().panelStatusItem
+	
 	/// Update utility size
 	static func update(force: Bool = false) {
 		
@@ -165,28 +168,27 @@ class MenubarUtilityHelper {
 		let formattedString = formatProperties(properties)
 		
 		// Get formatted fonts ready
-		let font = NSFont.systemFont(ofSize: 13, weight: .medium)
+		let font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .medium)
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = .center
+		paragraphStyle.alignment = .left
 		
 		// Put the attributed string all together
 		let attrString = NSAttributedString(string: formattedString, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
 		
 		// Update the size
-		appDelegate.utilityStatusItem?.isVisible = !formattedString.isEmpty
-		appDelegate.utilityStatusItem?.button?.attributedTitle = attrString
+		statusItem?.button?.attributedTitle = attrString
+		
+		shouldMenubarUtilityAppearDisabled()
 	}
 	
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
 		
-		// Get delegate
-		let appDelegate = AppDelegate.current()
+		shouldMenubarUtilityAppearDisabled()
 		
-		appDelegate.utilityStatusItem?.isVisible = false
-		appDelegate.utilityStatusItem?.button?.attributedTitle = NSAttributedString(string: "")
+		statusItem?.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
 			sizeAsString = ""
@@ -195,17 +197,29 @@ class MenubarUtilityHelper {
 	
 	// MARK: - Helper Functions
 	
+	/// Checks to see if the app is paused, and if so updates the menu bar utility interface accordingly
+	static func shouldMenubarUtilityAppearDisabled() {
+		if AppDelegate.current().interfaceState.settingsPauseApp {
+			statusItem?.button?.appearsDisabled = true
+		}
+		else {
+			statusItem?.button?.appearsDisabled = false
+		}
+	}
+	
 	/// Formats a collected property. Adds spaces and dividers when a value is present, otherwise it returns a blank string
 	static func formatProperties(_ props: [String]) -> String {
 		
 		var finalString: String = ""
+		
+		let finalStringSpacing = "  "
 		
 		// Filter out properties
 		let properties = props.filter { $0 != "" }
 		
 		// If only one property is present then don't loop through
 		if properties.count == 1 {
-			finalString.append("\(properties[0])")
+			finalString.append("\(properties[0] + finalStringSpacing)")
 		}
 		
 		// Otherwise cycle all the properties to build the final string
@@ -220,7 +234,7 @@ class MenubarUtilityHelper {
 						break
 				
 					// Last property
-					case properties.count - 1: finalString.append("  \(property)")
+					case properties.count - 1: finalString.append("  \(property + finalStringSpacing)")
 						break
 					
 					// Middle property

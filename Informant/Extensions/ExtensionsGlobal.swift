@@ -59,6 +59,14 @@ extension String {
 	}
 }
 
+// Adds a space to the front of the string for toggles
+extension String {
+	/// Adds a space to the front of the string.
+	func toggleLabel() -> String {
+		return " \(self)"
+	}
+}
+
 // MARK: - URLs
 
 extension URL {
@@ -119,6 +127,22 @@ class NSIFWindow: NSWindow {
 	}
 }
 
+/*
+ /// Allows for an animateable window
+ class NSIFPanel: NSPanel {
+ 	var lastContentSize: CGSize = .zero
+
+ 	override func setContentSize(_ size: NSSize) {
+
+ 		if self.lastContentSize == size { return } // prevent multiple calls with the same size
+
+ 		self.lastContentSize = size
+
+ 		self.animator().setFrame(NSRect(origin: self.frame.origin, size: size), display: true, animate: true)
+ 	}
+ }
+ */
+
 // Resizes the bitmap of an NSImage
 extension NSImage {
 	/// Scales NSImage to the provided NSSize().
@@ -141,6 +165,54 @@ extension NSImage {
 		}
 
 		return nil
+	}
+}
+
+// Reads the inital state of the linked value
+extension NSMenuItem {
+
+	/// Simply sets the initial state of the nsmenuitem
+	func manageState(setting: Bool, on: () -> Void, off: () -> Void) {
+		if setting == true {
+			on()
+		} else {
+			off()
+		}
+	}
+
+	/// Makes the button more juicy to click
+	func juicyWithoutImage() {
+		self.image = NSImage()
+		self.image?.size = NSSize(width: 0.01, height: Style.Menu.juicyImageHeight)
+	}
+
+	/// Makes the button more juicy to click when an image is present
+	func juicyWithImage() {
+		self.image?.isTemplate = true
+		self.image?.size = NSSize(width: Style.Menu.juicyImageWidth, height: Style.Menu.juicyImageHeight)
+	}
+
+	/// Sets up the image for the nsmenuitem
+	func setupImage(_ resourceName: String) {
+		self.image = #imageLiteral(resourceName: resourceName)
+		self.juicyWithImage()
+	}
+}
+
+// MARK: - View Extensions
+
+extension View {
+	/// Applies the given transform if the given condition evaluates to `true`.
+	/// - Parameters:
+	///   - condition: The condition to evaluate.
+	///   - transform: The transform to apply to the source `View`.
+	/// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
+	@ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+		if condition {
+			transform(self)
+		} else {
+			self
+		}
 	}
 }
 

@@ -9,36 +9,16 @@ import Foundation
 import KeyboardShortcuts
 import SwiftUI
 
-/*
- class NSMenuDelegateModified: NSObject, NSMenuDelegate, ObservableObject {
-
- 	var menu: NSMenu
-
- 	@Published var isVisible: Bool?
-
- 	internal init(menu: NSMenu) {
- 		self.menu = menu
- 		super.init()
- 		self.menu.delegate = self
- 	}
-
- 	func menuDidClose(_ menu: NSMenu) {
- 		isVisible = false
- 	}
-
- 	func menuWillOpen(_ menu: NSMenu) {
- 		isVisible = true
- 	}
- }
- */
-
 class InterfaceMenuController {
 
 	let appDelegate: AppDelegate!
+	let interfaceState: InterfaceState!
 	let menu: NSMenu!
 
 	// Menu items
-	var togglePanelMenuItem: NSMenuItem!
+//	var togglePanelMenuItem: NSMenuItem!
+	var pauseMenuItem: NSMenuItem!
+	var menuBarUtilityMenuItem: NSMenuItem!
 	var preferencesMenuItem: NSMenuItem!
 	var quitMenuItem: NSMenuItem!
 
@@ -47,13 +27,17 @@ class InterfaceMenuController {
 	init() {
 		// Grab app delegate
 		appDelegate = AppDelegate.current()
+		interfaceState = appDelegate.interfaceState
 
 		// Setup interface menu
 		menu = appDelegate.interfaceMenu
 
 		// Establish menu items
-		togglePanelMenuItem = NSMenuItem(title: ContentManager.Labels.panelMenuToggleDetails, action: #selector(togglePanel), keyEquivalent: "")
-		togglePanelMenuItem.target = self
+		pauseMenuItem = NSMenuItem(title: ContentManager.SettingsLabels.pause, action: #selector(pause), keyEquivalent: "")
+		pauseMenuItem.target = self
+
+		menuBarUtilityMenuItem = NSMenuItem(title: ContentManager.SettingsLabels.menubarUtilityShow, action: #selector(enableMenuBarUtility), keyEquivalent: "")
+		menuBarUtilityMenuItem.target = self
 
 		preferencesMenuItem = NSMenuItem(title: ContentManager.Labels.panelMenuPreferences, action: #selector(openPreferences), keyEquivalent: "")
 		preferencesMenuItem.target = self
@@ -63,22 +47,41 @@ class InterfaceMenuController {
 		quitMenuItem.target = self
 
 		// Populate interface menu
-		menu.addItem(togglePanelMenuItem)
+		menu.addItem(pauseMenuItem)
+		menu.addItem(menuBarUtilityMenuItem)
 		menu.addItem(NSMenuItem.separator())
 		menu.addItem(preferencesMenuItem)
 		menu.addItem(quitMenuItem)
 
-		// -------- Update shortcut preferences ---------
-		togglePanelMenuItem.setShortcut(for: .togglePopover)
-		togglePanelMenuItem.image = #imageLiteral(resourceName: "panel-menu-toggle-icon.png")
-		togglePanelMenuItem.image?.isTemplate = true
-		togglePanelMenuItem.image?.size = NSSize(width: 21, height: 24)
+		// Set size of menu
+		menu.minimumWidth = 200
 	}
 
 	// MARK: - Menu Logic
 
+	/// Updates the menu
+	func updateMenu() {
+		pauseMenuItem.manageState(setting: interfaceState.settingsPauseApp) {
+			pauseMenuItem.title = ContentManager.SettingsLabels.resumeInformant
+			pauseMenuItem.setupImage("play.png")
+		} off: {
+			pauseMenuItem.title = ContentManager.SettingsLabels.pause
+			pauseMenuItem.setupImage("pause.png")
+		}
+
+		menuBarUtilityMenuItem.manageState(setting: interfaceState.settingsMenubarUtilityBool) {
+			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityHide.capitalized
+			menuBarUtilityMenuItem.setupImage("hide.png")
+		} off: {
+			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityShow.capitalized
+			menuBarUtilityMenuItem.setupImage("show.png")
+		}
+	}
+
 	/// Pops up menu at the panel menu button.
-	func openMenu() -> Bool {
+	func openMenuAtPanel() -> Bool {
+
+		updateMenu()
 
 		// Find x & y coordinates
 		let panelFrame = appDelegate.panel.frame
@@ -92,6 +95,24 @@ class InterfaceMenuController {
 		let coordinates = NSPoint(x: x, y: y)
 
 		return menu.popUp(positioning: nil, at: coordinates, in: nil)
+	}
+
+	// Pause functionality
+	@objc func pause() {
+		pauseMenuItem.manageState(setting: interfaceState.settingsPauseApp) {
+			interfaceState.settingsPauseApp = false
+		} off: {
+			interfaceState.settingsPauseApp = true
+		}
+	}
+
+	// Menu bar functionality
+	@objc func enableMenuBarUtility() {
+		menuBarUtilityMenuItem.manageState(setting: interfaceState.settingsMenubarUtilityBool) {
+			interfaceState.settingsMenubarUtilityBool = false
+		} off: {
+			interfaceState.settingsMenubarUtilityBool = true
+		}
 	}
 
 	/// Simply hides the panel

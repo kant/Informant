@@ -21,7 +21,7 @@ class Style {
 	}
 
 	public enum Font {
-		static let h1_Size: CGFloat = 17
+		static let h1_Size: CGFloat = 18
 		static let h2_Size: CGFloat = 17
 		static let h3_Size: CGFloat = 11
 		static let h4_Size: CGFloat = 11
@@ -40,6 +40,11 @@ class Style {
 
 	public enum Icons {
 		static let appIconSize: CGFloat = 100
+	}
+
+	public enum Menu {
+		static let juicyImageHeight: CGFloat = 27
+		static let juicyImageWidth: CGFloat = 20
 	}
 }
 

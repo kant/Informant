@@ -12,8 +12,9 @@ struct PanelAuthErrorItem: View {
 		ComponentsPanelErrorFrame(
 			icon: "􀎣",
 			label: ContentManager.Labels.panelUnauthorized,
-			padding: 0,
-			buttonLabel: ContentManager.Labels.panelAuthorized) {
+			padding: 20,
+			spacing: 6,
+			buttonLabel: ContentManager.Labels.panelAuthorize) {
 
 				// Open the window to get the user to enable accessibility access
 				AppDelegate.current().privacyAccessibilityWindowController.open()

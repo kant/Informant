@@ -23,9 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// We use this to access the menu bar status item. This toggles the panel open and closed. It's the main button.
 	public var panelStatusItem: NSStatusItem?
 
-	/// We use this to access the menu bar utility status item.
-	public var utilityStatusItem: NSStatusItem?
-
 	// MARK: - Interface
 	/// Controls the interface panel menu
 	public var interfaceMenuController: InterfaceMenuController?
@@ -152,7 +149,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 
 		#warning("Remove from production")
-		settingsWindowController.open()
+//		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 
@@ -186,8 +183,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		// Initialize status bar
 		statusBarController = StatusBarController()
 
-		// Update the interface on initialization
-		InterfaceHelper.UpdateInterface()
+		// MARK: - Additional Setup
+
+		MenubarUtilityHelper.shouldMenubarUtilityAppearDisabled()
 
 		// MARK: - Keyboard Shortcuts
 
