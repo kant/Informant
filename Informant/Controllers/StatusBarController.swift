@@ -529,7 +529,6 @@ class StatusBarController {
 
 		// Grabs the bottom mid point of the status item button in the menu bar
 		let statusItemBottomMidPoint = statusItemButtonPosition()
-		let statusItemCenterMidPoint = NSPoint(x: statusItemBottomMidPoint.x, y: statusItemBottomMidPoint.y + (statusBar.thickness / 2))
 
 		// Offset it ⤴︎
 		let offset: CGFloat = 150.0
@@ -548,10 +547,6 @@ class StatusBarController {
 
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
-		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 10)
-
-		// TODO: Consider removing
-		/* let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY) */
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
@@ -559,10 +554,6 @@ class StatusBarController {
 		// Make the panel blurred if it's being dragged and in the snap zone
 		if isPanelInSnapZone && panel.alphaValue == 1.0 {
 			settings.setIsPanelInSnapZone(true)
-
-			// TODO: Consider removing this.
-			// Calculate the angle between the top of the panel and the status item
-			/* settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemCenterMidPoint, pointB: panelTopCenterWithOffset) */
 		}
 
 		// Reset the panel blur because we're no longer in the snap zone

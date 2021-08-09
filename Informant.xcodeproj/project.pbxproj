@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A00210726A5E762006DEA70 /* SF-Compact-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A00210526A5E762006DEA70 /* SF-Compact-Display-Regular.otf */; };
 		9A00210826A5E762006DEA70 /* SF-Mono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9A00210626A5E762006DEA70 /* SF-Mono-Regular.otf */; };
+		9A2C625E26C0CA9F00726FFB /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C625D26C0CA9F00726FFB /* Debug.swift */; };
 		9A2DDF6C2681441100DB84BA /* SingleImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6B2681441100DB84BA /* SingleImageSelection.swift */; };
 		9A2DDF6E2681532F00DB84BA /* SingleMovieSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6D2681532F00DB84BA /* SingleMovieSelection.swift */; };
 		9A2DDF702681534F00DB84BA /* SingleDirectorySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DDF6F2681534F00DB84BA /* SingleDirectorySelection.swift */; };
@@ -120,6 +121,7 @@
 /* Begin PBXFileReference section */
 		9A00210526A5E762006DEA70 /* SF-Compact-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Display-Regular.otf"; sourceTree = "<group>"; };
 		9A00210626A5E762006DEA70 /* SF-Mono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Mono-Regular.otf"; sourceTree = "<group>"; };
+		9A2C625D26C0CA9F00726FFB /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		9A2DDF6B2681441100DB84BA /* SingleImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageSelection.swift; sourceTree = "<group>"; };
 		9A2DDF6D2681532F00DB84BA /* SingleMovieSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMovieSelection.swift; sourceTree = "<group>"; };
 		9A2DDF6F2681534F00DB84BA /* SingleDirectorySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDirectorySelection.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				9A43165F26265DFB0071227C /* Assets */,
 				9A43162726265A210071227C /* Assets.xcassets */,
 				9AC1AFB7265C1FCA006D1FC8 /* Main.storyboard */,
+				9A2C625D26C0CA9F00726FFB /* Debug.swift */,
 				9A43162F26265A210071227C /* Info.plist */,
 				9A43163026265A210071227C /* Informant.entitlements */,
 				9A389167265B0CB2005F0F04 /* Localizable.strings */,
@@ -764,6 +767,7 @@
 				9ABE17762632295400EE9F48 /* PanelSingleItem.swift in Sources */,
 				9A2DDF7B2682A3CF00DB84BA /* PanelSingleFrame.swift in Sources */,
 				9A43162426265A1F0071227C /* AppDelegate.swift in Sources */,
+				9A2C625E26C0CA9F00726FFB /* Debug.swift in Sources */,
 				9ABE178C2632328100EE9F48 /* ComponentsPanel.swift in Sources */,
 				9A2DDF79268264B000DB84BA /* SettingsUserDefaults.swift in Sources */,
 				9A2DDF93268A506A00DB84BA /* PanelSelectionErrorItem.swift in Sources */,
