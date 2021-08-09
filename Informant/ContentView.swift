@@ -148,8 +148,8 @@ struct ContentView: View {
 						Spacer()
 
 						// More button
-						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
-							appDelegate.interfaceMenuController!.openMenuAtPanel()
+						ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton, size: 16) {
+							_ = appDelegate.interfaceMenuController!.openMenuAtPanel()
 						}
 					}
 				}
