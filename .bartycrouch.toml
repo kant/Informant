@@ -1,0 +1,43 @@
+
+
+[update]
+tasks = ["interfaces", "code", "transform", "normalize", "translate"]
+
+[update.interfaces]
+paths = ["."]
+defaultToBase = false
+ignoreEmptyStrings = false
+unstripped = false
+
+[update.code]
+codePaths = ["."]
+localizablePaths = ["."]
+defaultToKeys = false
+additive = true
+unstripped = false
+plistArguments = true
+
+[update.translate]
+paths = "."
+translator = "microsoftTranslator"
+secret = "b5fd2560850f4bf585a97236276719dc"
+sourceLocale = "en"
+
+[update.transform]
+codePaths = ["."]
+localizablePaths = ["."]
+transformer = "foundation"
+supportedLanguageEnumPath = "."
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.normalize]
+paths = ["."]
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+paths = ["."]
+duplicateKeys = true
+emptyValues = true
