@@ -481,6 +481,9 @@ struct ComponentsPanelIconButton: View {
 		}
 	}
 
+	/// Keeps track of hovering state
+	@State var hovering: Bool?
+
 	var body: some View {
 		Button {
 			action()
@@ -491,6 +494,12 @@ struct ComponentsPanelIconButton: View {
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
+		.foregroundColor(.primary)
+		.opacity(hovering == true ? 0.75 : 0.5)
+		.animation(.easeInOut, value: hovering)
+		.whenHovered { hover in
+			hovering = hover
+		}
 	}
 }
 

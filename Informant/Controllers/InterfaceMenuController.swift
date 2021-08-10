@@ -89,7 +89,7 @@ class InterfaceMenuController {
 		var y = panelFrame.minY
 
 		// Offset coordinates
-		y += 3.0
+		y += 2.0
 		x -= 30.0
 
 		let coordinates = NSPoint(x: x, y: y)
