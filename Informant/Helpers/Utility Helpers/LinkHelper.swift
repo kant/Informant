@@ -28,11 +28,9 @@ enum Links {
 
 	static let email = "help@\(domain)"
 
-	#warning("Remove from production: fill out links")
-
-	static let privacyPolicy = "\(site)/#"
+	static let privacyPolicy = "\(site)/#privacy"
 
 	static let feedback = "mailto:\(email)"
 
-	static let help = "\(site)/#"
+	static let help = "\(site)/#faq"
 }
