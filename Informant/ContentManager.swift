@@ -16,7 +16,7 @@ class ContentManager {
 		static let setupAccessibilityNotEnabled = NSLocalizedString("Access Not Enabled", comment: "The message that appears if the user declines accessibility access.")
 
 		static let settingsRootURLDescriptor = NSLocalizedString(
-			"Required inorder to display additional metadata and the size of a directory. Choose Macintosh HD.",
+			"Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD.",
 			comment: ""
 		)
 	}
@@ -46,7 +46,7 @@ class ContentManager {
 
 		static let Purple = NSLocalizedString("Purple", comment: "The colour Purple")
 
-		static let Gray = NSLocalizedString("Gray", comment: "The colour Gray")
+		static let Grey = NSLocalizedString("Grey", comment: "The colour Gray")
 	}
 
 	// MARK: - Welcome Labels

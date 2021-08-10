@@ -66,7 +66,7 @@ class SelectionTags {
 		static let Green = SelectionTag(label: ContentManager.Colors.Green, color: .green)
 		static let Blue = SelectionTag(label: ContentManager.Colors.Blue, color: .blue)
 		static let Purple = SelectionTag(label: ContentManager.Colors.Purple, color: .purple)
-		static let Gray = SelectionTag(label: ContentManager.Colors.Gray, color: .gray)
+		static let Gray = SelectionTag(label: ContentManager.Colors.Grey, color: .gray)
 	}
 
 	/// A basic selection tag unit. Can go without colour to just represent a singular tag
