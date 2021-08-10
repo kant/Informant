@@ -85,6 +85,7 @@
 		9AEA9F2E2697E4FF00806AAE /* CheckedSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */; };
 		9AF88129266AB77D00C6BA93 /* SelectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */; };
 		9AF9BF522698C4CD006FAA39 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 9AF9BF512698C4CD006FAA39 /* LaunchAtLogin */; };
+		9AFC584E26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9AFC584D26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf */; };
 		9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceState.swift */; };
 		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
 /* End PBXBuildFile section */
@@ -216,6 +217,7 @@
 		9AEA9F2B2697D1A200806AAE /* MenubarUtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarUtilityHelper.swift; sourceTree = "<group>"; };
 		9AEA9F2D2697E4FF00806AAE /* CheckedSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedSelection.swift; sourceTree = "<group>"; };
 		9AF88128266AB77D00C6BA93 /* SelectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHelper.swift; sourceTree = "<group>"; };
+		9AFC584D26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "(Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf"; sourceTree = "<group>"; };
 		9AFF98D0266F111800E31D2A /* InterfaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceState.swift; sourceTree = "<group>"; };
 		9AFF98D326705BC100E31D2A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		9AFF98D526705CB400E31D2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -435,6 +437,7 @@
 		9A43165F26265DFB0071227C /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9AFC584D26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf */,
 				9AE66E3C26BCAF6500722085 /* hide.png */,
 				9AE66E3926BCAF6500722085 /* pause.png */,
 				9AE66E3B26BCAF6500722085 /* play.png */,
@@ -666,6 +669,7 @@
 				9AE66E3E26BCAF6500722085 /* show.png in Resources */,
 				9A43162826265A210071227C /* Assets.xcassets in Resources */,
 				9AC1AFB8265C1FCA006D1FC8 /* Main.storyboard in Resources */,
+				9AFC584E26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf in Resources */,
 				9A00210726A5E762006DEA70 /* SF-Compact-Display-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

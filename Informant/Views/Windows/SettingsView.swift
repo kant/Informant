@@ -70,6 +70,9 @@ struct SettingsLeftSideView: View {
 		}
 	}
 
+	/// Checks state for hovering on acknowledgements link
+	@State var acknowledgementsHovering: Bool?
+
 	var body: some View {
 		VStack(alignment: .center) {
 
@@ -93,10 +96,30 @@ struct SettingsLeftSideView: View {
 				Text("©2021 Ty Irvine")
 					.SettingsVersionFont()
 
-				// Version
-				if let version = version {
-					Text(version)
+				// MARK: Acknowledgements & Version
+				HStack(spacing: 5) {
+
+					// Acknowledgements
+					Text(ContentManager.SettingsLabels.acknowledgements)
+						.underline(acknowledgementsHovering == true ? true : false, color: .primary.opacity(0.5))
 						.SettingsVersionFont()
+						.opacity(acknowledgementsHovering == true ? 0.75 : 1.0)
+						.onTapGesture {
+							LinkHelper.openPDF(link: Links.acknowledgements)
+						}
+						.onHover { hovering in
+							acknowledgementsHovering = hovering
+						}
+
+					// Divider
+					Text("•")
+						.SettingsVersionFont()
+
+					// Version
+					if let version = version {
+						Text(version)
+							.SettingsVersionFont()
+					}
 				}
 			}
 

@@ -16,6 +16,13 @@ class LinkHelper {
 			NSWorkspace.shared.open(url)
 		}
 	}
+
+	/// Opens a file in preview.
+	static func openPDF(link: String) {
+		if let url = Bundle.main.url(forResource: link, withExtension: "pdf") {
+			NSWorkspace.shared.open(url)
+		}
+	}
 }
 
 enum Links {
@@ -33,4 +40,6 @@ enum Links {
 	static let feedback = "mailto:\(email)"
 
 	static let help = "\(site)/#faq"
+
+	static let acknowledgements = "(Informant_-_File_Inspector_for_macOS)_Acknowledgements"
 }
