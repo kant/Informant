@@ -51,6 +51,7 @@ class InterfaceMenuController {
 		menu.addItem(menuBarUtilityMenuItem)
 		menu.addItem(NSMenuItem.separator())
 		menu.addItem(preferencesMenuItem)
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(quitMenuItem)
 
 		// Set size of menu

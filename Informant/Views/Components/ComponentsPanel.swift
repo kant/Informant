@@ -495,7 +495,7 @@ struct ComponentsPanelIconButton: View {
 		}
 		.buttonStyle(BorderlessButtonStyle())
 		.foregroundColor(.primary)
-		.opacity(hovering == true ? 0.75 : 0.5)
+		.opacity(hovering == true ? 0.85 : 0.5)
 		.animation(.easeInOut, value: hovering)
 		.whenHovered { hover in
 			hovering = hover
