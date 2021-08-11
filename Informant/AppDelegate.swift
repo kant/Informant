@@ -147,6 +147,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
+		
+		#warning("Remove from production: Settings Window")
+		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 

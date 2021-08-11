@@ -31,7 +31,11 @@ struct SettingsView: View {
 
 				// Left side
 				SettingsLeftSideView()
-					.frame(width: 270)
+					.padding([.horizontal], 20)
+					.frame(minWidth: 270)
+					.fixedSize()
+
+//					.frame(width: 270)
 
 				// Divider
 				Divider()
@@ -39,14 +43,15 @@ struct SettingsView: View {
 
 				// Right side
 				SettingsRightSideView(interfaceState: interfaceState)
-					.frame(minWidth: 0, maxWidth: .infinity)
+//					.frame(minWidth: 0, maxWidth: .infinity)
+					.padding([.horizontal], 45)
 					.padding(.bottom, 4)
 			}
 
 			Spacer()
 		}
 		.edgesIgnoringSafeArea(.all)
-		.frame(width: 670)
+//		.frame(minWidth: 670)
 	}
 }
 
@@ -239,7 +244,7 @@ struct SettingsRightSideView: View {
 			VStack(alignment: .leading, spacing: 12) {
 
 				// Pick root url
-				SettingsPickRootURL(interfaceState.settingsRootURL)
+				SettingsPickRootURL(interfaceState.settingsRootURL, fixedWidth: false)
 
 				// Enable menubar-utility
 				Toggle(ContentManager.SettingsLabels.menubarUtilityShow.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
@@ -270,10 +275,13 @@ struct SettingsPickRootURL: View {
 
 	let windowRef: NSWindow
 
-	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading) {
+	let fixedWidth: Bool
+
+	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading, fixedWidth: Bool = true) {
 		self.rootURL = rootURL
 		self.textAlignment = textAlignment
 		self.windowRef = windowRef
+		self.fixedWidth = fixedWidth
 		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
 	}
 
@@ -330,6 +338,6 @@ struct SettingsPickRootURL: View {
 				.SettingsVersionFont()
 				.multilineTextAlignment(textAlignment)
 		}
-		.frame(width: 275)
+		.frame(width: fixedWidth ? 275 : nil)
 	}
 }
