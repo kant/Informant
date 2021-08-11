@@ -187,7 +187,8 @@ struct ComponentsPanelHeader: View {
 
 				// Subtitle
 				if let headerSubtitle = headerSubtitle {
-					Text(headerSubtitle).H4()
+					Text(headerSubtitle).H4(lineLimit: 2)
+						.fixedSize(horizontal: false, vertical: true)
 				}
 			}
 
