@@ -139,6 +139,9 @@
 /* No comment provided by engineer. */
 "Menu Bar Utility" = "Utilitário da barra de menu";
 
+/* The tag string to the date modified on the panel interface */
+"Modified" = "Modificado";
+
 /* This is the file's name displayed on the panel */
 "Name" = "Nome";
 

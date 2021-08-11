@@ -132,10 +132,12 @@ struct ComponentsPanelLabelIconFrame: View {
 
 			if let label = label {
 				Text(label)
-					.H1()
+					.H1(lineLimit: 4)
+					.multilineTextAlignment(.center)
 					.opacity(Style.Text.opacity)
 			}
 		}
+		.padding([.horizontal], 15)
 	}
 }
 

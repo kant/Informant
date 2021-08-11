@@ -50,10 +50,10 @@ class Style {
 
 extension Text {
 
-	func H1() -> some View {
+	func H1(lineLimit: Int = 1) -> some View {
 		self.font(.system(size: Style.Font.h1_Size))
 			.fontWeight(.regular)
-			.lineLimit(1)
+			.lineLimit(lineLimit)
 	}
 
 	func H2() -> Text {

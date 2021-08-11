@@ -108,6 +108,7 @@ struct ContentView: View {
 						ComponentsPanelLabelIconFrame(
 							label: ContentManager.SettingsLabels.tapToResume
 						)
+						.fixedSize(horizontal: false, vertical: true)
 						.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
 						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 

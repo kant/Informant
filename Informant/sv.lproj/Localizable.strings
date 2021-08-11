@@ -139,6 +139,9 @@
 /* No comment provided by engineer. */
 "Menu Bar Utility" = "Verktyg för menyrad";
 
+/* The tag string to the date modified on the panel interface */
+"Modified" = "Modifierad";
+
 /* This is the file's name displayed on the panel */
 "Name" = "Namn";
 

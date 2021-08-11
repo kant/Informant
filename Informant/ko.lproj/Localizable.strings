@@ -139,6 +139,9 @@
 /* No comment provided by engineer. */
 "Menu Bar Utility" = "메뉴 바 유틸리티";
 
+/* The tag string to the date modified on the panel interface */
+"Modified" = "으로 바뀌었습니다";
+
 /* This is the file's name displayed on the panel */
 "Name" = "이름";
 

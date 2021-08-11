@@ -152,6 +152,6 @@ class InterfaceAlertController {
 	/// Shows alert and copies path value to pasteboard
 	func showCopyAlertForPathAndCopyToClipboard(_ path: String) {
 		PasteboardHelper.copyPathToPasteboard(path)
-		showAlert(message: ContentManager.Extra.popUpPathCopied)
+		showAlert(message: ContentManager.Extra.popUpCopied)
 	}
 }

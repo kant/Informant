@@ -139,6 +139,9 @@
 /* No comment provided by engineer. */
 "Menu Bar Utility" = "功能表欄實用程式";
 
+/* The tag string to the date modified on the panel interface */
+"Modified" = "改 性";
+
 /* This is the file's name displayed on the panel */
 "Name" = "名字";
 
