@@ -31,7 +31,7 @@ struct SettingsView: View {
 
 				// Left side
 				SettingsLeftSideView()
-					.padding([.horizontal], 20)
+					.padding([.horizontal], 22)
 					.frame(minWidth: 270)
 					.fixedSize()
 
@@ -286,6 +286,10 @@ struct SettingsPickRootURL: View {
 		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
 	}
 
+	// Gradient stops
+	let firstStop = Gradient.Stop(color: .primary, location: 0.75)
+	let secondStop = Gradient.Stop(color: .clear, location: 1.0)
+
 	var body: some View {
 
 		// Descriptor
@@ -313,6 +317,11 @@ struct SettingsPickRootURL: View {
 							.padding([.leading], 5)
 							.opacity(rootURL != nil ? 1 : 0.5)
 					}
+					.mask(
+						// Gradient text
+						LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .leading, endPoint: .trailing)
+							.padding([.trailing], 21)
+					)
 
 					// Clear button stack
 					HStack {

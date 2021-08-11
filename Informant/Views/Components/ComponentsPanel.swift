@@ -652,12 +652,12 @@ struct ComponentsPanelPathButton: View {
 				}
 			}
 
-			// Gradiented text
+			// Gradient text
 			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
 				.mask(ComponentsPanelPathLabel(path))
 				.opacity(hovering ? 1 : 0)
 
-			// Non-gradiented text
+			// Non-gradient text
 			ComponentsPanelPathLabel(path)
 				.opacity(hovering ? 0 : 1)
 		}
