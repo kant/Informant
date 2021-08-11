@@ -59,14 +59,6 @@ extension String {
 	}
 }
 
-// Adds a space to the front of the string for toggles
-extension String {
-	/// Adds a space to the front of the string.
-	func toggleLabel() -> String {
-		return " \(self)"
-	}
-}
-
 // MARK: - URLs
 
 extension URL {

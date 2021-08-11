@@ -188,10 +188,14 @@ struct SettingsRightSideView: View {
 
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {
-					Toggle(ContentManager.SettingsLabels.menubarShowSize.toggleLabel(), isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
-					Toggle(ContentManager.SettingsLabels.menubarShowKind.toggleLabel(), isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
-					Toggle(ContentManager.SettingsLabels.menubarShowDimensions.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
-					Toggle(ContentManager.SettingsLabels.menubarShowDuration.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
 				}
 
 				// Divides menubar and panel
@@ -215,20 +219,20 @@ struct SettingsRightSideView: View {
 						// Name & date created
 						VStack(alignment: .leading, spacing: 10) {
 							// Hide name property
-							Toggle(ContentManager.SettingsLabels.hideName.toggleLabel(), isOn: $interfaceState.settingsPanelHideNameProp)
+							TogglePadded(ContentManager.SettingsLabels.hideName, isOn: $interfaceState.settingsPanelHideNameProp)
 
 							// Hide created property
-							Toggle(ContentManager.SettingsLabels.hideCreated.toggleLabel(), isOn: $interfaceState.settingsPanelHideCreatedProp)
+							TogglePadded(ContentManager.SettingsLabels.hideCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
 						}
 
 						// Path properties
 						VStack(alignment: .leading, spacing: 10) {
 
 							// Hide icon property
-							Toggle(ContentManager.SettingsLabels.hideIcon.toggleLabel(), isOn: $interfaceState.settingsPanelHideIconProp)
+							TogglePadded(ContentManager.SettingsLabels.hideIcon, isOn: $interfaceState.settingsPanelHideIconProp)
 
 							// Hide path property
-							Toggle(ContentManager.SettingsLabels.hidePath.toggleLabel(), isOn: $interfaceState.settingsPanelHidePathProp)
+							TogglePadded(ContentManager.SettingsLabels.hidePath, isOn: $interfaceState.settingsPanelHidePathProp)
 						}
 					}
 				}
@@ -249,16 +253,18 @@ struct SettingsRightSideView: View {
 					.layoutPriority(-1)
 
 				// Enable menubar-utility
-				Toggle(ContentManager.SettingsLabels.menubarUtilityShow.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
+				TogglePadded(ContentManager.SettingsLabels.menubarUtilityShow, isOn: $interfaceState.settingsMenubarUtilityBool)
 
 				// Show where a selected file is located instead of the full path
-				Toggle(ContentManager.SettingsLabels.showFullPath.toggleLabel(), isOn: $interfaceState.settingsPanelDisplayFullPath)
+				TogglePadded(ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
 
 				// Skips the sizing of directories all together
-				Toggle(ContentManager.SettingsLabels.skipDirectories.toggleLabel(), isOn: $interfaceState.settingsPanelSkipDirectories)
+				TogglePadded(ContentManager.SettingsLabels.skipDirectories, isOn: $interfaceState.settingsPanelSkipDirectories)
 
 				// Launch informant on system startup
-				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup.toggleLabel())
+				LaunchAtLogin.Toggle {
+					Text(ContentManager.SettingsLabels.launchOnStartup).togglePadding()
+				}
 			}
 		}
 	}

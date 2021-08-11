@@ -15,3 +15,29 @@ struct ComponentsWindowAppIcon: View {
 			.frame(width: Style.Icons.appIconSize, height: Style.Icons.appIconSize, alignment: .center)
 	}
 }
+
+/// This is just a toggle with some padding between the toggle and title.
+struct TogglePadded: View {
+
+	let title: String
+	var binding: Binding<Bool>
+
+	internal init(_ title: String, isOn: Binding<Bool>) {
+		self.title = title
+		self.binding = isOn
+	}
+
+	var body: some View {
+		Toggle(isOn: binding) {
+			Text(title).togglePadding()
+		}
+	}
+}
+
+extension Text {
+
+	/// Adds some extra padding at the end
+	func togglePadding() -> some View {
+		self.padding([.leading], 4)
+	}
+}
