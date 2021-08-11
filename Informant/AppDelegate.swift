@@ -175,8 +175,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 
-//		#warning("Remove from production: Welcome window")
-
 		// MARK: - App Init
 
 		// Initialize status bar
