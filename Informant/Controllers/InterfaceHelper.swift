@@ -116,27 +116,6 @@ class InterfaceHelper {
 		}
 	}
 
-	/*
-	 // Update the popover's view
-	 public static func UpdateInterface() {
-
-	 	// Grab app delegate
-	 	let appDelegate = AppDelegate.current()
-
-	 	// Make the window resizeable while the interface gets updated
-	 	appDelegate.panel.styleMask.insert(.resizable)
-
-	 	// Create the SwiftUI view that provides the panel contents.
-	 	appDelegate.contentView = ContentView()
-
-	 	// Set the SwiftUI view to the panel view
-	 	appDelegate.panel.contentViewController = NSHostingController(rootView: appDelegate.contentView)
-
-	 	// Remove the ability to resize the window
-	 	appDelegate.panel.styleMask.remove(.resizable)
-	 }
-	 */
-
 	/// Generic function to run toggle
 	static func ToggleInterface(toggleMethod: StatusBarController.ToggleMethod) {
 

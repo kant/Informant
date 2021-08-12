@@ -248,8 +248,14 @@ class StatusBarController {
 		switch toggleMethod {
 
 		case ToggleMethod.Key:
+
+			// You want the main screen because that's where the panel is getting activated
+			guard let screen = NSScreen.main else {
+				return
+			}
+
 			// Find panel's position by using the screen's index
-			if let screenOrigin = windowScreenPositions[NSScreen.main!.hash] {
+			if let screenOrigin = windowScreenPositions[screen.hash] {
 				panel.setFrameOrigin(screenOrigin)
 			}
 
@@ -257,7 +263,7 @@ class StatusBarController {
 			// save new panel origin to dictionary
 			else {
 				panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
-				windowScreenPositions[panel.screen.hashValue] = panel.frame.origin
+				saveWindowScreenPosition()
 			}
 			break
 
@@ -267,6 +273,13 @@ class StatusBarController {
 		}
 
 		showPanel()
+	}
+
+	/// Simple function to help with saving window screen positions.
+	func saveWindowScreenPosition() {
+		if panel.isVisible, let hash = panel.screen?.hash {
+			windowScreenPositions[hash] = panel.frame.origin
+		}
 	}
 
 	// MARK: - Window Functions
@@ -508,6 +521,7 @@ class StatusBarController {
 		func panelMoveAndSetAlphaAnimation() {
 			panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 			setIsPanelBeingDragged(false)
+			saveWindowScreenPosition()
 		}
 
 		/// Resets all internal variables
@@ -561,6 +575,7 @@ class StatusBarController {
 
 		// Reset everything because we're not in the snap zone
 		else if eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+			saveWindowScreenPosition()
 			reset()
 			return
 		}
@@ -568,6 +583,7 @@ class StatusBarController {
 		// Change the panel indicator because we're no longer in the snap zone
 		else {
 			settings.setIsPanelInSnapZone(false)
+			return
 		}
 
 		// ------------- Decide if it's worth it to reset position --------------
