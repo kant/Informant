@@ -108,13 +108,14 @@ struct ContentView: View {
 						ComponentsPanelLabelIconFrame(
 							label: ContentManager.SettingsLabels.tapToResume
 						)
+						.fixedSize(horizontal: false, vertical: true)
 						.opacity(interfaceState.settingsPauseApp ? 1.0 : 0.0)
 						.animation(.easeOut, value: self.interfaceState.settingsPauseApp)
 
 						// When the user clicks on this blurred screen the app resumes operation
 						if interfaceState.settingsPauseApp {
 							Color.clear
-								.inactiveWindowTap { pressed in
+								.inactiveWindowTap(draggable: true) { pressed in
 									if !pressed {
 										interfaceState.settingsPauseApp = false
 									}
@@ -148,8 +149,8 @@ struct ContentView: View {
 						Spacer()
 
 						// More button
-						ComponentsPanelIconMenuButton(ContentManager.Icons.panelPreferencesButton, size: 16.25) {
-							appDelegate.interfaceMenuController!.openMenuAtPanel()
+						ComponentsPanelIconButton(ContentManager.Icons.panelPreferencesButton, size: 16) {
+							_ = appDelegate.interfaceMenuController!.openMenuAtPanel()
 						}
 					}
 				}

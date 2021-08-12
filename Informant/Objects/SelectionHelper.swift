@@ -220,8 +220,7 @@ class SelectionHelper {
 								// Otherwise let the users know we couldn't find a size
 								else {
 									updateInterfacesForSize(bytes: nil, state: .Unavailable)
-									#warning("I'm going to keep this in here for a while to make sure everything still works correctly.")
-									print("🧀 - Unavailable: we can't find a size for this item.")
+									Debug.log("Size Unavailable", description: "Unable to find size for this item. Likely due to permissions.")
 								}
 
 								// Clean up execution

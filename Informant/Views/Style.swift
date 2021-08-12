@@ -50,10 +50,10 @@ class Style {
 
 extension Text {
 
-	func H1() -> some View {
+	func H1(lineLimit: Int = 1) -> some View {
 		self.font(.system(size: Style.Font.h1_Size))
 			.fontWeight(.regular)
-			.lineLimit(1)
+			.lineLimit(lineLimit)
 	}
 
 	func H2() -> Text {
@@ -90,16 +90,16 @@ extension Text {
 			.multilineTextAlignment(.center)
 	}
 
-	func SettingsLabelFont(padding: CGFloat = 10) -> some View {
+	func SettingsLabelFont(padding: CGFloat = 7) -> some View {
 		self.font(.system(size: 18))
 			.fontWeight(.medium)
 			.opacity(1)
 			.padding([.bottom], padding)
 	}
 
-	func SettingsVersionFont() -> some View {
-		self.H4(lineLimit: 3)
-			.lineSpacing(2.0)
+	func SettingsVersionFont(lineSpacing: CGFloat = 2.0) -> some View {
+		self.H4(lineLimit: 5)
+			.lineSpacing(lineSpacing)
 			.opacity(0.9)
 	}
 
@@ -132,8 +132,8 @@ extension Text {
 			.truncationMode(.middle)
 	}
 
-	func PanelPathFont() -> some View {
-		self.font(.custom(Style.Text.fontSFMono, size: 13))
+	func PanelPathFont(size: CGFloat = 13) -> some View {
+		self.font(.custom(Style.Text.fontSFMono, size: size))
 			.lineSpacing(3.0)
 	}
 

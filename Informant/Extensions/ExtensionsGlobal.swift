@@ -59,14 +59,6 @@ extension String {
 	}
 }
 
-// Adds a space to the front of the string for toggles
-extension String {
-	/// Adds a space to the front of the string.
-	func toggleLabel() -> String {
-		return " \(self)"
-	}
-}
-
 // MARK: - URLs
 
 extension URL {
@@ -128,7 +120,7 @@ class NSIFWindow: NSWindow {
 }
 
 /*
- /// Allows for an animateable window
+ /// Allows for an animate-able window
  class NSIFPanel: NSPanel {
  	var lastContentSize: CGSize = .zero
 
@@ -236,7 +228,7 @@ extension AppDelegate {
 	}
 }
 
-/// Converts approximated numbers into ratinal fractions.
+/// Converts approximated numbers into rational fractions.
 /// [Pimped from SO](https://stackoverflow.com/a/35895607/13142325)
 struct Rational {
 	let numerator: Int

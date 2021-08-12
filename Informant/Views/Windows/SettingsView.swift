@@ -31,7 +31,9 @@ struct SettingsView: View {
 
 				// Left side
 				SettingsLeftSideView()
-					.frame(width: 270)
+					.padding([.horizontal], 22)
+					.frame(minWidth: 270)
+					.fixedSize()
 
 				// Divider
 				Divider()
@@ -39,14 +41,13 @@ struct SettingsView: View {
 
 				// Right side
 				SettingsRightSideView(interfaceState: interfaceState)
-					.frame(minWidth: 0, maxWidth: .infinity)
+					.padding([.horizontal], 45)
 					.padding(.bottom, 4)
 			}
 
 			Spacer()
 		}
 		.edgesIgnoringSafeArea(.all)
-		.frame(width: 670)
 	}
 }
 
@@ -69,6 +70,9 @@ struct SettingsLeftSideView: View {
 			name = appName
 		}
 	}
+
+	/// Checks state for hovering on acknowledgements link
+	@State var acknowledgementsHovering: Bool?
 
 	var body: some View {
 		VStack(alignment: .center) {
@@ -93,22 +97,41 @@ struct SettingsLeftSideView: View {
 				Text("©2021 Ty Irvine")
 					.SettingsVersionFont()
 
-				// Version
-				if let version = version {
-					Text(version)
+				// MARK: Acknowledgements & Version
+				HStack(spacing: 5) {
+
+					// Acknowledgements
+					Text(ContentManager.SettingsLabels.acknowledgements)
+						.underline(acknowledgementsHovering == true ? true : false, color: .primary.opacity(0.5))
 						.SettingsVersionFont()
+						.opacity(acknowledgementsHovering == true ? 0.75 : 1.0)
+						.onTapGesture {
+							LinkHelper.openPDF(link: Links.acknowledgements)
+						}
+						.onHover { hovering in
+							acknowledgementsHovering = hovering
+						}
+
+					// Divider
+					Text("•")
+						.SettingsVersionFont()
+
+					// Version
+					if let version = version {
+						Text(version)
+							.SettingsVersionFont()
+					}
 				}
 			}
 
 			Spacer().frame(height: 22)
 
-			#warning("Add link functionality")
 			// Link stack
 			VStack(alignment: .leading, spacing: 12) {
 
-				// Acknowledgements
+				// Privacy policy
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.privacyPolicy)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.privacyPolicy)
 						.SettingsLabelButtonFont()
@@ -116,7 +139,7 @@ struct SettingsLeftSideView: View {
 
 				// Feedback
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.feedback)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.feedback)
 						.SettingsLabelButtonFont()
@@ -124,7 +147,7 @@ struct SettingsLeftSideView: View {
 
 				// Help
 				ComponentsPanelLabelButton {
-					// TODO: Add button functionality
+					LinkHelper.openLink(link: Links.help)
 				} content: {
 					Text(linkIcon + ContentManager.SettingsLabels.help)
 						.SettingsLabelButtonFont()
@@ -149,66 +172,75 @@ struct SettingsRightSideView: View {
 		// Panel and system preferences
 		VStack(alignment: .leading, spacing: 0) {
 
-			// MARK: - Menu Bar
+			// For determining fixed size
+			Group {
 
-			// Menu bar and descriptor
-			VStack(alignment: .leading, spacing: 4) {
+				// MARK: - Menu Bar
 
-				// Menu label
-				Text(ContentManager.SettingsLabels.menubar)
-					.SettingsLabelFont(padding: 0)
-			}
-			.padding(.bottom, 11)
+				// Menu bar and descriptor
+				VStack(alignment: .leading, spacing: 4) {
 
-			// Menu bar settings stack
-			HStack(alignment: .top, spacing: hstackTogglePadding) {
-				Toggle(ContentManager.SettingsLabels.menubarShowSize.toggleLabel(), isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowKind.toggleLabel(), isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowDimensions.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
-				Toggle(ContentManager.SettingsLabels.menubarShowDuration.toggleLabel(), isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
-			}
+					// Menu label
+					Text(ContentManager.SettingsLabels.menubar)
+						.SettingsLabelFont(padding: 0)
+				}
+				.padding(.bottom, 11)
 
-			// Divides menubar and panel
-			Spacer().frame(height: sectionVerticalPadding)
+				// Menu bar settings stack
+				HStack(alignment: .top, spacing: hstackTogglePadding) {
 
-			// MARK: - Panel
-			Text(ContentManager.SettingsLabels.panel)
-				.SettingsLabelFont(padding: 7)
+					TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-			VStack(alignment: .leading, spacing: 12) {
+					TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-				// Shortcut to activate panel
-				HStack {
-					Text(ContentManager.SettingsLabels.toggleDetailsPanel)
-					KeyboardShortcuts.Recorder(for: .togglePopover)
+					TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
 				}
 
-				// Panel toggle stack
-				HStack(spacing: hstackTogglePadding) {
+				// Divides menubar and panel
+				Spacer().frame(height: sectionVerticalPadding)
 
-					// Name & date created
-					VStack(alignment: .leading, spacing: 10) {
-						// Hide name property
-						Toggle(ContentManager.SettingsLabels.hideName.toggleLabel(), isOn: $interfaceState.settingsPanelHideNameProp)
+				// MARK: - Panel
+				Text(ContentManager.SettingsLabels.panel)
+					.SettingsLabelFont()
 
-						// Hide created property
-						Toggle(ContentManager.SettingsLabels.hideCreated.toggleLabel(), isOn: $interfaceState.settingsPanelHideCreatedProp)
+				VStack(alignment: .leading, spacing: 12) {
+
+					// Shortcut to activate panel
+					HStack {
+						Text(ContentManager.SettingsLabels.toggleDetailsPanel)
+						KeyboardShortcuts.Recorder(for: .togglePopover)
 					}
 
-					// Path properties
-					VStack(alignment: .leading, spacing: 10) {
+					// Panel toggle stack
+					HStack(spacing: hstackTogglePadding) {
 
-						// Hide icon property
-						Toggle(ContentManager.SettingsLabels.hideIcon.toggleLabel(), isOn: $interfaceState.settingsPanelHideIconProp)
+						// Name & date created
+						VStack(alignment: .leading, spacing: 10) {
+							// Hide name property
+							TogglePadded(ContentManager.SettingsLabels.hideName, isOn: $interfaceState.settingsPanelHideNameProp)
 
-						// Hide path property
-						Toggle(ContentManager.SettingsLabels.hidePath.toggleLabel(), isOn: $interfaceState.settingsPanelHidePathProp)
+							// Hide created property
+							TogglePadded(ContentManager.SettingsLabels.hideCreated, isOn: $interfaceState.settingsPanelHideCreatedProp)
+						}
+
+						// Path properties
+						VStack(alignment: .leading, spacing: 10) {
+
+							// Hide icon property
+							TogglePadded(ContentManager.SettingsLabels.hideIcon, isOn: $interfaceState.settingsPanelHideIconProp)
+
+							// Hide path property
+							TogglePadded(ContentManager.SettingsLabels.hidePath, isOn: $interfaceState.settingsPanelHidePathProp)
+						}
 					}
 				}
-			}
 
-			// Divides system and panel
-			Spacer().frame(height: sectionVerticalPadding)
+				// Divides system and panel
+				Spacer().frame(height: sectionVerticalPadding)
+			}
+			.fixedSize()
 
 			// MARK: - System
 			Text(ContentManager.SettingsLabels.system)
@@ -217,22 +249,24 @@ struct SettingsRightSideView: View {
 			VStack(alignment: .leading, spacing: 12) {
 
 				// Pick root url
-				SettingsPickRootURL(interfaceState.settingsRootURL)
+				SettingsPickRootURL(interfaceState.settingsRootURL, fixedWidth: false)
+					.layoutPriority(-1)
 
 				// Enable menubar-utility
-				Toggle(ContentManager.SettingsLabels.menubarUtilityShow.toggleLabel(), isOn: $interfaceState.settingsMenubarUtilityBool)
+				TogglePadded(ContentManager.SettingsLabels.menubarUtilityShow, isOn: $interfaceState.settingsMenubarUtilityBool)
 
 				// Show where a selected file is located instead of the full path
-				Toggle(ContentManager.SettingsLabels.showFullPath.toggleLabel(), isOn: $interfaceState.settingsPanelDisplayFullPath)
+				TogglePadded(ContentManager.SettingsLabels.showFullPath, isOn: $interfaceState.settingsPanelDisplayFullPath)
 
 				// Skips the sizing of directories all together
-				Toggle(ContentManager.SettingsLabels.skipDirectories.toggleLabel(), isOn: $interfaceState.settingsPanelSkipDirectories)
+				TogglePadded(ContentManager.SettingsLabels.skipDirectories, isOn: $interfaceState.settingsPanelSkipDirectories)
 
 				// Launch informant on system startup
-				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup.toggleLabel())
+				LaunchAtLogin.Toggle {
+					Text(ContentManager.SettingsLabels.launchOnStartup).togglePadding()
+				}
 			}
 		}
-		.fixedSize()
 	}
 }
 
@@ -248,12 +282,19 @@ struct SettingsPickRootURL: View {
 
 	let windowRef: NSWindow
 
-	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading) {
+	let fixedWidth: Bool
+
+	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading, fixedWidth: Bool = true) {
 		self.rootURL = rootURL
 		self.textAlignment = textAlignment
 		self.windowRef = windowRef
+		self.fixedWidth = fixedWidth
 		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
 	}
+
+	// Gradient stops
+	let firstStop = Gradient.Stop(color: .primary, location: 0.75)
+	let secondStop = Gradient.Stop(color: .clear, location: 1.0)
 
 	var body: some View {
 
@@ -277,11 +318,16 @@ struct SettingsPickRootURL: View {
 					// Root url
 					ScrollView(.horizontal, showsIndicators: false) {
 						Text(rootURL ?? ContentManager.SettingsLabels.none)
-							.PanelPathFont()
+							.PanelPathFont(size: 12)
 							.padding(4)
 							.padding([.leading], 5)
 							.opacity(rootURL != nil ? 1 : 0.5)
 					}
+					.mask(
+						// Gradient text
+						LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .leading, endPoint: .trailing)
+							.padding([.trailing], 21)
+					)
 
 					// Clear button stack
 					HStack {
@@ -294,7 +340,7 @@ struct SettingsPickRootURL: View {
 						}
 					}
 				}
-				.fixedSize(horizontal: false, vertical: true)
+				.frame(height: 22)
 				.whenHovered { hovering in
 					isHovering = hovering
 				}
@@ -305,9 +351,10 @@ struct SettingsPickRootURL: View {
 
 			// Descriptor
 			Text(ContentManager.Messages.settingsRootURLDescriptor)
-				.SettingsVersionFont()
+				.SettingsVersionFont(lineSpacing: 2.5)
+				.fixedSize(horizontal: false, vertical: true)
 				.multilineTextAlignment(textAlignment)
 		}
-		.frame(width: 275)
+		.frame(width: fixedWidth ? 275 : nil)
 	}
 }

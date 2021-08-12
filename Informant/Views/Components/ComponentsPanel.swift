@@ -132,10 +132,12 @@ struct ComponentsPanelLabelIconFrame: View {
 
 			if let label = label {
 				Text(label)
-					.H1()
+					.H1(lineLimit: 4)
+					.multilineTextAlignment(.center)
 					.opacity(Style.Text.opacity)
 			}
 		}
+		.padding([.horizontal], 15)
 	}
 }
 
@@ -185,7 +187,8 @@ struct ComponentsPanelHeader: View {
 
 				// Subtitle
 				if let headerSubtitle = headerSubtitle {
-					Text(headerSubtitle).H4()
+					Text(headerSubtitle).H4(lineLimit: 2)
+						.fixedSize(horizontal: false, vertical: true)
 				}
 			}
 
@@ -481,6 +484,9 @@ struct ComponentsPanelIconButton: View {
 		}
 	}
 
+	/// Keeps track of hovering state
+	@State var hovering: Bool?
+
 	var body: some View {
 		Button {
 			action()
@@ -491,6 +497,12 @@ struct ComponentsPanelIconButton: View {
 				.padding(5)
 		}
 		.buttonStyle(BorderlessButtonStyle())
+		.foregroundColor(.primary)
+		.opacity(hovering == true ? 0.85 : 0.5)
+		.animation(.easeInOut, value: hovering)
+		.whenHovered { hover in
+			hovering = hover
+		}
 	}
 }
 
@@ -643,12 +655,12 @@ struct ComponentsPanelPathButton: View {
 				}
 			}
 
-			// Gradiented text
+			// Gradient text
 			LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .bottom, endPoint: .topTrailing)
 				.mask(ComponentsPanelPathLabel(path))
 				.opacity(hovering ? 1 : 0)
 
-			// Non-gradiented text
+			// Non-gradient text
 			ComponentsPanelPathLabel(path)
 				.opacity(hovering ? 0 : 1)
 		}

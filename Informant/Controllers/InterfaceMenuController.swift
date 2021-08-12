@@ -51,6 +51,7 @@ class InterfaceMenuController {
 		menu.addItem(menuBarUtilityMenuItem)
 		menu.addItem(NSMenuItem.separator())
 		menu.addItem(preferencesMenuItem)
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(quitMenuItem)
 
 		// Set size of menu
@@ -89,7 +90,7 @@ class InterfaceMenuController {
 		var y = panelFrame.minY
 
 		// Offset coordinates
-		y += 3.0
+		y += 2.0
 		x -= 30.0
 
 		let coordinates = NSPoint(x: x, y: y)

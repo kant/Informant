@@ -17,9 +17,10 @@ struct AuthAccessibilityView: View {
 			// Image
 			ComponentsWindowAppIcon()
 
-			// Welcome
+			// Welcome: Authorize Informant
 			Text(ContentManager.WelcomeLabels.authorizeInformant)
 				.WelcomeHeaderFont()
+				.fixedSize(horizontal: false, vertical: true)
 
 			Spacer().frame(height: 5)
 
@@ -81,6 +82,7 @@ struct SecurityGuidanceBox: View {
 			Text(label)
 				.font(.system(size: 14))
 				.fontWeight(.semibold)
+				.multilineTextAlignment(.center)
 				.foregroundColor(color)
 				.padding([.horizontal], 10)
 				.padding([.vertical], 6)
@@ -94,7 +96,7 @@ struct SecurityGuidanceBox: View {
 						.stroke(color, lineWidth: 1)
 						.opacity(0.2)
 				)
-				.fixedSize()
+				.fixedSize(horizontal: false, vertical: true)
 
 			// Arrow
 			if arrow {

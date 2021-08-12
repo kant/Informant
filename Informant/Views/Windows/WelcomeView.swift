@@ -71,13 +71,14 @@ struct WelcomeView: View {
 			VStack(alignment: .center, spacing: Style.Padding.welcomeWindow) {
 				
 				// Ask if they want to be logged in automatically
-				LaunchAtLogin.Toggle(ContentManager.SettingsLabels.launchOnStartup)
+				LaunchAtLogin.Toggle {
+					Text(ContentManager.SettingsLabels.launchOnStartup).togglePadding()
+				}
 			
 				// Ask for root url
 				SettingsPickRootURL(interfaceState.settingsRootURL, AppDelegate.current().welcomeWindow, .center)
-					.fixedSize(horizontal: false, vertical: true)
 			}
-			.padding([.horizontal], 15)
+			.fixedSize(horizontal: false, vertical: true)
 		}
 		.padding([.horizontal, .bottom], Style.Padding.welcomeWindow)
 		.frame(width: 350)

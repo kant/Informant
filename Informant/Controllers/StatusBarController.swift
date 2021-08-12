@@ -213,7 +213,10 @@ class StatusBarController {
 	/// Helper designed to set the drag state of the object
 	func setIsPanelBeingDragged(_ value: Bool) {
 		// TODO: Add snap animation (.none) to snap zone indicator using this value
-		isPanelBeingDragged = value
+		// Check current event and make sure we're actually dragging
+		if eventTypeCheck(NSApp.currentEvent, types: [.leftMouseDragged, .rightMouseDragged]) || value == false {
+			isPanelBeingDragged = value
+		}
 	}
 
 	// MARK: - Window Toggle Functionality
@@ -503,7 +506,7 @@ class StatusBarController {
 
 		/// Snaps window to starting position and then makes it visible
 		func panelMoveAndSetAlphaAnimation() {
-			panel.animator().setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
+			panel.setFrameTopLeftPoint(statusItemButtonPositionPanelAdjusted())
 			setIsPanelBeingDragged(false)
 		}
 
@@ -529,7 +532,6 @@ class StatusBarController {
 
 		// Grabs the bottom mid point of the status item button in the menu bar
 		let statusItemBottomMidPoint = statusItemButtonPosition()
-		let statusItemCenterMidPoint = NSPoint(x: statusItemBottomMidPoint.x, y: statusItemBottomMidPoint.y + (statusBar.thickness / 2))
 
 		// Offset it ⤴︎
 		let offset: CGFloat = 150.0
@@ -548,24 +550,22 @@ class StatusBarController {
 
 		// Get the center top point of the panel
 		let panelTopCenter = NSPoint(x: panel.frame.midX, y: panel.frame.maxY)
-		let panelTopCenterWithOffset = NSPoint(x: panelTopCenter.x, y: panelTopCenter.y - 10)
-
-		// TODO: Consider removing
-		/* let panelCenter = NSPoint(x: panel.frame.midX, y: panel.frame.midY) */
 
 		// See if the panel is in the starting panel position zone
 		let isPanelInSnapZone = NSMouseInRect(panelTopCenter, panelSnapZone, false)
 
 		// Make the panel blurred if it's being dragged and in the snap zone
-		if isPanelInSnapZone && panel.alphaValue == 1.0 {
+		if isPanelInSnapZone {
 			settings.setIsPanelInSnapZone(true)
-
-			// TODO: Consider removing this.
-			// Calculate the angle between the top of the panel and the status item
-			/* settings.panelSnapZoneDirection = calculateDirection(pointA: statusItemCenterMidPoint, pointB: panelTopCenterWithOffset) */
 		}
 
-		// Reset the panel blur because we're no longer in the snap zone
+		// Reset everything because we're not in the snap zone
+		else if eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+			reset()
+			return
+		}
+
+		// Change the panel indicator because we're no longer in the snap zone
 		else {
 			settings.setIsPanelInSnapZone(false)
 		}
@@ -590,7 +590,7 @@ class StatusBarController {
 		// ------------------ Release of the drag ------------------
 
 		// On release of the drag, if in the position zone, snap the panel's position to the starting position
-		if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
+		else if isPanelInSnapZone && eventTypeCheck(event, types: [.leftMouseUp, .rightMouseUp]) {
 			settings.setIsPanelInSnapZone(false)
 			settings.isMouseHoveringClose = false
 			panelMoveAndSetAlphaAnimation()
