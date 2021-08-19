@@ -134,7 +134,7 @@ class MenubarUtilityHelper {
 			isDirectory = resources.isDirectory
 		}
 		
-		// MARK: Duration & Dimensions
+		// MARK: Duration & Dimensions & Codecs
 		// Collect the duration if it's permitted
 		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
 			
@@ -142,6 +142,7 @@ class MenubarUtilityHelper {
 				kMDItemDurationSeconds!,
 				kMDItemPixelWidth!,
 				kMDItemPixelHeight!,
+				kMDItemCodecs!,
 			]
 			
 			// Get URL metadata
@@ -160,12 +161,16 @@ class MenubarUtilityHelper {
 				{
 					dimensions = dimensionsUnwrapped
 				}
+		
+				#warning("Add interface states")
+				// Collect Codecs
+				if let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
+					codecs = codecUnwrapped.joined(separator: ", ")
+				}
 			}
 		}
 		
 		#warning("Add interface states")
-		// MARK: Codecs
-		
 		
 		// MARK: Item Count
 		if isiCloudSyncFile != true, isDirectory == true {
@@ -177,7 +182,7 @@ class MenubarUtilityHelper {
 		// MARK: - Assemble Final View For Util.
 		
 		// Collect all values
-		let properties = [size, items, kind, dimensions, duration]
+		let properties = [size, items, kind, dimensions, duration, codecs]
 		
 		// Prepare the formatted string for the view
 		let formattedString = formatProperties(properties)
