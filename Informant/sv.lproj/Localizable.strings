@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "sak";
 
+/* No comment provided by engineer. */
+"Item count" = "Antal objekt";
+
 /* Items, used in the single directory selection */
 "items" = "Objekt";
 

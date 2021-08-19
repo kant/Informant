@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "항목";
 
+/* No comment provided by engineer. */
+"Item count" = "항목 수";
+
 /* Items, used in the single directory selection */
 "items" = "항목";
 

@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "專案";
 
+/* No comment provided by engineer. */
+"Item count" = "項目計數";
+
 /* Items, used in the single directory selection */
 "items" = "專案";
 

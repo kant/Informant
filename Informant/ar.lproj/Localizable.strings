@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "بند";
 
+/* No comment provided by engineer. */
+"Item count" = "عدد الأصناف";
+
 /* Items, used in the single directory selection */
 "items" = "العناصر";
 

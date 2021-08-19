@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "मद";
 
+/* No comment provided by engineer. */
+"Item count" = "आइटम काउंट";
+
 /* Items, used in the single directory selection */
 "items" = "आइटम";
 

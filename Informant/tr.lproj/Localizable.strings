@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "madde";
 
+/* No comment provided by engineer. */
+"Item count" = "Madde sayısı";
+
 /* Items, used in the single directory selection */
 "items" = "eşya";
 
