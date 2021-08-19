@@ -37,7 +37,9 @@ enum Links {
 
 	static let privacyPolicy = "\(site)/#privacy"
 
-	static let feedback = "mailto:\(email)"
+	static let feedback = "https://github.com/tyirvine/Informant-Issue-Tracker"
+
+	static let feedbackMail = "mailto:\(email)"
 
 	static let help = "\(site)/#faq"
 
