@@ -244,6 +244,11 @@ class SelectionHelper {
 
 	// MARK: - Formatting Methods
 
+	/// Takes in a directory item count and formats it accordingly
+	static func formatDirectoryItemCount(_ itemCount: Int) -> String {
+		return String(itemCount) + " " + (itemCount > 1 ? ContentManager.Extra.items : ContentManager.Extra.item)
+	}
+
 	/// Checks the url and settings and decides if the full url should be shown
 	static func formatPathBasedOnSettings(_ url: URL) -> String? {
 

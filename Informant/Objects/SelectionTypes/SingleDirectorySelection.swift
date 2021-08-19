@@ -21,7 +21,7 @@ class SingleDirectorySelection: SingleSelection {
 			
 			// Get # of items in the directory
 			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
-				self.itemCount = String(itemCount) + " " + (itemCount > 1 ? ContentManager.Extra.items : ContentManager.Extra.item)
+				self.itemCount = SelectionHelper.formatDirectoryItemCount(itemCount)
 			}
 		}
 		

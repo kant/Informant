@@ -77,11 +77,17 @@ class MenubarUtilityHelper {
 			return
 		}
 		
+		// State values
+		var isiCloudSyncFile: Bool?
+		var isDirectory: Bool?
+		
 		// Placeholder values to collect details
 		var size: String = ""
 		var kind: String = ""
 		var dimensions: String = ""
 		var duration: String = ""
+		var codecs: String = ""
+		var items: String = ""
 		
 		// MARK: - Verify & Format Size
 		
@@ -109,23 +115,26 @@ class MenubarUtilityHelper {
 		
 		// MARK: - Collect Additional URL Resources
 		
-		// Collect the kind if it's permitted
-		if interfaceState.settingsMenubarShowKind {
+		let resourceKeys: Set<URLResourceKey> = [
+			.localizedTypeDescriptionKey,
+			.isUbiquitousItemKey,
+			.isDirectoryKey,
+		]
 			
-			let resourceKeys: Set<URLResourceKey> = [
-				.localizedTypeDescriptionKey,
-			]
+		// Get URL resources
+		if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
 			
-			// Get URL resources
-			if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
-			
-				// Collect kind
-				if let kindUnwrapped = resources.localizedTypeDescription {
-					kind = kindUnwrapped
-				}
+			// MARK: Kind
+			if let kindUnwrapped = resources.localizedTypeDescription, interfaceState.settingsMenubarShowKind {
+				kind = kindUnwrapped
 			}
+			
+			// Needed to get # of items in directory
+			isiCloudSyncFile = resources.isUbiquitousItem
+			isDirectory = resources.isDirectory
 		}
 		
+		// MARK: Duration & Dimensions
 		// Collect the duration if it's permitted
 		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
 			
@@ -154,10 +163,21 @@ class MenubarUtilityHelper {
 			}
 		}
 		
+		#warning("Add interface states")
+		// MARK: Codecs
+		
+		
+		// MARK: Item Count
+		if isiCloudSyncFile != true, isDirectory == true {
+			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
+				items = SelectionHelper.formatDirectoryItemCount(itemCount)
+			}
+		}
+		
 		// MARK: - Assemble Final View For Util.
 		
 		// Collect all values
-		let properties = [size, kind, dimensions, duration]
+		let properties = [size, items, kind, dimensions, duration]
 		
 		// Prepare the formatted string for the view
 		let formattedString = formatProperties(properties)
