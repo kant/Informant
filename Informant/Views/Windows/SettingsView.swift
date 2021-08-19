@@ -47,6 +47,7 @@ struct SettingsView: View {
 
 			Spacer()
 		}
+		.padding([.vertical], 10)
 		.edgesIgnoringSafeArea(.all)
 	}
 }
@@ -164,7 +165,7 @@ struct SettingsRightSideView: View {
 
 	@ObservedObject var interfaceState: InterfaceState
 
-	private let hstackTogglePadding: CGFloat = 16
+	private let hstackTogglePadding: CGFloat = 18
 	private let sectionVerticalPadding: CGFloat = 26
 
 	var body: some View {
@@ -177,25 +178,36 @@ struct SettingsRightSideView: View {
 
 				// MARK: - Menu Bar
 
-				// Menu bar and descriptor
-				VStack(alignment: .leading, spacing: 4) {
-
-					// Menu label
-					Text(ContentManager.SettingsLabels.menubar)
-						.SettingsLabelFont(padding: 0)
-				}
-				.padding(.bottom, 11)
+				// Menu label
+				Text(ContentManager.SettingsLabels.menubar)
+					.SettingsLabelFont(padding: 11)
 
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
+					// MARK: Size & Kind
+					VStack(alignment: .leading) {
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+						TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+						TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+					// MARK: Codecs & Item Count
+					VStack(alignment: .leading) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowItems, isOn: $interfaceState.settingsMenubarShowItems).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
+
+					// MARK: Dimensions & Duration
+					VStack(alignment: .leading) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowCodecs, isOn: $interfaceState.settingsMenubarShowCodecs).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 				}
 
 				// Divides menubar and panel
@@ -244,7 +256,7 @@ struct SettingsRightSideView: View {
 
 			// MARK: - System
 			Text(ContentManager.SettingsLabels.system)
-				.SettingsLabelFont()
+				.SettingsLabelFont(padding: 11)
 
 			VStack(alignment: .leading, spacing: 12) {
 

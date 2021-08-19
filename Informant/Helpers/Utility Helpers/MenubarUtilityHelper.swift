@@ -162,18 +162,15 @@ class MenubarUtilityHelper {
 					dimensions = dimensionsUnwrapped
 				}
 		
-				#warning("Add interface states")
 				// Collect Codecs
-				if let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
+				if interfaceState.settingsMenubarShowCodecs, let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
 					codecs = codecUnwrapped.joined(separator: ", ")
 				}
 			}
 		}
 		
-		#warning("Add interface states")
-		
 		// MARK: Item Count
-		if isiCloudSyncFile != true, isDirectory == true {
+		if interfaceState.settingsMenubarShowItems, isiCloudSyncFile != true, isDirectory == true {
 			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
 				items = SelectionHelper.formatDirectoryItemCount(itemCount)
 			}
