@@ -48,11 +48,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		itemSizeAsString = SelectionHelper.State.Calculating.localized
 		
 		// Async request file size
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
-			asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))
-		} else {
-			itemSizeAsString = nil
-		}
+		asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))
 		
 		// MARK: - Establish Icon Collection
 		/// Gather the icons from the first two or three files and use those layered on top of eachother!
@@ -107,7 +103,6 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		// Once finished update the item size
 		DispatchQueue.main.async {
 			self.updateItemSizeAsString()
-			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 		}
 	}
 	

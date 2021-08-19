@@ -16,20 +16,16 @@ class SingleApplicationSelection: SingleSelection {
 		// Get basic selection
 		super.init(urls, selection: selection)
 
-		// Get permission to view metadata
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
+		// Metadata keys we want
+		let keys: NSArray = [
+			kMDItemVersion!
+		]
 
-			// Metadata keys we want
-			let keys: NSArray = [
-				kMDItemVersion!
-			]
+		// Get metadata
+		guard let metadata = SelectionHelper.getURLMetadata(url, keys: keys) else { return }
 
-			// Get metadata
-			guard let metadata = SelectionHelper.getURLMetadata(url, keys: keys) else { return }
-
-			// Get version #
-			guard let version = metadata[kMDItemVersion] else { return }
-			self.version = String(describing: version)
-		}
+		// Get version #
+		guard let version = metadata[kMDItemVersion] else { return }
+		self.version = String(describing: version)
 	}
 }

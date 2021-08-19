@@ -72,8 +72,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	public var welcomeWindow: NSIFWindow!
 
 	// MARK: - Extra
-	/// This helps work out the security scoping issue
-	public var securityBookmarkHelper: SecurityBookmarkHelper!
 
 	/// This keeps tracks of any items that need to be cached for later use
 	public var cache: Cache!
@@ -94,8 +92,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		registerUserDefaults()
 
 		// MARK: - App initialization
-
-		securityBookmarkHelper = SecurityBookmarkHelper()
 
 		interfaceData = InterfaceData()
 

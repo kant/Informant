@@ -74,9 +74,6 @@ struct WelcomeView: View {
 				LaunchAtLogin.Toggle {
 					Text(ContentManager.SettingsLabels.launchOnStartup).togglePadding()
 				}
-			
-				// Ask for root url
-				SettingsPickRootURL(interfaceState.settingsRootURL, AppDelegate.current().welcomeWindow, .center)
 			}
 			.fixedSize(horizontal: false, vertical: true)
 		}

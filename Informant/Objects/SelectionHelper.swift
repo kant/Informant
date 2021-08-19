@@ -162,83 +162,73 @@ class SelectionHelper {
 			// If it's a directory, find the size and update the
 			else if isDirectory == true {
 
-				// Get permission to work
-				if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
+				// Let the users know we're calculating
+				updateInterfacesForSize(bytes: nil, state: .Calculating)
 
-					// Let the users know we're calculating
-					updateInterfacesForSize(bytes: nil, state: .Calculating)
+				// Check to make sure there are no work items on the queue
+				if appDelegate.workQueue.count >= 1 {
+					return
+				}
 
-					// Check to make sure there are no work items on the queue
-					if appDelegate.workQueue.count >= 1 {
+				/// Holds the selection type in memory
+				var type: SelectionType
+
+				// Find type of selection
+				if itemResources?.isApplication == true {
+					type = .Application
+				}
+				else {
+					type = .Directory
+				}
+
+				// ------------ Setup work blocks ⤵︎ --------------
+				// Executes on the background
+				appDelegate.workQueue.append(DispatchWorkItem {
+
+					// Grab reference to the work item upon start of the execution
+					guard let workItem = appDelegate.workQueue.last else {
 						return
 					}
 
-					/// Holds the selection type in memory
-					var type: SelectionType
+					/// Holds raw size in memory
+					var rawSize: Int64?
 
-					// Find type of selection
-					if itemResources?.isApplication == true {
-						type = .Application
+					// Grab directory size
+					do {
+						rawSize = try FileManager.default.allocatedSizeOfDirectory(at: url)
 					}
-					else {
-						type = .Directory
+					catch {
+						rawSize = nil
 					}
 
-					// ------------ Setup work blocks ⤵︎ --------------
-					// Executes on the background
-					appDelegate.workQueue.append(DispatchWorkItem {
+					// Make sure the work item wasn't cancelled. Otherwise we just don't update the interface as the op. is cancelled.
+					// We can't stop the execution of the actual FileManager enumerator atm unfortunately.
+					if workItem.isCancelled == false {
 
-						// Grab reference to the work item upon start of the execution
-						guard let workItem = appDelegate.workQueue.last else {
-							return
-						}
+						// Update the user interface
+						DispatchQueue.main.async {
 
-						/// Holds raw size in memory
-						var rawSize: Int64?
-
-						// Grab directory size
-						do {
-							rawSize = try FileManager.default.allocatedSizeOfDirectory(at: url)
-						}
-						catch {
-							rawSize = nil
-						}
-
-						// Make sure the work item wasn't cancelled. Otherwise we just don't update the interface as the op. is cancelled.
-						// We can't stop the execution of the actual FileManager enumerator atm unfortunately.
-						if workItem.isCancelled == false {
-
-							// Update the user interface
-							DispatchQueue.main.async {
-
-								// Updates the interface when a size is found correctly
-								if let size = rawSize {
-									updateInterfacesForSize(bytes: size)
-									url.storeByteSize(size, type: type)
-								}
-
-								// Otherwise let the users know we couldn't find a size
-								else {
-									updateInterfacesForSize(bytes: nil, state: .Unavailable)
-									Debug.log("Size Unavailable", description: "Unable to find size for this item. Likely due to permissions.")
-								}
-
-								// Clean up execution
-								appDelegate.securityBookmarkHelper.stopAccessingRootURL()
-								appDelegate.workQueue.removeAll()
+							// Updates the interface when a size is found correctly
+							if let size = rawSize {
+								updateInterfacesForSize(bytes: size)
+								url.storeByteSize(size, type: type)
 							}
+
+							// Otherwise let the users know we couldn't find a size
+							else {
+								updateInterfacesForSize(bytes: nil, state: .Unavailable)
+								Debug.log("Size Unavailable", description: "Unable to find size for this item. Likely due to permissions.")
+							}
+
+							// Clean up execution
+							appDelegate.workQueue.removeAll()
 						}
-					})
-
-					// We grab the last work queue item because it's the most current
-					if let workItem = appDelegate.workQueue.last {
-						DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workItem)
 					}
-				}
+				})
 
-				// If no access is permitted then nil the value out
-				else {
-					return updateInterfacesForSize(bytes: nil, state: nil)
+				// We grab the last work queue item because it's the most current
+				if let workItem = appDelegate.workQueue.last {
+					DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.1, execute: workItem)
 				}
 			}
 

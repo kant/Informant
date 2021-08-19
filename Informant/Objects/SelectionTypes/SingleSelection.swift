@@ -77,19 +77,13 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.ubiquitousItemContainerDisplayNameKey
 		]
 
-		// Start accessing security scoped resource to get tags
-		if appDelegate.securityBookmarkHelper.startAccessingRootURL() == true {
-			do {
-				let resources = try url.resourceValues(forKeys: [.tagNamesKey, .localizedTypeDescriptionKey])
-				if let tags = resources.tagNames, let kind = resources.localizedTypeDescription {
-					selectionTags = SelectionTags(tags: tags)
-					itemKind = kind
-				}
-			} catch { }
-		}
-
-		// Stop accessing the resource
-		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
+		do {
+			let resources = try url.resourceValues(forKeys: [.tagNamesKey, .localizedTypeDescriptionKey])
+			if let tags = resources.tagNames, let kind = resources.localizedTypeDescription {
+				selectionTags = SelectionTags(tags: tags)
+				itemKind = kind
+			}
+		} catch { }
 
 		// Assigning resources to fileResources object
 		itemResources = SelectionHelper.getURLResources(url, keys)

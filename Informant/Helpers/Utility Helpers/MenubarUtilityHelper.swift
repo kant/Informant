@@ -135,28 +135,23 @@ class MenubarUtilityHelper {
 				kMDItemPixelHeight!,
 			]
 			
-			if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
-				
-				// Get URL metadata
-				if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
+			// Get URL metadata
+			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
 			
-					// Collect duration
-					if interfaceState.settingsMenubarShowDuration,
-					   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
-					{
-						duration = durationUnwrapped
-					}
+				// Collect duration
+				if interfaceState.settingsMenubarShowDuration,
+				   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
+				{
+					duration = durationUnwrapped
+				}
 					
-					// Collect dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
-					{
-						dimensions = dimensionsUnwrapped
-					}
+				// Collect dimensions
+				if interfaceState.settingsMenubarShowDimensions,
+				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
+				{
+					dimensions = dimensionsUnwrapped
 				}
 			}
-			
-			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 		}
 		
 		// MARK: - Assemble Final View For Util.
