@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "item";
 
+/* No comment provided by engineer. */
+"Item count" = "Item count";
+
 /* Items, used in the single directory selection */
 "items" = "items";
 

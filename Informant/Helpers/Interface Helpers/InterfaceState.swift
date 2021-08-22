@@ -49,6 +49,7 @@ class InterfaceState: ObservableObject {
 	@Published var privacyAccessibilityEnabled: Bool? = AXIsProcessTrusted()
 
 	// MARK: - Settings Data
+
 	@Published var settingsRootURL: String? = UserDefaults.standard.string(forKey: .keyRootURL) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyRootURL)
@@ -122,7 +123,7 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
-	// ------------ Menubar Settings ------------- ⤵︎
+	// MARK: - Menu Bar Settings
 
 	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {
 		willSet(value) {
@@ -157,6 +158,26 @@ class InterfaceState: ObservableObject {
 	@Published var settingsMenubarShowDimensions: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDimensions) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDimensions)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowCodecs: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowCodecs) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowCodecs)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowItems: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowItems) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowItems)
 		}
 
 		didSet {

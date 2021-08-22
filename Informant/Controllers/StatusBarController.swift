@@ -114,15 +114,12 @@ class StatusBarController {
 
 		let event = NSApp.currentEvent
 
+		// Left click
 		if event?.type == NSEvent.EventType.leftMouseUp {
-
-			// Makes sure to steal focus from any other menu bar apps
-			panelStatusItem?.menu = NSMenu()
-			panelStatusItem?.button?.performClick(nil)
-			panelStatusItem?.menu = nil
-
 			toggleInterfaceByClick()
 		}
+
+		// Right click
 		else {
 			appDelegate.interfaceMenuController?.updateMenu()
 			panelStatusItem?.menu = appDelegate.interfaceMenu
@@ -316,9 +313,8 @@ class StatusBarController {
 		if panel.isVisible {
 			hidePanel()
 		}
-		else {
-			hideMenubarUtility()
-		}
+
+		hideMenubarUtility()
 	}
 
 	/// Simply hides the panel
@@ -506,6 +502,12 @@ class StatusBarController {
 				updateInterfaces()
 			}
 			break
+
+		// if ⌘ + del is pressed, then hide all interfaces
+		case 51:
+			if event?.modifierFlags.contains(.command) == true {
+				hideInterfaces()
+			}
 
 		default:
 			break

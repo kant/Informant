@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "пункт";
 
+/* No comment provided by engineer. */
+"Item count" = "Количество элементов";
+
 /* Items, used in the single directory selection */
 "items" = "Элементы";
 

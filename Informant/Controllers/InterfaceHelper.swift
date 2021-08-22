@@ -69,7 +69,6 @@ class InterfaceHelper {
 		}
 
 		// Clean up execution
-		appDelegate.securityBookmarkHelper.stopAccessingRootURL()
 		appDelegate.workQueue.removeAll()
 
 		// Block executed if only one file is selected

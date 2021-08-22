@@ -47,6 +47,7 @@ struct SettingsView: View {
 
 			Spacer()
 		}
+		.padding([.vertical], 10)
 		.edgesIgnoringSafeArea(.all)
 	}
 }
@@ -164,7 +165,7 @@ struct SettingsRightSideView: View {
 
 	@ObservedObject var interfaceState: InterfaceState
 
-	private let hstackTogglePadding: CGFloat = 16
+	private let hstackTogglePadding: CGFloat = 18
 	private let sectionVerticalPadding: CGFloat = 26
 
 	var body: some View {
@@ -177,25 +178,36 @@ struct SettingsRightSideView: View {
 
 				// MARK: - Menu Bar
 
-				// Menu bar and descriptor
-				VStack(alignment: .leading, spacing: 4) {
-
-					// Menu label
-					Text(ContentManager.SettingsLabels.menubar)
-						.SettingsLabelFont(padding: 0)
-				}
-				.padding(.bottom, 11)
+				// Menu label
+				Text(ContentManager.SettingsLabels.menubar)
+					.SettingsLabelFont(padding: 11)
 
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
+					// MARK: Size & Kind
+					VStack(alignment: .leading) {
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+						TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+						TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 
-					TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+					// MARK: Codecs & Item Count
+					VStack(alignment: .leading) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowItems, isOn: $interfaceState.settingsMenubarShowItems).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
+
+					// MARK: Dimensions & Duration
+					VStack(alignment: .leading) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowCodecs, isOn: $interfaceState.settingsMenubarShowCodecs).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 				}
 
 				// Divides menubar and panel
@@ -244,13 +256,9 @@ struct SettingsRightSideView: View {
 
 			// MARK: - System
 			Text(ContentManager.SettingsLabels.system)
-				.SettingsLabelFont()
+				.SettingsLabelFont(padding: 11)
 
 			VStack(alignment: .leading, spacing: 12) {
-
-				// Pick root url
-				SettingsPickRootURL(interfaceState.settingsRootURL, fixedWidth: false)
-					.layoutPriority(-1)
 
 				// Enable menubar-utility
 				TogglePadded(ContentManager.SettingsLabels.menubarUtilityShow, isOn: $interfaceState.settingsMenubarUtilityBool)
@@ -270,91 +278,90 @@ struct SettingsRightSideView: View {
 	}
 }
 
-struct SettingsPickRootURL: View {
+/*
+ struct SettingsPickRootURL: View {
 
-	let rootURL: String?
+ 	let rootURL: String?
 
-	@State var isHovering: Bool = false
+ 	@State var isHovering: Bool = false
 
-	let securityBookmarkHelper: SecurityBookmarkHelper
+ 	let textAlignment: TextAlignment
 
-	let textAlignment: TextAlignment
+ 	let windowRef: NSWindow
 
-	let windowRef: NSWindow
+ 	let fixedWidth: Bool
 
-	let fixedWidth: Bool
+ 	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading, fixedWidth: Bool = true) {
+ 		self.rootURL = rootURL
+ 		self.textAlignment = textAlignment
+ 		self.windowRef = windowRef
+ 		self.fixedWidth = fixedWidth
+ 	}
 
-	init(_ rootURL: String?, _ windowRef: NSWindow = AppDelegate.current().settingsWindow, _ textAlignment: TextAlignment = .leading, fixedWidth: Bool = true) {
-		self.rootURL = rootURL
-		self.textAlignment = textAlignment
-		self.windowRef = windowRef
-		self.fixedWidth = fixedWidth
-		securityBookmarkHelper = AppDelegate.current().securityBookmarkHelper
-	}
+ 	// Gradient stops
+ 	let firstStop = Gradient.Stop(color: .primary, location: 0.75)
+ 	let secondStop = Gradient.Stop(color: .clear, location: 1.0)
 
-	// Gradient stops
-	let firstStop = Gradient.Stop(color: .primary, location: 0.75)
-	let secondStop = Gradient.Stop(color: .clear, location: 1.0)
+ 	var body: some View {
 
-	var body: some View {
+ 		// Descriptor
+ 		VStack(alignment: textAlignment == .leading ? .leading : .center) {
 
-		// Descriptor
-		VStack(alignment: textAlignment == .leading ? .leading : .center) {
+ 			// Root URL Stack
+ 			HStack {
 
-			// Root URL Stack
-			HStack {
+ 				// Label
+ 				Text(ContentManager.SettingsLabels.pickRootURL)
 
-				// Label
-				Text(ContentManager.SettingsLabels.pickRootURL)
+ 				// Button
+ 				ZStack {
 
-				// Button
-				ZStack {
+ 					// Backing
+ 					RoundedRectangle(cornerRadius: 7)
+ 						.opacity(isHovering ? 0.15 : 0.07)
+ 						.animation(.easeInOut(duration: 0.25), value: isHovering)
 
-					// Backing
-					RoundedRectangle(cornerRadius: 7)
-						.opacity(isHovering ? 0.15 : 0.07)
-						.animation(.easeInOut(duration: 0.25), value: isHovering)
+ 					// Root url
+ 					ScrollView(.horizontal, showsIndicators: false) {
+ 						Text(rootURL ?? ContentManager.SettingsLabels.none)
+ 							.PanelPathFont(size: 12)
+ 							.padding(4)
+ 							.padding([.leading], 5)
+ 							.opacity(rootURL != nil ? 1 : 0.5)
+ 					}
+ 					.mask(
+ 						// Gradient text
+ 						LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .leading, endPoint: .trailing)
+ 							.padding([.trailing], 21)
+ 					)
 
-					// Root url
-					ScrollView(.horizontal, showsIndicators: false) {
-						Text(rootURL ?? ContentManager.SettingsLabels.none)
-							.PanelPathFont(size: 12)
-							.padding(4)
-							.padding([.leading], 5)
-							.opacity(rootURL != nil ? 1 : 0.5)
-					}
-					.mask(
-						// Gradient text
-						LinearGradient(gradient: .init(stops: [firstStop, secondStop]), startPoint: .leading, endPoint: .trailing)
-							.padding([.trailing], 21)
-					)
+ 					// Clear button stack
+ 					HStack {
 
-					// Clear button stack
-					HStack {
+ 						Spacer()
 
-						Spacer()
+ 						// Clear button
+ 						ComponentsPanelIconButton("xmark.circle.fill", size: 13.5) {
+ 							securityBookmarkHelper.deleteRootURLPermission()
+ 						}
+ 					}
+ 				}
+ 				.frame(height: 22)
+ 				.whenHovered { hovering in
+ 					isHovering = hovering
+ 				}
+ 				.onTapGesture {
+ 					securityBookmarkHelper.pickRootURL(windowRef)
+ 				}
+ 			}
 
-						// Clear button
-						ComponentsPanelIconButton("xmark.circle.fill", size: 13.5) {
-							securityBookmarkHelper.deleteRootURLPermission()
-						}
-					}
-				}
-				.frame(height: 22)
-				.whenHovered { hovering in
-					isHovering = hovering
-				}
-				.onTapGesture {
-					securityBookmarkHelper.pickRootURL(windowRef)
-				}
-			}
-
-			// Descriptor
-			Text(ContentManager.Messages.settingsRootURLDescriptor)
-				.SettingsVersionFont(lineSpacing: 2.5)
-				.fixedSize(horizontal: false, vertical: true)
-				.multilineTextAlignment(textAlignment)
-		}
-		.frame(width: fixedWidth ? 275 : nil)
-	}
-}
+ 			// Descriptor
+ 			Text(ContentManager.Messages.settingsRootURLDescriptor)
+ 				.SettingsVersionFont(lineSpacing: 2.5)
+ 				.fixedSize(horizontal: false, vertical: true)
+ 				.multilineTextAlignment(textAlignment)
+ 		}
+ 		.frame(width: fixedWidth ? 275 : nil)
+ 	}
+ }
+ */

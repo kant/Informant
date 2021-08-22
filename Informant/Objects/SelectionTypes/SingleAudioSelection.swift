@@ -18,30 +18,24 @@ class SingleAudioSelection: SingleSelection {
 		// Intialize the basic selection
 		super.init(urls, selection: selection)
 
-		// Start accessing the security scoped urls
-		if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
+		// Metadata we want to collect
+		let keys: NSArray = [
+			kMDItemDurationSeconds!,
+			kMDItemAudioSampleRate!
+		]
 
-			// Metadata we want to collect
-			let keys: NSArray = [
-				kMDItemDurationSeconds!,
-				kMDItemAudioSampleRate!
-			]
+		// Grab the metadata
+		if let metadata = SelectionHelper.getURLMetadata(url, keys: keys) {
 
-			// Grab the metadata
-			if let metadata = SelectionHelper.getURLMetadata(url, keys: keys) {
+			// Duration
+			if let duration = metadata[kMDItemDurationSeconds] {
+				self.duration = SelectionHelper.formatDuration(duration)
+			}
 
-				// Duration
-				if let duration = metadata[kMDItemDurationSeconds] {
-					self.duration = SelectionHelper.formatDuration(duration)
-				}
-
-				// Sample rate
-				if let sampleRate = metadata[kMDItemAudioSampleRate] {
-					self.sampleRate = SelectionHelper.formatSampleRate(sampleRate)
-				}
+			// Sample rate
+			if let sampleRate = metadata[kMDItemAudioSampleRate] {
+				self.sampleRate = SelectionHelper.formatSampleRate(sampleRate)
 			}
 		}
-
-		AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
 	}
 }

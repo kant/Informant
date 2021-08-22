@@ -106,6 +106,10 @@ class ContentManager {
 
 		static let menubarShowPath = NSLocalizedString("Path", comment: "")
 
+		static let menubarShowItems = NSLocalizedString("Item count", comment: "")
+
+		static let menubarShowCodecs = NSLocalizedString("Codecs", comment: "")
+
 		static let menubarCopyPathDescriptor = NSLocalizedString("Click the menu bar utility to copy the path.", comment: "")
 
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")

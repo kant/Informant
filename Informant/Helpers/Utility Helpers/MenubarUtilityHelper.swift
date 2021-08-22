@@ -77,11 +77,17 @@ class MenubarUtilityHelper {
 			return
 		}
 		
+		// State values
+		var isiCloudSyncFile: Bool?
+		var isDirectory: Bool?
+		
 		// Placeholder values to collect details
 		var size: String = ""
 		var kind: String = ""
 		var dimensions: String = ""
 		var duration: String = ""
+		var codecs: String = ""
+		var items: String = ""
 		
 		// MARK: - Verify & Format Size
 		
@@ -109,23 +115,26 @@ class MenubarUtilityHelper {
 		
 		// MARK: - Collect Additional URL Resources
 		
-		// Collect the kind if it's permitted
-		if interfaceState.settingsMenubarShowKind {
+		let resourceKeys: Set<URLResourceKey> = [
+			.localizedTypeDescriptionKey,
+			.isUbiquitousItemKey,
+			.isDirectoryKey,
+		]
 			
-			let resourceKeys: Set<URLResourceKey> = [
-				.localizedTypeDescriptionKey,
-			]
+		// Get URL resources
+		if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
 			
-			// Get URL resources
-			if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
-			
-				// Collect kind
-				if let kindUnwrapped = resources.localizedTypeDescription {
-					kind = kindUnwrapped
-				}
+			// MARK: Kind
+			if let kindUnwrapped = resources.localizedTypeDescription, interfaceState.settingsMenubarShowKind {
+				kind = kindUnwrapped
 			}
+			
+			// Needed to get # of items in directory
+			isiCloudSyncFile = resources.isUbiquitousItem
+			isDirectory = resources.isDirectory
 		}
 		
+		// MARK: Duration & Dimensions & Codecs
 		// Collect the duration if it's permitted
 		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
 			
@@ -133,36 +142,44 @@ class MenubarUtilityHelper {
 				kMDItemDurationSeconds!,
 				kMDItemPixelWidth!,
 				kMDItemPixelHeight!,
+				kMDItemCodecs!,
 			]
 			
-			if AppDelegate.current().securityBookmarkHelper.startAccessingRootURL() == true {
-				
-				// Get URL metadata
-				if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
+			// Get URL metadata
+			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
 			
-					// Collect duration
-					if interfaceState.settingsMenubarShowDuration,
-					   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
-					{
-						duration = durationUnwrapped
-					}
+				// Collect duration
+				if interfaceState.settingsMenubarShowDuration,
+				   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
+				{
+					duration = durationUnwrapped
+				}
 					
-					// Collect dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
-					{
-						dimensions = dimensionsUnwrapped
-					}
+				// Collect dimensions
+				if interfaceState.settingsMenubarShowDimensions,
+				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
+				{
+					dimensions = dimensionsUnwrapped
+				}
+		
+				// Collect Codecs
+				if interfaceState.settingsMenubarShowCodecs, let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
+					codecs = codecUnwrapped.joined(separator: ", ")
 				}
 			}
-			
-			AppDelegate.current().securityBookmarkHelper.stopAccessingRootURL()
+		}
+		
+		// MARK: Item Count
+		if interfaceState.settingsMenubarShowItems, isiCloudSyncFile != true, isDirectory == true {
+			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
+				items = SelectionHelper.formatDirectoryItemCount(itemCount)
+			}
 		}
 		
 		// MARK: - Assemble Final View For Util.
 		
 		// Collect all values
-		let properties = [size, kind, dimensions, duration]
+		let properties = [size, items, kind, dimensions, duration, codecs]
 		
 		// Prepare the formatted string for the view
 		let formattedString = formatProperties(properties)

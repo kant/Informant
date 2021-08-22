@@ -64,7 +64,6 @@
 		9A9C1BA1268D2734001CF265 /* ComponentsPanelAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1BA0268D2734001CF265 /* ComponentsPanelAttributes.swift */; };
 		9A9C1D4E266700BF0085ECEA /* SelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4D266700BF0085ECEA /* SelectionProtocol.swift */; };
 		9A9C1D502667242F0085ECEA /* SingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C1D4F2667242F0085ECEA /* SingleSelection.swift */; };
-		9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9C1D522668368B0085ECEA /* CloudKit.framework */; };
 		9ABE17762632295400EE9F48 /* PanelSingleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE17752632295400EE9F48 /* PanelSingleItem.swift */; };
 		9ABE177E263229FE00EE9F48 /* PanelNoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE177D263229FE00EE9F48 /* PanelNoItem.swift */; };
 		9ABE178326322A0900EE9F48 /* PanelMultiItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE178226322A0900EE9F48 /* PanelMultiItem.swift */; };
@@ -230,7 +229,6 @@
 				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
 				9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */,
 				9AF9BF522698C4CD006FAA39 /* LaunchAtLogin in Frameworks */,
-				9A9C1D532668368B0085ECEA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +903,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -967,6 +966,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -994,12 +994,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Informant/Informant.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Informant/Preview Content\"";
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Informant/Info.plist;
@@ -1007,8 +1007,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.07.5;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 0.08.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1024,12 +1024,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Informant/Informant.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Informant/Preview Content\"";
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Informant/Info.plist;
@@ -1037,8 +1037,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.07.5;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 0.08.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.Informant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

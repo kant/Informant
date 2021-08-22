@@ -124,6 +124,9 @@
 /* Singular version of items */
 "item" = "artículo";
 
+/* No comment provided by engineer. */
+"Item count" = "Recuento de elementos";
+
 /* Items, used in the single directory selection */
 "items" = "Artículos";
 
