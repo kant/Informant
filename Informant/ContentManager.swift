@@ -92,6 +92,8 @@ class ContentManager {
 
 		static let acknowledgements = NSLocalizedString("Packages", comment: "")
 
+		static let releases = NSLocalizedString("Releases", comment: "")
+
 		static let help = NSLocalizedString("Help", comment: "")
 
 		static let none = NSLocalizedString("None", comment: "")

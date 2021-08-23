@@ -155,7 +155,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Open the auth window if no access is available
 		if interfaceState.privacyAccessibilityEnabled == false {
+
 			privacyAccessibilityWindowController.open()
+
+			// Open up auth access dialog
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true]
+				AXIsProcessTrustedWithOptions(options)
+			}
 		}
 
 		// MARK: - Welcome Window Init
