@@ -33,7 +33,7 @@ jobs:
       # Check if DEVELOPMENT_TEAM ID exists
       - name: Scan project.pbxproj
         run: |
-          if grep -q "DEVELOPMENT_TEAM = \".*\"" test.txt; then
+          if grep -q "DEVELOPMENT_TEAM = \".*\"" project.pbxproj; then
             echo ⛔️ Development Team ID found. Please remove this prior to merging with main.
             exit 1
           else
