@@ -72,8 +72,11 @@ struct SettingsLeftSideView: View {
 		}
 	}
 
-	/// Checks state for hovering on acknowledgements link
-	@State var acknowledgementsHovering: Bool?
+	/// Checks state for hovering on packages link
+	@State var packagesHovering: Bool = false
+
+	/// Checks state for hovering on releases link
+	@State var releasesHovering: Bool = false
 
 	var body: some View {
 		VStack(alignment: .center) {
@@ -99,29 +102,27 @@ struct SettingsLeftSideView: View {
 					.SettingsVersionFont()
 
 				// MARK: Acknowledgements & Version
-				HStack(spacing: 5) {
+				HStack(spacing: 4) {
 
-					// Acknowledgements
-					Text(ContentManager.SettingsLabels.acknowledgements)
-						.underline(acknowledgementsHovering == true ? true : false, color: .primary.opacity(0.5))
-						.SettingsVersionFont()
-						.opacity(acknowledgementsHovering == true ? 0.75 : 1.0)
-						.onTapGesture {
-							LinkHelper.openPDF(link: Links.acknowledgements)
-						}
-						.onHover { hovering in
-							acknowledgementsHovering = hovering
-						}
+					// Packages
+					ComponentsSmallLink(label: ContentManager.SettingsLabels.acknowledgements, hovering: $packagesHovering) {
+						LinkHelper.openPDF(link: Links.acknowledgements)
+					}
 
 					// Divider
 					Text("•")
 						.SettingsVersionFont()
 
-					// Version
-					if let version = version {
-						Text(version)
-							.SettingsVersionFont()
+					// Packages
+					ComponentsSmallLink(label: ContentManager.SettingsLabels.releases, hovering: $releasesHovering) {
+						LinkHelper.openLink(link: Links.releases)
 					}
+				}
+
+				// Version
+				if let version = version {
+					Text(version)
+						.SettingsVersionFont()
 				}
 			}
 
