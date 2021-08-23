@@ -34,8 +34,6 @@
 		9A43162626265A1F0071227C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43162526265A1F0071227C /* ContentView.swift */; };
 		9A43162826265A210071227C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A43162726265A210071227C /* Assets.xcassets */; };
 		9A43162B26265A210071227C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A43162A26265A210071227C /* Preview Assets.xcassets */; };
-		9A43163A26265A210071227C /* InformantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43163926265A210071227C /* InformantTests.swift */; };
-		9A43164526265A210071227C /* InformantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43164426265A210071227C /* InformantUITests.swift */; };
 		9A43165626265D1C0071227C /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43165526265D1C0071227C /* StatusBarController.swift */; };
 		9A481FA92677E945006B91C2 /* InactiveWindowTapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FA82677E945006B91C2 /* InactiveWindowTapHelper.swift */; };
 		9A481FAB26780F86006B91C2 /* InterfaceAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */; };
@@ -88,23 +86,6 @@
 		9AFF98D1266F111800E31D2A /* InterfaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D0266F111800E31D2A /* InterfaceState.swift */; };
 		9AFF98D9267061C900E31D2A /* TrackingAreaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFF98D8267061C900E31D2A /* TrackingAreaHelper.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9A43163626265A210071227C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A43161826265A1F0071227C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A43161F26265A1F0071227C;
-			remoteInfo = Informant;
-		};
-		9A43164126265A210071227C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A43161826265A1F0071227C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A43161F26265A1F0071227C;
-			remoteInfo = Informant;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9A7F3B402626A01100BD878F /* Embed App Extensions */ = {
@@ -161,10 +142,8 @@
 		9A43162A26265A210071227C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9A43162F26265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A43163026265A210071227C /* Informant.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Informant.entitlements; sourceTree = "<group>"; };
-		9A43163526265A210071227C /* InformantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InformantTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A43163926265A210071227C /* InformantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformantTests.swift; sourceTree = "<group>"; };
 		9A43163B26265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A43164026265A210071227C /* InformantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InformantUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A43164426265A210071227C /* InformantUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformantUITests.swift; sourceTree = "<group>"; };
 		9A43164626265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A43165526265D1C0071227C /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
@@ -229,20 +208,6 @@
 				9A64FCAA2626814B00CE52E4 /* KeyboardShortcuts in Frameworks */,
 				9A9C1B9F268BB88E001CF265 /* WrappingHStack in Frameworks */,
 				9AF9BF522698C4CD006FAA39 /* LaunchAtLogin in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A43163226265A210071227C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A43163D26265A210071227C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,8 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				9A43162026265A1F0071227C /* Informant.app */,
-				9A43163526265A210071227C /* InformantTests.xctest */,
-				9A43164026265A210071227C /* InformantUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -555,42 +518,6 @@
 			productReference = 9A43162026265A1F0071227C /* Informant.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9A43163426265A210071227C /* InformantTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A43164C26265A210071227C /* Build configuration list for PBXNativeTarget "InformantTests" */;
-			buildPhases = (
-				9A43163126265A210071227C /* Sources */,
-				9A43163226265A210071227C /* Frameworks */,
-				9A43163326265A210071227C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9A43163726265A210071227C /* PBXTargetDependency */,
-			);
-			name = InformantTests;
-			productName = InformantTests;
-			productReference = 9A43163526265A210071227C /* InformantTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		9A43163F26265A210071227C /* InformantUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A43164F26265A210071227C /* Build configuration list for PBXNativeTarget "InformantUITests" */;
-			buildPhases = (
-				9A43163C26265A210071227C /* Sources */,
-				9A43163D26265A210071227C /* Frameworks */,
-				9A43163E26265A210071227C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9A43164226265A210071227C /* PBXTargetDependency */,
-			);
-			name = InformantUITests;
-			productName = InformantUITests;
-			productReference = 9A43164026265A210071227C /* InformantUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -602,14 +529,6 @@
 				TargetAttributes = {
 					9A43161F26265A1F0071227C = {
 						CreatedOnToolsVersion = 12.4;
-					};
-					9A43163426265A210071227C = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 9A43161F26265A1F0071227C;
-					};
-					9A43163F26265A210071227C = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 9A43161F26265A1F0071227C;
 					};
 				};
 			};
@@ -644,8 +563,6 @@
 			projectRoot = "";
 			targets = (
 				9A43161F26265A1F0071227C /* Informant */,
-				9A43163426265A210071227C /* InformantTests */,
-				9A43163F26265A210071227C /* InformantUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -666,20 +583,6 @@
 				9AC1AFB8265C1FCA006D1FC8 /* Main.storyboard in Resources */,
 				9AFC584E26C317530038A51B /* (Informant_-_File_Inspector_for_macOS)_Acknowledgements.pdf in Resources */,
 				9A00210726A5E762006DEA70 /* SF-Compact-Display-Regular.otf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A43163326265A210071227C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A43163E26265A210071227C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,36 +717,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A43163126265A210071227C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A43163A26265A210071227C /* InformantTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A43163C26265A210071227C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A43164526265A210071227C /* InformantUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9A43163726265A210071227C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A43161F26265A1F0071227C /* Informant */;
-			targetProxy = 9A43163626265A210071227C /* PBXContainerItemProxy */;
-		};
-		9A43164226265A210071227C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A43161F26265A1F0071227C /* Informant */;
-			targetProxy = 9A43164126265A210071227C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A389167265B0CB2005F0F04 /* Localizable.strings */ = {
@@ -1048,90 +922,6 @@
 			};
 			name = Release;
 		};
-		9A43164D26265A210071227C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
-				INFOPLIST_FILE = InformantTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.InformantTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Informant.app/Contents/MacOS/Informant";
-			};
-			name = Debug;
-		};
-		9A43164E26265A210071227C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
-				INFOPLIST_FILE = InformantTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.InformantTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Informant.app/Contents/MacOS/Informant";
-			};
-			name = Release;
-		};
-		9A43165026265A210071227C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
-				INFOPLIST_FILE = InformantUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.InformantUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Informant;
-			};
-			name = Debug;
-		};
-		9A43165126265A210071227C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = B2VHRNJV5H;
-				INFOPLIST_FILE = InformantUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyirvine.InformantUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Informant;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1149,24 +939,6 @@
 			buildConfigurations = (
 				9A43164A26265A210071227C /* Debug */,
 				9A43164B26265A210071227C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9A43164C26265A210071227C /* Build configuration list for PBXNativeTarget "InformantTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A43164D26265A210071227C /* Debug */,
-				9A43164E26265A210071227C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9A43164F26265A210071227C /* Build configuration list for PBXNativeTarget "InformantUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A43165026265A210071227C /* Debug */,
-				9A43165126265A210071227C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
