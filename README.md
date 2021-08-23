@@ -11,10 +11,10 @@
 
 <!-- license -->
 <img src="https://img.shields.io/github/license/tyirvine/Informant"/>
-  
+
 <!-- platform -->
 <img src="https://img.shields.io/badge/platform-macOS-lightgrey.svg?style=flat" alt="platform"/>
-  
+
 </div>
 
 <br>
