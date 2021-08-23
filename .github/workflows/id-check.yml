@@ -31,7 +31,7 @@ jobs:
         run: |
           cd Informant.xcodeproj/
           ls
-          if grep -q "DEVELOPMENT_TEAM = \".*\"" project.pbxproj; then
+          if grep -q "DEVELOPMENT_TEAM = \"[a-zA-Z0-9]\+\"" project.pbxproj; then
             echo ⛔️ Development Team ID found. Please remove this prior to merging with main.
             exit 1
           else
