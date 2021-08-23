@@ -30,9 +30,8 @@ Welcome! If you're not sure what Informant is or what it does please check out [
 
 An admin will then review the changes and merge them in. At some point your changes will make it into a release if they're approved!
 
-#### ⚠️ Attention contributors: there's currently a signing issue
-On this open source build, I removed the Development Team ID and set signing to "Sign to Run Locally". This prevents Informant from being authorized in `Security & Privacy > Privacy > Accessibility`. For now, use your Development Team ID and set certificate to `Development`. Please change these back before you push to the parent repository. I'm working on a fix now.
-
+**⚠️ Attention** <br>
+Please remove your Development Team ID and set the certificate to `Sign to Run Locally` in `Signing & Capabilities` prior to making a pull request.
 
 ## Feedback
 
