@@ -35,6 +35,8 @@ jobs:
         run: |
           if grep -q "DEVELOPMENT_TEAM = \".*\"" test.txt; then
             echo ⛔️ Development Team ID found. Please remove this prior to merging with main.
+            exit 1
           else
             echo ✅ No Development Team ID found!
+            exit 0
           fi
