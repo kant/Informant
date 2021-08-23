@@ -26,13 +26,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Changes to the directory where project.pbxproj resides
-      - name: Change directory
-        run: cd Informant.xcodeproj/
-
       # Check if DEVELOPMENT_TEAM ID exists
       - name: Scan project.pbxproj
         run: |
+          cd Informant.xcodeproj/
+          ls
           if grep -q "DEVELOPMENT_TEAM = \".*\"" project.pbxproj; then
             echo ⛔️ Development Team ID found. Please remove this prior to merging with main.
             exit 1
