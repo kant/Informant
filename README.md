@@ -1,6 +1,24 @@
 <br>
+
+<!-- Banner -->
 <p align="center"><img src="https://user-images.githubusercontent.com/39813066/130371971-f2a2e7f1-449a-4663-8759-d67df4b0332a.png" width="450px"></p>
-<p align="center"><b>Informant is open-source & MIT-licensed.</b></p>
+
+<!-- lil' widgets -->
+<div align="center">
+
+<!-- version -->
+<img src="https://img.shields.io/github/release-pre/tyirvine/Informant.svg?style=flat" alt="latest version"/>
+
+<!-- license -->
+<a href="https://github.com/MonitorControl/MonitorControl/blob">
+<img src="https://img.shields.io/github/license/tyirvine/Informant.svg?style=flat" alt="license"/>
+</a>
+  
+<!-- platform -->
+<img src="https://img.shields.io/badge/platform-macOS-lightgrey.svg?style=flat" alt="platform"/>
+  
+</div>
+
 <br>
 
 ## Introduction
