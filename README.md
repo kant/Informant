@@ -1,13 +1,28 @@
 <br>
 
 <!-- Banner -->
-<p align="center"><img src="https://user-images.githubusercontent.com/39813066/130371971-f2a2e7f1-449a-4663-8759-d67df4b0332a.png" width="450px"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/39813066/130519018-d2faff43-45b0-4026-b313-cdbe0ce91e18.png" width="100px"></p>
+
+
+
+
+
+
+
+<!-- Title -->
+<div align="center">
+
+# Informant
+**Inspect files with a single click.**
+
+</div>
+
 
 <!-- shields -->
 <div align="center">
 
 <!-- version -->
-
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/tyirvine/Informant?style=social)
 
 <!-- license -->
 <img src="https://img.shields.io/github/license/tyirvine/Informant"/>
