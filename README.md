@@ -4,11 +4,6 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/39813066/130519018-d2faff43-45b0-4026-b313-cdbe0ce91e18.png" width="100px"></p>
 
 
-
-
-
-
-
 <!-- Title -->
 <div align="center">
 
@@ -24,6 +19,9 @@
 <!-- version -->
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/tyirvine/Informant?style=social)
 
+<!--  downloads  -->
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/tyirvine/Informant/total">
+  
 <!-- license -->
 <img src="https://img.shields.io/github/license/tyirvine/Informant"/>
 
