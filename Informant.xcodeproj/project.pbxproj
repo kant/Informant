@@ -142,10 +142,6 @@
 		9A43162A26265A210071227C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9A43162F26265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A43163026265A210071227C /* Informant.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Informant.entitlements; sourceTree = "<group>"; };
-		9A43163926265A210071227C /* InformantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformantTests.swift; sourceTree = "<group>"; };
-		9A43163B26265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A43164426265A210071227C /* InformantUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformantUITests.swift; sourceTree = "<group>"; };
-		9A43164626265A210071227C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A43165526265D1C0071227C /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		9A481FA82677E945006B91C2 /* InactiveWindowTapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveWindowTapHelper.swift; sourceTree = "<group>"; };
 		9A481FAA26780F86006B91C2 /* InterfaceAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceAlertController.swift; sourceTree = "<group>"; };
@@ -327,8 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				9A43162226265A1F0071227C /* Informant */,
-				9A43163826265A210071227C /* InformantTests */,
-				9A43164326265A210071227C /* InformantUITests */,
 				9A43162126265A1F0071227C /* Products */,
 				9A9C1D512668368B0085ECEA /* Frameworks */,
 			);
@@ -373,24 +367,6 @@
 				9A43162A26265A210071227C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		9A43163826265A210071227C /* InformantTests */ = {
-			isa = PBXGroup;
-			children = (
-				9A43163926265A210071227C /* InformantTests.swift */,
-				9A43163B26265A210071227C /* Info.plist */,
-			);
-			path = InformantTests;
-			sourceTree = "<group>";
-		};
-		9A43164326265A210071227C /* InformantUITests */ = {
-			isa = PBXGroup;
-			children = (
-				9A43164426265A210071227C /* InformantUITests.swift */,
-				9A43164626265A210071227C /* Info.plist */,
-			);
-			path = InformantUITests;
 			sourceTree = "<group>";
 		};
 		9A43165F26265DFB0071227C /* Assets */ = {
