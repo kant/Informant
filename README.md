@@ -23,6 +23,8 @@
 Welcome! If you're not sure what Informant is or what it does please check out [informant-app.com](https://informant-app.com). Requires macOS 11.0 or later.
 
 ## Contributing
+#### ⚠️ Attention contributors: there's currently a signing issue.
+On this open source build, I removed the Development Team ID and set signing to "Sign to Run Locally". This prevents Informant from being authorized in `Security & Privacy > Privacy > Accessibility`. For now, use your Development Team ID and set certificate to `Development`. Please change these back before you push to the parent repository. I'm working on a fix now.
 1. Start by forking this project **"To contribute to the parent project"**.
 2. Then, clone your fork to your computer and open it with Xcode.
 3. Checkout the most up-to-date branch. Each branch corresponds to a version of Informant.
