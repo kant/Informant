@@ -231,7 +231,7 @@ class StatusBarController {
 
 			// Close panel if it's visible in the current window and end execution
 			if panel.isOnActiveSpace {
-				hideInterfaces()
+				hidePanel()
 			}
 
 			// Otherwise, show the window on the current active space

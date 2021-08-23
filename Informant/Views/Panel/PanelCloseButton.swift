@@ -60,7 +60,7 @@ struct PanelCloseButton: View {
 			// Makes sure to cancel press if no longer hovering
 			if !pressed, settingsData.isMouseHoveringClose {
 				settingsData.isMouseHoveringClose = false
-				AppDelegate.current().statusBarController?.hideInterfaces()
+				AppDelegate.current().statusBarController?.hidePanel()
 			}
 		}
 
