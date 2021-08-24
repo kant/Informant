@@ -203,6 +203,9 @@
 "Release to snap" = "Släpp för att fästa";
 
 /* No comment provided by engineer. */
+"Releases" = "Släpper";
+
+/* No comment provided by engineer. */
 "Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "Krävs för att visa ytterligare metadata och storleken på en katalog. Välj Macintosh HD.";
 
 /* No comment provided by engineer. */

@@ -209,7 +209,6 @@ class StatusBarController {
 
 	/// Helper designed to set the drag state of the object
 	func setIsPanelBeingDragged(_ value: Bool) {
-		// TODO: Add snap animation (.none) to snap zone indicator using this value
 		// Check current event and make sure we're actually dragging
 		if eventTypeCheck(NSApp.currentEvent, types: [.leftMouseDragged, .rightMouseDragged]) || value == false {
 			isPanelBeingDragged = value
