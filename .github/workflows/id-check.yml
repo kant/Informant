@@ -30,10 +30,13 @@ jobs:
         run: |
           cd Informant.xcodeproj/
           ls
-          if grep -q "DEVELOPMENT_TEAM = \"[a-zA-Z0-9]\+\"" project.pbxproj; then
+          if grep -q "DEVELOPMENT_TEAM = \"\"" project.pbxproj; then
+            echo ✅ No Development Team ID found!
+            exit 0
+          elif grep -q "DEVELOPMENT_TEAM = [a-zA-Z0-9]\+\;" project.pbxproj; then
             echo ERROR: ⛔️ Development Team ID found. Please remove this.
             exit 1
           else
-            echo ✅ No Development Team ID found!
-            exit 0
+            echo 🧀 Development Team ID field not found!
+            exit 1
           fi
