@@ -68,6 +68,8 @@ class ContentManager {
 
 		static let authorizedInstructionCheckInformant = NSLocalizedString("Check Informant", comment: "Used on auth instructions")
 
+		static let authorizedInstructionAutomationCheckFinder = NSLocalizedString("Note: make sure Finder is checked in Automation", comment: "")
+
 		// Auth. Padlock tidbit
 		static let authorizedInstructionClickLock = NSLocalizedString("If the checkbox is greyed out, click the lock and enter your password.", comment: "Used on authorized welcome panel")
 
