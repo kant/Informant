@@ -423,6 +423,12 @@ class StatusBarController {
 			return
 		}
 
+		// If we're not interacting with Finder then hide the interface
+		if NSWorkspace.shared.frontmostApplication?.bundleIdentifier != "com.apple.finder" {
+			hideInterfaces()
+			return
+		}
+
 		// Get finder items
 		let selectedItems: [String]? = AppleScriptsHelper.findSelectedFiles()?.paths
 
