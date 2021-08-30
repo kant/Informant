@@ -63,10 +63,10 @@ class StatusBarController {
 		if let panelBarButton = panelStatusItem?.button {
 
 			// Status bar icon image
-			panelBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
+			panelBarButton.image = NSImage(named: appDelegate.interfaceState.settingsMenubarIcon)
 
 			// Status bar icon image size
-			panelBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
+			panelBarButton.image?.size = ContentManager.MenubarIcons.size
 
 			// Decides whether or not the icon follows the macOS menubar colouring
 			panelBarButton.image?.isTemplate = true

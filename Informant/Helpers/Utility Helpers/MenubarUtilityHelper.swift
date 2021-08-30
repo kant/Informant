@@ -263,4 +263,18 @@ class MenubarUtilityHelper {
 		
 		return finalString
 	}
+	
+	/// This function simply updates the menu bar icon with the current one stored in userdefaults
+	static func updateIcon() {
+		
+		let appDelegate = AppDelegate.current()
+		let statusItemButton = appDelegate.panelStatusItem?.button
+		let icon = appDelegate.interfaceState.settingsMenubarIcon
+
+		statusItemButton?.image = NSImage(named: icon)
+		statusItemButton?.image?.isTemplate = true
+		statusItemButton?.image?.size = ContentManager.MenubarIcons.size
+		
+		statusItemButton?.updateConstraints()
+	}
 }

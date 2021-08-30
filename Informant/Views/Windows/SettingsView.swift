@@ -183,6 +183,21 @@ struct SettingsRightSideView: View {
 				Text(ContentManager.SettingsLabels.menubar)
 					.SettingsLabelFont(padding: 11)
 
+				// Menu bar icon
+				Picker("Icon", selection: $interfaceState.settingsMenubarIcon) {
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDefault)!).tag(ContentManager.MenubarIcons.menubarDefault)
+
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDoc)!).tag(ContentManager.MenubarIcons.menubarDoc)
+
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarInfo)!).tag(ContentManager.MenubarIcons.menubarInfo)
+
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDrive)!).tag(ContentManager.MenubarIcons.menubarDrive)
+
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarFolder)!).tag(ContentManager.MenubarIcons.menubarFolder)
+
+					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarViewfinder)!).tag(ContentManager.MenubarIcons.menubarViewfinder)
+				}
+
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {
 

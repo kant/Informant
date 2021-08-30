@@ -243,8 +243,6 @@ class ContentManager {
 	// MARK: - Icons
 	public enum Icons {
 
-		static let menuBar = "menubar-icon"
-
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
@@ -255,6 +253,23 @@ class ContentManager {
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
+	}
+
+	public enum MenubarIcons {
+
+		static let menubarDefault = "menubar-default"
+
+		static let menubarDoc = "menubar-doc"
+
+		static let menubarDrive = "menubar-drive"
+
+		static let menubarFolder = "menubar-folder"
+
+		static let menubarInfo = "menubar-info"
+
+		static let menubarViewfinder = "menubar-viewfinder"
+		
+		static let size = NSSize(width: 17.5, height: 17.5)
 	}
 
 	// MARK: - Extra

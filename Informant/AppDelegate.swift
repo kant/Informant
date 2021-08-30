@@ -143,6 +143,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
+		
+		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 
