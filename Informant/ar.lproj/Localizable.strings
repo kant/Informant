@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "اي";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "ملاحظة: تأكد من أن الباحث تم إيداعه في التنفيذ التلقائي";
+
 /* Used on auth instructions */
 "Open System Preferences" = "فتح تفضيلات النظام";
 

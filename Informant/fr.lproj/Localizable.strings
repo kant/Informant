@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "Aucun";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Remarque : assurez-vous que le Finder est coché dans Automation";
+
 /* Used on auth instructions */
 "Open System Preferences" = "Ouvrir les Préférences Système";
 

@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "Никакой";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Примечание: убедитесь, что Finder зарегистрирован в автоматизации";
+
 /* Used on auth instructions */
 "Open System Preferences" = "Откройте Системные настройки";
 

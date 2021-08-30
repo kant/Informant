@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "何一つ";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "注:Finderがオートメーションでチェックされていることを確認してください";
+
 /* Used on auth instructions */
 "Open System Preferences" = "システム環境設定を開く";
 

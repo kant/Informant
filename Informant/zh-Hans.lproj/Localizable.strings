@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "没有";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "注意：确保查找器在自动化中检查";
+
 /* Used on auth instructions */
 "Open System Preferences" = "开放系统首选项";
 

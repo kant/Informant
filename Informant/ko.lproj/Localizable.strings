@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "없음";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "참고: 파인더가 자동화에서 검사되었는지 확인합니다.";
+
 /* Used on auth instructions */
 "Open System Preferences" = "시스템 기본 설정 열기";
 

@@ -157,6 +157,9 @@
 /* No comment provided by engineer. */
 "None" = "Hiç kimse";
 
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Not: Finder'ın Otomasyon'da işaretli olduğundan emin olun";
+
 /* Used on auth instructions */
 "Open System Preferences" = "Sistem Tercihlerini Aç";
 
