@@ -116,6 +116,8 @@ class ContentManager {
 
 		static let menubarCopyPathDescriptor = NSLocalizedString("Click the menu bar utility to copy the path.", comment: "")
 
+		static let menubarIcon = NSLocalizedString("Icon:", comment: "")
+
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
 		static let shortcutToActivatePanel = NSLocalizedString("Shortcut to activate panel", comment: "Asks the user what shortcut they want to activate the panel")
@@ -268,7 +270,7 @@ class ContentManager {
 		static let menubarInfo = "menubar-info"
 
 		static let menubarViewfinder = "menubar-viewfinder"
-		
+
 		static let size = NSSize(width: 17.5, height: 17.5)
 	}
 

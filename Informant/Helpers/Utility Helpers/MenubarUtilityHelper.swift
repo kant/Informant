@@ -273,7 +273,43 @@ class MenubarUtilityHelper {
 
 		statusItemButton?.image = NSImage(named: icon)
 		statusItemButton?.image?.isTemplate = true
-		statusItemButton?.image?.size = ContentManager.MenubarIcons.size
+		
+		let icons = ContentManager.MenubarIcons.self
+		var size: CGFloat?
+		
+		// Find the desired size
+		switch icon {
+			case icons.menubarDefault:
+				size = 17.5
+				break
+			
+			case icons.menubarDoc:
+				size = 17.25
+				break
+				
+			case icons.menubarDrive:
+				size = 17.5
+				break
+				
+			case icons.menubarFolder:
+				size = 16.5
+				break
+				
+			case icons.menubarInfo:
+				size = 17
+				break
+				
+			case icons.menubarViewfinder:
+				size = 16
+				break
+				
+			default:
+				break
+		}
+		
+		if let size = size {
+			statusItemButton?.image?.size = NSSize(width: size, height: size)
+		}
 		
 		statusItemButton?.updateConstraints()
 	}

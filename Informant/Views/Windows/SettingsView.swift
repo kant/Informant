@@ -184,19 +184,29 @@ struct SettingsRightSideView: View {
 					.SettingsLabelFont(padding: 11)
 
 				// Menu bar icon
-				Picker("Icon", selection: $interfaceState.settingsMenubarIcon) {
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDefault)!).tag(ContentManager.MenubarIcons.menubarDefault)
+				Picker(ContentManager.SettingsLabels.menubarIcon, selection: $interfaceState.settingsMenubarIcon) {
 
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDoc)!).tag(ContentManager.MenubarIcons.menubarDoc)
+					Image(ContentManager.MenubarIcons.menubarDefault + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDefault)
 
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarInfo)!).tag(ContentManager.MenubarIcons.menubarInfo)
+					Image(ContentManager.MenubarIcons.menubarDoc + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDoc)
 
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarDrive)!).tag(ContentManager.MenubarIcons.menubarDrive)
+					Image(ContentManager.MenubarIcons.menubarInfo + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarInfo)
 
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarFolder)!).tag(ContentManager.MenubarIcons.menubarFolder)
+					Image(ContentManager.MenubarIcons.menubarDrive + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDrive)
 
-					Image(nsImage: NSImage(named: ContentManager.MenubarIcons.menubarViewfinder)!).tag(ContentManager.MenubarIcons.menubarViewfinder)
+					Image(ContentManager.MenubarIcons.menubarFolder + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarFolder)
+
+					Image(ContentManager.MenubarIcons.menubarViewfinder + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarViewfinder)
 				}
+				.pickerStyle(PopUpButtonPickerStyle())
+				.layoutPriority(-2)
+				.padding([.bottom], 14)
 
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {

@@ -81,6 +81,9 @@ class StatusBarController {
 			panelBarButton.action = #selector(statusItemClickDirector)
 			panelBarButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
 			panelBarButton.target = self
+
+			// Updates size and position
+			MenubarUtilityHelper.updateIcon()
 		}
 
 		// Monitors mouse events
