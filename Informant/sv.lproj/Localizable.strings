@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Dölj sökväg";
 
+/* No comment provided by engineer. */
+"Icon:" = "Ikon:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Om kryssrutan är nedtonad klickar du på låset och anger lösenordet.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "Ingen åtkomst";
 
+/* No comment provided by engineer. */
+"No icon" = "Ingen ikon";
+
 /* String displayed when no items are selected. */
 "No selection" = "Ingen markering";
 
 /* No comment provided by engineer. */
 "None" = "Ingen";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Kontrollera att Finder är markerat i Automation";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Öppna systeminställningar";

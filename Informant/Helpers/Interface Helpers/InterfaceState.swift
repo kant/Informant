@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /// Parameters can be added here that need to be observed for the content view
 class InterfaceState: ObservableObject {
@@ -178,6 +179,17 @@ class InterfaceState: ObservableObject {
 		}
 
 		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarIcon: String = UserDefaults.standard.string(forKey: .keyMenubarIcon) ?? ContentManager.MenubarIcons.menubarDefault {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarIcon)
+		}
+
+		didSet {
+			MenubarUtilityHelper.updateIcon()
 			MenubarUtilityHelper.update()
 		}
 	}

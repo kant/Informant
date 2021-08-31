@@ -183,6 +183,34 @@ struct SettingsRightSideView: View {
 				Text(ContentManager.SettingsLabels.menubar)
 					.SettingsLabelFont(padding: 11)
 
+				// Menu bar icon
+				Picker(ContentManager.SettingsLabels.menubarIcon, selection: $interfaceState.settingsMenubarIcon) {
+
+					Text(ContentManager.MenubarIcons.noIcon)
+						.tag(ContentManager.MenubarIcons.menubarBlank)
+
+					Image(ContentManager.MenubarIcons.menubarDefault + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDefault)
+
+					Image(ContentManager.MenubarIcons.menubarDoc + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDoc)
+
+					Image(ContentManager.MenubarIcons.menubarInfo + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarInfo)
+
+					Image(ContentManager.MenubarIcons.menubarDrive + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarDrive)
+
+					Image(ContentManager.MenubarIcons.menubarFolder + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarFolder)
+
+					Image(ContentManager.MenubarIcons.menubarViewfinder + "-picker")
+						.tag(ContentManager.MenubarIcons.menubarViewfinder)
+				}
+				.pickerStyle(PopUpButtonPickerStyle())
+				.layoutPriority(-2)
+				.padding([.bottom], 14)
+
 				// Menu bar settings stack
 				HStack(alignment: .top, spacing: hstackTogglePadding) {
 

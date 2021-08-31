@@ -189,7 +189,14 @@ class MenubarUtilityHelper {
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = .left
+		
+		// Check icon style
+		if appDelegate.interfaceState.settingsMenubarIcon == ContentManager.MenubarIcons.menubarBlank {
+			paragraphStyle.alignment = .center
+		}
+		else {
+			paragraphStyle.alignment = .left
+		}
 		
 		// Put the attributed string all together
 		let attrString = NSAttributedString(string: formattedString, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])
@@ -262,5 +269,55 @@ class MenubarUtilityHelper {
 		}
 		
 		return finalString
+	}
+	
+	/// This function simply updates the menu bar icon with the current one stored in userdefaults
+	static func updateIcon() {
+		
+		let appDelegate = AppDelegate.current()
+		let statusItemButton = appDelegate.panelStatusItem?.button
+		let icon = appDelegate.interfaceState.settingsMenubarIcon
+
+		statusItemButton?.image = NSImage(named: icon)
+		statusItemButton?.image?.isTemplate = true
+		
+		let icons = ContentManager.MenubarIcons.self
+		var size: CGFloat?
+		
+		// Find the desired size
+		switch icon {
+			case icons.menubarDefault:
+				size = 17.5
+				break
+			
+			case icons.menubarDoc:
+				size = 17.25
+				break
+				
+			case icons.menubarDrive:
+				size = 17.5
+				break
+				
+			case icons.menubarFolder:
+				size = 16.5
+				break
+				
+			case icons.menubarInfo:
+				size = 17
+				break
+				
+			case icons.menubarViewfinder:
+				size = 16
+				break
+				
+			default:
+				break
+		}
+		
+		if let size = size {
+			statusItemButton?.image?.size = NSSize(width: size, height: size)
+		}
+		
+		statusItemButton?.updateConstraints()
 	}
 }

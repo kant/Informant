@@ -68,6 +68,8 @@ class ContentManager {
 
 		static let authorizedInstructionCheckInformant = NSLocalizedString("Check Informant", comment: "Used on auth instructions")
 
+		static let authorizedInstructionAutomationCheckFinder = NSLocalizedString("Note: make sure Finder is checked in Automation", comment: "")
+
 		// Auth. Padlock tidbit
 		static let authorizedInstructionClickLock = NSLocalizedString("If the checkbox is greyed out, click the lock and enter your password.", comment: "Used on authorized welcome panel")
 
@@ -113,6 +115,8 @@ class ContentManager {
 		static let menubarShowCodecs = NSLocalizedString("Codecs", comment: "")
 
 		static let menubarCopyPathDescriptor = NSLocalizedString("Click the menu bar utility to copy the path.", comment: "")
+
+		static let menubarIcon = NSLocalizedString("Icon:", comment: "")
 
 		static let pickRootURL = NSLocalizedString("Disk Path:", comment: "Pick the root url used to give security access to the app.")
 
@@ -241,8 +245,6 @@ class ContentManager {
 	// MARK: - Icons
 	public enum Icons {
 
-		static let menuBar = "menubar-icon"
-
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
@@ -253,6 +255,27 @@ class ContentManager {
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)
+	}
+
+	public enum MenubarIcons {
+
+		static let noIcon = NSLocalizedString("No icon", comment: "")
+
+		static let menubarBlank = "menubar-blank"
+
+		static let menubarDefault = "menubar-default"
+
+		static let menubarDoc = "menubar-doc"
+
+		static let menubarDrive = "menubar-drive"
+
+		static let menubarFolder = "menubar-folder"
+
+		static let menubarInfo = "menubar-info"
+
+		static let menubarViewfinder = "menubar-viewfinder"
+
+		static let size = NSSize(width: 17.5, height: 17.5)
 	}
 
 	// MARK: - Extra

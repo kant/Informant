@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Скрыть контур";
 
+/* No comment provided by engineer. */
+"Icon:" = "Икона:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Если флажок неактивен, щелкните замок и введите пароль.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "Нет доступа";
 
+/* No comment provided by engineer. */
+"No icon" = "Нет значка";
+
 /* String displayed when no items are selected. */
 "No selection" = "Без выбора";
 
 /* No comment provided by engineer. */
 "None" = "Никакой";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Примечание: убедитесь, что Finder зарегистрирован в автоматизации";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Откройте Системные настройки";

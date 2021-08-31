@@ -21,6 +21,7 @@ extension AppDelegate {
 			.keyMenubarShowDimensions: false,
 			.keyMenubarShowCodecs: false,
 			.keyMenubarShowItems: false,
+			.keyMenubarIcon: ContentManager.MenubarIcons.menubarDefault,
 			
 			// Panel
 			.keyPanelHidePathProp: false,
@@ -61,6 +62,8 @@ public extension String {
 	static let keyMenubarShowCodecs = "menubarShowCodecs"
 	
 	static let keyMenubarShowItems = "menubarShowItems"
+	
+	static let keyMenubarIcon = "menubarIcon"
 	
 	static let keySystemStartupBool = "systemStartupBool"
 	

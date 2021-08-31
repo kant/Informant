@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Hide path";
 
+/* No comment provided by engineer. */
+"Icon:" = "Icon:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "If the checkbox is greyed out, click the lock and enter your password.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "No access";
 
+/* No comment provided by engineer. */
+"No icon" = "No icon";
+
 /* String displayed when no items are selected. */
 "No selection" = "No selection";
 
 /* No comment provided by engineer. */
 "None" = "None";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Note: make sure Finder is checked in Automation";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Open System Preferences";

@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "隐藏路径";
 
+/* No comment provided by engineer. */
+"Icon:" = "图标：";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "如果复选框变灰，请单击锁并输入密码。";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "无访问权限";
 
+/* No comment provided by engineer. */
+"No icon" = "无图标";
+
 /* String displayed when no items are selected. */
 "No selection" = "无选择";
 
 /* No comment provided by engineer. */
 "None" = "没有";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "注意：确保查找器在自动化中检查";
 
 /* Used on auth instructions */
 "Open System Preferences" = "开放系统首选项";

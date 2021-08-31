@@ -63,10 +63,10 @@ class StatusBarController {
 		if let panelBarButton = panelStatusItem?.button {
 
 			// Status bar icon image
-			panelBarButton.image = NSImage(named: ContentManager.Icons.menuBar)
+			panelBarButton.image = NSImage(named: appDelegate.interfaceState.settingsMenubarIcon)
 
 			// Status bar icon image size
-			panelBarButton.image?.size = NSSize(width: 17.5, height: 17.5)
+			panelBarButton.image?.size = ContentManager.MenubarIcons.size
 
 			// Decides whether or not the icon follows the macOS menubar colouring
 			panelBarButton.image?.isTemplate = true
@@ -81,6 +81,9 @@ class StatusBarController {
 			panelBarButton.action = #selector(statusItemClickDirector)
 			panelBarButton.sendAction(on: [.leftMouseUp, .rightMouseUp])
 			panelBarButton.target = self
+
+			// Updates size and position
+			MenubarUtilityHelper.updateIcon()
 		}
 
 		// Monitors mouse events
@@ -141,13 +144,8 @@ class StatusBarController {
 			return NSPoint()
 		}
 
-		// Get the image
-		guard let image = panelStatusItem?.button?.image else {
-			return NSPoint()
-		}
-
 		// Get the middle of the image
-		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
+		let imageMidPosition = statusItemFrame.maxX - 17.15
 
 		let x = imageMidPosition
 		let y = statusItemFrame.origin.y
@@ -420,6 +418,16 @@ class StatusBarController {
 
 		// If we're interacting with the application panel then don't do anything
 		if event?.window == appDelegate.panel {
+			return
+		}
+
+		// Get the bundle id
+		let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+		guard let appBundleID = NSRunningApplication.current.bundleIdentifier else { return }
+
+		// If we're not interacting with Finder then hide the interface
+		if bundleID != appBundleID, bundleID != "com.apple.finder" {
+			hideInterfaces()
 			return
 		}
 

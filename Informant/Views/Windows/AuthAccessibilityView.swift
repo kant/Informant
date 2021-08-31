@@ -32,6 +32,7 @@ struct AuthAccessibilityView: View {
 
 			// What to do about lock
 			VStack {
+				// Accessibility check
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionSystemPreferences, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionSecurity, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionPrivacy, color: .blue)
@@ -39,7 +40,17 @@ struct AuthAccessibilityView: View {
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionCheckInformant, color: .blue, arrow: false)
 			}
 
-			Spacer().frame(height: Style.Padding.welcomeWindow)
+			// TODO: This can be left in
+			/* Spacer().frame(height: Style.Padding.welcomeWindow) */
+
+			// Automation check
+			SecurityGuidanceBox(
+				label: ContentManager.WelcomeLabels.authorizedInstructionAutomationCheckFinder,
+				color: .purple,
+				arrow: false
+			)
+			.padding([.top], 16)
+			.padding([.bottom], 10)
 
 			// Lock description
 			VStack(spacing: 10) {
@@ -82,6 +93,7 @@ struct SecurityGuidanceBox: View {
 			Text(label)
 				.font(.system(size: 14))
 				.fontWeight(.semibold)
+				.lineSpacing(2)
 				.multilineTextAlignment(.center)
 				.foregroundColor(color)
 				.padding([.horizontal], 10)

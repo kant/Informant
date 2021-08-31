@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "إخفاء المسار";
 
+/* No comment provided by engineer. */
+"Icon:" = "رمز:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "إذا كان مربع الاختيار رماديا، فانقر على القفل وأدخل كلمة المرور.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "لا وصول";
 
+/* No comment provided by engineer. */
+"No icon" = "لا يوجد رمز";
+
 /* String displayed when no items are selected. */
 "No selection" = "لا يوجد تحديد";
 
 /* No comment provided by engineer. */
 "None" = "اي";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "ملاحظة: تأكد من أن الباحث تم إيداعه في التنفيذ التلقائي";
 
 /* Used on auth instructions */
 "Open System Preferences" = "فتح تفضيلات النظام";

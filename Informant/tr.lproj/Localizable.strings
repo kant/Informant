@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Yolu gizle";
 
+/* No comment provided by engineer. */
+"Icon:" = "İkon:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Onay kutusu gri renkle işaretlenmişse, kilidi tıklatın ve parolanızı girin.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "Erişim yok";
 
+/* No comment provided by engineer. */
+"No icon" = "Simge yok";
+
 /* String displayed when no items are selected. */
 "No selection" = "Seçim yok";
 
 /* No comment provided by engineer. */
 "None" = "Hiç kimse";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Not: Finder'ın Otomasyon'da işaretli olduğundan emin olun";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Sistem Tercihlerini Aç";

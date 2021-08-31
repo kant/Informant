@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Caminho de esconder";
 
+/* No comment provided by engineer. */
+"Icon:" = "Ícone:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Se a caixa de verificação estiver acinzentado, clique no bloqueio e introduza a sua palavra-passe.";
 
@@ -151,11 +154,17 @@
 /* The title displayed when the selection errors out */
 "No access" = "Sem acesso";
 
+/* No comment provided by engineer. */
+"No icon" = "Sem ícone";
+
 /* String displayed when no items are selected. */
 "No selection" = "Sem seleção";
 
 /* No comment provided by engineer. */
 "None" = "Nenhum.";
+
+/* No comment provided by engineer. */
+"Note: make sure Finder is checked in Automation" = "Nota: certifique-se de que finder é verificado na Automação";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Preferências do sistema aberto";
