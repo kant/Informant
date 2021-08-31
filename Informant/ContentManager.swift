@@ -259,6 +259,10 @@ class ContentManager {
 
 	public enum MenubarIcons {
 
+		static let noIcon = NSLocalizedString("No icon", comment: "")
+
+		static let menubarBlank = "menubar-blank"
+
 		static let menubarDefault = "menubar-default"
 
 		static let menubarDoc = "menubar-doc"

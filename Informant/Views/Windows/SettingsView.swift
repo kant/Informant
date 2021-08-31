@@ -186,6 +186,9 @@ struct SettingsRightSideView: View {
 				// Menu bar icon
 				Picker(ContentManager.SettingsLabels.menubarIcon, selection: $interfaceState.settingsMenubarIcon) {
 
+					Text(ContentManager.MenubarIcons.noIcon)
+						.tag(ContentManager.MenubarIcons.menubarBlank)
+
 					Image(ContentManager.MenubarIcons.menubarDefault + "-picker")
 						.tag(ContentManager.MenubarIcons.menubarDefault)
 

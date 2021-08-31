@@ -144,13 +144,8 @@ class StatusBarController {
 			return NSPoint()
 		}
 
-		// Get the image
-		guard let image = panelStatusItem?.button?.image else {
-			return NSPoint()
-		}
-
 		// Get the middle of the image
-		let imageMidPosition = statusItemFrame.maxX - image.alignmentRect.width
+		let imageMidPosition = statusItemFrame.maxX - 17.15
 
 		let x = imageMidPosition
 		let y = statusItemFrame.origin.y
@@ -426,8 +421,11 @@ class StatusBarController {
 			return
 		}
 
+		// Get the bundle id
+		let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+
 		// If we're not interacting with Finder then hide the interface
-		if NSWorkspace.shared.frontmostApplication?.bundleIdentifier != "com.apple.finder" {
+		if bundleID != "com.tyirvine.Informant", bundleID != "com.apple.finder" {
 			hideInterfaces()
 			return
 		}

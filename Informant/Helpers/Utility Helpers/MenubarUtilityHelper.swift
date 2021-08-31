@@ -189,7 +189,14 @@ class MenubarUtilityHelper {
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = .left
+		
+		// Check icon style
+		if appDelegate.interfaceState.settingsMenubarIcon == ContentManager.MenubarIcons.menubarBlank {
+			paragraphStyle.alignment = .center
+		}
+		else {
+			paragraphStyle.alignment = .left
+		}
 		
 		// Put the attributed string all together
 		let attrString = NSAttributedString(string: formattedString, attributes: [.font: font, .baselineOffset: -0.5, .paragraphStyle: paragraphStyle])

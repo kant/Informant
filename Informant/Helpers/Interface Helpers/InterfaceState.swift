@@ -190,6 +190,7 @@ class InterfaceState: ObservableObject {
 
 		didSet {
 			MenubarUtilityHelper.updateIcon()
+			MenubarUtilityHelper.update()
 		}
 	}
 }
