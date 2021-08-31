@@ -423,9 +423,10 @@ class StatusBarController {
 
 		// Get the bundle id
 		let bundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+		guard let appBundleID = NSRunningApplication.current.bundleIdentifier else { return }
 
 		// If we're not interacting with Finder then hide the interface
-		if bundleID != "com.tyirvine.Informant", bundleID != "com.apple.finder" {
+		if bundleID != appBundleID, bundleID != "com.apple.finder" {
 			hideInterfaces()
 			return
 		}

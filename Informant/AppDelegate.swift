@@ -143,8 +143,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		if let settingsWindow = settingsWindow {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
-		
-		settingsWindowController.open()
 
 		// MARK: - Privacy Accessibility Window Init
 
@@ -213,6 +211,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			object: panel
 		)
 
+		NSWorkspace.shared.notificationCenter.addObserver(
+			self,
+			selector: #selector(appActivation),
+			name: NSWorkspace.didActivateApplicationNotification,
+			object: nil
+		)
+
 		/// https://stackoverflow.com/a/56206516/13142325
 		DistributedNotificationCenter.default().addObserver(
 			forName: NSNotification.Name("com.apple.accessibility.api"),
@@ -231,6 +236,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		// Stop listening to the keyboard
 		statusBarController?.monitorKeyPress?.stop()
+	}
+
+	// --- Misc. selectors ---
+
+	@objc func appActivation(notification: NSNotification) {
+
+		let foundBundleID = String(describing: notification.userInfo?["NSWorkspaceApplicationKey"])
+
+		guard let appBundleID = NSRunningApplication.current.bundleIdentifier else {
+			return
+		}
+
+		// Open settings
+		if foundBundleID.contains(appBundleID) {
+
+			// Check if settings is open
+			if settingsWindow.isVisible == false {
+				settingsWindowController.open()
+			}
+		}
 	}
 
 	// --- Selectors for sys. pref. changes ⤵︎ ---
