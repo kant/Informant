@@ -167,6 +167,9 @@
 "None" = "कोई नहीं";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "नोट: स्वचालन में, मुखबिर के तहत, सुनिश्चित करें कि खोजक की जांच की जाती है";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "नोट: सुनिश्चित करें कि खोजक स्वचालन में जांच की जाती है";
 
 /* Used on auth instructions */

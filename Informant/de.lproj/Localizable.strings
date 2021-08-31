@@ -167,6 +167,9 @@
 "None" = "Nichts";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "Hinweis: Stellen Sie in der Automatisierung unter Informant sicher, dass Finder aktiviert ist.";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "Hinweis: Stellen Sie sicher, dass finder in der Automatisierung aktiviert ist.";
 
 /* Used on auth instructions */

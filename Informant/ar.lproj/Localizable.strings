@@ -167,6 +167,9 @@
 "None" = "اي";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "ملاحظة: في التنفيذ التلقائي، ضمن Informant، تأكد من التحقق من Finder";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "ملاحظة: تأكد من أن الباحث تم إيداعه في التنفيذ التلقائي";
 
 /* Used on auth instructions */

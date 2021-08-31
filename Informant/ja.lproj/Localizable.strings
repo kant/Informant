@@ -167,6 +167,9 @@
 "None" = "何一つ";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "注: オートメーションの [情報提供情報] で、Finder がオンになっていることを確認します。";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "注:Finderがオートメーションでチェックされていることを確認してください";
 
 /* Used on auth instructions */

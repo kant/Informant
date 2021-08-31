@@ -167,6 +167,9 @@
 "None" = "없음";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "참고: 제보자의 자동화에서 파인더가 확인되었는지 확인합니다.";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "참고: 파인더가 자동화에서 검사되었는지 확인합니다.";
 
 /* Used on auth instructions */
