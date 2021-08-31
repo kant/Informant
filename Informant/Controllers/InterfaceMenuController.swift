@@ -71,10 +71,10 @@ class InterfaceMenuController {
 		}
 
 		menuBarUtilityMenuItem.manageState(setting: interfaceState.settingsMenubarUtilityBool) {
-			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityHide.capitalized
+			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityHide
 			menuBarUtilityMenuItem.setupImage("hide.png")
 		} off: {
-			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityShow.capitalized
+			menuBarUtilityMenuItem.title = ContentManager.SettingsLabels.menubarUtilityShow
 			menuBarUtilityMenuItem.setupImage("show.png")
 		}
 	}

@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "Dölj menyradsverktyg";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "Dölj menyradsverktyg";
+
 /* No comment provided by engineer. */
 "Hide path" = "Dölj sökväg";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "Visa menyradsverktyg";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "Visa menyradsverktyg";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Storlek";

@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "Nascondere l'utilità della barra dei menu";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "Nascondi utilità barra dei menu";
+
 /* No comment provided by engineer. */
 "Hide path" = "Nascondi percorso";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "Mostra utilità barra dei menu";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "Mostra utilità barra menu";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Grandezza";

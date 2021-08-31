@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "Menü çubuğu yardımcı programını gizle";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "Menü Çubuğu Yardımcı Programını Gizle";
+
 /* No comment provided by engineer. */
 "Hide path" = "Yolu gizle";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "Menü çubuğu yardımcı programını göster";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "Menü Çubuğu Yardımcı Programını Göster";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Boyut";

@@ -2,7 +2,7 @@
 "About" = "Über";
 
 /* The message that appears if the user declines accessibility access. */
-"Access Not Enabled" = "Zugriff nicht aktiviert";
+"Access Not Enabled" = "Zugriff nicht erlaubt";
 
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "Blende";
@@ -20,22 +20,22 @@
 "Blue" = "Blau";
 
 /* Used when calculating a property */
-"Calculating..." = "Berechnend...";
+"Calculating..." = "Berechnen...";
 
 /* Camera, Used on panel image view and movie */
 "Camera" = "Kamera";
 
 /* Used on auth instructions */
-"Check Informant" = "Informant prüfen";
+"Check Informant" = "Haken bei Informant setzen";
 
 /* Used on auth instructions */
-"Click Privacy" = "Klicken Sie auf Datenschutz";
+"Click Privacy" = "Klicke auf Datenschutz";
 
 /* Used on auth instructions */
-"Click Security & Privacy" = "Klicken Sie auf Sicherheit & Datenschutz";
+"Click Security & Privacy" = "Klicke auf Sicherheit & Datenschutz";
 
 /* No comment provided by engineer. */
-"Click the menu bar utility to copy the path." = "Klicken Sie auf das Menüleisten-Dienstprogramm, um den Pfad zu kopieren.";
+"Click the menu bar utility to copy the path." = "Klicke auf die Menüleisten-Informationen, um den Pfad zu kopieren.";
 
 /* Codecs, Used on panel movie view */
 "Codecs" = "Codecs";
@@ -53,7 +53,7 @@
 "Created" = "Erstellt";
 
 /* Dimensions, Used on panel image view and movie */
-"Dimensions" = "Dimensionen";
+"Dimensions" = "Bildgröße";
 
 /* Pick the root url used to give security access to the app. */
 "Disk Path:" = "Datenträgerpfad:";
@@ -65,13 +65,13 @@
 "Duration" = "Dauer";
 
 /* The tag string to the date modified on the panel interface */
-"Edited" = "Bearbeitete";
+"Edited" = "Bearbeitet";
 
 /* This is the label that appears after clicking the path label on the panel */
 "Expanded Path" = "Erweiterter Pfad";
 
 /* Exposure, Used on panel image view and movie */
-"Exposure" = "Exposition";
+"Exposure" = "Belichtung";
 
 /* No comment provided by engineer. */
 "Feedback" = "Feedback";
@@ -83,7 +83,7 @@
 "Focal Length" = "Brennweite";
 
 /* Open panel's grant access button label */
-"Grant Access" = "Zugriff gewähren";
+"Grant Access" = "Zugriff erlauben";
 
 /* The colour Green */
 "Green" = "Grün";
@@ -107,7 +107,10 @@
 "Hide icon" = "Symbol ausblenden";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "Dienstprogramm zum Ausblenden der Menüleiste";
+"Hide menu bar utility" = "Informationen in Menüleiste ausblenden";
+
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "Informationen in Menüleiste ausblenden";
 
 /* No comment provided by engineer. */
 "Hide path" = "Pfad ausblenden";
@@ -116,37 +119,37 @@
 "Icon:" = "Ikone:";
 
 /* Used on authorized welcome panel */
-"If the checkbox is greyed out, click the lock and enter your password." = "Wenn das Kontrollkästchen ausgegraut ist, klicken Sie auf das Schloss und geben Sie Ihr Kennwort ein.";
+"If the checkbox is greyed out, click the lock and enter your password." = "Wenn das Kontrollkästchen ausgegraut ist, klicke auf das Schloss und gib Dein Kennwort ein.";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
-"Include name of selection in path" = "Name der Auswahl in Pfad einschließen";
+"Include name of selection in path" = "Dateinamen in Pfad einschließen";
 
 /* Used on the authorize panel, it's the body string */
-"Informant needs your permission to read file metadata." = "Informant benötigt Ihre Erlaubnis, um Dateimetadaten lesen zu können.";
+"Informant needs your permission to read file metadata." = "Informant benötigt Deine Erlaubnis, um Dateimetadaten lesen zu können.";
 
 /* Singular version of items */
-"item" = "Artikel";
+"item" = "Datei";
 
 /* No comment provided by engineer. */
-"Item count" = "Artikelanzahl";
+"Item count" = "Dateianzahl";
 
 /* Items, used in the single directory selection */
-"items" = "Artikel";
+"items" = "Dateien";
 
 /* The tag string to go on a multi-selection title in the panel */
-"items selected" = "Ausgewählte Elemente";
+"items selected" = "Ausgewählte Dateien";
 
 /* This is the file's kind displayed in the panel */
 "Kind" = "Art";
 
 /* Asks the user if they want the app to launch on startup */
-"Launch Informant on system startup" = "Starten Sie Informant beim Systemstart";
+"Launch Informant on system startup" = "Bei Anmeldung öffnen";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "Dienstprogramm für die Menüleiste";
+"Menu Bar Utility" = "Informationen in Menüleiste";
 
 /* The tag string to the date modified on the panel interface */
-"Modified" = "Abgewandelt";
+"Modified" = "Geändert";
 
 /* This is the file's name displayed on the panel */
 "Name" = "Name";
@@ -176,7 +179,7 @@
 "Packages" = "Pakete";
 
 /* No comment provided by engineer. */
-"Panel" = "Gremium";
+"Panel" = "Fenster";
 
 /* This is the file's path displayed in the panel */
 "Path" = "Pfad";
@@ -185,7 +188,7 @@
 "Path Copied" = "Pfad kopiert";
 
 /* No comment provided by engineer. */
-"Pause Informant" = "Informant anhalten";
+"Pause Informant" = "Informant pausieren";
 
 /* No comment provided by engineer. */
 "Paused" = "Pausiert";
@@ -194,70 +197,73 @@
 "Preferences..." = "Einstellungen...";
 
 /* No comment provided by engineer. */
-"Privacy Policy" = "Datenschutzrichtlinie";
+"Privacy Policy" = "Datenschutz";
 
 /* Purgeable, Used on volume panel view */
-"Purgeable" = "Freisetzbar";
+"Purgeable" = "Löschbarer Speicherplatz";
 
 /* The colour Purple */
 "Purple" = "Lila";
 
 /* Quit menu item in panel menu */
-"Quit" = "Verlassen";
+"Quit" = "Beenden";
 
 /* The colour Red */
 "Red" = "Rot";
 
 /* The indicator label when dragging the panel near the snap zone */
-"Release to snap" = "Zum Einrasten freigeben";
+"Release to snap" = "Zum Einrasten loslassen";
 
 /* No comment provided by engineer. */
 "Releases" = "Auslösungen";
 
 /* No comment provided by engineer. */
-"Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "Erforderlich, um zusätzliche Metadaten und die Größe eines Verzeichnisses anzuzeigen. Wählen Sie Macintosh HD.";
+"Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "Erforderlich, um zusätzliche Metadaten und die Größe eines Ordners anzuzeigen. Wähle Macintosh HD.";
 
 /* No comment provided by engineer. */
 "Resume" = "Fortsetzen";
 
 /* No comment provided by engineer. */
-"Resume Informant" = "Lebenslauf Informant";
+"Resume Informant" = "Informant fortsetzen";
 
 /* Sample rate, Used on panel audio view */
 "Sample Rate" = "Abtastrate";
 
 /* Used on auth instructions */
-"Scroll down and click Accessibility" = "Scrollen Sie nach unten und klicken Sie auf Eingabehilfen";
+"Scroll down and click Accessibility" = "Scrolle nach unten und klicke auf Bedienungshilfen";
 
 /* Asks the user what shortcut they want to activate the panel */
-"Shortcut to activate panel" = "Verknüpfung zum Aktivieren des Bedienfelds";
+"Shortcut to activate panel" = "Tastenkürzel zum Aktivieren des Info-Fensters";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "Dienstprogramm \"Menüleiste anzeigen\"";
+"Show menu bar utility" = "Informationen in Menüleiste anzeigen";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "Informationen in Menüleiste anzeigen";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Größe";
 
 /* Asks the user if they want to prevent the app from sizing directories. */
-"Skip getting size for folders and apps" = "Überspringen der Größenergröße für Ordner und Apps";
+"Skip getting size for folders and apps" = "Größe für Ordner und Apps ausblenden";
 
 /* No comment provided by engineer. */
 "System" = "System";
 
 /* Used on tags panel view */
-"Tags" = "Schilder";
+"Tags" = "Tags";
 
 /* No comment provided by engineer. */
-"Tap to resume" = "Tippen Sie, um fortzufahren";
+"Tap to resume" = "Zum fortfahren klicken";
 
 /* Used on welcome panel */
-"To use Informant, select a file, and its size will appear in the menu bar." = "Um Informant zu verwenden, wählen Sie eine Datei aus, deren Größe in der Menüleiste angezeigt wird.";
+"To use Informant, select a file, and its size will appear in the menu bar." = "Um Informant zu verwenden, wähle eine Datei aus, deren Größe in der Menüleiste angezeigt werden soll.";
 
 /* Toggle panel menu item in panel menu */
 "Toggle Panel" = "Umschaltbedienfeld";
 
 /* Asks the user what shortcut they want to toggle the details panel */
-"Toggle panel shortcut:" = "Verknüpfung des Bedienfelds umschalten:";
+"Toggle panel shortcut:" = "Tastenkürzel zum Aktivieren des Info-Fensters:";
 
 /* Total, Used on volume panel view */
 "Total" = "Gesamt";
@@ -281,4 +287,4 @@
 "Yellow" = "Gelb";
 
 /* Used on welcome panel */
-"You're ready to use Informant!" = "Sie sind bereit, Informant zu verwenden!";
+"You're ready to use Informant!" = "Du bist bereit, Informant zu verwenden!";
