@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "إخفاء أداة شريط القوائم";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "إخفاء أداة شريط القوائم";
+
 /* No comment provided by engineer. */
 "Hide path" = "إخفاء المسار";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "إظهار أداة شريط القوائم";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "إظهار أداة شريط القوائم";
 
 /* This is the file's size displayed in the panel */
 "Size" = "حجم";

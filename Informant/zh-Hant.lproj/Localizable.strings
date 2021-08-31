@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "隱藏功能表列實用程式";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "隱藏功能表列實用程式";
+
 /* No comment provided by engineer. */
 "Hide path" = "隱藏路徑";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "顯示功能表列實用程式";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "顯示功能表列實用程式";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大小";

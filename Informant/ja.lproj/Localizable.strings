@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "メニュー バー ユーティリティを非表示にする";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "メニュー バー ユーティリティを非表示にする";
+
 /* No comment provided by engineer. */
 "Hide path" = "パスを非表示にする";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "メニュー バーユーティリティを表示する";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "メニュー バー ユーティリティを表示";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大きさ";

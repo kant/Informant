@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "메뉴 표시줄 유틸리티 숨기기";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "메뉴 바 유틸리티 숨기기";
+
 /* No comment provided by engineer. */
 "Hide path" = "경로 숨기기";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "메뉴 표시 유틸리티";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "메뉴 표시 바 유틸리티";
 
 /* This is the file's size displayed in the panel */
 "Size" = "크기";

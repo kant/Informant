@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "मेनू बार उपयोगिता छिपाएं";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "मेनू बार उपयोगिता छिपाएं";
+
 /* No comment provided by engineer. */
 "Hide path" = "रास्ता छिपाएं";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "मेनू बार उपयोगिता दिखाएं";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "मेनू बार उपयोगिता दिखाएं";
 
 /* This is the file's size displayed in the panel */
 "Size" = "आकार";

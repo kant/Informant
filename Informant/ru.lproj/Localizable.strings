@@ -109,6 +109,9 @@
 /* Asks the user if they want the menubar-utility disabled */
 "Hide menu bar utility" = "Утилита «Скрыть строку меню»";
 
+/* Asks the user if they want the menubar-utility disabled */
+"Hide Menu Bar Utility" = "Утилита «Скрыть строку меню»";
+
 /* No comment provided by engineer. */
 "Hide path" = "Скрыть контур";
 
@@ -234,6 +237,9 @@
 
 /* Asks the user if they want the menubar-utility enabled */
 "Show menu bar utility" = "Показать утилиту строки меню";
+
+/* Asks the user if they want the menubar-utility enabled */
+"Show Menu Bar Utility" = "Показать утилиту строки меню";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Размер";
