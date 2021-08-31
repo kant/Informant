@@ -167,6 +167,9 @@
 "None" = "没有";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "注意：在自动化方面，在\"线人\"下，请确保检查查找器";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "注意：确保查找器在自动化中检查";
 
 /* Used on auth instructions */

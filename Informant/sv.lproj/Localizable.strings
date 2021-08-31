@@ -167,6 +167,9 @@
 "None" = "Ingen";
 
 /* No comment provided by engineer. */
+"Note: In Automation, under Informant, make sure Finder is checked" = "Obs: I Automation, under Uppgiftslämnare, se till att Finder är markerad";
+
+/* No comment provided by engineer. */
 "Note: make sure Finder is checked in Automation" = "Kontrollera att Finder är markerat i Automation";
 
 /* Used on auth instructions */
