@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "경로 숨기기";
 
+/* No comment provided by engineer. */
+"Icon:" = "아이콘:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "확인란이 회색으로 표시됩니다.";
 
@@ -150,6 +153,9 @@
 
 /* The title displayed when the selection errors out */
 "No access" = "액세스 권한이 없습니다.";
+
+/* No comment provided by engineer. */
+"No icon" = "아이콘 없음";
 
 /* String displayed when no items are selected. */
 "No selection" = "선택 없음";

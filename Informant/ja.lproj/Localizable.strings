@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "パスを非表示にする";
 
+/* No comment provided by engineer. */
+"Icon:" = "アイコン：";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "チェックボックスがグレー表示されている場合は、ロックをクリックしてパスワードを入力します。";
 
@@ -150,6 +153,9 @@
 
 /* The title displayed when the selection errors out */
 "No access" = "アクセスなし";
+
+/* No comment provided by engineer. */
+"No icon" = "アイコンなし";
 
 /* String displayed when no items are selected. */
 "No selection" = "選択なし";

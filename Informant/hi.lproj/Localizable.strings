@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "रास्ता छिपाएं";
 
+/* No comment provided by engineer. */
+"Icon:" = "मूर्ति:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "अगर चेकबॉक्स ग्रे है तो लॉक पर क्लिक करें और अपना पासवर्ड डालें।";
 
@@ -150,6 +153,9 @@
 
 /* The title displayed when the selection errors out */
 "No access" = "कोई पहुंच नहीं";
+
+/* No comment provided by engineer. */
+"No icon" = "कोई आइकन नहीं";
 
 /* String displayed when no items are selected. */
 "No selection" = "कोई चयन नहीं";

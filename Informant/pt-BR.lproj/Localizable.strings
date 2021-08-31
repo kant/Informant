@@ -112,6 +112,9 @@
 /* No comment provided by engineer. */
 "Hide path" = "Ocultar caminho";
 
+/* No comment provided by engineer. */
+"Icon:" = "Ícone:";
+
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Se a caixa de seleção estiver acinzentada, clique no bloqueio e digite sua senha.";
 
@@ -150,6 +153,9 @@
 
 /* The title displayed when the selection errors out */
 "No access" = "Sem acesso";
+
+/* No comment provided by engineer. */
+"No icon" = "Nenhum ícone";
 
 /* String displayed when no items are selected. */
 "No selection" = "Sem seleção";
