@@ -61,4 +61,5 @@ If you've found a new problem with Informant, please [create a new issue](https:
 
 ## Contributors
 _If you don't want your name on this list you can pull request to have it removed or you can [message me on Twitter!](https://twitter.com/_tyirvine)_
+- [ephemeraleternity](https://github.com/ephemeraleternity)
 - [StevenRCE0](https://github.com/StevenRCE0)
