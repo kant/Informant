@@ -17,7 +17,7 @@
 "Available" = "可用";
 
 /* The colour Blue */
-"Blue" = "蓝";
+"Blue" = "蓝色";
 
 /* Used when calculating a property */
 "Calculating..." = "计算...";
@@ -86,7 +86,7 @@
 "Grant Access" = "授予访问权限";
 
 /* The colour Green */
-"Green" = "绿";
+"Green" = "绿色";
 
 /* The colour Gray */
 "Grey" = "灰色";
