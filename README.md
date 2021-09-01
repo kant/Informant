@@ -21,7 +21,7 @@
 
 <!--  downloads  -->
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/tyirvine/Informant/total">
-  
+
 <!-- license -->
 <img src="https://img.shields.io/github/license/tyirvine/Informant"/>
 
@@ -58,3 +58,7 @@ If you've found a new problem with Informant, please [create a new issue](https:
 
 * What were you trying to do? What happened? And what did you expect to happen?
 * What are some steps we can take to try and reproduce the issue?
+
+## Contributors
+_If you don't want your name on this list you can pull request to have it removed or you can [message me on Twitter!](https://twitter.com/_tyirvine)_
+- [StevenRCE0](https://github.com/StevenRCE0)
