@@ -12,7 +12,7 @@ struct PanelAlert: View {
 	let icon: String
 	let label: String
 
-	init(icon: String = "􀉁", label: String = ContentManager.Extra.popUpCopied) {
+	init(icon: String = ContentManager.Icons.panelAlertCopied, label: String = ContentManager.Extra.popUpCopied) {
 		self.icon = icon
 		self.label = label
 	}
@@ -22,9 +22,8 @@ struct PanelAlert: View {
 
 			Spacer()
 
-			Text(icon)
-				.PanelAlertFont(43)
-				.baselineOffset(5)
+			Image(systemName: icon)
+				.font(.system(size: 42, weight: .medium, design: .rounded))
 
 			Spacer()
 				.frame(height: 10.0)

@@ -259,6 +259,8 @@ class ContentManager {
 
 		static let panelCloud = "cloud"
 
+		static let panelAlertCopied = "doc.on.doc"
+
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
