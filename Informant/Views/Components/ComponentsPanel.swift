@@ -55,7 +55,7 @@ struct ComponentsPanelErrorFrame: View {
 	let action: (() -> Void)?
 	let buttonLabel: String?
 
-	internal init(icon: String? = nil, iconSize: CGFloat = Style.Font.h1_Size, label: String? = nil, padding: CGFloat = 6, spacing: CGFloat = 5, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
+	internal init(icon: String? = nil, iconSize: CGFloat = 16, label: String? = nil, padding: CGFloat = 6, spacing: CGFloat = 5, buttonLabel: String? = nil, action: (() -> Void)? = nil) {
 		self.icon = icon
 		self.iconSize = iconSize
 		self.label = label
@@ -70,7 +70,7 @@ struct ComponentsPanelErrorFrame: View {
 		VStack(alignment: .center, spacing: spacing) {
 
 			if let icon = icon {
-				Text(icon)
+				Image(systemName: icon)
 					.font(.system(size: iconSize))
 					.opacity(Style.Text.opacity)
 			}
