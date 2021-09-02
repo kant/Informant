@@ -37,7 +37,8 @@ struct AuthAccessibilityView: View {
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionSecurity, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionPrivacy, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionScrollAndClick, color: .blue)
-				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionCheckInformant, color: .blue, arrow: false)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionCheckInformant, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionRestartInformant, color: .purple, arrow: false)
 			}
 
 			// TODO: This can be left in
@@ -46,7 +47,7 @@ struct AuthAccessibilityView: View {
 			// Automation check
 			SecurityGuidanceBox(
 				label: ContentManager.WelcomeLabels.authorizedInstructionAutomationCheckFinder,
-				color: .purple,
+				color: .gray,
 				arrow: false
 			)
 			.padding([.top], 16)
@@ -67,7 +68,7 @@ struct AuthAccessibilityView: View {
 			.opacity(0.5)
 		}
 		.padding([.horizontal, .bottom], Style.Padding.welcomeWindow)
-		.frame(width: 325)
+		.frame(width: 350)
 	}
 }
 

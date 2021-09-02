@@ -165,16 +165,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 
+//		#warning("Remove from production: Remove")
+//		privacyAccessibilityWindowController.open()
+
 		// MARK: - Welcome Window Init
 
 		// Check if this is the first app execution after install
-		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
+		if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow), let isProcessTrusted = interfaceState.privacyAccessibilityEnabled {
 
 			welcomeWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])
 
-			// Setup the welcome window
-			if let welcomeWindow = welcomeWindow {
+			// Setup the welcome window if accessibility is enabled
+			if let welcomeWindow = welcomeWindow, isProcessTrusted {
 				welcomeWindowController = IFWindowController(welcomeWindow, WelcomeView(interfaceState: interfaceState))
+				welcomeWindowController.open()
+
+				// Write that the first run after install has been acknowledged
+				UserDefaults.standard.setValue(false, forKey: .keyShowWelcomeWindow)
 			}
 		}
 
@@ -264,23 +271,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 
 			// Check to see if accessibility controls are enabled in sys. prefs.
-			let isProcessTrusted = AXIsProcessTrusted()
-
-			// Accessibility controls were just enabled
-			if isProcessTrusted {
-				self.privacyAccessibilityWindowController.close()
-
-				// Check if it's the first app run after install
-				if UserDefaults.standard.bool(forKey: .keyShowWelcomeWindow) {
-					self.welcomeWindowController.open()
-
-					// Write that the first run after install has been acknowledged
-					UserDefaults.standard.setValue(false, forKey: .keyShowWelcomeWindow)
-				}
+			if AXIsProcessTrusted() == false {
+				self.interfaceState.privacyAccessibilityEnabled = false
+				self.statusBarController?.updateInterfaces()
 			}
-
-			self.interfaceState.privacyAccessibilityEnabled = isProcessTrusted
-			self.statusBarController?.updateInterfaces()
 		}
 	}
 
