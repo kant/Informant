@@ -378,7 +378,7 @@ struct ComponentsPanelItemStack<Content: View>: View {
 protocol ComponentsPanelItemProtocol {
 	var label: String? { get set }
 	var value: String? { get set }
-	var lineLimit: Int { get set }
+	var lineLimit: Int? { get set }
 }
 
 /// The standard full panel item → (Size ⮐ 482KB)
@@ -386,9 +386,9 @@ struct ComponentsPanelItemField: View, ComponentsPanelItemProtocol {
 
 	var label: String?
 	var value: String?
-	var lineLimit: Int
+	var lineLimit: Int?
 
-	internal init(label: String? = nil, value: String? = nil, lineLimit: Int = 1) {
+	internal init(label: String? = nil, value: String? = nil, lineLimit: Int? = 1) {
 		self.label = label
 		self.value = value
 		self.lineLimit = lineLimit
@@ -408,6 +408,7 @@ struct ComponentsPanelItemField: View, ComponentsPanelItemProtocol {
 					if value != nil {
 						Text(value!).H2()
 							.lineLimit(lineLimit)
+							.lineSpacing(2.0)
 					}
 				}
 			}
@@ -420,13 +421,13 @@ struct ComponentsPanelItemPathField: View, ComponentsPanelItemProtocol {
 
 	var label: String?
 	var value: String?
-	var lineLimit: Int
+	var lineLimit: Int?
 
 	/// Simplifies keeping track of the settings state
 	/* @ObservedObject private var settings: SettingsData */
 
 	/// Replace the tilde with our own in the case that it does have a tilde
-	internal init(label: String?, value: String?, lineLimit: Int = 1) {
+	internal init(label: String?, value: String?, lineLimit: Int? = 1) {
 		self.label = label
 		self.value = value
 		self.lineLimit = lineLimit

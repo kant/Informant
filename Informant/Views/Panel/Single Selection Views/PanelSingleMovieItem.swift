@@ -20,7 +20,7 @@ struct PanelSingleMovieItem: View {
 
 			// Codecs & Duration
 			ComponentsPanelItemStack(firstValue: selection?.codecs, secondValue: selection?.duration) {
-				ComponentsPanelItemField(label: ContentManager.Labels.panelCodecs, value: selection?.codecs)
+				ComponentsPanelItemField(label: ContentManager.Labels.panelCodecs, value: selection?.codecs, lineLimit: nil)
 			} secondItem: {
 				ComponentsPanelItemField(label: ContentManager.Labels.panelDuration, value: selection?.duration)
 			}
