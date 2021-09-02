@@ -42,7 +42,6 @@ struct AuthAccessibilityView: View {
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionRestartInformant, color: .purple, arrow: false)
 			}
 
-			// TODO: This can be left in
 			Spacer().frame(height: Style.Padding.welcomeWindow)
 
 			// Lock description
