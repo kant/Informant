@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "प्रतिपुष्टि";
 
+/* Used when finding a property */
+"Finding..." = "खोज।।।";
+
 /* Used when calculating a property has come to end */
 "Finished" = "समाप्त";
 
@@ -120,6 +123,9 @@
 
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "अगर चेकबॉक्स ग्रे है तो लॉक पर क्लिक करें और अपना पासवर्ड डालें।";
+
+/* No comment provided by engineer. */
+"In Automation, under Informant, make sure Finder is checked" = "स्वचालन में, मुखबिर के तहत, सुनिश्चित करें कि खोजक की जांच की जाती है";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "पथ में चयन का नाम शामिल करें";
@@ -210,6 +216,9 @@
 
 /* Quit menu item in panel menu */
 "Quit" = "छोड़ना";
+
+/* No comment provided by engineer. */
+"Quit Informant and reopen it" = "मुखबिर छोड़ो और इसे फिर से खोलना";
 
 /* The colour Red */
 "Red" = "लाल";

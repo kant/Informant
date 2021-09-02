@@ -10,7 +10,7 @@ import SwiftUI
 struct PanelAuthErrorItem: View {
 	var body: some View {
 		ComponentsPanelErrorFrame(
-			icon: "􀎣",
+			icon: ContentManager.Icons.panelLockSlash,
 			label: ContentManager.Labels.panelUnauthorized,
 			padding: 20,
 			spacing: 6,

@@ -68,7 +68,9 @@ class ContentManager {
 
 		static let authorizedInstructionCheckInformant = NSLocalizedString("Check Informant", comment: "Used on auth instructions")
 
-		static let authorizedInstructionAutomationCheckFinder = NSLocalizedString("Note: In Automation, under Informant, make sure Finder is checked", comment: "")
+		static let authorizedInstructionRestartInformant = NSLocalizedString("Quit Informant and reopen it", comment: "")
+
+		static let authorizedInstructionAutomationCheckFinder = NSLocalizedString("In Automation, under Informant, make sure Finder is checked", comment: "")
 
 		// Auth. Padlock tidbit
 		static let authorizedInstructionClickLock = NSLocalizedString("If the checkbox is greyed out, click the lock and enter your password.", comment: "Used on authorized welcome panel")
@@ -160,6 +162,8 @@ class ContentManager {
 
 		static let calculating = NSLocalizedString("Calculating...", comment: "Used when calculating a property")
 
+		static let finding = NSLocalizedString("Finding...", comment: "Used when finding a property")
+
 		static let finished = NSLocalizedString("Finished", comment: "Used when calculating a property has come to end")
 	}
 
@@ -245,13 +249,34 @@ class ContentManager {
 	// MARK: - Icons
 	public enum Icons {
 
+		// Universal
+		static let rightArrowIcon = "arrow.right"
+
+		static let downArrowIcon = "arrow.down"
+
+		// Panel
+		static let panelHidden = "eye.slash"
+
+		static let panelCloud = "cloud"
+
+		static let panelAlertCopied = "doc.on.doc"
+
+		static let panelLockSlash = "lock.slash.fill"
+
+		static let panelNoAccess = "minus.circle"
+
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
 
-		static let panelPathIcon = "􀤂"
+		static let panelPathIcon = "externaldrive"
 
-		static let panelCopyIcon = "􀐅"
+		static let panelCopyIcon = "square.on.square"
+
+		// Auth.
+		static let authLockIcon = "lock.fill"
+
+		static let authUnlockIcon = "lock.open.fill"
 
 		/// The image size of the icon. This is scaled up so the icon looks better scaled down
 		static let panelHeaderIconSize = NSSize(width: 128, height: 128)

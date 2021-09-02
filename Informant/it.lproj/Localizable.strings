@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Valutazione";
 
+/* Used when finding a property */
+"Finding..." = "Risultato...";
+
 /* Used when calculating a property has come to end */
 "Finished" = "Finito";
 
@@ -120,6 +123,9 @@
 
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "Se la casella di controllo è disattivata, fare clic sul blocco e immettere la password.";
+
+/* No comment provided by engineer. */
+"In Automation, under Informant, make sure Finder is checked" = "In Automazione, in Informatore, assicurati che il Finder sia controllato";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "Includi nome della selezione nel percorso";
@@ -210,6 +216,9 @@
 
 /* Quit menu item in panel menu */
 "Quit" = "Dimettersi";
+
+/* No comment provided by engineer. */
+"Quit Informant and reopen it" = "Esci da Informant e riaprilo";
 
 /* The colour Red */
 "Red" = "Rosso";

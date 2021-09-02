@@ -5,40 +5,40 @@
 "Access Not Enabled" = "未启用访问";
 
 /* Aperture, Used on panel image view and movie */
-"Aperture" = "孔径";
+"Aperture" = "光圈";
 
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "授权";
 
 /* Used on authorization welcome screen */
-"Authorize Informant" = "授权信息员";
+"Authorize Informant" = "授权 Informant";
 
 /* Available, Used on panel volume view */
 "Available" = "可用";
 
 /* The colour Blue */
-"Blue" = "蓝";
+"Blue" = "蓝色";
 
 /* Used when calculating a property */
-"Calculating..." = "计算。。。";
+"Calculating..." = "计算...";
 
 /* Camera, Used on panel image view and movie */
-"Camera" = "照相机";
+"Camera" = "相机";
 
 /* Used on auth instructions */
-"Check Informant" = "检查线人";
+"Check Informant" = "勾选 Informant";
 
 /* Used on auth instructions */
-"Click Privacy" = "单击隐私";
+"Click Privacy" = "单击\"隐私\"";
 
 /* Used on auth instructions */
 "Click Security & Privacy" = "单击\"安全与隐私\"";
 
 /* No comment provided by engineer. */
-"Click the menu bar utility to copy the path." = "单击菜单栏实用程序以复制路径。";
+"Click the menu bar utility to copy the path." = "单击菜单栏工具以复制路径。";
 
 /* Codecs, Used on panel movie view */
-"Codecs" = "编 解码 器";
+"Codecs" = "解码器";
 
 /* Color Profile, Used on panel image view and movie */
 "Color Profile" = "颜色配置文件";
@@ -47,34 +47,37 @@
 "Contains" = "包含";
 
 /* Used on the copied popup */
-"Copied" = "复制";
+"Copied" = "已复制";
 
 /* This is the file's creation date displayed in the panel */
-"Created" = "创建";
+"Created" = "创建于";
 
 /* Dimensions, Used on panel image view and movie */
 "Dimensions" = "尺寸";
 
 /* Pick the root url used to give security access to the app. */
-"Disk Path:" = "磁盘路径：";
+"Disk Path:" = "磁盘路径:";
 
 /* Shortcut label for displaying panel */
 "Display detail panel" = "显示详细信息面板";
 
 /* Duration, Used on panel movie & audio view */
-"Duration" = "期间";
+"Duration" = "时长";
 
 /* The tag string to the date modified on the panel interface */
-"Edited" = "编辑";
+"Edited" = "编辑于";
 
 /* This is the label that appears after clicking the path label on the panel */
 "Expanded Path" = "扩展路径";
 
 /* Exposure, Used on panel image view and movie */
-"Exposure" = "暴露";
+"Exposure" = "曝光时间";
 
 /* No comment provided by engineer. */
 "Feedback" = "反馈";
+
+/* Used when finding a property */
+"Finding..." = "发现...";
 
 /* Used when calculating a property has come to end */
 "Finished" = "完成";
@@ -86,7 +89,7 @@
 "Grant Access" = "授予访问权限";
 
 /* The colour Green */
-"Green" = "绿";
+"Green" = "绿色";
 
 /* The colour Gray */
 "Grey" = "灰色";
@@ -98,7 +101,7 @@
 "Hidden" = "隐藏";
 
 /* No comment provided by engineer. */
-"Hide date created" = "创建的隐藏日期";
+"Hide date created" = "隐藏创建日期";
 
 /* No comment provided by engineer. */
 "Hide full name" = "隐藏全名";
@@ -107,25 +110,28 @@
 "Hide icon" = "隐藏图标";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "隐藏菜单栏实用程序";
+"Hide menu bar utility" = "隐藏菜单栏工具";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide Menu Bar Utility" = "隐藏菜单栏实用程序";
+"Hide Menu Bar Utility" = "隐藏菜单栏工具";
 
 /* No comment provided by engineer. */
 "Hide path" = "隐藏路径";
 
 /* No comment provided by engineer. */
-"Icon:" = "图标：";
+"Icon:" = "图标:";
 
 /* Used on authorized welcome panel */
-"If the checkbox is greyed out, click the lock and enter your password." = "如果复选框变灰，请单击锁并输入密码。";
+"If the checkbox is greyed out, click the lock and enter your password." = "如果复选框不可用，请单击解锁并输入密码。";
+
+/* No comment provided by engineer. */
+"In Automation, under Informant, make sure Finder is checked" = "在自动化中，在\"线人\"下，确保检查查找器";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
-"Include name of selection in path" = "在路径中包括选择名称";
+"Include name of selection in path" = "在路径中包括选定项目的名称";
 
 /* Used on the authorize panel, it's the body string */
-"Informant needs your permission to read file metadata." = "线人需要您的许可才能读取文件元数据。";
+"Informant needs your permission to read file metadata." = "Informant 需要您的许可才能读取文件元数据。";
 
 /* Singular version of items */
 "item" = "项目";
@@ -140,16 +146,16 @@
 "items selected" = "选定的项目";
 
 /* This is the file's kind displayed in the panel */
-"Kind" = "类";
+"Kind" = "种类";
 
 /* Asks the user if they want the app to launch on startup */
-"Launch Informant on system startup" = "系统启动的启动信息员";
+"Launch Informant on system startup" = "在开机时启动 Informant";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "菜单栏实用程序";
+"Menu Bar Utility" = "菜单栏工具";
 
 /* The tag string to the date modified on the panel interface */
-"Modified" = "改 性";
+"Modified" = "修改于";
 
 /* This is the file's name displayed on the panel */
 "Name" = "名字";
@@ -161,22 +167,22 @@
 "No icon" = "无图标";
 
 /* String displayed when no items are selected. */
-"No selection" = "无选择";
+"No selection" = "未选择";
 
 /* No comment provided by engineer. */
 "None" = "没有";
 
 /* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "注意：在自动化方面，在\"线人\"下，请确保检查查找器";
+"Note: In Automation, under Informant, make sure Finder is checked" = "注意: 请确认勾选在\"自动化\"选项中，Informant 下面的 Finder 选项";
 
 /* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "注意：确保查找器在自动化中检查";
+"Note: make sure Finder is checked in Automation" = "注意: 请确认勾选\"自动化\"选项中的 Finder";
 
 /* Used on auth instructions */
-"Open System Preferences" = "开放系统首选项";
+"Open System Preferences" = "打开系统偏好设置";
 
 /* The colour Orange */
-"Orange" = "橙";
+"Orange" = "橙色";
 
 /* No comment provided by engineer. */
 "Packages" = "包";
@@ -188,16 +194,16 @@
 "Path" = "路径";
 
 /* Used on the copied popup */
-"Path Copied" = "路径复制";
+"Path Copied" = "路径已复制";
 
 /* No comment provided by engineer. */
-"Pause Informant" = "暂停通知人";
+"Pause Informant" = "暂停 Informant";
 
 /* No comment provided by engineer. */
-"Paused" = "暂停";
+"Paused" = "已暂停";
 
 /* Preferences menu item in panel menu */
-"Preferences..." = "偏好。。。";
+"Preferences..." = "偏好设置...";
 
 /* No comment provided by engineer. */
 "Privacy Policy" = "隐私策略";
@@ -211,26 +217,29 @@
 /* Quit menu item in panel menu */
 "Quit" = "退出";
 
+/* No comment provided by engineer. */
+"Quit Informant and reopen it" = "退出通知并重新打开它";
+
 /* The colour Red */
-"Red" = "红";
+"Red" = "红色";
 
 /* The indicator label when dragging the panel near the snap zone */
-"Release to snap" = "发布以捕捉";
+"Release to snap" = "释放来贴齐";
 
 /* No comment provided by engineer. */
-"Releases" = "释放";
+"Releases" = "发布";
 
 /* No comment provided by engineer. */
-"Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "需要显示额外的元数据和目录的大小。选择麦金托什高清。";
+"Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "需要用以显示额外的元数据和目录大小。选择 Macintosh HD。";
 
 /* No comment provided by engineer. */
 "Resume" = "恢复";
 
 /* No comment provided by engineer. */
-"Resume Informant" = "恢复信息员";
+"Resume Informant" = "恢复 Informant";
 
 /* Sample rate, Used on panel audio view */
-"Sample Rate" = "抽样率";
+"Sample Rate" = "采样率";
 
 /* Used on auth instructions */
 "Scroll down and click Accessibility" = "向下滚动并单击\"辅助功能\"";
@@ -239,10 +248,10 @@
 "Shortcut to activate panel" = "激活面板的快捷方式";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "显示菜单栏实用程序";
+"Show menu bar utility" = "显示菜单栏工具";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show Menu Bar Utility" = "显示菜单栏实用程序";
+"Show Menu Bar Utility" = "显示菜单栏工具";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大小";
@@ -260,25 +269,25 @@
 "Tap to resume" = "点击以恢复";
 
 /* Used on welcome panel */
-"To use Informant, select a file, and its size will appear in the menu bar." = "要使用信息员，请选择文件，其大小将显示在菜单栏中。";
+"To use Informant, select a file, and its size will appear in the menu bar." = "要使用 Informant，请选择文件，然后其大小将显示在菜单栏中。";
 
 /* Toggle panel menu item in panel menu */
 "Toggle Panel" = "切换面板";
 
 /* Asks the user what shortcut they want to toggle the details panel */
-"Toggle panel shortcut:" = "切换面板快捷方式：";
+"Toggle panel shortcut:" = "切换面板的快捷方式:";
 
 /* Total, Used on volume panel view */
-"Total" = "总";
+"Total" = "总计";
 
 /* The tag string under the title of the multi-selection panel */
-"Total Size:" = "总尺寸：";
+"Total Size:" = "总大小:";
 
 /* Used on panel when accessibility api is disabled */
-"Unauthorized" = "未经 授权";
+"Unauthorized" = "未经授权";
 
 /* Used when calculating a property but it's not there */
-"Unavailable" = "不能利用的";
+"Unavailable" = "不可用";
 
 /* Version, Used on panel application view */
 "Version" = "版本";
@@ -290,4 +299,4 @@
 "Yellow" = "黄色";
 
 /* Used on welcome panel */
-"You're ready to use Informant!" = "你已经准备好使用信息员了！";
+"You're ready to use Informant!" = "你已经准备好使用 Informant 了！";

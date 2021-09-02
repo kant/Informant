@@ -5,6 +5,7 @@
 //  Created by Ty Irvine on 2021-06-04.
 //
 
+import AVFoundation
 import Foundation
 
 class SelectionHelper {
@@ -25,15 +26,15 @@ class SelectionHelper {
 	public enum State {
 
 		case Unavailable
-		case Calculating
+		case Finding
 		case StopCalculating
 
 		var localized: String {
 			switch self {
 				case .Unavailable:
 					return ContentManager.State.unavailable
-				case .Calculating:
-					return ContentManager.State.calculating
+				case .Finding:
+					return ContentManager.State.finding
 				case .StopCalculating:
 					return ContentManager.State.finished
 			}
@@ -72,6 +73,25 @@ class SelectionHelper {
 		}
 
 		return nil
+	}
+
+	// MARK: - Metadata Methods
+
+	/// Grabs videos resolution/dimensions using AVFoundation as opposed to kMDItemPixel...
+	static func getMovieDimensions(url: URL) -> String? {
+		guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaType.video).first else { return nil }
+		let size = track.naturalSize.applying(track.preferredTransform)
+
+		var width = size.width
+		var height = size.height
+
+		width.round(.towardZero)
+		height.round(.towardZero)
+
+		let widthRounded = Int(width)
+		let heightRounded = Int(height)
+
+		return SelectionHelper.formatDimensions(x: widthRounded, y: heightRounded)
 	}
 
 	// MARK: - Sizing Methods
@@ -163,7 +183,7 @@ class SelectionHelper {
 			else if isDirectory == true {
 
 				// Let the users know we're calculating
-				updateInterfacesForSize(bytes: nil, state: .Calculating)
+				updateInterfacesForSize(bytes: nil, state: .Finding)
 
 				// Check to make sure there are no work items on the queue
 				if appDelegate.workQueue.count >= 1 {

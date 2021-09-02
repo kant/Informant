@@ -80,6 +80,7 @@ class MenubarUtilityHelper {
 		// State values
 		var isiCloudSyncFile: Bool?
 		var isDirectory: Bool?
+		var selectionType: CFString?
 		
 		// Placeholder values to collect details
 		var size: String = ""
@@ -109,8 +110,16 @@ class MenubarUtilityHelper {
 		// Confirm that we want to see size
 		if interfaceState.settingsMenubarShowSize {
 			
-			// Format string prior to use
-			size = sizeAsString
+			// Filter out unavailable and calculating messages
+			if sizeAsString == SelectionHelper.State.Finding.localized {
+				size = "Finding"
+			}
+			else if sizeAsString == SelectionHelper.State.Unavailable.localized {
+				size = ""
+			}
+			else {
+				size = sizeAsString
+			}
 		}
 		
 		// MARK: - Collect Additional URL Resources
@@ -119,6 +128,7 @@ class MenubarUtilityHelper {
 			.localizedTypeDescriptionKey,
 			.isUbiquitousItemKey,
 			.isDirectoryKey,
+			.typeIdentifierKey,
 		]
 			
 		// Get URL resources
@@ -132,6 +142,20 @@ class MenubarUtilityHelper {
 			// Needed to get # of items in directory
 			isiCloudSyncFile = resources.isUbiquitousItem
 			isDirectory = resources.isDirectory
+			
+			// Find the type of the selection
+			let uti = resources.typeIdentifier! as CFString
+			
+			let types = [
+				kUTTypeImage,
+				kUTTypeMovie,
+			]
+			
+			for type in types {
+				if UTTypeConformsTo(uti, type) {
+					selectionType = type
+				}
+			}
 		}
 		
 		// MARK: Duration & Dimensions & Codecs
@@ -145,6 +169,38 @@ class MenubarUtilityHelper {
 				kMDItemCodecs!,
 			]
 			
+			// Collect data based on type
+			switch selectionType {
+				
+				case kUTTypeImage:
+					
+					// Get basic metadata
+					let metadata = SelectionHelper.getURLImageMetadata(url)
+					
+					// Get the dimensions
+					if interfaceState.settingsMenubarShowDimensions,
+					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight])
+					{
+						dimensions = dimensionsUnwrapped
+					}
+					
+					break
+				
+				case kUTTypeMovie:
+					// Collect dimensions
+					if interfaceState.settingsMenubarShowDimensions,
+					   let dimensionsUnwrapped = SelectionHelper.getMovieDimensions(url: url)
+					{
+						dimensions = dimensionsUnwrapped
+					}
+					
+					break
+					
+				default:
+					break
+			}
+			
+			// TODO: clean this up
 			// Get URL metadata
 			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
 			
@@ -156,7 +212,8 @@ class MenubarUtilityHelper {
 				}
 					
 				// Collect dimensions
-				if interfaceState.settingsMenubarShowDimensions,
+				if dimensions.isEmpty,
+				   interfaceState.settingsMenubarShowDimensions,
 				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
 				{
 					dimensions = dimensionsUnwrapped

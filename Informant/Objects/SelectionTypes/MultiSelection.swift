@@ -45,7 +45,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		itemSize = 0
 		
 		// Tell the user we're starting to calculate
-		itemSizeAsString = SelectionHelper.State.Calculating.localized
+		itemSizeAsString = SelectionHelper.State.Finding.localized
 		
 		// Async request file size
 		asyncRetrieveSizeOfURLS(URL.convertPathsToURLs(urls))

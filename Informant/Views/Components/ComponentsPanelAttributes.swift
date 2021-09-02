@@ -23,12 +23,12 @@ struct ComponentsPanelAttributes: View, PanelProtocol {
 
 			// Hidden file
 			if selection?.isHidden == true {
-				ComponentsAttribute(icon: "􀋯", label: ContentManager.Labels.panelHidden)
+				ComponentsAttribute(icon: ContentManager.Icons.panelHidden, label: ContentManager.Labels.panelHidden)
 			}
 
 			// iCloud Container
 			if selection?.isiCloudSyncFile == true {
-				ComponentsAttribute(icon: "􀇂", label: "iCloud", iconSize: 12)
+				ComponentsAttribute(icon: ContentManager.Icons.panelCloud, label: "iCloud", iconSize: 11.5)
 			}
 		}
 	}
@@ -39,14 +39,15 @@ struct ComponentsAttribute: View {
 
 	var icon: String
 	var label: String
-	var iconSize: CGFloat = 11
+	var iconSize: CGFloat = 10.5
 
 	var body: some View {
-		HStack(alignment: .center, spacing: 3.5) {
+		HStack(alignment: .lastTextBaseline, spacing: 3.5) {
 
 			// Icon
-			Text(icon)
-				.PanelTagFont(size: iconSize)
+			Image(systemName: icon)
+				.font(.system(size: iconSize, weight: .semibold))
+				.padding([.trailing], 1)
 
 			// Label
 			Text(label)
