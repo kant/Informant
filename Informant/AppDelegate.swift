@@ -165,9 +165,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 
-		#warning("Remove from production: Remove")
-		privacyAccessibilityWindowController.open()
-
 		// MARK: - Welcome Window Init
 
 		// Check if this is the first app execution after install

@@ -647,8 +647,8 @@ struct ComponentsPanelPathButton: View {
 				Spacer()
 				VStack(alignment: .trailing, spacing: nil) {
 
-					Text(ContentManager.Icons.panelCopyIcon)
-						.PanelPadIconFont()
+					Image(systemName: ContentManager.Icons.panelCopyIcon)
+						.font(.system(size: 13.5, weight: .semibold, design: .rounded))
 						.opacity(hovering ? 0.3 : 0)
 						.padding(8.0)
 

@@ -255,6 +255,10 @@ class ContentManager {
 		static let downArrowIcon = "arrow.down"
 
 		// Panel
+		static let panelHidden = "eye.slash"
+
+		static let panelCloud = "cloud"
+
 		static let panelHideButton = "xmark"
 
 		static let panelPreferencesButton = "gear"
