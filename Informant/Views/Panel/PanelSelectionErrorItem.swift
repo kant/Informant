@@ -12,9 +12,9 @@ struct PanelSelectionErrorItem: View {
 	var body: some View {
 		ComponentsPanelReducedFrame {
 			HStack(spacing: 8) {
-				
-				Text("􀁎")
-					.font(.system(size: 16))
+
+				Image(systemName: ContentManager.Icons.panelNoAccess)
+					.font(.system(size: 15, weight: .semibold))
 
 				Text(ContentManager.Titles.panelErrorTitle)
 					.H1()
