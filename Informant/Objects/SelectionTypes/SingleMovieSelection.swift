@@ -47,7 +47,7 @@ class SingleMovieSelection: SingleSelection {
 			}
 
 			// Dimensions
-			if let dimensions = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight]) {
+			if let dimensions = SelectionHelper.getMovieDimensions(url: url) {
 				self.dimensions = dimensions
 			}
 		}

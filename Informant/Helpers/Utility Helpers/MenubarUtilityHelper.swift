@@ -80,7 +80,7 @@ class MenubarUtilityHelper {
 		// State values
 		var isiCloudSyncFile: Bool?
 		var isDirectory: Bool?
-		var isImage: Bool?
+		var selectionType: CFString?
 		
 		// Placeholder values to collect details
 		var size: String = ""
@@ -135,11 +135,18 @@ class MenubarUtilityHelper {
 			isiCloudSyncFile = resources.isUbiquitousItem
 			isDirectory = resources.isDirectory
 			
-			// See if the selection is an image
+			// Find the type of the selection
 			let uti = resources.typeIdentifier! as CFString
 			
-			if UTTypeConformsTo(uti, kUTTypeImage) {
-				isImage = true
+			let types = [
+				kUTTypeImage,
+				kUTTypeMovie,
+			]
+			
+			for type in types {
+				if UTTypeConformsTo(uti, type) {
+					selectionType = type
+				}
 			}
 		}
 		
@@ -154,8 +161,40 @@ class MenubarUtilityHelper {
 				kMDItemCodecs!,
 			]
 			
+			// Collect data based on type
+			switch selectionType {
+				
+				case kUTTypeImage:
+					
+					// Get basic metadata
+					let metadata = SelectionHelper.getURLImageMetadata(url)
+					
+					// Get the dimensions
+					if interfaceState.settingsMenubarShowDimensions,
+					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight])
+					{
+						dimensions = dimensionsUnwrapped
+					}
+					
+					break
+				
+				case kUTTypeMovie:
+					// Collect dimensions
+					if interfaceState.settingsMenubarShowDimensions,
+					   let dimensionsUnwrapped = SelectionHelper.getMovieDimensions(url: url)
+					{
+						dimensions = dimensionsUnwrapped
+					}
+					
+					break
+					
+				default:
+					break
+			}
+			
+			// TODO: clean this up
 			// Get URL metadata
-			if isImage != true, let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
+			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
 			
 				// Collect duration
 				if interfaceState.settingsMenubarShowDuration,
@@ -165,7 +204,8 @@ class MenubarUtilityHelper {
 				}
 					
 				// Collect dimensions
-				if interfaceState.settingsMenubarShowDimensions,
+				if dimensions.isEmpty,
+				   interfaceState.settingsMenubarShowDimensions,
 				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
 				{
 					dimensions = dimensionsUnwrapped
@@ -174,20 +214,6 @@ class MenubarUtilityHelper {
 				// Collect Codecs
 				if interfaceState.settingsMenubarShowCodecs, let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
 					codecs = codecUnwrapped.joined(separator: ", ")
-				}
-			}
-			
-			// Get image metadata instead
-			else if isImage == true {
-				
-				// Get basic metadata
-				let metadata = SelectionHelper.getURLImageMetadata(url)
-				
-				// Get the dimensions
-				if interfaceState.settingsMenubarShowDimensions,
-				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight])
-				{
-					dimensions = dimensionsUnwrapped
 				}
 			}
 		}
