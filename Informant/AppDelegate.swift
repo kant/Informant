@@ -165,8 +165,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 
-//		#warning("Remove from production: Remove")
-//		privacyAccessibilityWindowController.open()
+		#warning("Remove from production: Remove")
+		privacyAccessibilityWindowController.open()
 
 		// MARK: - Welcome Window Init
 

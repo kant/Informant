@@ -38,20 +38,12 @@ struct AuthAccessibilityView: View {
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionPrivacy, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionScrollAndClick, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionCheckInformant, color: .blue)
+				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionAutomationCheckFinder, color: .blue)
 				SecurityGuidanceBox(label: ContentManager.WelcomeLabels.authorizedInstructionRestartInformant, color: .purple, arrow: false)
 			}
 
 			// TODO: This can be left in
-			/* Spacer().frame(height: Style.Padding.welcomeWindow) */
-
-			// Automation check
-			SecurityGuidanceBox(
-				label: ContentManager.WelcomeLabels.authorizedInstructionAutomationCheckFinder,
-				color: .gray,
-				arrow: false
-			)
-			.padding([.top], 16)
-			.padding([.bottom], 10)
+			Spacer().frame(height: Style.Padding.welcomeWindow)
 
 			// Lock description
 			VStack(spacing: 10) {
@@ -60,10 +52,15 @@ struct AuthAccessibilityView: View {
 					.Body(size: 13, weight: .medium)
 
 				HStack {
-					Text("􀎡").Body(weight: .medium)
-					Text("→").Body(weight: .medium).opacity(0.65)
-					Text("􀎥").Body(weight: .medium)
+					Image(systemName: ContentManager.Icons.authLockIcon)
+						.font(.system(size: 13, weight: .semibold))
+					Image(systemName: ContentManager.Icons.rightArrowIcon)
+						.font(.system(size: 11, weight: .bold))
+						.opacity(0.7)
+					Image(systemName: ContentManager.Icons.authUnlockIcon)
+						.font(.system(size: 13, weight: .semibold))
 				}
+				.opacity(0.85)
 			}
 			.opacity(0.5)
 		}
@@ -113,10 +110,10 @@ struct SecurityGuidanceBox: View {
 
 			// Arrow
 			if arrow {
-				Text("↓")
-					.font(.system(size: 14))
-					.fontWeight(.bold)
+				Image(systemName: ContentManager.Icons.downArrowIcon)
+					.font(.system(size: 12, weight: .bold, design: .rounded))
 					.opacity(0.15)
+					.padding([.vertical], 2)
 			}
 		}
 	}
