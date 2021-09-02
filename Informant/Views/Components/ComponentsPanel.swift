@@ -242,7 +242,7 @@ struct ComponentsPanelItemUnavailable<Content: View>: View {
 	var body: some View {
 
 		// Content is being calculated
-		if value == SelectionHelper.State.Calculating.localized {
+		if value == SelectionHelper.State.Finding.localized {
 			content
 				.lineLimit(lineLimit)
 				.opacity(Style.Text.darkOpacity)

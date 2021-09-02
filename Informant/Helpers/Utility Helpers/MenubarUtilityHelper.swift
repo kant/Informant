@@ -110,8 +110,16 @@ class MenubarUtilityHelper {
 		// Confirm that we want to see size
 		if interfaceState.settingsMenubarShowSize {
 			
-			// Format string prior to use
-			size = sizeAsString
+			// Filter out unavailable and calculating messages
+			if sizeAsString == SelectionHelper.State.Finding.localized {
+				size = "Finding"
+			}
+			else if sizeAsString == SelectionHelper.State.Unavailable.localized {
+				size = ""
+			}
+			else {
+				size = sizeAsString
+			}
 		}
 		
 		// MARK: - Collect Additional URL Resources

@@ -160,6 +160,8 @@ class ContentManager {
 
 		static let calculating = NSLocalizedString("Calculating...", comment: "Used when calculating a property")
 
+		static let finding = NSLocalizedString("Finding...", comment: "Used when finding a property")
+
 		static let finished = NSLocalizedString("Finished", comment: "Used when calculating a property has come to end")
 	}
 

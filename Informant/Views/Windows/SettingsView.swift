@@ -47,7 +47,8 @@ struct SettingsView: View {
 
 			Spacer()
 		}
-		.padding([.vertical], 10)
+		.padding([.top], 10)
+		.padding([.bottom], 20)
 		.edgesIgnoringSafeArea(.all)
 	}
 }

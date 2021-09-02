@@ -26,15 +26,15 @@ class SelectionHelper {
 	public enum State {
 
 		case Unavailable
-		case Calculating
+		case Finding
 		case StopCalculating
 
 		var localized: String {
 			switch self {
 				case .Unavailable:
 					return ContentManager.State.unavailable
-				case .Calculating:
-					return ContentManager.State.calculating
+				case .Finding:
+					return ContentManager.State.finding
 				case .StopCalculating:
 					return ContentManager.State.finished
 			}
@@ -183,7 +183,7 @@ class SelectionHelper {
 			else if isDirectory == true {
 
 				// Let the users know we're calculating
-				updateInterfacesForSize(bytes: nil, state: .Calculating)
+				updateInterfacesForSize(bytes: nil, state: .Finding)
 
 				// Check to make sure there are no work items on the queue
 				if appDelegate.workQueue.count >= 1 {
