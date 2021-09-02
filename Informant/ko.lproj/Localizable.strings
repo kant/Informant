@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "피드백";
 
+/* Used when finding a property */
+"Finding..." = "찾는...";
+
 /* Used when calculating a property has come to end */
 "Finished" = "완료";
 
@@ -120,6 +123,9 @@
 
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "확인란이 회색으로 표시됩니다.";
+
+/* No comment provided by engineer. */
+"In Automation, under Informant, make sure Finder is checked" = "자동화에서 제보자의 경우 Finder를 검사해야 합니다.";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "경로에 선택 이름 포함";
@@ -210,6 +216,9 @@
 
 /* Quit menu item in panel menu */
 "Quit" = "사임하다";
+
+/* No comment provided by engineer. */
+"Quit Informant and reopen it" = "제보자를 그만두고 다시 열다";
 
 /* The colour Red */
 "Red" = "빨강";

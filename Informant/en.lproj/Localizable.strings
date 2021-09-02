@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Feedback";
 
+/* Used when finding a property */
+"Finding..." = "Finding...";
+
 /* Used when calculating a property has come to end */
 "Finished" = "Finished";
 
@@ -120,6 +123,9 @@
 
 /* Used on authorized welcome panel */
 "If the checkbox is greyed out, click the lock and enter your password." = "If the checkbox is greyed out, click the lock and enter your password.";
+
+/* No comment provided by engineer. */
+"In Automation, under Informant, make sure Finder is checked" = "In Automation, under Informant, make sure Finder is checked";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "Include name of selection in path";
@@ -210,6 +216,9 @@
 
 /* Quit menu item in panel menu */
 "Quit" = "Quit";
+
+/* No comment provided by engineer. */
+"Quit Informant and reopen it" = "Quit Informant and reopen it";
 
 /* The colour Red */
 "Red" = "Red";
