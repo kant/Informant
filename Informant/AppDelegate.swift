@@ -251,6 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		let foundBundleID = String(describing: notification.userInfo?["NSWorkspaceApplicationKey"])
 
+		// Grab Informant's app bundle id - com.tyirvine.Informant
 		guard let appBundleID = NSRunningApplication.current.bundleIdentifier else {
 			return
 		}
@@ -260,6 +261,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 			// Check if settings is open
 			if settingsWindow.isVisible == false {
+
+				// If a window is visible then break execution of this fn.
+				for window in NSApp.windows {
+					if window.isKind(of: NSIFWindow.self), window.isVisible {
+						print(window)
+						return
+					}
+				}
+
 				settingsWindowController.open()
 			}
 		}
