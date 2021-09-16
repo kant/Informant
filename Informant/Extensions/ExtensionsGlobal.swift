@@ -59,10 +59,15 @@ extension String {
 	/// Translates HFS path to POSIX path.
 	/// [Check this out for more info](https://en.wikibooks.org/wiki/AppleScript_Programming/Aliases_and_paths).
 	func posixPathFromHFSPath() -> String? {
-		guard let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, self as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
+
+		#warning("This could get changed in the future: 'Volumes'")
+		guard let fileCFURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, ("Volumes:" + self) as CFString?, CFURLPathStyle(rawValue: 1)!, hasSuffix(":")) else {
 			return nil
 		}
-		return (fileURL as URL).path
+
+		let fileURL = fileCFURL as URL
+
+		return fileURL.path
 	}
 }
 
@@ -221,10 +226,17 @@ extension View {
 public extension FileManager {
 	/// Grabs the /Users/username/ directory
 	var getRealHomeDirectory: String? {
-		if let home = getpwuid(getuid()).pointee.pw_dir {
-			return string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+
+		let home = FileManager.default.homeDirectoryForCurrentUser.path
+
+		guard let volumeName = FileManager.default.componentsToDisplay(forPath: home)?.first else {
+			return nil
 		}
-		return nil
+
+		#warning("This could get changed in the future: 'Volumes'")
+		let url = "/Volumes/\(volumeName)\(home)"
+
+		return url
 	}
 }
 
