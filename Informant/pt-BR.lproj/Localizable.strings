@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Realimentação";
 
+/* No comment provided by engineer. */
+"Finding" = "Achado";
+
 /* Used when finding a property */
 "Finding..." = "Achado...";
 

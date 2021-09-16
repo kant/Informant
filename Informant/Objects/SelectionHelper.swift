@@ -150,19 +150,20 @@ class SelectionHelper {
 			.isApplicationKey,
 			.totalFileSizeKey,
 			.isUbiquitousItemKey,
+			.isVolumeKey,
 		]
 
 		// Get the url resources
 		let itemResources = SelectionHelper.getURLResources(url, keys)
 
-		// Unwrap the isDirectory value
 		let isDirectory = itemResources?.isDirectory
 
-		// Unwrap the isUbiquitousItem value
+		let isVolume = itemResources?.isVolume
+
 		let isiCloudSyncFile = itemResources?.isUbiquitousItem
 
 		// Check if the current selection is a directory and if we should skip directories
-		if isDirectory == true, appDelegate.interfaceState.settingsPanelSkipDirectories {
+		if (isDirectory == true && appDelegate.interfaceState.settingsPanelSkipDirectories) || isVolume == true {
 			return updateInterfacesForSize(bytes: nil, state: nil)
 		}
 

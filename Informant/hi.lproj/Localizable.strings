@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "प्रतिपुष्टि";
 
+/* No comment provided by engineer. */
+"Finding" = "खोज";
+
 /* Used when finding a property */
 "Finding..." = "खोज।।।";
 

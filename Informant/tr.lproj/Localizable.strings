@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Geri besleme";
 
+/* No comment provided by engineer. */
+"Finding" = "Bulma";
+
 /* Used when finding a property */
 "Finding..." = "Bulma...";
 

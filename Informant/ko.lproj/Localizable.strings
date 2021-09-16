@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "피드백";
 
+/* No comment provided by engineer. */
+"Finding" = "찾는";
+
 /* Used when finding a property */
 "Finding..." = "찾는...";
 

@@ -112,7 +112,7 @@ class MenubarUtilityHelper {
 			
 			// Filter out unavailable and calculating messages
 			if sizeAsString == SelectionHelper.State.Finding.localized {
-				size = "Finding"
+				size = ContentManager.State.findingNoPeriods
 			}
 			else if sizeAsString == SelectionHelper.State.Unavailable.localized {
 				size = ""

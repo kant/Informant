@@ -164,6 +164,8 @@ class ContentManager {
 
 		static let finding = NSLocalizedString("Finding...", comment: "Used when finding a property")
 
+		static let findingNoPeriods = NSLocalizedString("Finding", comment: "")
+
 		static let finished = NSLocalizedString("Finished", comment: "Used when calculating a property has come to end")
 	}
 

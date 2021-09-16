@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Retroalimentación";
 
+/* No comment provided by engineer. */
+"Finding" = "Hallazgo";
+
 /* Used when finding a property */
 "Finding..." = "Hallazgo...";
 

@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "フィードバック";
 
+/* No comment provided by engineer. */
+"Finding" = "発見";
+
 /* Used when finding a property */
 "Finding..." = "発見。。。";
 

@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Обратная связь";
 
+/* No comment provided by engineer. */
+"Finding" = "Обнаружение";
+
 /* Used when finding a property */
 "Finding..." = "Обнаружение...";
 

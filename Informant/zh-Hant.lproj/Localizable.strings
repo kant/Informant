@@ -76,6 +76,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "反饋";
 
+/* No comment provided by engineer. */
+"Finding" = "發現";
+
 /* Used when finding a property */
 "Finding..." = "發現。。。";
 
