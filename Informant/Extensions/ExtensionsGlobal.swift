@@ -11,6 +11,13 @@ import SwiftUI
 // MARK: - Extensions
 // Use this file for storing any sort of extensions to classes.
 
+// MARK: - Colors
+
+extension Color {
+
+	static let settingsPanelBacking = Color("settingsPanelBacking")
+}
+
 // MARK: - Strings
 
 extension String {

@@ -14,6 +14,8 @@ struct SettingsView: View {
 
 	let appDelegate: AppDelegate!
 
+	let settingsPanelCornerRadius: CGFloat = 10.0
+
 	@ObservedObject var interfaceState: InterfaceState
 
 	init() {
@@ -35,20 +37,37 @@ struct SettingsView: View {
 					.frame(minWidth: 270)
 					.fixedSize()
 
-				// Divider
-				Divider()
-					.padding(.vertical, 10)
-
 				// Right side
-				SettingsRightSideView(interfaceState: interfaceState)
-					.padding([.horizontal], 45)
-					.padding(.bottom, 4)
+				ScrollView(.vertical, showsIndicators: true, content: {
+					SettingsRightSideView(interfaceState: interfaceState)
+						.padding([.trailing], 45)
+						.padding([.leading], 28)
+						.padding([.top], 18)
+						.padding([.bottom], 25)
+				})
+
+					// Clips the content to fit in the scroll view
+					.clipped()
+
+					// The padding below offsets the stroke so aligned outside the view, not in the centre
+					.background(
+						RoundedRectangle(cornerRadius: settingsPanelCornerRadius)
+							.fill(Color.settingsPanelBacking)
+					)
+					.padding([.all], 0.5)
+					.overlay(
+						RoundedRectangle(cornerRadius: settingsPanelCornerRadius)
+							.stroke(Color.gray)
+							.opacity(0.4)
+					)
+
+					// Additional alignment
+					.padding([.trailing], 24)
 			}
 
 			Spacer()
 		}
-		.padding([.top], 10)
-		.padding([.bottom], 20)
+		.padding([.vertical], 15)
 		.edgesIgnoringSafeArea(.all)
 	}
 }
