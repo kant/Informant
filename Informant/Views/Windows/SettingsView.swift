@@ -40,9 +40,9 @@ struct SettingsView: View {
 				// Right side
 				ScrollView(.vertical, showsIndicators: true, content: {
 					SettingsRightSideView(interfaceState: interfaceState)
-						.padding([.trailing], 45)
-						.padding([.leading], 28)
-						.padding([.top], 18)
+						.padding([.trailing], 55)
+						.padding([.leading], 35)
+						.padding([.top], 20)
 						.padding([.bottom], 25)
 				})
 
