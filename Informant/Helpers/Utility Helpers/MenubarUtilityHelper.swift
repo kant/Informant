@@ -77,18 +77,36 @@ class MenubarUtilityHelper {
 			return
 		}
 		
-		// State values
-		var isiCloudSyncFile: Bool?
-		var isDirectory: Bool?
-		var selectionType: CFString?
-		
-		// Placeholder values to collect details
+		// General
 		var size: String = ""
 		var kind: String = ""
+		var items: String = ""
+		var created: String = ""
+		var modified: String = ""
+		var version: String = ""
+		
+		// Media
 		var dimensions: String = ""
 		var duration: String = ""
 		var codecs: String = ""
-		var items: String = ""
+		var colorProfile: String = ""
+		var videoBitrate: String = ""
+		
+		// Audio
+		var sampleRate: String = ""
+		var audioBitrate: String = ""
+		
+		// Volume
+		var volumeTotal: String = ""
+		var volumeAvailable: String = ""
+		var volumePurgeable: String = ""
+		
+		// Images
+		var aperture: String = ""
+		var iso: String = ""
+		var focalLength: String = ""
+		var camera: String = ""
+		var exposure: String = ""
 		
 		// MARK: - Verify & Format Size
 		
@@ -122,116 +140,24 @@ class MenubarUtilityHelper {
 			}
 		}
 		
-		// MARK: - Collect Additional URL Resources
+		// MARK: - Collect URL Resources
 		
-		let resourceKeys: Set<URLResourceKey> = [
-			.localizedTypeDescriptionKey,
-			.isUbiquitousItemKey,
-			.isDirectoryKey,
-			.typeIdentifierKey,
-		]
-			
-		// Get URL resources
-		if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
-			
-			// MARK: Kind
-			if let kindUnwrapped = resources.localizedTypeDescription, interfaceState.settingsMenubarShowKind {
-				kind = kindUnwrapped
-			}
-			
-			// Needed to get # of items in directory
-			isiCloudSyncFile = resources.isUbiquitousItem
-			isDirectory = resources.isDirectory
-			
-			// Find the type of the selection
-			let uti = resources.typeIdentifier! as CFString
-			
-			let types = [
-				kUTTypeImage,
-				kUTTypeMovie,
-			]
-			
-			for type in types {
-				if UTTypeConformsTo(uti, type) {
-					selectionType = type
-				}
-			}
-		}
+		let selection = SelectionHelper.pickSingleSelectionType([url.path])
 		
-		// MARK: Duration & Dimensions & Codecs
-		// Collect the duration if it's permitted
-		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
-			
-			let metadataKeys: NSArray = [
-				kMDItemDurationSeconds!,
-				kMDItemPixelWidth!,
-				kMDItemPixelHeight!,
-				kMDItemCodecs!,
-			]
-			
-			// Collect data based on type
-			switch selectionType {
+		// Assign values based on the type
+		switch selection?.selectionType {
+			case .Application:
 				
-				case kUTTypeImage:
-					
-					// Get basic metadata
-					let metadata = SelectionHelper.getURLImageMetadata(url)
-					
-					// Get the dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight])
-					{
-						dimensions = dimensionsUnwrapped
-					}
-					
-					break
 				
-				case kUTTypeMovie:
-					// Collect dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.getMovieDimensions(url: url)
-					{
-						dimensions = dimensionsUnwrapped
-					}
-					
-					break
-					
-				default:
-					break
-			}
-			
-			// TODO: clean this up
-			// Get URL metadata
-			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
-			
-				// Collect duration
-				if interfaceState.settingsMenubarShowDuration,
-				   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
-				{
-					duration = durationUnwrapped
-				}
-					
-				// Collect dimensions
-				if dimensions.isEmpty,
-				   interfaceState.settingsMenubarShowDimensions,
-				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
-				{
-					dimensions = dimensionsUnwrapped
-				}
-		
-				// Collect Codecs
-				if interfaceState.settingsMenubarShowCodecs, let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
-					codecs = codecUnwrapped.joined(separator: ", ")
-				}
-			}
+				
+				break
+				
+			default:
+				break
 		}
 		
-		// MARK: Item Count
-		if interfaceState.settingsMenubarShowItems, isiCloudSyncFile != true, isDirectory == true {
-			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
-				items = SelectionHelper.formatDirectoryItemCount(itemCount)
-			}
-		}
+		// Cast as a single selection
+		let general = selection as! SingleSelection
 		
 		// MARK: - Assemble Final View For Util.
 		
