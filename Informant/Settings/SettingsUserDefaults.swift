@@ -17,10 +17,32 @@ extension AppDelegate {
 			// Menubar
 			.keyMenubarShowSize: true,
 			.keyMenubarShowKind: false,
+			.keyMenubarShowCreated: false,
+			.keyMenubarShowModified: false,
+			
 			.keyMenubarShowDuration: false,
 			.keyMenubarShowDimensions: false,
 			.keyMenubarShowCodecs: false,
+			.keyMenubarShowColorProfile: false,
+			.keyMenubarShowVideoBitrate: false,
+			
 			.keyMenubarShowItems: false,
+			
+			.keyMenubarShowVersion: false,
+			
+			.keyMenubarShowSampleRate: false,
+			.keyMenubarShowAudioBitrate: false,
+			
+			.keyMenubarShowVolumeTotal: false,
+			.keyMenubarShowVolumeAvailable: false,
+			.keyMenubarShowVolumePurgeable: false,
+			
+			.keyMenubarShowAperture: false,
+			.keyMenubarShowISO: false,
+			.keyMenubarShowFocalLength: false,
+			.keyMenubarShowCamera: false,
+			.keyMenubarShowShutterSpeed: false,
+			
 			.keyMenubarIcon: ContentManager.MenubarIcons.menubarDefault,
 			
 			// Panel
@@ -51,17 +73,58 @@ public extension String {
 	
 	static let keyPauseApp = "pauseApp"
 	
+	// MARK: - Menu Bar Settings
+	
+	// General
 	static let keyMenubarShowSize = "menubarShowSize"
 	
 	static let keyMenubarShowKind = "menubarShowKind"
 	
+	static let keyMenubarShowCreated = "menubarShowCreated"
+	
+	static let keyMenubarShowModified = "menubarShowModified"
+	
+	// Media
 	static let keyMenubarShowDuration = "menubarShowDuration"
 	
 	static let keyMenubarShowDimensions = "menubarShowDimensions"
 	
 	static let keyMenubarShowCodecs = "menubarShowCodecs"
 	
+	static let keyMenubarShowColorProfile = "menubarShowColorProfile"
+	
+	static let keyMenubarShowVideoBitrate = "menubarShowVideoBitrate"
+	
+	// Directory
 	static let keyMenubarShowItems = "menubarShowItems"
+	
+	// Application
+	static let keyMenubarShowVersion = "menubarShowVersion"
+	
+	// Audio
+	static let keyMenubarShowSampleRate = "menubarShowSampleRate"
+	
+	static let keyMenubarShowAudioBitrate = "menubarShowAudioBitrate"
+	
+	// Volume
+	static let keyMenubarShowVolumeTotal = "menubarShowVolumeTotal"
+	
+	static let keyMenubarShowVolumeAvailable = "menubarShowAvailable"
+	
+	static let keyMenubarShowVolumePurgeable = "menubarShowVolumePurgeable"
+	
+	// Images
+	static let keyMenubarShowAperture = "menubarShowAperture"
+	
+	static let keyMenubarShowISO = "menubarShowISO"
+	
+	static let keyMenubarShowFocalLength = "menubarShowFocalLength"
+	
+	static let keyMenubarShowCamera = "menubarShowCamera"
+	
+	static let keyMenubarShowShutterSpeed = "menubarShowShutterSpeed"
+	
+	// MARK: - System Settings
 	
 	static let keyMenubarIcon = "menubarIcon"
 	

@@ -77,36 +77,41 @@ class MenubarUtilityHelper {
 			return
 		}
 		
+		// TODO: I know this isn't the best solution and this could use some work
 		// General
-		var size: String = ""
-		var kind: String = ""
-		var items: String = ""
-		var created: String = ""
-		var modified: String = ""
-		var version: String = ""
+		var size: String?
+		var kind: String?
+		var created: String?
+		var modified: String?
+		
+		// Directory
+		var items: String?
+		
+		// Application
+		var version: String?
 		
 		// Media
-		var dimensions: String = ""
-		var duration: String = ""
-		var codecs: String = ""
-		var colorProfile: String = ""
-		var videoBitrate: String = ""
+		var dimensions: String?
+		var duration: String?
+		var codecs: String?
+		var colorProfile: String?
+		var videoBitrate: String?
 		
 		// Audio
-		var sampleRate: String = ""
-		var audioBitrate: String = ""
+		var sampleRate: String?
+		var audioBitrate: String?
 		
 		// Volume
-		var volumeTotal: String = ""
-		var volumeAvailable: String = ""
-		var volumePurgeable: String = ""
+		var volumeTotal: String?
+		var volumeAvailable: String?
+		var volumePurgeable: String?
 		
 		// Images
-		var aperture: String = ""
-		var iso: String = ""
-		var focalLength: String = ""
-		var camera: String = ""
-		var exposure: String = ""
+		var aperture: String?
+		var iso: String?
+		var focalLength: String?
+		var camera: String?
+		var shutterSpeed: String?
 		
 		// MARK: - Verify & Format Size
 		
@@ -142,27 +147,181 @@ class MenubarUtilityHelper {
 		
 		// MARK: - Collect URL Resources
 		
+		print(url.path)
 		let selection = SelectionHelper.pickSingleSelectionType([url.path])
 		
-		// Assign values based on the type
+		// TODO: I know this is horrible and each setting should be checked in the properties loop instead but I didn't have much time to build this.
+		// Assign values based on the type and whether they're wanted by the user.
 		switch selection?.selectionType {
+			
 			case .Application:
+				let cast = selection as? SingleApplicationSelection
 				
-				
-				
+				if interfaceState.settingsMenubarShowVersion {
+					version = cast?.version
+				}
 				break
 				
+			case .Audio:
+				let cast = selection as? SingleAudioSelection
+				
+				if interfaceState.settingsMenubarShowDuration {
+					duration = cast?.duration
+				}
+				
+				if interfaceState.settingsMenubarShowSampleRate {
+					sampleRate = cast?.sampleRate
+				}
+				
+				if interfaceState.settingsMenubarShowAudioBitrate {
+//				audioBitrate
+				}
+				break
+				
+			case .Image:
+				let cast = selection as? SingleImageSelection
+				
+				if interfaceState.settingsMenubarShowDimensions {
+					dimensions = cast?.dimensions
+				}
+				
+				if interfaceState.settingsMenubarShowColorProfile {
+					colorProfile = cast?.colorProfile
+				}
+
+				if interfaceState.settingsMenubarShowAperture {
+					aperture = cast?.aperture
+				}
+				
+				if interfaceState.settingsMenubarShowISO {
+					iso = cast?.iso
+				}
+				
+				if interfaceState.settingsMenubarShowFocalLength {
+					focalLength = cast?.focalLength
+				}
+				
+				if interfaceState.settingsMenubarShowCamera {
+					camera = cast?.camera
+				}
+				
+				if interfaceState.settingsMenubarShowShutterSpeed {
+					shutterSpeed = cast?.shutterSpeed
+				}
+				break
+				
+			case .Movie:
+				let cast = selection as? SingleMovieSelection
+				
+				if interfaceState.settingsMenubarShowDimensions {
+					dimensions = cast?.dimensions
+				}
+				
+				if interfaceState.settingsMenubarShowDuration {
+					duration = cast?.duration
+				}
+				
+				if interfaceState.settingsMenubarShowCodecs {
+					codecs = cast?.codecs
+				}
+				
+				if interfaceState.settingsMenubarShowColorProfile {
+					colorProfile = cast?.colorProfile
+				}
+				
+				if interfaceState.settingsMenubarShowVideoBitrate {
+					//				videoBitrate
+				}
+				
+				if interfaceState.settingsMenubarShowAudioBitrate {
+					//				audioBitrate
+				}
+				break
+				
+			case .Volume:
+				let cast = selection as? SingleVolumeSelection
+				
+				if interfaceState.settingsMenubarShowVolumeTotal {
+					volumeTotal = cast?.totalCapacity
+				}
+				
+				if interfaceState.settingsMenubarShowVolumeAvailable {
+					volumeAvailable = cast?.availableCapacity
+				}
+				
+				if interfaceState.settingsMenubarShowVolumePurgeable {
+					volumePurgeable = cast?.purgeableCapacity
+				}
+				break
+			
+			case .Directory:
+				let cast = selection as? SingleDirectorySelection
+				
+				if interfaceState.settingsMenubarShowItems {
+					items = cast?.itemCount
+				}
+				break
+			
 			default:
 				break
 		}
 		
 		// Cast as a single selection
-		let general = selection as! SingleSelection
+		let general = selection as? SingleSelection
+		
+		if interfaceState.settingsMenubarShowKind {
+			kind = general?.itemKind
+		}
+		
+		if interfaceState.settingsMenubarShowCreated {
+			created = general?.itemDateCreatedAsString
+		}
+
+		if interfaceState.settingsMenubarShowModified {
+			modified = general?.itemDateModifiedAsString
+		}
 		
 		// MARK: - Assemble Final View For Util.
 		
+		// TODO: Find a cleaner approach to this
 		// Collect all values
-		let properties = [size, items, kind, dimensions, duration, codecs]
+		let properties = [
+		
+			// General
+			size,
+			kind,
+			created,
+			modified,
+			
+			// Directory
+			items,
+			
+			// Application
+			version,
+			
+			// Media
+			dimensions,
+			duration,
+			codecs,
+			colorProfile,
+			videoBitrate,
+			
+			// Audio
+			sampleRate,
+			audioBitrate,
+			
+			// Volume
+			volumeTotal,
+			volumeAvailable,
+			volumePurgeable,
+			
+			// Images
+			aperture,
+			iso,
+			focalLength,
+			camera,
+			shutterSpeed,
+		]
 		
 		// Prepare the formatted string for the view
 		let formattedString = formatProperties(properties)
@@ -215,7 +374,7 @@ class MenubarUtilityHelper {
 	}
 	
 	/// Formats a collected property. Adds spaces and dividers when a value is present, otherwise it returns a blank string
-	static func formatProperties(_ props: [String]) -> String {
+	static func formatProperties(_ props: [String?]) -> String {
 		
 		var finalString: String = ""
 		
@@ -225,14 +384,19 @@ class MenubarUtilityHelper {
 		let properties = props.filter { $0 != "" }
 		
 		// If only one property is present then don't loop through
-		if properties.count == 1 {
-			finalString.append("\(properties[0] + finalStringSpacing)")
+		if properties.count == 1, let onlyProperty = properties[0] {
+			finalString.append("\(onlyProperty + finalStringSpacing)")
 		}
 		
 		// Otherwise cycle all the properties to build the final string
 		else {
 			
 			for (index, property) in properties.enumerated() {
+				
+				// Nil check all the properties
+				guard let property = property else {
+					continue
+				}
 			
 				switch index {
 				
