@@ -13,10 +13,10 @@ class SingleVolumeSelection: SingleSelection {
 	var availableCapacity: String?
 	var purgeableCapacity: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Volume) {
+	required init(_ urls: [String], selection: SelectionType = .Volume, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Get basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		let keys: Set<URLResourceKey> = [
 			.volumeTotalCapacityKey,

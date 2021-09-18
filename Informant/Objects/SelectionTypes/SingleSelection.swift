@@ -47,7 +47,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	let appDelegate: AppDelegate
 
 	/// Establishes a single selection foundation and then picks out a type
-	required init(_ urls: [String], selection: SelectionType = .Single) {
+	required init(_ urls: [String], selection: SelectionType = .Single, parameters: [SelectionParameters] = [.grabSize]) {
 
 		appDelegate = AppDelegate.current()
 
@@ -89,7 +89,9 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		itemResources = SelectionHelper.getURLResources(url, keys)
 
 		// Grab size
-		SelectionHelper.grabSize(url, panelSelection: self)
+		if parameters.contains(.grabSize) {
+			SelectionHelper.grabSize(url, panelSelection: self)
+		}
 
 		// MARK: - Fill in fields
 		if let resources = itemResources {

@@ -51,15 +51,7 @@ class MenubarUtilityHelper {
 			// Get URL
 			let url = URL(fileURLWithPath: selection[0])
 			
-			// Initiate check for size if wanted
-			if appDelegate.interfaceState.settingsMenubarShowSize == true {
-				SelectionHelper.grabSize(url)
-			}
-			
-			// Otherwise still update the menu bar interface
-			else {
-				updateMenubarInterface(url: url)
-			}
+			updateMenubarInterface(url: url)
 		}
 	}
 	
@@ -69,8 +61,17 @@ class MenubarUtilityHelper {
 		// Get a reference to the appdelegate
 		let appDelegate = AppDelegate.current()
 		
-		let selection = SelectionHelper.pickSingleSelectionType([url.path])
+		// Figure out which parameters to include in the selection based on user settings
+		var parameters: [SelectionParameters] = []
 		
+		if appDelegate.interfaceState.settingsMenubarShowSize {
+			parameters.append(.grabSize)
+		}
+		
+		// Find the selection with the desired parameters
+		let selection = SelectionHelper.pickSingleSelectionType([url.path], parameters: parameters)
+		
+		// Formats the menubar's interface as a string and updates interface data held in memory
 		appDelegate.menubarInterfaceSelection = selection
 		appDelegate.menubarInterface = gatherMetadataForMenubar(selection: selection)
 		

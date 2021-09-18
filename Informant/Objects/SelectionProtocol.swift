@@ -21,5 +21,9 @@ protocol SelectionProtocol: SelectionHelper {
 	/// The size of the item as a string
 	var itemSizeAsString: String? { get set }
 
-	init(_ urls: [String], selection: SelectionType)
+	init(_ urls: [String], selection: SelectionType, parameters: [SelectionParameters])
+}
+
+enum SelectionParameters {
+	case grabSize
 }

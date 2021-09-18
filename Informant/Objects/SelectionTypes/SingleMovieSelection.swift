@@ -14,10 +14,10 @@ class SingleMovieSelection: SingleSelection {
 	var colorProfile: String?
 	var dimensions: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Movie) {
+	required init(_ urls: [String], selection: SelectionType = .Movie, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Initialize basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		// These are the values we want to acccess
 		let keys: NSArray = [

@@ -27,7 +27,7 @@ class MultiSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	var cache = Cache()
 	
 	/// Fills the data in for intention to be used in a multi-select interface
-	required init(_ urls: [String], selection: SelectionType = .Multi) {
+	required init(_ urls: [String], selection: SelectionType = .Multi, parameters: [SelectionParameters] = [.grabSize]) {
 		
 		selectionType = selection
 		

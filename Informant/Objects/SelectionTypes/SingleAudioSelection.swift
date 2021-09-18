@@ -13,10 +13,10 @@ class SingleAudioSelection: SingleSelection {
 	var duration: String?
 	var sampleRate: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Audio) {
+	required init(_ urls: [String], selection: SelectionType = .Audio, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Intialize the basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		// Metadata we want to collect
 		let keys: NSArray = [

@@ -379,7 +379,7 @@ class SelectionHelper {
 	}
 
 	/// Determines the type of content the selection is and returns the appropriate object
-	static func pickSingleSelectionType(_ urls: [String]) -> SelectionProtocol? {
+	static func pickSingleSelectionType(_ urls: [String], parameters: [SelectionParameters] = [.grabSize]) -> SelectionProtocol? {
 
 		let url = URL(fileURLWithPath: urls[0])
 
@@ -418,19 +418,19 @@ class SelectionHelper {
 			// Now that we have the uti, let's match it to the object we want to initialize
 			switch selectionType {
 
-				case kUTTypeImage: return SingleImageSelection(urls)
+				case kUTTypeImage: return SingleImageSelection(urls, parameters: parameters)
 
-				case kUTTypeMovie: return SingleMovieSelection(urls)
+				case kUTTypeMovie: return SingleMovieSelection(urls, parameters: parameters)
 
-				case kUTTypeAudio: return SingleAudioSelection(urls)
+				case kUTTypeAudio: return SingleAudioSelection(urls, parameters: parameters)
 
-				case kUTTypeDirectory: return SingleDirectorySelection(urls)
+				case kUTTypeDirectory: return SingleDirectorySelection(urls, parameters: parameters)
 
-				case kUTTypeApplication: return SingleApplicationSelection(urls)
+				case kUTTypeApplication: return SingleApplicationSelection(urls, parameters: parameters)
 
-				case kUTTypeVolume: return SingleVolumeSelection(urls)
+				case kUTTypeVolume: return SingleVolumeSelection(urls, parameters: parameters)
 
-				default: return SingleSelection(urls)
+				default: return SingleSelection(urls, parameters: parameters)
 			}
 		}
 

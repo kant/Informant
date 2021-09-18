@@ -11,10 +11,10 @@ class SingleApplicationSelection: SingleSelection {
 
 	var version: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Application) {
+	required init(_ urls: [String], selection: SelectionType = .Application, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Get basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		// Metadata keys we want
 		let keys: NSArray = [
