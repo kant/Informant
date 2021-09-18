@@ -11,9 +11,6 @@ import SwiftUI
 /// This is just a collection of static functions to help with manipulating the menubar utility
 class MenubarUtilityHelper {
 	
-	/// Contains the size of the selection
-	static var sizeAsString: String = ""
-	
 	/// Establishes reference to the status item we want to use
 	static let statusItem = AppDelegate.current().panelStatusItem
 	
@@ -36,7 +33,7 @@ class MenubarUtilityHelper {
 		
 		// Duplicate selection found
 		else if force == false, checkedSelection.state == .duplicateSelection, let paths = checkedSelection.selection.paths {
-			return updateMenubarInterface(newSize: sizeAsString, url: URL(fileURLWithPath: paths[0]))
+			return updateMenubarInterface(url: URL(fileURLWithPath: paths[0]))
 		}
 		
 		// Unique selection found
@@ -67,14 +64,28 @@ class MenubarUtilityHelper {
 	}
 	
 	/// Updates the status item
-	static func updateMenubarInterface(newSize: String? = nil, url: URL) {
+	static func updateMenubarInterface(url: URL) {
+		
+		// Get a reference to the appdelegate
+		let appDelegate = AppDelegate.current()
+		
+		let selection = SelectionHelper.pickSingleSelectionType([url.path])
+		
+		appDelegate.menubarInterfaceSelection = selection
+		appDelegate.menubarInterface = gatherMetadataForMenubar(selection: selection)
+		
+		updateAndDisplayMenubarInterface()
+	}
+	
+	/// Gathers all metadata needed for the menu bar
+	static func gatherMetadataForMenubar(selection: SelectionProtocol?) -> String? {
 		
 		// Get a reference to the appdelegate
 		let appDelegate = AppDelegate.current()
 		
 		// Get a reference to settings
 		guard let interfaceState = appDelegate.interfaceState else {
-			return
+			return nil
 		}
 		
 		// TODO: I know this isn't the best solution and this could use some work
@@ -117,38 +128,25 @@ class MenubarUtilityHelper {
 		
 		// Check to make sure the menu bar utility isn't disabled
 		if interfaceState.settingsMenubarUtilityBool == false {
-			return
+			return nil
 		}
 
-		// Change the size as string if needed
-		if let size = newSize {
-			sizeAsString = size
-		}
-		
-		// Otherwise empty out the interface
-		else {
-			sizeAsString = ""
-		}
-		
 		// Confirm that we want to see size
 		if interfaceState.settingsMenubarShowSize {
 			
 			// Filter out unavailable and calculating messages
-			if sizeAsString == SelectionHelper.State.Finding.localized {
+			if selection?.itemSizeAsString == SelectionHelper.State.Finding.localized {
 				size = ContentManager.State.findingNoPeriods
 			}
-			else if sizeAsString == SelectionHelper.State.Unavailable.localized {
+			else if selection?.itemSizeAsString == SelectionHelper.State.Unavailable.localized {
 				size = ""
 			}
 			else {
-				size = sizeAsString
+				size = selection?.itemSizeAsString
 			}
 		}
 		
 		// MARK: - Collect URL Resources
-		
-		print(url.path)
-		let selection = SelectionHelper.pickSingleSelectionType([url.path])
 		
 		// TODO: I know this is horrible and each setting should be checked in the properties loop instead but I didn't have much time to build this.
 		// Assign values based on the type and whether they're wanted by the user.
@@ -324,7 +322,19 @@ class MenubarUtilityHelper {
 		]
 		
 		// Prepare the formatted string for the view
-		let formattedString = formatProperties(properties)
+		return formatProperties(properties)
+	}
+	
+	/// Simply updates the interface without updating the data
+	static func updateAndDisplayMenubarInterface() {
+		
+		let appDelegate = AppDelegate.current()
+		let selection = appDelegate.menubarInterfaceSelection
+		
+		// Prepare the formatted string for the view
+		guard let formattedString = gatherMetadataForMenubar(selection: selection) else {
+			return
+		}
 		
 		// Get formatted fonts ready
 		let font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
@@ -352,12 +362,15 @@ class MenubarUtilityHelper {
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
 		
+		let appDelegate = AppDelegate.current()
+		
 		shouldMenubarUtilityAppearDisabled()
 		
 		statusItem?.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
-			sizeAsString = ""
+			appDelegate.menubarInterface = ""
+			appDelegate.menubarInterfaceSelection = nil
 		}
 	}
 	

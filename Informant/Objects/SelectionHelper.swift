@@ -112,6 +112,8 @@ class SelectionHelper {
 	/// Threads are started but cannot be stopped. The only thing that we can prevent atm. is updating the interface.
 	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil) {
 
+		let appDelegate = AppDelegate.current()
+
 		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
 		func updateInterfacesForSize(bytes: Int64?, state: State? = nil) {
 
@@ -133,7 +135,8 @@ class SelectionHelper {
 			}
 
 			// Update interfaces
-			MenubarUtilityHelper.updateMenubarInterface(newSize: sizeAsString, url: url)
+			appDelegate.menubarInterfaceSelection?.itemSizeAsString = sizeAsString
+			MenubarUtilityHelper.updateAndDisplayMenubarInterface()
 
 			// Check to make sure interface data is present
 			if let panelSelection = panelSelection {
@@ -142,8 +145,6 @@ class SelectionHelper {
 		}
 
 		// --------------- Function ⤵︎ ----------------
-
-		let appDelegate = AppDelegate.current()
 
 		let keys: Set<URLResourceKey> = [
 			.isDirectoryKey,
