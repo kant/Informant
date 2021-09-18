@@ -394,11 +394,13 @@ class MenubarUtilityHelper {
 		let finalStringSpacing = "  "
 		
 		// Filter out properties
-		let properties = props.filter { $0 != "" }
+		let propertiesNoEmpties = props.filter { $0 != "" }
+		let propertiesNoNil = propertiesNoEmpties.compactMap { $0 }
+		let properties = propertiesNoNil
 		
 		// If only one property is present then don't loop through
-		if properties.count == 1, let onlyProperty = properties[0] {
-			finalString.append("\(onlyProperty + finalStringSpacing)")
+		if properties.count == 1 {
+			finalString.append("\(properties[0] + finalStringSpacing)")
 		}
 		
 		// Otherwise cycle all the properties to build the final string
@@ -406,11 +408,6 @@ class MenubarUtilityHelper {
 			
 			for (index, property) in properties.enumerated() {
 				
-				// Nil check all the properties
-				guard let property = property else {
-					continue
-				}
-			
 				switch index {
 				
 					// First property
