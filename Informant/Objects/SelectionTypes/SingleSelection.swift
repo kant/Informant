@@ -56,11 +56,14 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 		super.init()
 
 		// Provide shortened selection url by removing (/Volumes/Macintosh HD/)
-		guard let shortenedPath = SelectionHelper.shortenPath(urls[0]) else {
-			return
+		if selection != .Volume, let shortenedPath = SelectionHelper.shortenPath(urls[0]) {
+			url = URL(fileURLWithPath: shortenedPath)
 		}
 
-		url = URL(fileURLWithPath: shortenedPath)
+		// Otherwise just provide a full length URL
+		else {
+			url = URL(fileURLWithPath: urls[0])
+		}
 
 		// MARK: - Get Selection Resources
 		/// Keys used to determine what resources to grab
@@ -91,7 +94,8 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 				selectionTags = SelectionTags(tags: tags)
 				itemKind = kind
 			}
-		} catch { }
+		}
+		catch { }
 
 		// Assigning resources to fileResources object
 		itemResources = SelectionHelper.getURLResources(url, keys)

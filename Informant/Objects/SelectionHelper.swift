@@ -390,7 +390,22 @@ class SelectionHelper {
 	/// Determines the type of content the selection is and returns the appropriate object
 	static func pickSingleSelectionType(_ urls: [String], parameters: [SelectionParameters] = [.grabSize]) -> SelectionProtocol? {
 
-		let url = URL(fileURLWithPath: urls[0])
+		let url: URL
+		let path = urls[0]
+
+		// Finds the root volume path and removes it in order to get a volume selection. For some reason a normal volume path with the root drive isn't accepted.
+		guard let rootDrivePath = FileManager.default.getRootVolumeAsPath else {
+			return nil
+		}
+
+		if path == rootDrivePath {
+			url = URL(fileURLWithPath: "/")
+		}
+
+		// Otherwise the url is assigned normally
+		else {
+			url = URL(fileURLWithPath: path)
+		}
 
 		// The resources we want to find
 		let keys: Set<URLResourceKey> = [

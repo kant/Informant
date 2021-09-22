@@ -124,7 +124,7 @@ class ContentManager {
 
 		static let menubarShowCreated = NSLocalizedString("Created", comment: "")
 
-		static let menubarShowModified = NSLocalizedString("Modified", comment: "")
+		static let menubarShowEdited = NSLocalizedString("Edited", comment: "")
 
 		static let menubarShowVersion = NSLocalizedString("Version", comment: "")
 

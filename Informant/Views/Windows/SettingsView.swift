@@ -245,9 +245,9 @@ struct SettingsRightSideView: View {
 
 					} secondColumn: {
 
-						TogglePadded(ContentManager.SettingsLabels.menubarShowModified, isOn: $interfaceState.settingsMenubarShowModified).disabled(!interfaceState.settingsMenubarUtilityBool)
-
 						TogglePadded(ContentManager.SettingsLabels.menubarShowCreated, isOn: $interfaceState.settingsMenubarShowCreated).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowEdited, isOn: $interfaceState.settingsMenubarShowModified).disabled(!interfaceState.settingsMenubarUtilityBool)
 
 					} thirdColumn: {
 

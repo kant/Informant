@@ -156,8 +156,8 @@ class MenubarUtilityHelper {
 			case .Application:
 				let cast = selection as? SingleApplicationSelection
 				
-				if interfaceState.settingsMenubarShowVersion {
-					version = cast?.version
+				if interfaceState.settingsMenubarShowVersion, let versionUnwrapped = cast?.version {
+					version = "\(ContentManager.SettingsLabels.menubarShowVersion) \(versionUnwrapped)"
 				}
 				break
 				
@@ -192,8 +192,8 @@ class MenubarUtilityHelper {
 					aperture = cast?.aperture
 				}
 				
-				if interfaceState.settingsMenubarShowISO {
-					iso = cast?.iso
+				if interfaceState.settingsMenubarShowISO, let isoUnwrapped = cast?.iso {
+					iso = "ISO \(isoUnwrapped)"
 				}
 				
 				if interfaceState.settingsMenubarShowFocalLength {
@@ -240,16 +240,16 @@ class MenubarUtilityHelper {
 			case .Volume:
 				let cast = selection as? SingleVolumeSelection
 				
-				if interfaceState.settingsMenubarShowVolumeTotal {
-					volumeTotal = cast?.totalCapacity
+				if interfaceState.settingsMenubarShowVolumeTotal, let total = cast?.totalCapacity {
+					volumeTotal = "\(ContentManager.SettingsLabels.menubarShowVolumeTotal) \(total)"
 				}
 				
-				if interfaceState.settingsMenubarShowVolumeAvailable {
-					volumeAvailable = cast?.availableCapacity
+				if interfaceState.settingsMenubarShowVolumeAvailable, let available = cast?.availableCapacity {
+					volumeAvailable = "\(ContentManager.SettingsLabels.menubarShowVolumeAvailable) \(available)"
 				}
 				
-				if interfaceState.settingsMenubarShowVolumePurgeable {
-					volumePurgeable = cast?.purgeableCapacity
+				if interfaceState.settingsMenubarShowVolumePurgeable, let purgeable = cast?.purgeableCapacity {
+					volumePurgeable = "\(ContentManager.SettingsLabels.menubarShowVolumePurgeable) \(purgeable)"
 				}
 				break
 			
@@ -272,8 +272,8 @@ class MenubarUtilityHelper {
 			kind = general?.itemKind
 		}
 		
-		if interfaceState.settingsMenubarShowCreated {
-			created = "\(ContentManager.SettingsLabels.menubarShowCreated) \(general?.itemDateCreatedAsString)"
+		if interfaceState.settingsMenubarShowCreated, let date = general?.itemDateCreatedAsString {
+			created = "\(ContentManager.SettingsLabels.menubarShowCreated) \(date)"
 		}
 
 		if interfaceState.settingsMenubarShowModified {
@@ -315,11 +315,11 @@ class MenubarUtilityHelper {
 			volumePurgeable,
 			
 			// Images
-			aperture,
-			iso,
-			focalLength,
 			camera,
 			shutterSpeed,
+			focalLength,
+			aperture,
+			iso,
 		]
 		
 		// Prepare the formatted string for the view
