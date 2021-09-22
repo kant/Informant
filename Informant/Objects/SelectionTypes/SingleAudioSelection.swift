@@ -12,6 +12,7 @@ class SingleAudioSelection: SingleSelection {
 
 	var duration: String?
 	var sampleRate: String?
+	var audioBitrate: String?
 
 	required init(_ urls: [String], selection: SelectionType = .Audio, parameters: [SelectionParameters] = [.grabSize]) {
 
@@ -21,7 +22,8 @@ class SingleAudioSelection: SingleSelection {
 		// Metadata we want to collect
 		let keys: NSArray = [
 			kMDItemDurationSeconds!,
-			kMDItemAudioSampleRate!
+			kMDItemAudioSampleRate!,
+			kMDItemAudioBitRate!
 		]
 
 		// Grab the metadata
@@ -35,6 +37,11 @@ class SingleAudioSelection: SingleSelection {
 			// Sample rate
 			if let sampleRate = metadata[kMDItemAudioSampleRate] {
 				self.sampleRate = SelectionHelper.formatSampleRate(sampleRate)
+			}
+
+			// Audio bitrate
+			if let audioBitrate = metadata[kMDItemAudioBitRate] as? Int64 {
+				self.audioBitrate = SelectionHelper.formatBitrate(audioBitrate)
 			}
 		}
 	}

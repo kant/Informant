@@ -367,6 +367,69 @@ class SelectionHelper {
 		return ByteCountFormatter().string(fromByteCount: byteCount)
 	}
 
+	enum DataSizeUnit {
+		case None
+		case Kb
+		case Mb
+	}
+
+	enum MediaDescription {
+		case None
+		case Audio
+		case Video
+	}
+
+	/// Formats raw byte size into kbps
+	static func formatBitrate(_ bitCount: Int64, unit: DataSizeUnit = .Kb, description: MediaDescription = .None) -> String? {
+
+		let bits = Double(bitCount)
+
+		let formattedBits: NSNumber
+		let unitDescription: String
+		let mediaDescription: String
+
+		switch unit {
+
+			case .None:
+				formattedBits = NSNumber(value: bits)
+				unitDescription = "Kbps"
+				break
+
+			case .Kb:
+				formattedBits = NSNumber(value: bits / 1000.0)
+				unitDescription = "Kbps"
+				break
+
+			case .Mb:
+				formattedBits = NSNumber(value: bits / 10000.0)
+				unitDescription = "Mbps"
+				break
+		}
+
+		switch description {
+			case .None:
+				mediaDescription = ""
+				break
+
+			case .Audio:
+				mediaDescription = ContentManager.SettingsLabels.audio
+				break
+
+			case .Video:
+				mediaDescription = ContentManager.SettingsLabels.video
+				break
+		}
+
+		let formatter = NumberFormatter()
+		formatter.maximumFractionDigits = 3
+
+		guard let bitsPerSecond = formatter.string(from: formattedBits) else {
+			return nil
+		}
+
+		return "\(mediaDescription) \(bitsPerSecond) \(unitDescription)"
+	}
+
 	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {

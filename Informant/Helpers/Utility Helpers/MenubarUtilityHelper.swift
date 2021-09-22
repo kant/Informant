@@ -173,7 +173,7 @@ class MenubarUtilityHelper {
 				}
 				
 				if interfaceState.settingsMenubarShowAudioBitrate {
-//				audioBitrate
+					audioBitrate = cast?.audioBitrate
 				}
 				break
 				
@@ -229,11 +229,15 @@ class MenubarUtilityHelper {
 				}
 				
 				if interfaceState.settingsMenubarShowVideoBitrate {
-					//				videoBitrate
+					videoBitrate = cast?.videoBitrate
 				}
 				
 				if interfaceState.settingsMenubarShowAudioBitrate {
-					//				audioBitrate
+					audioBitrate = cast?.audioBitrate
+				}
+				
+				if interfaceState.settingsMenubarShowSampleRate {
+					sampleRate = cast?.audioSampleRate
 				}
 				break
 				

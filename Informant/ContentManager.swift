@@ -102,6 +102,10 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
+		static let video = NSLocalizedString("Video:", comment: "")
+
+		static let audio = NSLocalizedString("Audio:", comment: "")
+
 		// Menu bar sections
 
 		static let menubarSectionsGeneral = NSLocalizedString("General", comment: "")

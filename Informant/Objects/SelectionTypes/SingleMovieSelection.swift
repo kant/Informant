@@ -13,6 +13,9 @@ class SingleMovieSelection: SingleSelection {
 	var duration: String?
 	var colorProfile: String?
 	var dimensions: String?
+	var audioBitrate: String?
+	var audioSampleRate: String?
+	var videoBitrate: String?
 
 	required init(_ urls: [String], selection: SelectionType = .Movie, parameters: [SelectionParameters] = [.grabSize]) {
 
@@ -25,7 +28,10 @@ class SingleMovieSelection: SingleSelection {
 			kMDItemDurationSeconds!,
 			kMDItemProfileName!,
 			kMDItemPixelWidth!,
-			kMDItemPixelHeight!
+			kMDItemPixelHeight!,
+			kMDItemVideoBitRate!,
+			kMDItemAudioBitRate!,
+			kMDItemAudioSampleRate!
 		]
 
 		// Gather basic metadata for movie
@@ -49,6 +55,21 @@ class SingleMovieSelection: SingleSelection {
 			// Dimensions
 			if let dimensions = SelectionHelper.getMovieDimensions(url: url) {
 				self.dimensions = dimensions
+			}
+
+			// Audio bitrate
+			if let audioBitrate = metadata[kMDItemAudioBitRate] as? Int64 {
+				self.audioBitrate = SelectionHelper.formatBitrate(audioBitrate, unit: .None, description: .Audio)
+			}
+
+			// Audio sample rate
+			if let audioSampleRate = metadata[kMDItemAudioSampleRate] {
+				self.audioSampleRate = SelectionHelper.formatSampleRate(audioSampleRate)
+			}
+
+			// Video bitrate
+			if let videoBitrate = metadata[kMDItemVideoBitRate] as? Int64 {
+				self.videoBitrate = SelectionHelper.formatBitrate(videoBitrate, unit: .Mb, description: .Video)
 			}
 		}
 	}
