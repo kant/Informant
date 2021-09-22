@@ -69,13 +69,13 @@ extension Text {
 
 // MARK: - Settings Window Components
 
-struct ComponentsSettingsToggleSection<Content: View>: View {
+struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View>: View {
 
-	let firstRow: Content
-	let secondRow: Content
+	let firstRow: ContentFirst
+	let secondRow: ContentSecond
 	let label: String
 
-	internal init(_ label: String, @ViewBuilder firstRow: @escaping () -> Content, @ViewBuilder secondRow: @escaping () -> Content) {
+	internal init(_ label: String, @ViewBuilder firstRow: @escaping () -> ContentFirst, @ViewBuilder secondRow: @escaping () -> ContentSecond) {
 		self.firstRow = firstRow()
 		self.secondRow = secondRow()
 		self.label = label
