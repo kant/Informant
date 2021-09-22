@@ -187,6 +187,7 @@ struct SettingsRightSideView: View {
 	@ObservedObject var interfaceState: InterfaceState
 
 	private let hstackTogglePadding: CGFloat = 18
+	private let vstackTogglePadding: CGFloat = 20
 	private let sectionVerticalPadding: CGFloat = 26
 
 	var body: some View {
@@ -232,43 +233,91 @@ struct SettingsRightSideView: View {
 				.padding([.bottom], 14)
 
 				// Menu bar settings stack
-				HStack(alignment: .top, spacing: hstackTogglePadding) {
+				VStack(alignment: .leading, spacing: vstackTogglePadding) {
 
-					ComponentsSettingsToggleSection("General") {
+					// MARK: - General
+
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsGeneral) {
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-					} secondRow: {
+					} secondColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowModified, isOn: $interfaceState.settingsMenubarShowModified).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowCreated, isOn: $interfaceState.settingsMenubarShowCreated).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} thirdColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowVersion, isOn: $interfaceState.settingsMenubarShowVersion).disabled(!interfaceState.settingsMenubarUtilityBool)
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowItems, isOn: $interfaceState.settingsMenubarShowItems).disabled(!interfaceState.settingsMenubarUtilityBool)
 					}
 
-//
-//					// MARK: Size & Kind
-//					VStack(alignment: .leading) {
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowSize, isOn: $interfaceState.settingsMenubarShowSize).disabled(!interfaceState.settingsMenubarUtilityBool)
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowKind, isOn: $interfaceState.settingsMenubarShowKind).disabled(!interfaceState.settingsMenubarUtilityBool)
-//					}
-//
-//					// MARK: Codecs & Item Count
-//					VStack(alignment: .leading) {
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowItems, isOn: $interfaceState.settingsMenubarShowItems).disabled(!interfaceState.settingsMenubarUtilityBool)
-//					}
-//
-//					// MARK: Dimensions & Duration
-//					VStack(alignment: .leading) {
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
-//
-//						TogglePadded(ContentManager.SettingsLabels.menubarShowCodecs, isOn: $interfaceState.settingsMenubarShowCodecs).disabled(!interfaceState.settingsMenubarUtilityBool)
-//					}
+					// MARK: - Images
+
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsImages) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowAperture, isOn: $interfaceState.settingsMenubarShowAperture).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowCamera, isOn: $interfaceState.settingsMenubarShowCamera).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} secondColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowShutterspeed, isOn: $interfaceState.settingsMenubarShowShutterSpeed).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowFocalLength, isOn: $interfaceState.settingsMenubarShowFocalLength).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} thirdColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowISO, isOn: $interfaceState.settingsMenubarShowISO).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
+
+					// MARK: - Movies
+
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsMovies) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} secondColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowVideoBitrate, isOn: $interfaceState.settingsMenubarShowVideoBitrate).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowColorProfile, isOn: $interfaceState.settingsMenubarShowColorProfile).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} thirdColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowCodecs, isOn: $interfaceState.settingsMenubarShowCodecs).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
+
+					// MARK: - Audio
+
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsAudio) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowSampleRate, isOn: $interfaceState.settingsMenubarShowSampleRate).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} secondColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowAudioBitrate, isOn: $interfaceState.settingsMenubarShowAudioBitrate).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} thirdColumn: { }
+
+					// MARK: - Volume
+
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsVolume) {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowVolumeTotal, isOn: $interfaceState.settingsMenubarShowVolumeTotal).disabled(!interfaceState.settingsMenubarUtilityBool)
+					} secondColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowVolumeAvailable, isOn: $interfaceState.settingsMenubarShowVolumeAvailable).disabled(!interfaceState.settingsMenubarUtilityBool)
+					} thirdColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowVolumePurgeable, isOn: $interfaceState.settingsMenubarShowVolumePurgeable).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 				}
 
 				// Divides menubar and panel

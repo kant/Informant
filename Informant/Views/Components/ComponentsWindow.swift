@@ -69,15 +69,22 @@ extension Text {
 
 // MARK: - Settings Window Components
 
-struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View>: View {
+struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View, ContentThird: View>: View {
 
-	let firstRow: ContentFirst
-	let secondRow: ContentSecond
+	let firstColumn: ContentFirst
+	let secondColumn: ContentSecond
+	let thirdColumn: ContentThird
 	let label: String
 
-	internal init(_ label: String, @ViewBuilder firstRow: @escaping () -> ContentFirst, @ViewBuilder secondRow: @escaping () -> ContentSecond) {
-		self.firstRow = firstRow()
-		self.secondRow = secondRow()
+	internal init(
+		_ label: String,
+		@ViewBuilder firstColumn: @escaping () -> ContentFirst,
+		@ViewBuilder secondColumn: @escaping () -> ContentSecond,
+		@ViewBuilder thirdColumn: @escaping () -> ContentThird
+	) {
+		self.firstColumn = firstColumn()
+		self.secondColumn = secondColumn()
+		self.thirdColumn = thirdColumn()
 		self.label = label
 	}
 
@@ -85,14 +92,22 @@ struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View>:
 
 		VStack(alignment: .leading) {
 
-			Text(label).H3()
+			Text(label)
+				.SettingsToggleSectionLabel()
 
-			HStack {
-				firstRow
-			}
+			HStack(alignment: .top, spacing: 17) {
 
-			HStack {
-				secondRow
+				VStack(alignment: .leading) {
+					firstColumn
+				}
+
+				VStack(alignment: .leading) {
+					secondColumn
+				}
+
+				VStack(alignment: .leading) {
+					thirdColumn
+				}
 			}
 		}
 	}

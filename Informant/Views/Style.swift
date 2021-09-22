@@ -109,6 +109,11 @@ extension Text {
 			.foregroundColor(.blue)
 	}
 
+	func SettingsToggleSectionLabel() -> some View {
+		self.font(.system(size: 14))
+			.fontWeight(.medium)
+	}
+
 	func PanelTagFont(size: CGFloat = 11) -> some View {
 		self.font(.system(size: size))
 			.fontWeight(.medium)

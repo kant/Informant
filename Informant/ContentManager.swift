@@ -102,19 +102,65 @@ class ContentManager {
 
 		static let none = NSLocalizedString("None", comment: "")
 
+		// Menu bar sections
+
+		static let menubarSectionsGeneral = NSLocalizedString("General", comment: "")
+
+		static let menubarSectionsImages = NSLocalizedString("Images", comment: "")
+
+		static let menubarSectionsAudio = NSLocalizedString("Audio", comment: "")
+
+		static let menubarSectionsMovies = NSLocalizedString("Movies", comment: "")
+
+		static let menubarSectionsVolume = NSLocalizedString("Volume", comment: "")
+
+		// Menu bar labels
+
 		static let menubarShowSize = NSLocalizedString("Size", comment: "")
 
 		static let menubarShowKind = NSLocalizedString("Kind", comment: "")
+
+		static let menubarShowItems = NSLocalizedString("Items", comment: "")
+
+		static let menubarShowCreated = NSLocalizedString("Created", comment: "")
+
+		static let menubarShowModified = NSLocalizedString("Modified", comment: "")
+
+		static let menubarShowVersion = NSLocalizedString("Version", comment: "")
 
 		static let menubarShowDuration = NSLocalizedString("Duration", comment: "")
 
 		static let menubarShowDimensions = NSLocalizedString("Dimensions", comment: "")
 
-		static let menubarShowPath = NSLocalizedString("Path", comment: "")
-
-		static let menubarShowItems = NSLocalizedString("Item count", comment: "")
-
 		static let menubarShowCodecs = NSLocalizedString("Codecs", comment: "")
+
+		static let menubarShowColorProfile = NSLocalizedString("Color Profile", comment: "")
+
+		static let menubarShowVideoBitrate = NSLocalizedString("Video Bitrate", comment: "")
+
+		static let menubarShowSampleRate = NSLocalizedString("Sample Rate", comment: "")
+
+		static let menubarShowAudioBitrate = NSLocalizedString("Audio Bitrate", comment: "")
+
+		static let menubarShowVolumeTotal = NSLocalizedString("Total", comment: "")
+
+		static let menubarShowVolumeAvailable = NSLocalizedString("Available", comment: "")
+
+		static let menubarShowVolumePurgeable = NSLocalizedString("Purgeable", comment: "")
+
+		static let menubarShowAperture = NSLocalizedString("Aperture", comment: "")
+
+		static let menubarShowISO = NSLocalizedString("ISO", comment: "")
+
+		static let menubarShowFocalLength = NSLocalizedString("Focal Length", comment: "")
+
+		static let menubarShowCamera = NSLocalizedString("Camera", comment: "")
+
+		static let menubarShowShutterspeed = NSLocalizedString("Shutter Speed", comment: "")
+
+		// System
+
+		static let menubarShowPath = NSLocalizedString("Path", comment: "")
 
 		static let menubarCopyPathDescriptor = NSLocalizedString("Click the menu bar utility to copy the path.", comment: "")
 
