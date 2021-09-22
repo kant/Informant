@@ -273,7 +273,7 @@ class MenubarUtilityHelper {
 		}
 		
 		if interfaceState.settingsMenubarShowCreated {
-			created = general?.itemDateCreatedAsString
+			created = "\(ContentManager.SettingsLabels.menubarShowCreated) \(general?.itemDateCreatedAsString)"
 		}
 
 		if interfaceState.settingsMenubarShowModified {

@@ -90,7 +90,7 @@ struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View, 
 
 	var body: some View {
 
-		VStack(alignment: .leading) {
+		VStack(alignment: .leading, spacing: 8) {
 
 			Text(label)
 				.SettingsToggleSectionLabel()

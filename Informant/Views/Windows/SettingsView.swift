@@ -187,8 +187,7 @@ struct SettingsRightSideView: View {
 	@ObservedObject var interfaceState: InterfaceState
 
 	private let hstackTogglePadding: CGFloat = 18
-	private let vstackTogglePadding: CGFloat = 20
-	private let sectionVerticalPadding: CGFloat = 26
+	private let sectionVerticalPadding: CGFloat = 30
 
 	var body: some View {
 
@@ -231,9 +230,10 @@ struct SettingsRightSideView: View {
 				.pickerStyle(PopUpButtonPickerStyle())
 				.layoutPriority(-2)
 				.padding([.bottom], 14)
+				.padding([.vertical], 3)
 
 				// Menu bar settings stack
-				VStack(alignment: .leading, spacing: vstackTogglePadding) {
+				VStack(alignment: .leading, spacing: 21) {
 
 					// MARK: - General
 
@@ -275,36 +275,28 @@ struct SettingsRightSideView: View {
 						TogglePadded(ContentManager.SettingsLabels.menubarShowISO, isOn: $interfaceState.settingsMenubarShowISO).disabled(!interfaceState.settingsMenubarUtilityBool)
 					}
 
-					// MARK: - Movies
+					// MARK: - Media
 
-					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsMovies) {
-
-						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
-
-						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
-
-					} secondColumn: {
+					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsMedia) {
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowVideoBitrate, isOn: $interfaceState.settingsMenubarShowVideoBitrate).disabled(!interfaceState.settingsMenubarUtilityBool)
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowColorProfile, isOn: $interfaceState.settingsMenubarShowColorProfile).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-					} thirdColumn: {
-
 						TogglePadded(ContentManager.SettingsLabels.menubarShowCodecs, isOn: $interfaceState.settingsMenubarShowCodecs).disabled(!interfaceState.settingsMenubarUtilityBool)
-					}
-
-					// MARK: - Audio
-
-					ComponentsSettingsToggleSection(ContentManager.SettingsLabels.menubarSectionsAudio) {
-
-						TogglePadded(ContentManager.SettingsLabels.menubarShowSampleRate, isOn: $interfaceState.settingsMenubarShowSampleRate).disabled(!interfaceState.settingsMenubarUtilityBool)
 
 					} secondColumn: {
 
 						TogglePadded(ContentManager.SettingsLabels.menubarShowAudioBitrate, isOn: $interfaceState.settingsMenubarShowAudioBitrate).disabled(!interfaceState.settingsMenubarUtilityBool)
 
-					} thirdColumn: { }
+						TogglePadded(ContentManager.SettingsLabels.menubarShowSampleRate, isOn: $interfaceState.settingsMenubarShowSampleRate).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+					} thirdColumn: {
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDimensions, isOn: $interfaceState.settingsMenubarShowDimensions).disabled(!interfaceState.settingsMenubarUtilityBool)
+
+						TogglePadded(ContentManager.SettingsLabels.menubarShowDuration, isOn: $interfaceState.settingsMenubarShowDuration).disabled(!interfaceState.settingsMenubarUtilityBool)
+					}
 
 					// MARK: - Volume
 

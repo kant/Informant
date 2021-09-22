@@ -110,7 +110,7 @@ class ContentManager {
 
 		static let menubarSectionsAudio = NSLocalizedString("Audio", comment: "")
 
-		static let menubarSectionsMovies = NSLocalizedString("Movies", comment: "")
+		static let menubarSectionsMedia = NSLocalizedString("Media", comment: "")
 
 		static let menubarSectionsVolume = NSLocalizedString("Volume", comment: "")
 
