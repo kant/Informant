@@ -74,11 +74,15 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.isHiddenKey,
 			.isApplicationKey,
 			.tagNamesKey,
-			.ubiquitousItemContainerDisplayNameKey
+			.ubiquitousItemContainerDisplayNameKey,
 		]
 
 		do {
-			let resources = try url.resourceValues(forKeys: [.tagNamesKey, .localizedTypeDescriptionKey])
+			let resources = try url.resourceValues(forKeys: [
+				.tagNamesKey,
+				.localizedTypeDescriptionKey,
+			])
+
 			if let tags = resources.tagNames, let kind = resources.localizedTypeDescription {
 				selectionTags = SelectionTags(tags: tags)
 				itemKind = kind
