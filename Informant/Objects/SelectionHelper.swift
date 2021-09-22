@@ -299,6 +299,15 @@ class SelectionHelper {
 		return shortenedPath
 	}
 
+	/// Shortens the path by completely removing the root (/Volumes/Macintosh HD/) of the path
+	static func shortenPath(_ path: String) -> String? {
+		guard let rootVolume = FileManager.default.getRootVolumeAsPath else {
+			return nil
+		}
+
+		return path.replacingOccurrences(of: rootVolume, with: "")
+	}
+
 	/// Formats the x & y dimensions of a media item into a universal format
 	static func formatDimensions(x: Any?, y: Any?) -> String? {
 		guard let pixelwidth = x as? Int else { return nil }

@@ -234,9 +234,24 @@ public extension FileManager {
 		}
 
 		#warning("This could get changed in the future: 'Volumes'")
-		let url = "/Volumes/\(volumeName)\(home)"
+		return "/Volumes/\(volumeName)\(home)"
+	}
 
-		return url
+	/// Grabs the /Volumes/<Root Drive>/ components
+	var getRootVolumeAsPath: String? {
+
+		guard let volumeName = getRootVolumeName else {
+			return nil
+		}
+
+		#warning("This could get changed in the future: 'Volumes'")
+		return "/Volumes/\(volumeName)"
+	}
+
+	/// Gets the volume's name
+	var getRootVolumeName: String? {
+		let home = FileManager.default.homeDirectoryForCurrentUser.path
+		return FileManager.default.componentsToDisplay(forPath: home)?.first
 	}
 }
 
