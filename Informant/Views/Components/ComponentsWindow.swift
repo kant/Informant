@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - Universal Window Components
+
 /// Small web-like link.
 struct ComponentsSmallLink: View {
 
@@ -62,5 +64,51 @@ extension Text {
 	/// Adds some extra padding at the end
 	func togglePadding() -> some View {
 		self.padding([.leading], 4)
+	}
+}
+
+// MARK: - Settings Window Components
+
+struct ComponentsSettingsToggleSection<ContentFirst: View, ContentSecond: View, ContentThird: View>: View {
+
+	let firstColumn: ContentFirst
+	let secondColumn: ContentSecond
+	let thirdColumn: ContentThird
+	let label: String
+
+	internal init(
+		_ label: String,
+		@ViewBuilder firstColumn: @escaping () -> ContentFirst,
+		@ViewBuilder secondColumn: @escaping () -> ContentSecond,
+		@ViewBuilder thirdColumn: @escaping () -> ContentThird
+	) {
+		self.firstColumn = firstColumn()
+		self.secondColumn = secondColumn()
+		self.thirdColumn = thirdColumn()
+		self.label = label
+	}
+
+	var body: some View {
+
+		VStack(alignment: .leading, spacing: 8) {
+
+			Text(label)
+				.SettingsToggleSectionLabel()
+
+			HStack(alignment: .top, spacing: 17) {
+
+				VStack(alignment: .leading) {
+					firstColumn
+				}
+
+				VStack(alignment: .leading) {
+					secondColumn
+				}
+
+				VStack(alignment: .leading) {
+					thirdColumn
+				}
+			}
+		}
 	}
 }

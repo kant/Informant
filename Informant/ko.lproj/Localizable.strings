@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "조리개";
 
+/* No comment provided by engineer. */
+"Audio" = "오디오";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "오디오 비트 레이트";
+
+/* No comment provided by engineer. */
+"Audio:" = "오디오:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "권한을 부여";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "이용할 수 있는";
+
+/* No comment provided by engineer. */
+"Bitrate" = "비트 레이트";
 
 /* The colour Blue */
 "Blue" = "파랑";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "피드백";
 
+/* No comment provided by engineer. */
+"Finding" = "찾는";
+
 /* Used when finding a property */
 "Finding..." = "찾는...";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "초점";
+
+/* No comment provided by engineer. */
+"General" = "일반";
 
 /* Open panel's grant access button label */
 "Grant Access" = "교부금 액세스";
@@ -110,9 +128,6 @@
 "Hide icon" = "아이콘 숨기기";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "메뉴 표시줄 유틸리티 숨기기";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "메뉴 바 유틸리티 숨기기";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "확인란이 회색으로 표시됩니다.";
 
 /* No comment provided by engineer. */
+"Images" = "이미지";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "자동화에서 제보자의 경우 Finder를 검사해야 합니다.";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "제보자는 파일 메타데이터를 읽을 수 있는 권한이 필요합니다.";
 
+/* No comment provided by engineer. */
+"ISO" = "ISO";
+
 /* Singular version of items */
 "item" = "항목";
 
-/* No comment provided by engineer. */
-"Item count" = "항목 수";
-
 /* Items, used in the single directory selection */
 "items" = "항목";
+
+/* No comment provided by engineer. */
+"Items" = "항목";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "선택한 항목";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "시스템 시작에 대한 제보자 출시";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "메뉴 바 유틸리티";
+"Media" = "미디어";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "으로 바뀌었습니다";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "메뉴 바 유틸리티";
 
 /* This is the file's name displayed on the panel */
 "Name" = "이름";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "없음";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "참고: 제보자의 자동화에서 파인더가 확인되었는지 확인합니다.";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "참고: 파인더가 자동화에서 검사되었는지 확인합니다.";
 
 /* Used on auth instructions */
 "Open System Preferences" = "시스템 기본 설정 열기";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "패널을 활성화하는 바로 가기";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "메뉴 표시 유틸리티";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "메뉴 표시 바 유틸리티";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "셔터 속도";
 
 /* This is the file's size displayed in the panel */
 "Size" = "크기";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "버전";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "비디오 비트 레이트";
+
+/* No comment provided by engineer. */
+"Video:" = "비디오:";
+
+/* No comment provided by engineer. */
+"Volume" = "음량";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "어디";

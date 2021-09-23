@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "孔徑";
 
+/* No comment provided by engineer. */
+"Audio" = "音訊";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "音訊位速率";
+
+/* No comment provided by engineer. */
+"Audio:" = "音訊：";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "授權";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "可用";
+
+/* No comment provided by engineer. */
+"Bitrate" = "比特拉特";
 
 /* The colour Blue */
 "Blue" = "藍";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "反饋";
 
+/* No comment provided by engineer. */
+"Finding" = "發現";
+
 /* Used when finding a property */
 "Finding..." = "發現。。。";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "焦距";
+
+/* No comment provided by engineer. */
+"General" = "常規";
 
 /* Open panel's grant access button label */
 "Grant Access" = "授予訪問許可權";
@@ -110,9 +128,6 @@
 "Hide icon" = "隱藏圖示";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "隱藏功能表列實用程式";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "隱藏功能表列實用程式";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "如果複選框變灰，請按下鎖並輸入密碼。";
 
 /* No comment provided by engineer. */
+"Images" = "圖像";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "在自動化中，在「線人」下，確保檢查查找器";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "線人需要您的許可才能讀取檔元數據。";
 
+/* No comment provided by engineer. */
+"ISO" = "伊索";
+
 /* Singular version of items */
 "item" = "專案";
 
-/* No comment provided by engineer. */
-"Item count" = "項目計數";
-
 /* Items, used in the single directory selection */
 "items" = "專案";
+
+/* No comment provided by engineer. */
+"Items" = "專案";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "選定的專案";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "系統啟動的啟動資訊員";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "功能表欄實用程式";
+"Media" = "媒體";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "改 性";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "功能表欄實用程式";
 
 /* This is the file's name displayed on the panel */
 "Name" = "名字";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "沒有";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "注意：在自動化方面，在「線人」下，請確保檢查查找器";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "注意：確保查找器在自動化中檢查";
 
 /* Used on auth instructions */
 "Open System Preferences" = "開放系統首選項";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "啟動面板的快捷方式";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "顯示功能表列實用程式";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "顯示功能表列實用程式";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "快門速度";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大小";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "版本";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "視頻比特";
+
+/* No comment provided by engineer. */
+"Video:" = "視頻：";
+
+/* No comment provided by engineer. */
+"Volume" = "卷";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "哪裡";

@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "Açıklık";
 
+/* No comment provided by engineer. */
+"Audio" = "Ses";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "Ses Bit Hızı";
+
+/* No comment provided by engineer. */
+"Audio:" = "Ses:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "Yetki vermek";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "Mevcut";
+
+/* No comment provided by engineer. */
+"Bitrate" = "Bit Hızı";
 
 /* The colour Blue */
 "Blue" = "Mavi";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Geri besleme";
 
+/* No comment provided by engineer. */
+"Finding" = "Bulma";
+
 /* Used when finding a property */
 "Finding..." = "Bulma...";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "Odak";
+
+/* No comment provided by engineer. */
+"General" = "Genel";
 
 /* Open panel's grant access button label */
 "Grant Access" = "Erişim Ver";
@@ -110,9 +128,6 @@
 "Hide icon" = "Gizle simgesi";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "Menü çubuğu yardımcı programını gizle";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "Menü Çubuğu Yardımcı Programını Gizle";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "Onay kutusu gri renkle işaretlenmişse, kilidi tıklatın ve parolanızı girin.";
 
 /* No comment provided by engineer. */
+"Images" = "Görüntü";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "Otomasyonda, Muhbir altında Finder'ın kontrol edildik";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "Muhbirin dosya meta verilerini okumak için izninize ihtiyacı var.";
 
+/* No comment provided by engineer. */
+"ISO" = "ISO";
+
 /* Singular version of items */
 "item" = "madde";
 
-/* No comment provided by engineer. */
-"Item count" = "Madde sayısı";
-
 /* Items, used in the single directory selection */
 "items" = "eşya";
+
+/* No comment provided by engineer. */
+"Items" = "Eşya";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "seçilen öğeler";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "Sistem başlangıcında Informant'ı başlatın";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "Menü Çubuğu Yardımcı Programı";
+"Media" = "Medya";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "Değiştirilmiş";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "Menü Çubuğu Yardımcı Programı";
 
 /* This is the file's name displayed on the panel */
 "Name" = "Ad";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "Hiç kimse";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "Not: Otomasyonda, Muhbir altında Finder'ın kontrol edildik";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "Not: Finder'ın Otomasyon'da işaretli olduğundan emin olun";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Sistem Tercihlerini Aç";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "Paneli etkinleştirme kısayol";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "Menü çubuğu yardımcı programını göster";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "Menü Çubuğu Yardımcı Programını Göster";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "Deklanşör Hızı";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Boyut";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "Sürüm";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "Video Bit Hızı";
+
+/* No comment provided by engineer. */
+"Video:" = "Video:";
+
+/* No comment provided by engineer. */
+"Volume" = "Hacim";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "Nerede";

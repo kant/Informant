@@ -18,10 +18,10 @@ class SingleImageSelection: SingleSelection {
 	var dimensions: String?
 	var colorProfile: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Image) {
+	required init(_ urls: [String], selection: SelectionType = .Image, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Initialize basic selection properties
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		// Get basic metadata and exif data
 		let metadata = SelectionHelper.getURLImageMetadata(url)

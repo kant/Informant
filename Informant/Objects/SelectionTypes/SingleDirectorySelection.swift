@@ -11,10 +11,10 @@ class SingleDirectorySelection: SingleSelection {
 	
 	var itemCount: String?
 	
-	required init(_ urls: [String], selection: SelectionType = .Directory) {
+	required init(_ urls: [String], selection: SelectionType = .Directory, parameters: [SelectionParameters] = [.grabSize]) {
 		
 		// Get basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 		
 		// Get access to directory
 		if isiCloudSyncFile != true {

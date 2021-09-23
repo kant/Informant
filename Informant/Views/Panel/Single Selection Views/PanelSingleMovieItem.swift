@@ -25,6 +25,13 @@ struct PanelSingleMovieItem: View {
 				ComponentsPanelItemField(label: ContentManager.Labels.panelDuration, value: selection?.duration)
 			}
 
+			// Video and audio bitrates
+			ComponentsPanelItemStack(firstValue: selection?.videoBitrate, secondValue: selection?.audioBitrate) {
+				ComponentsPanelItemField(label: ContentManager.SettingsLabels.menubarShowVideoBitrate, value: selection?.videoBitrate, lineLimit: 2)
+			} secondItem: {
+				ComponentsPanelItemField(label: ContentManager.SettingsLabels.menubarShowAudioBitrate, value: selection?.audioBitrate, lineLimit: 2)
+			}
+
 			// Dimensions & Color Profile
 			ComponentsPanelItemStack(firstValue: selection?.dimensions, secondValue: selection?.colorProfile) {
 				ComponentsPanelItemField(label: ContentManager.Labels.panelDimensions, value: selection?.dimensions)

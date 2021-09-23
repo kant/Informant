@@ -112,6 +112,8 @@ class SelectionHelper {
 	/// Threads are started but cannot be stopped. The only thing that we can prevent atm. is updating the interface.
 	static func grabSize(_ url: URL, panelSelection: SingleSelection? = nil) {
 
+		let appDelegate = AppDelegate.current()
+
 		/// Updates the selection size for all interfaces. This function is nested so we have reference to the selection
 		func updateInterfacesForSize(bytes: Int64?, state: State? = nil) {
 
@@ -133,7 +135,8 @@ class SelectionHelper {
 			}
 
 			// Update interfaces
-			MenubarUtilityHelper.updateMenubarInterface(newSize: sizeAsString, url: url)
+			appDelegate.menubarInterfaceSelection?.itemSizeAsString = sizeAsString
+			MenubarUtilityHelper.updateAndDisplayMenubarInterface()
 
 			// Check to make sure interface data is present
 			if let panelSelection = panelSelection {
@@ -143,26 +146,25 @@ class SelectionHelper {
 
 		// --------------- Function ⤵︎ ----------------
 
-		let appDelegate = AppDelegate.current()
-
 		let keys: Set<URLResourceKey> = [
 			.isDirectoryKey,
 			.isApplicationKey,
 			.totalFileSizeKey,
 			.isUbiquitousItemKey,
+			.isVolumeKey,
 		]
 
 		// Get the url resources
 		let itemResources = SelectionHelper.getURLResources(url, keys)
 
-		// Unwrap the isDirectory value
 		let isDirectory = itemResources?.isDirectory
 
-		// Unwrap the isUbiquitousItem value
+		let isVolume = itemResources?.isVolume
+
 		let isiCloudSyncFile = itemResources?.isUbiquitousItem
 
 		// Check if the current selection is a directory and if we should skip directories
-		if isDirectory == true, appDelegate.interfaceState.settingsPanelSkipDirectories {
+		if (isDirectory == true && appDelegate.interfaceState.settingsPanelSkipDirectories) || isVolume == true {
 			return updateInterfacesForSize(bytes: nil, state: nil)
 		}
 
@@ -297,6 +299,15 @@ class SelectionHelper {
 		return shortenedPath
 	}
 
+	/// Shortens the path by completely removing the root (/Volumes/Macintosh HD/) of the path
+	static func shortenPath(_ path: String) -> String? {
+		guard let rootVolume = FileManager.default.getRootVolumeAsPath else {
+			return nil
+		}
+
+		return path.replacingOccurrences(of: rootVolume, with: "")
+	}
+
 	/// Formats the x & y dimensions of a media item into a universal format
 	static func formatDimensions(x: Any?, y: Any?) -> String? {
 		guard let pixelwidth = x as? Int else { return nil }
@@ -356,6 +367,48 @@ class SelectionHelper {
 		return ByteCountFormatter().string(fromByteCount: byteCount)
 	}
 
+	enum DataSizeUnit {
+		case None
+		case Kb
+		case Mb
+	}
+
+	/// Formats raw byte size into kbps
+	static func formatBitrate(_ bitCount: Int64, unit: DataSizeUnit = .Kb) -> String? {
+
+		let bits = Double(bitCount)
+
+		let formattedBits: NSNumber
+		let unitDescription: String
+
+		switch unit {
+
+			case .None:
+				formattedBits = NSNumber(value: bits)
+				unitDescription = "Kbps"
+				break
+
+			case .Kb:
+				formattedBits = NSNumber(value: bits / 1000.0)
+				unitDescription = "Kbps"
+				break
+
+			case .Mb:
+				formattedBits = NSNumber(value: bits / 10000.0)
+				unitDescription = "Mbps"
+				break
+		}
+
+		let formatter = NumberFormatter()
+		formatter.maximumFractionDigits = 3
+
+		guard let bitsPerSecond = formatter.string(from: formattedBits) else {
+			return nil
+		}
+
+		return "\(bitsPerSecond) \(unitDescription)"
+	}
+
 	// MARK: - Initialization Methods
 	///	Determines the type of the selection and returns the appropriate object
 	static func pickSelectionType(_ urls: [String]) -> SelectionProtocol? {
@@ -377,9 +430,24 @@ class SelectionHelper {
 	}
 
 	/// Determines the type of content the selection is and returns the appropriate object
-	static func pickSingleSelectionType(_ urls: [String]) -> SelectionProtocol? {
+	static func pickSingleSelectionType(_ urls: [String], parameters: [SelectionParameters] = [.grabSize]) -> SelectionProtocol? {
 
-		let url = URL(fileURLWithPath: urls[0])
+		let url: URL
+		let path = urls[0]
+
+		// Finds the root volume path and removes it in order to get a volume selection. For some reason a normal volume path with the root drive isn't accepted.
+		guard let rootDrivePath = FileManager.default.getRootVolumeAsPath else {
+			return nil
+		}
+
+		if path == rootDrivePath {
+			url = URL(fileURLWithPath: "/")
+		}
+
+		// Otherwise the url is assigned normally
+		else {
+			url = URL(fileURLWithPath: path)
+		}
 
 		// The resources we want to find
 		let keys: Set<URLResourceKey> = [
@@ -416,19 +484,19 @@ class SelectionHelper {
 			// Now that we have the uti, let's match it to the object we want to initialize
 			switch selectionType {
 
-				case kUTTypeImage: return SingleImageSelection(urls)
+				case kUTTypeImage: return SingleImageSelection(urls, parameters: parameters)
 
-				case kUTTypeMovie: return SingleMovieSelection(urls)
+				case kUTTypeMovie: return SingleMovieSelection(urls, parameters: parameters)
 
-				case kUTTypeAudio: return SingleAudioSelection(urls)
+				case kUTTypeAudio: return SingleAudioSelection(urls, parameters: parameters)
 
-				case kUTTypeDirectory: return SingleDirectorySelection(urls)
+				case kUTTypeDirectory: return SingleDirectorySelection(urls, parameters: parameters)
 
-				case kUTTypeApplication: return SingleApplicationSelection(urls)
+				case kUTTypeApplication: return SingleApplicationSelection(urls, parameters: parameters)
 
-				case kUTTypeVolume: return SingleVolumeSelection(urls)
+				case kUTTypeVolume: return SingleVolumeSelection(urls, parameters: parameters)
 
-				default: return SingleSelection(urls)
+				default: return SingleSelection(urls, parameters: parameters)
 			}
 		}
 

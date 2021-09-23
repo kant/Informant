@@ -13,11 +13,13 @@ class SingleMovieSelection: SingleSelection {
 	var duration: String?
 	var colorProfile: String?
 	var dimensions: String?
+	var audioBitrate: String?
+	var videoBitrate: String?
 
-	required init(_ urls: [String], selection: SelectionType = .Movie) {
+	required init(_ urls: [String], selection: SelectionType = .Movie, parameters: [SelectionParameters] = [.grabSize]) {
 
 		// Initialize basic selection
-		super.init(urls, selection: selection)
+		super.init(urls, selection: selection, parameters: parameters)
 
 		// These are the values we want to acccess
 		let keys: NSArray = [
@@ -25,7 +27,10 @@ class SingleMovieSelection: SingleSelection {
 			kMDItemDurationSeconds!,
 			kMDItemProfileName!,
 			kMDItemPixelWidth!,
-			kMDItemPixelHeight!
+			kMDItemPixelHeight!,
+			kMDItemVideoBitRate!,
+			kMDItemAudioBitRate!,
+			kMDItemAudioSampleRate!
 		]
 
 		// Gather basic metadata for movie
@@ -49,6 +54,16 @@ class SingleMovieSelection: SingleSelection {
 			// Dimensions
 			if let dimensions = SelectionHelper.getMovieDimensions(url: url) {
 				self.dimensions = dimensions
+			}
+
+			// Audio bitrate
+			if let audioBitrate = metadata[kMDItemAudioBitRate] as? Int64 {
+				self.audioBitrate = SelectionHelper.formatBitrate(audioBitrate, unit: .None)
+			}
+
+			// Video bitrate
+			if let videoBitrate = metadata[kMDItemVideoBitRate] as? Int64 {
+				self.videoBitrate = SelectionHelper.formatBitrate(videoBitrate, unit: .Mb)
 			}
 		}
 	}

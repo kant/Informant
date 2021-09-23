@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "Отверстие";
 
+/* No comment provided by engineer. */
+"Audio" = "Аудио";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "Аудио битрейт";
+
+/* No comment provided by engineer. */
+"Audio:" = "Аудио:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "Уполномочивать";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "Доступный";
+
+/* No comment provided by engineer. */
+"Bitrate" = "Битрейт";
 
 /* The colour Blue */
 "Blue" = "Синий";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Обратная связь";
 
+/* No comment provided by engineer. */
+"Finding" = "Обнаружение";
+
 /* Used when finding a property */
 "Finding..." = "Обнаружение...";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "Фокусное расстояние";
+
+/* No comment provided by engineer. */
+"General" = "Общее";
 
 /* Open panel's grant access button label */
 "Grant Access" = "Предоставление доступа";
@@ -110,9 +128,6 @@
 "Hide icon" = "Скрыть значок";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "Утилита «Скрыть строку меню»";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "Утилита «Скрыть строку меню»";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "Если флажок неактивен, щелкните замок и введите пароль.";
 
 /* No comment provided by engineer. */
+"Images" = "Изображения";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "В разделе Автоматизация в разделе Информатор убедитесь, что установлен флажок Finder";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "Информатору требуется ваше разрешение на чтение метаданных файла.";
 
+/* No comment provided by engineer. */
+"ISO" = "ИСО";
+
 /* Singular version of items */
 "item" = "пункт";
 
-/* No comment provided by engineer. */
-"Item count" = "Количество элементов";
-
 /* Items, used in the single directory selection */
 "items" = "Элементы";
+
+/* No comment provided by engineer. */
+"Items" = "Элементы";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "выбранные элементы";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "Запуск Информатора при запуске системы";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "Утилита строки меню";
+"Media" = "Медиа";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "Модифицированный";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "Утилита строки меню";
 
 /* This is the file's name displayed on the panel */
 "Name" = "Имя";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "Никакой";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "Примечание: В разделе Автоматизация в разделе Информатор убедитесь, что Finder отмечен";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "Примечание: убедитесь, что Finder зарегистрирован в автоматизации";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Откройте Системные настройки";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "Ярлык для активации панели";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "Показать утилиту строки меню";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "Показать утилиту строки меню";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "Выдержка";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Размер";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "Версия";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "Видео Битрейт";
+
+/* No comment provided by engineer. */
+"Video:" = "Видео:";
+
+/* No comment provided by engineer. */
+"Volume" = "Том";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "Где";

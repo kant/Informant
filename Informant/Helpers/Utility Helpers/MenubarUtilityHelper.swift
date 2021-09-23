@@ -11,9 +11,6 @@ import SwiftUI
 /// This is just a collection of static functions to help with manipulating the menubar utility
 class MenubarUtilityHelper {
 	
-	/// Contains the size of the selection
-	static var sizeAsString: String = ""
-	
 	/// Establishes reference to the status item we want to use
 	static let statusItem = AppDelegate.current().panelStatusItem
 	
@@ -36,7 +33,7 @@ class MenubarUtilityHelper {
 		
 		// Duplicate selection found
 		else if force == false, checkedSelection.state == .duplicateSelection, let paths = checkedSelection.selection.paths {
-			return updateMenubarInterface(newSize: sizeAsString, url: URL(fileURLWithPath: paths[0]))
+			return updateMenubarInterface(url: URL(fileURLWithPath: paths[0]))
 		}
 		
 		// Unique selection found
@@ -54,195 +51,295 @@ class MenubarUtilityHelper {
 			// Get URL
 			let url = URL(fileURLWithPath: selection[0])
 			
-			// Initiate check for size if wanted
-			if appDelegate.interfaceState.settingsMenubarShowSize == true {
-				SelectionHelper.grabSize(url)
-			}
-			
-			// Otherwise still update the menu bar interface
-			else {
-				updateMenubarInterface(url: url)
-			}
+			updateMenubarInterface(url: url)
 		}
 	}
 	
 	/// Updates the status item
-	static func updateMenubarInterface(newSize: String? = nil, url: URL) {
+	static func updateMenubarInterface(url: URL) {
+		
+		// Get a reference to the appdelegate
+		let appDelegate = AppDelegate.current()
+		
+		// Figure out which parameters to include in the selection based on user settings
+		var parameters: [SelectionParameters] = []
+		
+		if appDelegate.interfaceState.settingsMenubarShowSize {
+			parameters.append(.grabSize)
+		}
+		
+		// Find the selection with the desired parameters
+		let selection = SelectionHelper.pickSingleSelectionType([url.path], parameters: parameters)
+		
+		// Formats the menubar's interface as a string and updates interface data held in memory
+		appDelegate.menubarInterfaceSelection = selection
+		appDelegate.menubarInterface = gatherMetadataForMenubar(selection: selection)
+		
+		updateAndDisplayMenubarInterface()
+	}
+	
+	/// Gathers all metadata needed for the menu bar
+	static func gatherMetadataForMenubar(selection: SelectionProtocol?) -> String? {
 		
 		// Get a reference to the appdelegate
 		let appDelegate = AppDelegate.current()
 		
 		// Get a reference to settings
 		guard let interfaceState = appDelegate.interfaceState else {
-			return
+			return nil
 		}
 		
-		// State values
-		var isiCloudSyncFile: Bool?
-		var isDirectory: Bool?
-		var selectionType: CFString?
+		// TODO: I know this isn't the best solution and this could use some work
+		// General
+		var size: String?
+		var kind: String?
+		var created: String?
+		var modified: String?
 		
-		// Placeholder values to collect details
-		var size: String = ""
-		var kind: String = ""
-		var dimensions: String = ""
-		var duration: String = ""
-		var codecs: String = ""
-		var items: String = ""
+		// Directory
+		var items: String?
+		
+		// Application
+		var version: String?
+		
+		// Media
+		var dimensions: String?
+		var duration: String?
+		var codecs: String?
+		var colorProfile: String?
+		var videoBitrate: String?
+		
+		// Audio
+		var sampleRate: String?
+		var audioBitrate: String?
+		
+		// Volume
+		var volumeTotal: String?
+		var volumeAvailable: String?
+		var volumePurgeable: String?
+		
+		// Images
+		var aperture: String?
+		var iso: String?
+		var focalLength: String?
+		var camera: String?
+		var shutterSpeed: String?
 		
 		// MARK: - Verify & Format Size
 		
 		// Check to make sure the menu bar utility isn't disabled
 		if interfaceState.settingsMenubarUtilityBool == false {
-			return
+			return nil
 		}
 
-		// Change the size as string if needed
-		if let size = newSize {
-			sizeAsString = size
-		}
-		
-		// Otherwise empty out the interface
-		else {
-			sizeAsString = ""
-		}
-		
 		// Confirm that we want to see size
 		if interfaceState.settingsMenubarShowSize {
 			
 			// Filter out unavailable and calculating messages
-			if sizeAsString == SelectionHelper.State.Finding.localized {
-				size = "Finding"
+			if selection?.itemSizeAsString == SelectionHelper.State.Finding.localized {
+				size = ContentManager.State.findingNoPeriods
 			}
-			else if sizeAsString == SelectionHelper.State.Unavailable.localized {
+			else if selection?.itemSizeAsString == SelectionHelper.State.Unavailable.localized {
 				size = ""
 			}
 			else {
-				size = sizeAsString
+				size = selection?.itemSizeAsString
 			}
 		}
 		
-		// MARK: - Collect Additional URL Resources
+		// MARK: - Collect URL Resources
 		
-		let resourceKeys: Set<URLResourceKey> = [
-			.localizedTypeDescriptionKey,
-			.isUbiquitousItemKey,
-			.isDirectoryKey,
-			.typeIdentifierKey,
-		]
+		// TODO: I know this is horrible and each setting should be checked in the properties loop instead but I didn't have much time to build this.
+		// Assign values based on the type and whether they're wanted by the user.
+		switch selection?.selectionType {
 			
-		// Get URL resources
-		if let resources = SelectionHelper.getURLResources(url, resourceKeys) {
-			
-			// MARK: Kind
-			if let kindUnwrapped = resources.localizedTypeDescription, interfaceState.settingsMenubarShowKind {
-				kind = kindUnwrapped
-			}
-			
-			// Needed to get # of items in directory
-			isiCloudSyncFile = resources.isUbiquitousItem
-			isDirectory = resources.isDirectory
-			
-			// Find the type of the selection
-			let uti = resources.typeIdentifier! as CFString
-			
-			let types = [
-				kUTTypeImage,
-				kUTTypeMovie,
-			]
-			
-			for type in types {
-				if UTTypeConformsTo(uti, type) {
-					selectionType = type
-				}
-			}
-		}
-		
-		// MARK: Duration & Dimensions & Codecs
-		// Collect the duration if it's permitted
-		if interfaceState.settingsMenubarShowDuration || interfaceState.settingsMenubarShowDimensions {
-			
-			let metadataKeys: NSArray = [
-				kMDItemDurationSeconds!,
-				kMDItemPixelWidth!,
-				kMDItemPixelHeight!,
-				kMDItemCodecs!,
-			]
-			
-			// Collect data based on type
-			switch selectionType {
+			case .Application:
+				let cast = selection as? SingleApplicationSelection
 				
-				case kUTTypeImage:
-					
-					// Get basic metadata
-					let metadata = SelectionHelper.getURLImageMetadata(url)
-					
-					// Get the dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata?[kCGImagePropertyPixelWidth], y: metadata?[kCGImagePropertyPixelHeight])
-					{
-						dimensions = dimensionsUnwrapped
-					}
-					
-					break
+				if interfaceState.settingsMenubarShowVersion, let versionUnwrapped = cast?.version {
+					version = "\(ContentManager.SettingsLabels.menubarShowVersion) \(versionUnwrapped)"
+				}
+				break
 				
-				case kUTTypeMovie:
-					// Collect dimensions
-					if interfaceState.settingsMenubarShowDimensions,
-					   let dimensionsUnwrapped = SelectionHelper.getMovieDimensions(url: url)
-					{
-						dimensions = dimensionsUnwrapped
-					}
-					
-					break
-					
-				default:
-					break
-			}
+			case .Audio:
+				let cast = selection as? SingleAudioSelection
+				
+				if interfaceState.settingsMenubarShowDuration {
+					duration = cast?.duration
+				}
+				
+				if interfaceState.settingsMenubarShowSampleRate {
+					sampleRate = cast?.sampleRate
+				}
+				
+				if interfaceState.settingsMenubarShowAudioBitrate {
+					audioBitrate = cast?.audioBitrate
+				}
+				break
+				
+			case .Image:
+				let cast = selection as? SingleImageSelection
+				
+				if interfaceState.settingsMenubarShowDimensions {
+					dimensions = cast?.dimensions
+				}
+				
+				if interfaceState.settingsMenubarShowColorProfile {
+					colorProfile = cast?.colorProfile
+				}
+
+				if interfaceState.settingsMenubarShowAperture {
+					aperture = cast?.aperture
+				}
+				
+				if interfaceState.settingsMenubarShowISO, let isoUnwrapped = cast?.iso {
+					iso = "ISO \(isoUnwrapped)"
+				}
+				
+				if interfaceState.settingsMenubarShowFocalLength {
+					focalLength = cast?.focalLength
+				}
+				
+				if interfaceState.settingsMenubarShowCamera {
+					camera = cast?.camera
+				}
+				
+				if interfaceState.settingsMenubarShowShutterSpeed {
+					shutterSpeed = cast?.shutterSpeed
+				}
+				break
+				
+			case .Movie:
+				let cast = selection as? SingleMovieSelection
+				
+				if interfaceState.settingsMenubarShowDimensions {
+					dimensions = cast?.dimensions
+				}
+				
+				if interfaceState.settingsMenubarShowDuration {
+					duration = cast?.duration
+				}
+				
+				if interfaceState.settingsMenubarShowCodecs {
+					codecs = cast?.codecs
+				}
+				
+				if interfaceState.settingsMenubarShowColorProfile {
+					colorProfile = cast?.colorProfile
+				}
+				
+				if interfaceState.settingsMenubarShowVideoBitrate, let videoBitrateUnwrapped = cast?.videoBitrate {
+					videoBitrate = "\(ContentManager.SettingsLabels.video) \(videoBitrateUnwrapped)"
+				}
+				
+				if interfaceState.settingsMenubarShowAudioBitrate, let audioBitrateUnwrapped = cast?.audioBitrate {
+					audioBitrate = "\(ContentManager.SettingsLabels.audio) \(audioBitrateUnwrapped)"
+				}
+				
+				break
+				
+			case .Volume:
+				let cast = selection as? SingleVolumeSelection
+				
+				if interfaceState.settingsMenubarShowVolumeTotal, let total = cast?.totalCapacity {
+					volumeTotal = "\(ContentManager.SettingsLabels.menubarShowVolumeTotal) \(total)"
+				}
+				
+				if interfaceState.settingsMenubarShowVolumeAvailable, let available = cast?.availableCapacity {
+					volumeAvailable = "\(ContentManager.SettingsLabels.menubarShowVolumeAvailable) \(available)"
+				}
+				
+				if interfaceState.settingsMenubarShowVolumePurgeable, let purgeable = cast?.purgeableCapacity {
+					volumePurgeable = "\(ContentManager.SettingsLabels.menubarShowVolumePurgeable) \(purgeable)"
+				}
+				break
 			
-			// TODO: clean this up
-			// Get URL metadata
-			if let metadata = SelectionHelper.getURLMetadata(url, keys: metadataKeys) {
+			case .Directory:
+				let cast = selection as? SingleDirectorySelection
+				
+				if interfaceState.settingsMenubarShowItems {
+					items = cast?.itemCount
+				}
+				break
 			
-				// Collect duration
-				if interfaceState.settingsMenubarShowDuration,
-				   let durationUnwrapped = SelectionHelper.formatDuration(metadata[kMDItemDurationSeconds])
-				{
-					duration = durationUnwrapped
-				}
-					
-				// Collect dimensions
-				if dimensions.isEmpty,
-				   interfaceState.settingsMenubarShowDimensions,
-				   let dimensionsUnwrapped = SelectionHelper.formatDimensions(x: metadata[kMDItemPixelWidth], y: metadata[kMDItemPixelHeight])
-				{
-					dimensions = dimensionsUnwrapped
-				}
-		
-				// Collect Codecs
-				if interfaceState.settingsMenubarShowCodecs, let codecUnwrapped = metadata[kMDItemCodecs] as? [String] {
-					codecs = codecUnwrapped.joined(separator: ", ")
-				}
-			}
+			default:
+				break
 		}
 		
-		// MARK: Item Count
-		if interfaceState.settingsMenubarShowItems, isiCloudSyncFile != true, isDirectory == true {
-			if let itemCount = FileManager.default.shallowCountOfItemsInDirectory(at: url) {
-				items = SelectionHelper.formatDirectoryItemCount(itemCount)
-			}
+		// Cast as a single selection
+		let general = selection as? SingleSelection
+		
+		if interfaceState.settingsMenubarShowKind {
+			kind = general?.itemKind
+		}
+		
+		if interfaceState.settingsMenubarShowCreated, let date = general?.itemDateCreatedAsString {
+			created = "\(ContentManager.SettingsLabels.menubarShowCreated) \(date)"
+		}
+
+		if interfaceState.settingsMenubarShowModified {
+			modified = general?.itemDateModifiedAsString
 		}
 		
 		// MARK: - Assemble Final View For Util.
 		
+		// TODO: Find a cleaner approach to this
 		// Collect all values
-		let properties = [size, items, kind, dimensions, duration, codecs]
+		let properties = [
+		
+			// General
+			size,
+			kind,
+			created,
+			modified,
+			
+			// Directory
+			items,
+			
+			// Application
+			version,
+			
+			// Media
+			dimensions,
+			duration,
+			codecs,
+			colorProfile,
+			videoBitrate,
+			
+			// Audio
+			sampleRate,
+			audioBitrate,
+			
+			// Volume
+			volumeTotal,
+			volumeAvailable,
+			volumePurgeable,
+			
+			// Images
+			camera,
+			shutterSpeed,
+			focalLength,
+			aperture,
+			iso,
+		]
 		
 		// Prepare the formatted string for the view
-		let formattedString = formatProperties(properties)
+		return formatProperties(properties)
+	}
+	
+	/// Simply updates the interface without updating the data
+	static func updateAndDisplayMenubarInterface() {
+		
+		let appDelegate = AppDelegate.current()
+		let selection = appDelegate.menubarInterfaceSelection
+		
+		// Prepare the formatted string for the view
+		guard let formattedString = gatherMetadataForMenubar(selection: selection) else {
+			return
+		}
 		
 		// Get formatted fonts ready
-		let font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .medium)
+		let font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
 		
 		// Creates a left justified paragraph style. Makes sure size (102 KB or whatever) stays to the left of the status item
 		let paragraphStyle = NSMutableParagraphStyle()
@@ -267,12 +364,15 @@ class MenubarUtilityHelper {
 	/// For when there's no size available
 	static func wipeMenubarInterface(resetState: Bool = false) {
 		
+		let appDelegate = AppDelegate.current()
+		
 		shouldMenubarUtilityAppearDisabled()
 		
 		statusItem?.button?.attributedTitle = NSAttributedString(string: "")
 		
 		if resetState == true {
-			sizeAsString = ""
+			appDelegate.menubarInterface = ""
+			appDelegate.menubarInterfaceSelection = nil
 		}
 	}
 	
@@ -289,14 +389,16 @@ class MenubarUtilityHelper {
 	}
 	
 	/// Formats a collected property. Adds spaces and dividers when a value is present, otherwise it returns a blank string
-	static func formatProperties(_ props: [String]) -> String {
+	static func formatProperties(_ props: [String?]) -> String {
 		
 		var finalString: String = ""
 		
 		let finalStringSpacing = "  "
 		
 		// Filter out properties
-		let properties = props.filter { $0 != "" }
+		let propertiesNoEmpties = props.filter { $0 != "" }
+		let propertiesNoNil = propertiesNoEmpties.compactMap { $0 }
+		let properties = propertiesNoNil
 		
 		// If only one property is present then don't loop through
 		if properties.count == 1 {
@@ -307,7 +409,7 @@ class MenubarUtilityHelper {
 		else {
 			
 			for (index, property) in properties.enumerated() {
-			
+				
 				switch index {
 				
 					// First property

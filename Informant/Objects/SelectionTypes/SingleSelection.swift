@@ -47,7 +47,7 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 	let appDelegate: AppDelegate
 
 	/// Establishes a single selection foundation and then picks out a type
-	required init(_ urls: [String], selection: SelectionType = .Single) {
+	required init(_ urls: [String], selection: SelectionType = .Single, parameters: [SelectionParameters] = [.grabSize]) {
 
 		appDelegate = AppDelegate.current()
 
@@ -55,8 +55,15 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 
 		super.init()
 
-		// Provide selection url
-		url = URL(fileURLWithPath: urls[0])
+		// Provide shortened selection url by removing (/Volumes/Macintosh HD/)
+		if selection != .Volume, let shortenedPath = SelectionHelper.shortenPath(urls[0]) {
+			url = URL(fileURLWithPath: shortenedPath)
+		}
+
+		// Otherwise just provide a full length URL
+		else {
+			url = URL(fileURLWithPath: urls[0])
+		}
 
 		// MARK: - Get Selection Resources
 		/// Keys used to determine what resources to grab
@@ -74,22 +81,29 @@ class SingleSelection: SelectionHelper, SelectionProtocol, ObservableObject {
 			.isHiddenKey,
 			.isApplicationKey,
 			.tagNamesKey,
-			.ubiquitousItemContainerDisplayNameKey
+			.ubiquitousItemContainerDisplayNameKey,
 		]
 
 		do {
-			let resources = try url.resourceValues(forKeys: [.tagNamesKey, .localizedTypeDescriptionKey])
+			let resources = try url.resourceValues(forKeys: [
+				.tagNamesKey,
+				.localizedTypeDescriptionKey,
+			])
+
 			if let tags = resources.tagNames, let kind = resources.localizedTypeDescription {
 				selectionTags = SelectionTags(tags: tags)
 				itemKind = kind
 			}
-		} catch { }
+		}
+		catch { }
 
 		// Assigning resources to fileResources object
 		itemResources = SelectionHelper.getURLResources(url, keys)
 
 		// Grab size
-		SelectionHelper.grabSize(url, panelSelection: self)
+		if parameters.contains(.grabSize) {
+			SelectionHelper.grabSize(url, panelSelection: self)
+		}
 
 		// MARK: - Fill in fields
 		if let resources = itemResources {

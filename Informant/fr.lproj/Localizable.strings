@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "Ouverture";
 
+/* No comment provided by engineer. */
+"Audio" = "Audio";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "Débit binaire audio";
+
+/* No comment provided by engineer. */
+"Audio:" = "Audio:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "Autoriser";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "Disponible";
+
+/* No comment provided by engineer. */
+"Bitrate" = "Débit binaire";
 
 /* The colour Blue */
 "Blue" = "Bleu";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "Rétroaction";
 
+/* No comment provided by engineer. */
+"Finding" = "Trouvaille";
+
 /* Used when finding a property */
 "Finding..." = "Trouvaille...";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "Focale";
+
+/* No comment provided by engineer. */
+"General" = "Généralités";
 
 /* Open panel's grant access button label */
 "Grant Access" = "Accorder l’accès";
@@ -110,9 +128,6 @@
 "Hide icon" = "Masquer l’icône";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "Masquer l’utilitaire de barre de menus";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "Masquer l’utilitaire de barre de menus";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "Si la case à cocher est grisée, cliquez sur le verrou et entrez votre mot de passe.";
 
 /* No comment provided by engineer. */
+"Images" = "Images";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "Dans Automatisation, sous Informateur, assurez-vous que le Finder est coché";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "Informant a besoin de votre autorisation pour lire les métadonnées du fichier.";
 
+/* No comment provided by engineer. */
+"ISO" = "ISO";
+
 /* Singular version of items */
 "item" = "article";
 
-/* No comment provided by engineer. */
-"Item count" = "Nombre d’éléments";
-
 /* Items, used in the single directory selection */
 "items" = "Articles";
+
+/* No comment provided by engineer. */
+"Items" = "Articles";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "éléments sélectionnés";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "Lancer Informant au démarrage du système";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "Utilitaire de barre de menus";
+"Media" = "Média";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "Modifié";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "Utilitaire de barre de menus";
 
 /* This is the file's name displayed on the panel */
 "Name" = "Nom";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "Aucun";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "Remarque : Dans Automation, sous Informant, assurez-vous que le Finder est coché";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "Remarque : assurez-vous que le Finder est coché dans Automation";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Ouvrir les Préférences Système";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "Raccourci pour activer le panneau";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "Utilitaire Afficher la barre de menus";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "Afficher l’utilitaire de barre de menus";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "Vitesse d’obturation";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Taille";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "Version";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "Débit binaire vidéo";
+
+/* No comment provided by engineer. */
+"Video:" = "Vidéo:";
+
+/* No comment provided by engineer. */
+"Volume" = "Volume";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "Où";

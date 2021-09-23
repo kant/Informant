@@ -123,6 +123,7 @@ class InterfaceState: ObservableObject {
 
 	// MARK: - Menu Bar Settings
 
+	// MARK: General
 	@Published var settingsMenubarShowSize: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSize) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowSize)
@@ -143,6 +144,27 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsMenubarShowCreated: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowCreated) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowCreated)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowModified: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowModified) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowModified)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// MARK: - Media
 	@Published var settingsMenubarShowDuration: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowDuration) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowDuration)
@@ -173,6 +195,27 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	@Published var settingsMenubarShowColorProfile: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowColorProfile) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowColorProfile)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowVideoBitrate: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowVideoBitrate) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowVideoBitrate)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// MARK: - Directory
 	@Published var settingsMenubarShowItems: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowItems) {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowItems)
@@ -183,6 +226,121 @@ class InterfaceState: ObservableObject {
 		}
 	}
 
+	// MARK: - Application
+	@Published var settingsMenubarShowVersion: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowVersion) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowVersion)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// MARK: - Audio
+	@Published var settingsMenubarShowSampleRate: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowSampleRate) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowSampleRate)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowAudioBitrate: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowAudioBitrate) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowAudioBitrate)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// MARK: - Volume
+	@Published var settingsMenubarShowVolumeTotal: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowVolumeTotal) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowVolumeTotal)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowVolumeAvailable: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowVolumeAvailable) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowVolumeAvailable)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowVolumePurgeable: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowVolumePurgeable) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowVolumePurgeable)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// MARK: - Images
+	@Published var settingsMenubarShowAperture: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowAperture) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowAperture)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowISO: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowISO) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowISO)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowFocalLength: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowFocalLength) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowFocalLength)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowCamera: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowCamera) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowCamera)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	@Published var settingsMenubarShowShutterSpeed: Bool = UserDefaults.standard.bool(forKey: .keyMenubarShowShutterSpeed) {
+		willSet(value) {
+			UserDefaults.standard.setValue(value, forKey: .keyMenubarShowShutterSpeed)
+		}
+
+		didSet {
+			MenubarUtilityHelper.update()
+		}
+	}
+
+	// System
 	@Published var settingsMenubarIcon: String = UserDefaults.standard.string(forKey: .keyMenubarIcon) ?? ContentManager.MenubarIcons.menubarDefault {
 		willSet(value) {
 			UserDefaults.standard.setValue(value, forKey: .keyMenubarIcon)

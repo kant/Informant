@@ -20,6 +20,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	/// We use this status bar object to make managing the popover a lot easier.
 	public var statusBarController: StatusBarController?
 
+	/// Used to store the menu bar's selection data
+	public var menubarInterfaceSelection: SelectionProtocol?
+
+	/// Used to store the menu bar's interface
+	public var menubarInterface: String?
+
 	/// We use this to access the menu bar status item. This toggles the panel open and closed. It's the main button.
 	public var panelStatusItem: NSStatusItem?
 

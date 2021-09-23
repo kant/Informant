@@ -21,7 +21,7 @@ class SingleErrorSelection: SelectionHelper, SelectionProtocol {
 	
 	var workQueue: [DispatchWorkItem] = []
 	
-	required init(_ urls: [String] = [], selection: SelectionType = .Error) {
+	required init(_ urls: [String] = [], selection: SelectionType = .Error, parameters: [SelectionParameters] = [.grabSize]) {
 		
 		selectionType = selection
 		

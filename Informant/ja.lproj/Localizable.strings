@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "アパーチャ";
 
+/* No comment provided by engineer. */
+"Audio" = "オーディオ";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "オーディオビットレート";
+
+/* No comment provided by engineer. */
+"Audio:" = "オーディオ：";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "許可する";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "利用できる";
+
+/* No comment provided by engineer. */
+"Bitrate" = "ビットレート";
 
 /* The colour Blue */
 "Blue" = "青い";
@@ -76,6 +88,9 @@
 /* No comment provided by engineer. */
 "Feedback" = "フィードバック";
 
+/* No comment provided by engineer. */
+"Finding" = "発見";
+
 /* Used when finding a property */
 "Finding..." = "発見。。。";
 
@@ -84,6 +99,9 @@
 
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "焦点距離";
+
+/* No comment provided by engineer. */
+"General" = "全般";
 
 /* Open panel's grant access button label */
 "Grant Access" = "アクセス権の付与";
@@ -110,9 +128,6 @@
 "Hide icon" = "アイコンを非表示にする";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "メニュー バー ユーティリティを非表示にする";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "メニュー バー ユーティリティを非表示にする";
 
 /* No comment provided by engineer. */
@@ -125,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "チェックボックスがグレー表示されている場合は、ロックをクリックしてパスワードを入力します。";
 
 /* No comment provided by engineer. */
+"Images" = "画像";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "オートメーションの [情報提供者] で、Finder がチェックされていることを確認します。";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -133,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "情報提供者は、ファイルメタデータを読み取るためのあなたの許可を必要とします。";
 
+/* No comment provided by engineer. */
+"ISO" = "磯";
+
 /* Singular version of items */
 "item" = "アイテム";
 
-/* No comment provided by engineer. */
-"Item count" = "品目数";
-
 /* Items, used in the single directory selection */
 "items" = "項目";
+
+/* No comment provided by engineer. */
+"Items" = "項目";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "選択された項目";
@@ -152,10 +173,10 @@
 "Launch Informant on system startup" = "システム起動時に情報提供者を起動";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "メニュー バー ユーティリティ";
+"Media" = "メディア";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "変更";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "メニュー バー ユーティリティ";
 
 /* This is the file's name displayed on the panel */
 "Name" = "名前";
@@ -171,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "何一つ";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "注: オートメーションの [情報提供情報] で、Finder がオンになっていることを確認します。";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "注:Finderがオートメーションでチェックされていることを確認してください";
 
 /* Used on auth instructions */
 "Open System Preferences" = "システム環境設定を開く";
@@ -248,10 +263,10 @@
 "Shortcut to activate panel" = "パネルをアクティブにするショートカット";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "メニュー バーユーティリティを表示する";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "メニュー バー ユーティリティを表示";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "シャッタースピード";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大きさ";
@@ -291,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "バージョン";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "ビデオビットレート";
+
+/* No comment provided by engineer. */
+"Video:" = "ビデオ：";
+
+/* No comment provided by engineer. */
+"Volume" = "容積";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "どこ";
