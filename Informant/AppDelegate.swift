@@ -150,9 +150,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			settingsWindowController = SettingsWindowController(settingsWindow)
 		}
 
-		#warning("Remove from production: Remove")
-		settingsWindowController.open()
-
 		// MARK: - Privacy Accessibility Window Init
 
 		privacyAccessibilityWindow = NSIFWindow([.fullSizeContentView, .closable, .titled, .unifiedTitleAndToolbar])

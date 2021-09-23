@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "فرج";
 
+/* No comment provided by engineer. */
+"Audio" = "صوتي";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "معدل البت الصوتي";
+
+/* No comment provided by engineer. */
+"Audio:" = "صوتي:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "تاذن";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "متوفر";
+
+/* No comment provided by engineer. */
+"Bitrate" = "معدل البت";
 
 /* The colour Blue */
 "Blue" = "أزرق";
@@ -88,6 +100,9 @@
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "البعد البؤري";
 
+/* No comment provided by engineer. */
+"General" = "عام";
+
 /* Open panel's grant access button label */
 "Grant Access" = "منح حق الوصول";
 
@@ -113,9 +128,6 @@
 "Hide icon" = "إخفاء الرمز";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "إخفاء أداة شريط القوائم";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "إخفاء أداة شريط القوائم";
 
 /* No comment provided by engineer. */
@@ -128,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "إذا كان مربع الاختيار رماديا، فانقر على القفل وأدخل كلمة المرور.";
 
 /* No comment provided by engineer. */
+"Images" = "الصور";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "في التنفيذ التلقائي، ضمن Informant، تأكد من التحقق من Finder";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -136,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "يحتاج المخبر إذنك لقراءة بيانات تعريف الملف.";
 
+/* No comment provided by engineer. */
+"ISO" = "ايزو";
+
 /* Singular version of items */
 "item" = "بند";
 
-/* No comment provided by engineer. */
-"Item count" = "عدد الأصناف";
-
 /* Items, used in the single directory selection */
 "items" = "العناصر";
+
+/* No comment provided by engineer. */
+"Items" = "العناصر";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "العناصر المحددة";
@@ -155,10 +173,10 @@
 "Launch Informant on system startup" = "إطلاق Informant عند بدء تشغيل النظام";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "أداة شريط القوائم";
+"Media" = "وسائط";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "تعديل";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "أداة شريط القوائم";
 
 /* This is the file's name displayed on the panel */
 "Name" = "اسم";
@@ -174,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "اي";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "ملاحظة: في التنفيذ التلقائي، ضمن Informant، تأكد من التحقق من Finder";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "ملاحظة: تأكد من أن الباحث تم إيداعه في التنفيذ التلقائي";
 
 /* Used on auth instructions */
 "Open System Preferences" = "فتح تفضيلات النظام";
@@ -251,10 +263,10 @@
 "Shortcut to activate panel" = "اختصار لتنشيط اللوحة";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "إظهار أداة شريط القوائم";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "إظهار أداة شريط القوائم";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "سرعة الغالق";
 
 /* This is the file's size displayed in the panel */
 "Size" = "حجم";
@@ -294,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "الإصدار";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "معدل البت بالفيديو";
+
+/* No comment provided by engineer. */
+"Video:" = "فيديو:";
+
+/* No comment provided by engineer. */
+"Volume" = "حجم";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "أين";

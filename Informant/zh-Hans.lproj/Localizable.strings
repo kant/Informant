@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "光圈";
 
+/* No comment provided by engineer. */
+"Audio" = "音频";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "音频位速率";
+
+/* No comment provided by engineer. */
+"Audio:" = "音频：";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "授权";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "可用";
+
+/* No comment provided by engineer. */
+"Bitrate" = "比特拉特";
 
 /* The colour Blue */
 "Blue" = "蓝色";
@@ -88,6 +100,9 @@
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "焦距";
 
+/* No comment provided by engineer. */
+"General" = "常规";
+
 /* Open panel's grant access button label */
 "Grant Access" = "授予访问权限";
 
@@ -113,9 +128,6 @@
 "Hide icon" = "隐藏图标";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "隐藏菜单栏工具";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "隐藏菜单栏工具";
 
 /* No comment provided by engineer. */
@@ -128,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "如果复选框不可用，请单击解锁并输入密码。";
 
 /* No comment provided by engineer. */
+"Images" = "图像";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "在自动化中，在\"线人\"下，确保检查查找器";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -136,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "Informant 需要您的许可才能读取文件元数据。";
 
+/* No comment provided by engineer. */
+"ISO" = "伊索";
+
 /* Singular version of items */
 "item" = "项目";
 
-/* No comment provided by engineer. */
-"Item count" = "项目计数";
-
 /* Items, used in the single directory selection */
 "items" = "项目";
+
+/* No comment provided by engineer. */
+"Items" = "项目";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "选定的项目";
@@ -155,10 +173,10 @@
 "Launch Informant on system startup" = "在开机时启动 Informant";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "菜单栏工具";
+"Media" = "媒体";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "修改于";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "菜单栏工具";
 
 /* This is the file's name displayed on the panel */
 "Name" = "名字";
@@ -174,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "没有";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "注意: 请确认勾选在\"自动化\"选项中，Informant 下面的 Finder 选项";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "注意: 请确认勾选\"自动化\"选项中的 Finder";
 
 /* Used on auth instructions */
 "Open System Preferences" = "打开系统偏好设置";
@@ -251,10 +263,10 @@
 "Shortcut to activate panel" = "激活面板的快捷方式";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "显示菜单栏工具";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "显示菜单栏工具";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "快门速度";
 
 /* This is the file's size displayed in the panel */
 "Size" = "大小";
@@ -294,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "版本";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "视频比特";
+
+/* No comment provided by engineer. */
+"Video:" = "视频：";
+
+/* No comment provided by engineer. */
+"Volume" = "卷";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "哪里";

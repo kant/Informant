@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "छेद";
 
+/* No comment provided by engineer. */
+"Audio" = "श्रव्य";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "ऑडियो बिटरेट";
+
+/* No comment provided by engineer. */
+"Audio:" = "श्रव्य:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "अधिकार देना";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "उपलब्ध";
+
+/* No comment provided by engineer. */
+"Bitrate" = "बिटरेट";
 
 /* The colour Blue */
 "Blue" = "नीला";
@@ -88,6 +100,9 @@
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "फोकल लंबाई";
 
+/* No comment provided by engineer. */
+"General" = "सामान्य";
+
 /* Open panel's grant access button label */
 "Grant Access" = "ग्रांट एक्सेस";
 
@@ -113,9 +128,6 @@
 "Hide icon" = "आइकन छुपाएं";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "मेनू बार उपयोगिता छिपाएं";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "मेनू बार उपयोगिता छिपाएं";
 
 /* No comment provided by engineer. */
@@ -128,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "अगर चेकबॉक्स ग्रे है तो लॉक पर क्लिक करें और अपना पासवर्ड डालें।";
 
 /* No comment provided by engineer. */
+"Images" = "छवियां";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "स्वचालन में, मुखबिर के तहत, सुनिश्चित करें कि खोजक की जांच की जाती है";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -136,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "मुखबिर फ़ाइल मेटाडेटा पढ़ने के लिए आपकी अनुमति की जरूरत है।";
 
+/* No comment provided by engineer. */
+"ISO" = "आईएसओ";
+
 /* Singular version of items */
 "item" = "मद";
 
-/* No comment provided by engineer. */
-"Item count" = "आइटम काउंट";
-
 /* Items, used in the single directory selection */
 "items" = "आइटम";
+
+/* No comment provided by engineer. */
+"Items" = "आइटम";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "चयनित आइटम";
@@ -155,10 +173,10 @@
 "Launch Informant on system startup" = "सिस्टम स्टार्टअप पर मुखबिर लॉन्च करें";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "मेनू बार उपयोगिता";
+"Media" = "मीडिया";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "संशोधित";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "मेनू बार उपयोगिता";
 
 /* This is the file's name displayed on the panel */
 "Name" = "नाम";
@@ -174,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "कोई नहीं";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "नोट: स्वचालन में, मुखबिर के तहत, सुनिश्चित करें कि खोजक की जांच की जाती है";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "नोट: सुनिश्चित करें कि खोजक स्वचालन में जांच की जाती है";
 
 /* Used on auth instructions */
 "Open System Preferences" = "ओपन सिस्टम प्राथमिकताएं";
@@ -251,10 +263,10 @@
 "Shortcut to activate panel" = "पैनल को सक्रिय करने के लिए शॉर्टकट";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "मेनू बार उपयोगिता दिखाएं";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "मेनू बार उपयोगिता दिखाएं";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "शटर स्पीड";
 
 /* This is the file's size displayed in the panel */
 "Size" = "आकार";
@@ -294,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "संस्करण";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "वीडियो बिटरेट";
+
+/* No comment provided by engineer. */
+"Video:" = "वीडियो:";
+
+/* No comment provided by engineer. */
+"Volume" = "आयतन";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "कहां";

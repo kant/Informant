@@ -7,6 +7,15 @@
 /* Aperture, Used on panel image view and movie */
 "Aperture" = "Abertura";
 
+/* No comment provided by engineer. */
+"Audio" = "Áudio";
+
+/* No comment provided by engineer. */
+"Audio Bitrate" = "Bitrate de áudio";
+
+/* No comment provided by engineer. */
+"Audio:" = "Áudio:";
+
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "Autorizar";
 
@@ -15,6 +24,9 @@
 
 /* Available, Used on panel volume view */
 "Available" = "Disponível";
+
+/* No comment provided by engineer. */
+"Bitrate" = "Bitrate";
 
 /* The colour Blue */
 "Blue" = "Azul";
@@ -88,6 +100,9 @@
 /* Focal Length, Used on panel image view and movie */
 "Focal Length" = "Distância focal";
 
+/* No comment provided by engineer. */
+"General" = "Geral";
+
 /* Open panel's grant access button label */
 "Grant Access" = "Acesso de subvenção";
 
@@ -113,9 +128,6 @@
 "Hide icon" = "Ocultar ícone";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide menu bar utility" = "Ocultar utilitário de barra de menu";
-
-/* Asks the user if they want the menubar-utility disabled */
 "Hide Menu Bar Utility" = "Ocultar utilitário da barra de menu";
 
 /* No comment provided by engineer. */
@@ -128,6 +140,9 @@
 "If the checkbox is greyed out, click the lock and enter your password." = "Se a caixa de seleção estiver acinzentada, clique no bloqueio e digite sua senha.";
 
 /* No comment provided by engineer. */
+"Images" = "Imagens";
+
+/* No comment provided by engineer. */
 "In Automation, under Informant, make sure Finder is checked" = "Em Automação, sob Informante, certifique-se de que o Finder seja verificado";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
@@ -136,14 +151,17 @@
 /* Used on the authorize panel, it's the body string */
 "Informant needs your permission to read file metadata." = "O informante precisa da sua permissão para ler metadados de arquivos.";
 
+/* No comment provided by engineer. */
+"ISO" = "ISO";
+
 /* Singular version of items */
 "item" = "item";
 
-/* No comment provided by engineer. */
-"Item count" = "Contagem de itens";
-
 /* Items, used in the single directory selection */
 "items" = "Itens";
+
+/* No comment provided by engineer. */
+"Items" = "Itens";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "itens selecionados";
@@ -155,10 +173,10 @@
 "Launch Informant on system startup" = "Iniciar informante na inicialização do sistema";
 
 /* No comment provided by engineer. */
-"Menu Bar Utility" = "Utilitário da barra de menu";
+"Media" = "Mídia";
 
-/* The tag string to the date modified on the panel interface */
-"Modified" = "Modificado";
+/* No comment provided by engineer. */
+"Menu Bar Utility" = "Utilitário da barra de menu";
 
 /* This is the file's name displayed on the panel */
 "Name" = "Nome";
@@ -174,12 +192,6 @@
 
 /* No comment provided by engineer. */
 "None" = "Nenhum";
-
-/* No comment provided by engineer. */
-"Note: In Automation, under Informant, make sure Finder is checked" = "Nota: Em Automação, sob Informante, certifique-se de que o Finder seja verificado";
-
-/* No comment provided by engineer. */
-"Note: make sure Finder is checked in Automation" = "Nota: certifique-se de que o Finder seja verificado em Automação";
 
 /* Used on auth instructions */
 "Open System Preferences" = "Preferências do sistema aberto";
@@ -251,10 +263,10 @@
 "Shortcut to activate panel" = "Atalho para ativar o painel";
 
 /* Asks the user if they want the menubar-utility enabled */
-"Show menu bar utility" = "Mostrar utilitário da barra de menu";
-
-/* Asks the user if they want the menubar-utility enabled */
 "Show Menu Bar Utility" = "Utilitário da barra de menu show";
+
+/* No comment provided by engineer. */
+"Shutter Speed" = "Velocidade do obturador";
 
 /* This is the file's size displayed in the panel */
 "Size" = "Tamanho";
@@ -294,6 +306,15 @@
 
 /* Version, Used on panel application view */
 "Version" = "Versão";
+
+/* No comment provided by engineer. */
+"Video Bitrate" = "Bitrate de vídeo";
+
+/* No comment provided by engineer. */
+"Video:" = "Vídeo:";
+
+/* No comment provided by engineer. */
+"Volume" = "Volume";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "Onde";
