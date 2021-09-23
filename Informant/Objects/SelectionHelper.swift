@@ -373,20 +373,13 @@ class SelectionHelper {
 		case Mb
 	}
 
-	enum MediaDescription {
-		case None
-		case Audio
-		case Video
-	}
-
 	/// Formats raw byte size into kbps
-	static func formatBitrate(_ bitCount: Int64, unit: DataSizeUnit = .Kb, description: MediaDescription = .None) -> String? {
+	static func formatBitrate(_ bitCount: Int64, unit: DataSizeUnit = .Kb) -> String? {
 
 		let bits = Double(bitCount)
 
 		let formattedBits: NSNumber
 		let unitDescription: String
-		let mediaDescription: String
 
 		switch unit {
 
@@ -406,20 +399,6 @@ class SelectionHelper {
 				break
 		}
 
-		switch description {
-			case .None:
-				mediaDescription = ""
-				break
-
-			case .Audio:
-				mediaDescription = ContentManager.SettingsLabels.audio
-				break
-
-			case .Video:
-				mediaDescription = ContentManager.SettingsLabels.video
-				break
-		}
-
 		let formatter = NumberFormatter()
 		formatter.maximumFractionDigits = 3
 
@@ -427,7 +406,7 @@ class SelectionHelper {
 			return nil
 		}
 
-		return "\(mediaDescription) \(bitsPerSecond) \(unitDescription)"
+		return "\(bitsPerSecond) \(unitDescription)"
 	}
 
 	// MARK: - Initialization Methods

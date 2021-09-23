@@ -24,6 +24,9 @@ struct PanelSingleAudioItem: View, PanelProtocol {
 			} secondItem: {
 				ComponentsPanelItemField(label: ContentManager.Labels.panelDuration, value: selection?.duration)
 			}
+
+			// Audio Bitrate
+			ComponentsPanelItemField(label: ContentManager.SettingsLabels.bitrate, value: selection?.audioBitrate, lineLimit: 2)
 		}
 	}
 }

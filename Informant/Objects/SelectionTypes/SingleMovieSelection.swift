@@ -14,7 +14,6 @@ class SingleMovieSelection: SingleSelection {
 	var colorProfile: String?
 	var dimensions: String?
 	var audioBitrate: String?
-	var audioSampleRate: String?
 	var videoBitrate: String?
 
 	required init(_ urls: [String], selection: SelectionType = .Movie, parameters: [SelectionParameters] = [.grabSize]) {
@@ -59,17 +58,12 @@ class SingleMovieSelection: SingleSelection {
 
 			// Audio bitrate
 			if let audioBitrate = metadata[kMDItemAudioBitRate] as? Int64 {
-				self.audioBitrate = SelectionHelper.formatBitrate(audioBitrate, unit: .None, description: .Audio)
-			}
-
-			// Audio sample rate
-			if let audioSampleRate = metadata[kMDItemAudioSampleRate] {
-				self.audioSampleRate = SelectionHelper.formatSampleRate(audioSampleRate)
+				self.audioBitrate = SelectionHelper.formatBitrate(audioBitrate, unit: .None)
 			}
 
 			// Video bitrate
 			if let videoBitrate = metadata[kMDItemVideoBitRate] as? Int64 {
-				self.videoBitrate = SelectionHelper.formatBitrate(videoBitrate, unit: .Mb, description: .Video)
+				self.videoBitrate = SelectionHelper.formatBitrate(videoBitrate, unit: .Mb)
 			}
 		}
 	}

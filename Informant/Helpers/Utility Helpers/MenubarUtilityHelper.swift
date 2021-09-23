@@ -228,17 +228,14 @@ class MenubarUtilityHelper {
 					colorProfile = cast?.colorProfile
 				}
 				
-				if interfaceState.settingsMenubarShowVideoBitrate {
-					videoBitrate = cast?.videoBitrate
+				if interfaceState.settingsMenubarShowVideoBitrate, let videoBitrateUnwrapped = cast?.videoBitrate {
+					videoBitrate = "\(ContentManager.SettingsLabels.video) \(videoBitrateUnwrapped)"
 				}
 				
-				if interfaceState.settingsMenubarShowAudioBitrate {
-					audioBitrate = cast?.audioBitrate
+				if interfaceState.settingsMenubarShowAudioBitrate, let audioBitrateUnwrapped = cast?.audioBitrate {
+					audioBitrate = "\(ContentManager.SettingsLabels.audio) \(audioBitrateUnwrapped)"
 				}
 				
-				if interfaceState.settingsMenubarShowSampleRate {
-					sampleRate = cast?.audioSampleRate
-				}
 				break
 				
 			case .Volume:
