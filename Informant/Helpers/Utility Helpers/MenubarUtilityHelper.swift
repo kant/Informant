@@ -22,8 +22,12 @@ class MenubarUtilityHelper {
 		
 		/// Gets the state of the selection and if it's a duplicate
 		guard let checkedSelection = appDelegate.menubarInterfaceHelper.GetFinderSelection() else {
-			wipeMenubarInterface()
-			return
+			return wipeMenubarInterface()
+		}
+		
+		// Get the paths
+		guard let paths = checkedSelection.selection.paths else {
+			return wipeMenubarInterface()
 		}
 		
 		// Error selection found
@@ -31,25 +35,21 @@ class MenubarUtilityHelper {
 			return wipeMenubarInterface()
 		}
 		
+		// Make sure there's only one path selected and that it's not empty
+		else if paths[0].isEmpty == true || paths.count > 1 {
+			return wipeMenubarInterface()
+		}
+		
 		// Duplicate selection found
-		else if force == false, checkedSelection.state == .duplicateSelection, let paths = checkedSelection.selection.paths {
+		else if force == false, checkedSelection.state == .duplicateSelection {
 			return updateMenubarInterface(url: URL(fileURLWithPath: paths[0]))
 		}
 		
 		// Unique selection found
 		else {
-			/// Path selection
-			guard let selection = checkedSelection.selection.paths else {
-				return wipeMenubarInterface()
-			}
-		
-			// Make sure selection is only one item. Any more and we wipe the interface
-			if selection.count > 1 {
-				return wipeMenubarInterface(resetState: true)
-			}
-		
+			
 			// Get URL
-			let url = URL(fileURLWithPath: selection[0])
+			let url = URL(fileURLWithPath: paths[0])
 			
 			updateMenubarInterface(url: url)
 		}
