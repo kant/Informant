@@ -86,12 +86,14 @@ extension URL {
 
 // MARK: - NS Extensions
 
-/// Allowed NSPanel to be focusable
-extension NSPanel {
-	override open var canBecomeKey: Bool {
-		return true
-	}
-}
+/// Allowed NSPanel to be focusable. < I have no idea why I added this in the first place.
+/*
+ extension NSPanel {
+ 	override open var canBecomeKey: Bool {
+ 		return true
+ 	}
+ }
+  */
 
 // Shortens NSPanel initialization
 extension NSPanel {
