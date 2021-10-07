@@ -268,7 +268,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				// If a window is visible then break execution of this fn.
 				for window in NSApp.windows {
 					if window.isKind(of: NSIFWindow.self), window.isVisible {
-						print(window)
 						return
 					}
 				}

@@ -435,6 +435,11 @@ class SelectionHelper {
 		let url: URL
 		let path = urls[0]
 
+		// Make sure the selection is not empty
+		if path.isEmpty {
+			return nil
+		}
+
 		// Finds the root volume path and removes it in order to get a volume selection. For some reason a normal volume path with the root drive isn't accepted.
 		guard let rootDrivePath = FileManager.default.getRootVolumeAsPath else {
 			return nil

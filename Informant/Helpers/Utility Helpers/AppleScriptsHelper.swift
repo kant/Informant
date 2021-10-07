@@ -49,10 +49,14 @@ class AppleScriptsHelper {
 
 		// Cycle through selected items and convert each one from an HFS path to a POSIX path
 		for (index, path) in selectedItemsAsArray.enumerated() {
-			guard let pathAsPOSIX = path.posixPathFromHFSPath() else {
-				return nil
+
+			// Makes sure to not tack on /Volume/ to any path that is an empty selection
+			if !path.isEmpty {
+				guard let pathAsPOSIX = path.posixPathFromHFSPath() else {
+					return nil
+				}
+				selectedItemsAsArray[index] = pathAsPOSIX
 			}
-			selectedItemsAsArray[index] = pathAsPOSIX
 		}
 
 		return AppleScriptOutput(paths: selectedItemsAsArray, error: nil)
