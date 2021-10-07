@@ -478,7 +478,6 @@
 				9A7F3B402626A01100BD878F /* Embed App Extensions */,
 				9AF9BF532698C649006FAA39 /* Launch at Login Helper */,
 				9A1AB39A26AF61B700AC9BE9 /* Set Build Number */,
-				9AFC584F26C336690038A51B /* BartyCrouch Translation */,
 			);
 			buildRules = (
 			);
@@ -600,24 +599,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
-		};
-		9AFC584F26C336690038A51B /* BartyCrouch Translation */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "BartyCrouch Translation";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which bartycrouch > /dev/null; then\n    bartycrouch update -x\nelse\n    echo \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

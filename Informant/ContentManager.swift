@@ -105,9 +105,8 @@ class ContentManager {
 		static let video = NSLocalizedString("Video:", comment: "")
 
 		static let audio = NSLocalizedString("Audio:", comment: "")
-		
-		static let bitrate = NSLocalizedString("Bitrate", comment: "")
 
+		static let bitrate = NSLocalizedString("Bitrate", comment: "")
 
 		// Menu bar sections
 
