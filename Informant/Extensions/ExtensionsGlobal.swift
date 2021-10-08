@@ -239,6 +239,11 @@ public extension FileManager {
 		return "/Volumes/\(volumeName)\(home)"
 	}
 
+	/// Grabs the /username/ directory
+	var getHomeDirectory: String? {
+		return FileManager.default.homeDirectoryForCurrentUser.path
+	}
+
 	/// Grabs the /Volumes/<Root Drive>/ components
 	var getRootVolumeAsPath: String? {
 

@@ -288,15 +288,25 @@ class SelectionHelper {
 
 	/// Modifies the root directory of the path to a ~
 	static func formatPathTildeAbbreviate(_ path: String?) -> String? {
-		guard let homeDirectory = FileManager.default.getRealHomeDirectory else {
+
+		guard let homeDirectoryVolume = FileManager.default.getRealHomeDirectory else {
 			return nil
 		}
 
-		guard let shortenedPath = path?.replacingOccurrences(of: homeDirectory, with: "~") else {
-			return nil
+		// We need to figure out if the path includes the /Volumes/ directory
+		if path?.contains(homeDirectoryVolume) == true {
+			return path?.replacingOccurrences(of: homeDirectoryVolume, with: "~")
 		}
 
-		return shortenedPath
+		// Otherwise just pull the home directory
+		else {
+
+			guard let homeDirectory = FileManager.default.getHomeDirectory else {
+				return nil
+			}
+
+			return path?.replacingOccurrences(of: homeDirectory, with: "~")
+		}
 	}
 
 	/// Shortens the path by completely removing the root (/Volumes/Macintosh HD/) of the path
