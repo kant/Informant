@@ -11,10 +11,10 @@
 "Audio" = "音频";
 
 /* No comment provided by engineer. */
-"Audio Bitrate" = "音频位速率";
+"Audio Bitrate" = "音频比特率";
 
 /* No comment provided by engineer. */
-"Audio:" = "音频：";
+"Audio:" = "音频:";
 
 /* Used on panel when accessibility api is disabled */
 "Authorize" = "授权";
@@ -26,7 +26,7 @@
 "Available" = "可用";
 
 /* No comment provided by engineer. */
-"Bitrate" = "比特拉特";
+"Bitrate" = "比特率";
 
 /* The colour Blue */
 "Blue" = "蓝色";
@@ -143,7 +143,7 @@
 "Images" = "图像";
 
 /* No comment provided by engineer. */
-"In Automation, under Informant, make sure Finder is checked" = "在自动化中，在\"线人\"下，确保检查查找器";
+"In Automation, under Informant, make sure Finder is checked" = "在自动化中，在\"Informant\"下，确保检查查找器";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "在路径中包括选定项目的名称";
@@ -152,7 +152,7 @@
 "Informant needs your permission to read file metadata." = "Informant 需要您的许可才能读取文件元数据。";
 
 /* No comment provided by engineer. */
-"ISO" = "伊索";
+"ISO" = "感光度";
 
 /* Singular version of items */
 "item" = "项目";
@@ -200,7 +200,7 @@
 "Orange" = "橙色";
 
 /* No comment provided by engineer. */
-"Packages" = "包";
+"Packages" = "Packages";
 
 /* No comment provided by engineer. */
 "Panel" = "面板";
@@ -242,7 +242,7 @@
 "Release to snap" = "释放来贴齐";
 
 /* No comment provided by engineer. */
-"Releases" = "发布";
+"Releases" = "Releases";
 
 /* No comment provided by engineer. */
 "Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "需要用以显示额外的元数据和目录大小。选择 Macintosh HD。";
@@ -308,13 +308,13 @@
 "Version" = "版本";
 
 /* No comment provided by engineer. */
-"Video Bitrate" = "视频比特";
+"Video Bitrate" = "视频比特率";
 
 /* No comment provided by engineer. */
-"Video:" = "视频：";
+"Video:" = "视频:";
 
 /* No comment provided by engineer. */
-"Volume" = "卷";
+"Volume" = "宗卷";
 
 /* This is the file's where path displayed in the panel */
 "Where" = "哪里";
