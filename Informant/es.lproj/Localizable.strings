@@ -20,7 +20,7 @@
 "Authorize" = "Autorizar";
 
 /* Used on authorization welcome screen */
-"Authorize Informant" = "Autorizar informante";
+"Authorize Informant" = "Autorizar Informant";
 
 /* Available, Used on panel volume view */
 "Available" = "Disponible";
@@ -32,13 +32,13 @@
 "Blue" = "Azul";
 
 /* Used when calculating a property */
-"Calculating..." = "Calculador...";
+"Calculating..." = "Calculando...";
 
 /* Camera, Used on panel image view and movie */
 "Camera" = "Cámara";
 
 /* Used on auth instructions */
-"Check Informant" = "Comprobar informador";
+"Check Informant" = "Comprobar Informant";
 
 /* Used on auth instructions */
 "Click Privacy" = "Haga clic en Privacidad";
@@ -47,7 +47,7 @@
 "Click Security & Privacy" = "Haga clic en Seguridad y privacidad";
 
 /* No comment provided by engineer. */
-"Click the menu bar utility to copy the path." = "Haga clic en la utilidad de la barra de menús para copiar la ruta.";
+"Click the menu bar utility to copy the path." = "Haga clic en la barra de menús para copiar la ruta.";
 
 /* Codecs, Used on panel movie view */
 "Codecs" = "Codecs";
@@ -71,7 +71,7 @@
 "Disk Path:" = "Ruta de disco:";
 
 /* Shortcut label for displaying panel */
-"Display detail panel" = "Panel Mostrar detalle";
+"Display detail panel" = "Mostrar panel de detalles";
 
 /* Duration, Used on panel movie & audio view */
 "Duration" = "Duración";
@@ -125,10 +125,10 @@
 "Hide full name" = "Ocultar nombre completo";
 
 /* No comment provided by engineer. */
-"Hide icon" = "Icono Ocultar";
+"Hide icon" = "Ocultar ícono";
 
 /* Asks the user if they want the menubar-utility disabled */
-"Hide Menu Bar Utility" = "Utilidad Ocultar barra de menús";
+"Hide Menu Bar Utility" = "Ocultar utilidad de la barra de menús";
 
 /* No comment provided by engineer. */
 "Hide path" = "Ocultar ruta de acceso";
@@ -143,13 +143,13 @@
 "Images" = "Imágenes";
 
 /* No comment provided by engineer. */
-"In Automation, under Informant, make sure Finder is checked" = "En Automatización, en Informador, asegúrese de que el Finder esté marcado";
+"In Automation, under Informant, make sure Finder is checked" = "En Automatización, bajo Informant, asegúrese de que el Finder esté marcado";
 
 /* Asks the user if they want to see where the file is located instead of the full path */
 "Include name of selection in path" = "Incluir el nombre de la selección en la ruta de acceso";
 
 /* Used on the authorize panel, it's the body string */
-"Informant needs your permission to read file metadata." = "El informante necesita su permiso para leer los metadatos del archivo.";
+"Informant needs your permission to read file metadata." = "Informant necesita su permiso para leer los metadatos del archivo.";
 
 /* No comment provided by engineer. */
 "ISO" = "ISO";
@@ -158,19 +158,19 @@
 "item" = "artículo";
 
 /* Items, used in the single directory selection */
-"items" = "Artículos";
+"items" = "elementos";
 
 /* No comment provided by engineer. */
-"Items" = "Artículos";
+"Items" = "Elementos";
 
 /* The tag string to go on a multi-selection title in the panel */
 "items selected" = "elementos seleccionados";
 
 /* This is the file's kind displayed in the panel */
-"Kind" = "Amable";
+"Kind" = "Tipo";
 
 /* Asks the user if they want the app to launch on startup */
-"Launch Informant on system startup" = "Iniciar informante en el inicio del sistema";
+"Launch Informant on system startup" = "Iniciar Informant en el inicio del sistema";
 
 /* No comment provided by engineer. */
 "Media" = "Medio";
@@ -203,7 +203,7 @@
 "Packages" = "Paquetes";
 
 /* No comment provided by engineer. */
-"Panel" = "Tablero";
+"Panel" = "Panel";
 
 /* This is the file's path displayed in the panel */
 "Path" = "Camino";
@@ -212,10 +212,10 @@
 "Path Copied" = "Ruta de acceso copiada";
 
 /* No comment provided by engineer. */
-"Pause Informant" = "Informador de pausa";
+"Pause Informant" = "Pausa Informant";
 
 /* No comment provided by engineer. */
-"Paused" = "Pausa";
+"Paused" = "Pausado";
 
 /* Preferences menu item in panel menu */
 "Preferences..." = "Preferencias...";
@@ -227,7 +227,7 @@
 "Purgeable" = "Purgable";
 
 /* The colour Purple */
-"Purple" = "Morado";
+"Purple" = "Púrpura";
 
 /* Quit menu item in panel menu */
 "Quit" = "Salir";
@@ -242,7 +242,7 @@
 "Release to snap" = "Liberación para ajustar";
 
 /* No comment provided by engineer. */
-"Releases" = "Libera";
+"Releases" = "Lanzamientos";
 
 /* No comment provided by engineer. */
 "Required in-order to display additional metadata and the size of a directory. Choose Macintosh HD." = "Necesario para mostrar metadatos adicionales y el tamaño de un directorio. Elija Macintosh HD.";
@@ -251,7 +251,7 @@
 "Resume" = "Reanudar";
 
 /* No comment provided by engineer. */
-"Resume Informant" = "Informante del curriculum vitae";
+"Resume Informant" = "Reanudar Informant";
 
 /* Sample rate, Used on panel audio view */
 "Sample Rate" = "Frecuencia de muestreo";
@@ -284,10 +284,10 @@
 "Tap to resume" = "Puntee para reanudar";
 
 /* Used on welcome panel */
-"To use Informant, select a file, and its size will appear in the menu bar." = "Para utilizar el Informador, seleccione un archivo y su tamaño aparecerá en la barra de menús.";
+"To use Informant, select a file, and its size will appear in the menu bar." = "Para utilizar Informant, seleccione un archivo y su tamaño aparecerá en la barra de menús.";
 
 /* Toggle panel menu item in panel menu */
-"Toggle Panel" = "Panel Alternar";
+"Toggle Panel" = "Alternar panel";
 
 /* Asks the user what shortcut they want to toggle the details panel */
 "Toggle panel shortcut:" = "Alternar acceso directo del panel:";
